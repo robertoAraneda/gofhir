@@ -300,6 +300,7 @@ func TestQuantity(t *testing.T) {
 
 		assert.Equal(t, 100.0, *qty.Value)
 		assert.Equal(t, QuantityComparatorGreaterThan, *qty.Comparator)
+		assert.Equal(t, unit, *qty.Unit)
 	})
 }
 

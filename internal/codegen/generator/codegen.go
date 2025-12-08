@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/robertoaraneda/gofhir/internal/codegen/analyzer"
 	"github.com/robertoaraneda/gofhir/internal/codegen/parser"
@@ -29,10 +30,10 @@ type Config struct {
 
 // CodeGen generates Go code from FHIR specifications.
 type CodeGen struct {
-	config      Config
-	analyzer    *analyzer.Analyzer
-	types       []*analyzer.AnalyzedType
-	valueSets   *parser.ValueSetRegistry
+	config       Config
+	analyzer     *analyzer.Analyzer
+	types        []*analyzer.AnalyzedType
+	valueSets    *parser.ValueSetRegistry
 	usedBindings map[string]bool // Track which bindings are actually used
 }
 
@@ -217,7 +218,7 @@ func (c *CodeGen) generateCodeSystems() error {
 	fmt.Fprintf(&buf, "package %s\n\n", c.config.PackageName)
 
 	// Collect and sort used value sets
-	var valueSetURLs []string
+	valueSetURLs := make([]string, 0, len(c.analyzer.UsedBindings))
 	for url := range c.analyzer.UsedBindings {
 		valueSetURLs = append(valueSetURLs, url)
 	}
@@ -295,9 +296,10 @@ func sanitizeTypeName(name string) string {
 	name = strings.ReplaceAll(name, "/", "")
 
 	// Ensure first character is uppercase
-	if len(name) > 0 {
+	if name != "" {
 		runes := []rune(name)
-		runes[0] = []rune(strings.ToUpper(string(runes[0])))[0]
+		r, _ := utf8.DecodeRuneInString(strings.ToUpper(string(runes[0])))
+		runes[0] = r
 		name = string(runes)
 	}
 
@@ -337,7 +339,7 @@ func toPascalCaseCode(code string) string {
 
 	words := strings.Fields(code)
 	for i, word := range words {
-		if len(word) > 0 {
+		if word != "" {
 			words[i] = strings.ToUpper(word[:1]) + strings.ToLower(word[1:])
 		}
 	}

@@ -9,12 +9,12 @@ import (
 
 // ValueSet represents a FHIR ValueSet resource.
 type ValueSet struct {
-	ResourceType string `json:"resourceType"`
-	ID           string `json:"id"`
-	URL          string `json:"url"`
-	Name         string `json:"name"`
-	Title        string `json:"title"`
-	Status       string `json:"status"`
+	ResourceType string           `json:"resourceType"`
+	ID           string           `json:"id"`
+	URL          string           `json:"url"`
+	Name         string           `json:"name"`
+	Title        string           `json:"title"`
+	Status       string           `json:"status"`
 	Compose      *ValueSetCompose `json:"compose,omitempty"`
 }
 
@@ -25,8 +25,8 @@ type ValueSetCompose struct {
 
 // ValueSetInclude specifies which codes are included.
 type ValueSetInclude struct {
-	System  string              `json:"system,omitempty"`
-	Concept []ValueSetConcept   `json:"concept,omitempty"`
+	System  string            `json:"system,omitempty"`
+	Concept []ValueSetConcept `json:"concept,omitempty"`
 }
 
 // ValueSetConcept represents a code in the value set.
@@ -37,13 +37,13 @@ type ValueSetConcept struct {
 
 // CodeSystem represents a FHIR CodeSystem resource.
 type CodeSystem struct {
-	ResourceType string           `json:"resourceType"`
-	ID           string           `json:"id"`
-	URL          string           `json:"url"`
-	Name         string           `json:"name"`
-	Title        string           `json:"title"`
-	Status       string           `json:"status"`
-	Content      string           `json:"content"`
+	ResourceType string              `json:"resourceType"`
+	ID           string              `json:"id"`
+	URL          string              `json:"url"`
+	Name         string              `json:"name"`
+	Title        string              `json:"title"`
+	Status       string              `json:"status"`
+	Content      string              `json:"content"`
 	Concept      []CodeSystemConcept `json:"concept,omitempty"`
 }
 
@@ -57,10 +57,10 @@ type CodeSystemConcept struct {
 
 // ParsedValueSet represents a processed value set ready for code generation.
 type ParsedValueSet struct {
-	URL      string   // Canonical URL
-	Name     string   // Name for Go type
-	Title    string   // Human-readable title
-	Codes    []ParsedCode
+	URL   string // Canonical URL
+	Name  string // Name for Go type
+	Title string // Human-readable title
+	Codes []ParsedCode
 }
 
 // ParsedCode represents a single code value.
@@ -157,10 +157,7 @@ func (r *ValueSetRegistry) parseValueSet(vs *ValueSet) *ParsedValueSet {
 		// If concepts are explicitly listed
 		if len(include.Concept) > 0 {
 			for _, c := range include.Concept {
-				parsed.Codes = append(parsed.Codes, ParsedCode{
-					Code:    c.Code,
-					Display: c.Display,
-				})
+				parsed.Codes = append(parsed.Codes, ParsedCode(c))
 			}
 			continue
 		}
@@ -177,7 +174,7 @@ func (r *ValueSetRegistry) parseValueSet(vs *ValueSet) *ParsedValueSet {
 
 // flattenConcepts recursively flattens nested concepts.
 func (r *ValueSetRegistry) flattenConcepts(concepts []CodeSystemConcept) []ParsedCode {
-	var codes []ParsedCode
+	codes := make([]ParsedCode, 0, len(concepts))
 	for _, c := range concepts {
 		codes = append(codes, ParsedCode{
 			Code:    c.Code,

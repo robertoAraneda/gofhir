@@ -62,7 +62,7 @@ func TestCodeSystemTypeConversions(t *testing.T) {
 	})
 
 	t.Run("code type comparison", func(t *testing.T) {
-		var gender AdministrativeGender = AdministrativeGenderFemale
+		gender := AdministrativeGenderFemale
 		assert.True(t, gender == AdministrativeGenderFemale)
 		assert.False(t, gender == AdministrativeGenderMale)
 	})

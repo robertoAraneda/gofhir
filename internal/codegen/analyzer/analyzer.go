@@ -339,7 +339,7 @@ func sanitizeTypeName(name string) string {
 	name = strings.ReplaceAll(name, "/", "")
 
 	// Ensure first character is uppercase
-	if len(name) > 0 {
+	if name != "" {
 		runes := []rune(name)
 		runes[0] = unicode.ToUpper(runes[0])
 		name = string(runes)

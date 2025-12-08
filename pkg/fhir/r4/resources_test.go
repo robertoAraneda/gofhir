@@ -89,6 +89,7 @@ func TestPatient(t *testing.T) {
 			DeceasedBoolean: &deceasedBool,
 		}
 
+		assert.Equal(t, id, *patient.Id)
 		assert.True(t, *patient.DeceasedBoolean)
 		assert.Nil(t, patient.DeceasedDateTime)
 
@@ -99,6 +100,7 @@ func TestPatient(t *testing.T) {
 			DeceasedDateTime: &deceasedDT,
 		}
 
+		assert.Equal(t, id, *patient2.Id)
 		assert.Nil(t, patient2.DeceasedBoolean)
 		assert.Equal(t, "2024-01-15T10:30:00Z", *patient2.DeceasedDateTime)
 	})
@@ -112,6 +114,7 @@ func TestPatient(t *testing.T) {
 			MultipleBirthInteger: &multipleBirthInt,
 		}
 
+		assert.Equal(t, id, *patient.Id)
 		assert.Equal(t, 2, *patient.MultipleBirthInteger)
 		assert.Nil(t, patient.MultipleBirthBoolean)
 	})
@@ -176,6 +179,8 @@ func TestObservation(t *testing.T) {
 			},
 		}
 
+		assert.Equal(t, id, *obs.Id)
+		assert.Equal(t, status, *obs.Status)
 		require.NotNil(t, obs.ValueCodeableConcept)
 		require.Len(t, obs.ValueCodeableConcept.Coding, 1)
 		assert.Equal(t, "Negative", *obs.ValueCodeableConcept.Coding[0].Display)
@@ -370,6 +375,8 @@ func TestMedicationRequest(t *testing.T) {
 		assert.Equal(t, "medrx-123", *medRequest.Id)
 		assert.Equal(t, MedicationrequestStatus("active"), *medRequest.Status)
 		assert.Equal(t, MedicationRequestIntent("order"), *medRequest.Intent)
+		require.NotNil(t, medRequest.MedicationReference)
+		assert.Equal(t, medRef, *medRequest.MedicationReference.Reference)
 	})
 
 	t.Run("GetResourceType", func(t *testing.T) {
@@ -380,7 +387,7 @@ func TestMedicationRequest(t *testing.T) {
 
 func TestResourceInterface(t *testing.T) {
 	t.Run("resources implement Resource interface", func(t *testing.T) {
-		var resources []Resource = []Resource{
+		resources := []Resource{
 			&Patient{},
 			&Observation{},
 			&Account{},
@@ -409,19 +416,20 @@ func TestResourceInterface(t *testing.T) {
 func TestResourceWithMeta(t *testing.T) {
 	t.Run("patient with meta", func(t *testing.T) {
 		id := "pt-meta"
-		versionId := "1"
+		versionID := "1"
 		lastUpdated := "2024-06-15T10:30:00Z"
 		profile := "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
 
 		patient := Patient{
 			Id: &id,
 			Meta: &Meta{
-				VersionId:   &versionId,
+				VersionId:   &versionID,
 				LastUpdated: &lastUpdated,
 				Profile:     []string{profile},
 			},
 		}
 
+		assert.Equal(t, id, *patient.Id)
 		require.NotNil(t, patient.Meta)
 		assert.Equal(t, "1", *patient.Meta.VersionId)
 		assert.Equal(t, "2024-06-15T10:30:00Z", *patient.Meta.LastUpdated)
@@ -434,28 +442,29 @@ func TestResourceWithPrimitiveExtensions(t *testing.T) {
 	t.Run("patient birthDate with extension", func(t *testing.T) {
 		id := "pt-ext"
 		birthDate := "1990-01-15"
-		extId := "birthdate-ext"
-		extUrl := "http://example.org/fhir/StructureDefinition/approximate-date"
+		extID := "birthdate-ext"
+		extURL := "http://example.org/fhir/StructureDefinition/approximate-date"
 		extValueBool := true
 
 		patient := Patient{
 			Id:        &id,
 			BirthDate: &birthDate,
 			BirthDateExt: &Element{
-				Id: &extId,
+				Id: &extID,
 				Extension: []Extension{
 					{
-						Url:          extUrl,
+						Url:          extURL,
 						ValueBoolean: &extValueBool,
 					},
 				},
 			},
 		}
 
+		assert.Equal(t, id, *patient.Id)
 		assert.Equal(t, "1990-01-15", *patient.BirthDate)
 		require.NotNil(t, patient.BirthDateExt)
 		assert.Equal(t, "birthdate-ext", *patient.BirthDateExt.Id)
 		require.Len(t, patient.BirthDateExt.Extension, 1)
-		assert.Equal(t, "http://example.org/fhir/StructureDefinition/approximate-date", patient.BirthDateExt.Extension[0].Url)
+		assert.Equal(t, extURL, patient.BirthDateExt.Extension[0].Url)
 	})
 }
