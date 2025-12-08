@@ -4,8 +4,12 @@
 
 package r4b
 
+import "encoding/json"
+
 // Account represents FHIR Account.
 type Account struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -61,8 +65,17 @@ func (r *Account) GetResourceType() string {
 	return "Account"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Account) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Account"
+	type Alias Account
+	return json.Marshal((Alias)(r))
+}
+
 // ActivityDefinition represents FHIR ActivityDefinition.
 type ActivityDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -246,8 +259,17 @@ func (r *ActivityDefinition) GetResourceType() string {
 	return "ActivityDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ActivityDefinition"
+	type Alias ActivityDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // AdministrableProductDefinition represents FHIR AdministrableProductDefinition.
 type AdministrableProductDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -297,8 +319,17 @@ func (r *AdministrableProductDefinition) GetResourceType() string {
 	return "AdministrableProductDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r AdministrableProductDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "AdministrableProductDefinition"
+	type Alias AdministrableProductDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // AdverseEvent represents FHIR AdverseEvent.
 type AdverseEvent struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -374,8 +405,17 @@ func (r *AdverseEvent) GetResourceType() string {
 	return "AdverseEvent"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r AdverseEvent) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "AdverseEvent"
+	type Alias AdverseEvent
+	return json.Marshal((Alias)(r))
+}
+
 // AllergyIntolerance represents FHIR AllergyIntolerance.
 type AllergyIntolerance struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -457,8 +497,17 @@ func (r *AllergyIntolerance) GetResourceType() string {
 	return "AllergyIntolerance"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "AllergyIntolerance"
+	type Alias AllergyIntolerance
+	return json.Marshal((Alias)(r))
+}
+
 // Appointment represents FHIR Appointment.
 type Appointment struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -548,8 +597,17 @@ func (r *Appointment) GetResourceType() string {
 	return "Appointment"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Appointment) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Appointment"
+	type Alias Appointment
+	return json.Marshal((Alias)(r))
+}
+
 // AppointmentResponse represents FHIR AppointmentResponse.
 type AppointmentResponse struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -601,8 +659,17 @@ func (r *AppointmentResponse) GetResourceType() string {
 	return "AppointmentResponse"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r AppointmentResponse) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "AppointmentResponse"
+	type Alias AppointmentResponse
+	return json.Marshal((Alias)(r))
+}
+
 // AuditEvent represents FHIR AuditEvent.
 type AuditEvent struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -660,8 +727,17 @@ func (r *AuditEvent) GetResourceType() string {
 	return "AuditEvent"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r AuditEvent) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "AuditEvent"
+	type Alias AuditEvent
+	return json.Marshal((Alias)(r))
+}
+
 // Basic represents FHIR Basic.
 type Basic struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -701,8 +777,17 @@ func (r *Basic) GetResourceType() string {
 	return "Basic"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Basic) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Basic"
+	type Alias Basic
+	return json.Marshal((Alias)(r))
+}
+
 // Binary represents FHIR Binary.
 type Binary struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -732,8 +817,17 @@ func (r *Binary) GetResourceType() string {
 	return "Binary"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Binary) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Binary"
+	type Alias Binary
+	return json.Marshal((Alias)(r))
+}
+
 // BiologicallyDerivedProduct represents FHIR BiologicallyDerivedProduct.
 type BiologicallyDerivedProduct struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -789,8 +883,17 @@ func (r *BiologicallyDerivedProduct) GetResourceType() string {
 	return "BiologicallyDerivedProduct"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "BiologicallyDerivedProduct"
+	type Alias BiologicallyDerivedProduct
+	return json.Marshal((Alias)(r))
+}
+
 // BodyStructure represents FHIR BodyStructure.
 type BodyStructure struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -838,8 +941,17 @@ func (r *BodyStructure) GetResourceType() string {
 	return "BodyStructure"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r BodyStructure) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "BodyStructure"
+	type Alias BodyStructure
+	return json.Marshal((Alias)(r))
+}
+
 // Bundle represents FHIR Bundle.
 type Bundle struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -879,8 +991,17 @@ func (r *Bundle) GetResourceType() string {
 	return "Bundle"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Bundle) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Bundle"
+	type Alias Bundle
+	return json.Marshal((Alias)(r))
+}
+
 // CapabilityStatement represents FHIR CapabilityStatement.
 type CapabilityStatement struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -996,8 +1117,17 @@ func (r *CapabilityStatement) GetResourceType() string {
 	return "CapabilityStatement"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CapabilityStatement) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CapabilityStatement"
+	type Alias CapabilityStatement
+	return json.Marshal((Alias)(r))
+}
+
 // CarePlan represents FHIR CarePlan.
 type CarePlan struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1085,8 +1215,17 @@ func (r *CarePlan) GetResourceType() string {
 	return "CarePlan"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CarePlan) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CarePlan"
+	type Alias CarePlan
+	return json.Marshal((Alias)(r))
+}
+
 // CareTeam represents FHIR CareTeam.
 type CareTeam struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1144,8 +1283,17 @@ func (r *CareTeam) GetResourceType() string {
 	return "CareTeam"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CareTeam) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CareTeam"
+	type Alias CareTeam
+	return json.Marshal((Alias)(r))
+}
+
 // CatalogEntry represents FHIR CatalogEntry.
 type CatalogEntry struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1207,8 +1355,17 @@ func (r *CatalogEntry) GetResourceType() string {
 	return "CatalogEntry"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CatalogEntry) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CatalogEntry"
+	type Alias CatalogEntry
+	return json.Marshal((Alias)(r))
+}
+
 // ChargeItem represents FHIR ChargeItem.
 type ChargeItem struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1308,8 +1465,17 @@ func (r *ChargeItem) GetResourceType() string {
 	return "ChargeItem"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ChargeItem) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ChargeItem"
+	type Alias ChargeItem
+	return json.Marshal((Alias)(r))
+}
+
 // ChargeItemDefinition represents FHIR ChargeItemDefinition.
 type ChargeItemDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1411,8 +1577,17 @@ func (r *ChargeItemDefinition) GetResourceType() string {
 	return "ChargeItemDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ChargeItemDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ChargeItemDefinition"
+	type Alias ChargeItemDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // Citation represents FHIR Citation.
 type Citation struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1524,8 +1699,17 @@ func (r *Citation) GetResourceType() string {
 	return "Citation"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Citation) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Citation"
+	type Alias Citation
+	return json.Marshal((Alias)(r))
+}
+
 // Claim represents FHIR Claim.
 type Claim struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1613,8 +1797,17 @@ func (r *Claim) GetResourceType() string {
 	return "Claim"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Claim) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Claim"
+	type Alias Claim
+	return json.Marshal((Alias)(r))
+}
+
 // ClaimResponse represents FHIR ClaimResponse.
 type ClaimResponse struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1708,8 +1901,17 @@ func (r *ClaimResponse) GetResourceType() string {
 	return "ClaimResponse"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ClaimResponse) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ClaimResponse"
+	type Alias ClaimResponse
+	return json.Marshal((Alias)(r))
+}
+
 // ClinicalImpression represents FHIR ClinicalImpression.
 type ClinicalImpression struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1791,8 +1993,17 @@ func (r *ClinicalImpression) GetResourceType() string {
 	return "ClinicalImpression"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ClinicalImpression"
+	type Alias ClinicalImpression
+	return json.Marshal((Alias)(r))
+}
+
 // ClinicalUseDefinition represents FHIR ClinicalUseDefinition.
 type ClinicalUseDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1844,8 +2055,17 @@ func (r *ClinicalUseDefinition) GetResourceType() string {
 	return "ClinicalUseDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ClinicalUseDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ClinicalUseDefinition"
+	type Alias ClinicalUseDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // CodeSystem represents FHIR CodeSystem.
 type CodeSystem struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -1963,8 +2183,17 @@ func (r *CodeSystem) GetResourceType() string {
 	return "CodeSystem"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CodeSystem) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CodeSystem"
+	type Alias CodeSystem
+	return json.Marshal((Alias)(r))
+}
+
 // Communication represents FHIR Communication.
 type Communication struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2050,8 +2279,17 @@ func (r *Communication) GetResourceType() string {
 	return "Communication"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Communication) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Communication"
+	type Alias Communication
+	return json.Marshal((Alias)(r))
+}
+
 // CommunicationRequest represents FHIR CommunicationRequest.
 type CommunicationRequest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2135,8 +2373,17 @@ func (r *CommunicationRequest) GetResourceType() string {
 	return "CommunicationRequest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CommunicationRequest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CommunicationRequest"
+	type Alias CommunicationRequest
+	return json.Marshal((Alias)(r))
+}
+
 // CompartmentDefinition represents FHIR CompartmentDefinition.
 type CompartmentDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2214,8 +2461,17 @@ func (r *CompartmentDefinition) GetResourceType() string {
 	return "CompartmentDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CompartmentDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CompartmentDefinition"
+	type Alias CompartmentDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // Composition represents FHIR Composition.
 type Composition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2281,8 +2537,17 @@ func (r *Composition) GetResourceType() string {
 	return "Composition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Composition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Composition"
+	type Alias Composition
+	return json.Marshal((Alias)(r))
+}
+
 // ConceptMap represents FHIR ConceptMap.
 type ConceptMap struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2380,8 +2645,17 @@ func (r *ConceptMap) GetResourceType() string {
 	return "ConceptMap"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ConceptMap) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ConceptMap"
+	type Alias ConceptMap
+	return json.Marshal((Alias)(r))
+}
+
 // Condition represents FHIR Condition.
 type Condition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2469,8 +2743,17 @@ func (r *Condition) GetResourceType() string {
 	return "Condition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Condition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Condition"
+	type Alias Condition
+	return json.Marshal((Alias)(r))
+}
+
 // Consent represents FHIR Consent.
 type Consent struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2530,8 +2813,17 @@ func (r *Consent) GetResourceType() string {
 	return "Consent"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Consent) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Consent"
+	type Alias Consent
+	return json.Marshal((Alias)(r))
+}
+
 // Contract represents FHIR Contract.
 type Contract struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2647,8 +2939,17 @@ func (r *Contract) GetResourceType() string {
 	return "Contract"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Contract) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Contract"
+	type Alias Contract
+	return json.Marshal((Alias)(r))
+}
+
 // Coverage represents FHIR Coverage.
 type Coverage struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2722,8 +3023,17 @@ func (r *Coverage) GetResourceType() string {
 	return "Coverage"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Coverage) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Coverage"
+	type Alias Coverage
+	return json.Marshal((Alias)(r))
+}
+
 // CoverageEligibilityRequest represents FHIR CoverageEligibilityRequest.
 type CoverageEligibilityRequest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2789,8 +3099,17 @@ func (r *CoverageEligibilityRequest) GetResourceType() string {
 	return "CoverageEligibilityRequest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CoverageEligibilityRequest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CoverageEligibilityRequest"
+	type Alias CoverageEligibilityRequest
+	return json.Marshal((Alias)(r))
+}
+
 // CoverageEligibilityResponse represents FHIR CoverageEligibilityResponse.
 type CoverageEligibilityResponse struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2864,8 +3183,17 @@ func (r *CoverageEligibilityResponse) GetResourceType() string {
 	return "CoverageEligibilityResponse"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r CoverageEligibilityResponse) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "CoverageEligibilityResponse"
+	type Alias CoverageEligibilityResponse
+	return json.Marshal((Alias)(r))
+}
+
 // DetectedIssue represents FHIR DetectedIssue.
 type DetectedIssue struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -2929,8 +3257,17 @@ func (r *DetectedIssue) GetResourceType() string {
 	return "DetectedIssue"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DetectedIssue) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DetectedIssue"
+	type Alias DetectedIssue
+	return json.Marshal((Alias)(r))
+}
+
 // Device represents FHIR Device.
 type Device struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3030,8 +3367,17 @@ func (r *Device) GetResourceType() string {
 	return "Device"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Device) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Device"
+	type Alias Device
+	return json.Marshal((Alias)(r))
+}
+
 // DeviceDefinition represents FHIR DeviceDefinition.
 type DeviceDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3115,8 +3461,17 @@ func (r *DeviceDefinition) GetResourceType() string {
 	return "DeviceDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DeviceDefinition"
+	type Alias DeviceDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // DeviceMetric represents FHIR DeviceMetric.
 type DeviceMetric struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3170,8 +3525,17 @@ func (r *DeviceMetric) GetResourceType() string {
 	return "DeviceMetric"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DeviceMetric) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DeviceMetric"
+	type Alias DeviceMetric
+	return json.Marshal((Alias)(r))
+}
+
 // DeviceRequest represents FHIR DeviceRequest.
 type DeviceRequest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3267,8 +3631,17 @@ func (r *DeviceRequest) GetResourceType() string {
 	return "DeviceRequest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DeviceRequest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DeviceRequest"
+	type Alias DeviceRequest
+	return json.Marshal((Alias)(r))
+}
+
 // DeviceUseStatement represents FHIR DeviceUseStatement.
 type DeviceUseStatement struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3332,8 +3705,17 @@ func (r *DeviceUseStatement) GetResourceType() string {
 	return "DeviceUseStatement"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DeviceUseStatement"
+	type Alias DeviceUseStatement
+	return json.Marshal((Alias)(r))
+}
+
 // DiagnosticReport represents FHIR DiagnosticReport.
 type DiagnosticReport struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3407,8 +3789,17 @@ func (r *DiagnosticReport) GetResourceType() string {
 	return "DiagnosticReport"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DiagnosticReport"
+	type Alias DiagnosticReport
+	return json.Marshal((Alias)(r))
+}
+
 // DocumentManifest represents FHIR DocumentManifest.
 type DocumentManifest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3468,8 +3859,17 @@ func (r *DocumentManifest) GetResourceType() string {
 	return "DocumentManifest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DocumentManifest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DocumentManifest"
+	type Alias DocumentManifest
+	return json.Marshal((Alias)(r))
+}
+
 // DocumentReference represents FHIR DocumentReference.
 type DocumentReference struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3537,8 +3937,17 @@ func (r *DocumentReference) GetResourceType() string {
 	return "DocumentReference"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r DocumentReference) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "DocumentReference"
+	type Alias DocumentReference
+	return json.Marshal((Alias)(r))
+}
+
 // Encounter represents FHIR Encounter.
 type Encounter struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3614,8 +4023,17 @@ func (r *Encounter) GetResourceType() string {
 	return "Encounter"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Encounter) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Encounter"
+	type Alias Encounter
+	return json.Marshal((Alias)(r))
+}
+
 // Endpoint represents FHIR Endpoint.
 type Endpoint struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3675,8 +4093,17 @@ func (r *Endpoint) GetResourceType() string {
 	return "Endpoint"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Endpoint) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Endpoint"
+	type Alias Endpoint
+	return json.Marshal((Alias)(r))
+}
+
 // EnrollmentRequest represents FHIR EnrollmentRequest.
 type EnrollmentRequest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3722,8 +4149,17 @@ func (r *EnrollmentRequest) GetResourceType() string {
 	return "EnrollmentRequest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "EnrollmentRequest"
+	type Alias EnrollmentRequest
+	return json.Marshal((Alias)(r))
+}
+
 // EnrollmentResponse represents FHIR EnrollmentResponse.
 type EnrollmentResponse struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3775,8 +4211,17 @@ func (r *EnrollmentResponse) GetResourceType() string {
 	return "EnrollmentResponse"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r EnrollmentResponse) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "EnrollmentResponse"
+	type Alias EnrollmentResponse
+	return json.Marshal((Alias)(r))
+}
+
 // EpisodeOfCare represents FHIR EpisodeOfCare.
 type EpisodeOfCare struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3830,8 +4275,17 @@ func (r *EpisodeOfCare) GetResourceType() string {
 	return "EpisodeOfCare"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r EpisodeOfCare) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "EpisodeOfCare"
+	type Alias EpisodeOfCare
+	return json.Marshal((Alias)(r))
+}
+
 // EventDefinition represents FHIR EventDefinition.
 type EventDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -3947,8 +4401,17 @@ func (r *EventDefinition) GetResourceType() string {
 	return "EventDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r EventDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "EventDefinition"
+	type Alias EventDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // Evidence represents FHIR Evidence.
 type Evidence struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4050,8 +4513,17 @@ func (r *Evidence) GetResourceType() string {
 	return "Evidence"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Evidence) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Evidence"
+	type Alias Evidence
+	return json.Marshal((Alias)(r))
+}
+
 // EvidenceReport represents FHIR EvidenceReport.
 type EvidenceReport struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4125,8 +4597,17 @@ func (r *EvidenceReport) GetResourceType() string {
 	return "EvidenceReport"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r EvidenceReport) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "EvidenceReport"
+	type Alias EvidenceReport
+	return json.Marshal((Alias)(r))
+}
+
 // EvidenceVariable represents FHIR EvidenceVariable.
 type EvidenceVariable struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4228,8 +4709,17 @@ func (r *EvidenceVariable) GetResourceType() string {
 	return "EvidenceVariable"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "EvidenceVariable"
+	type Alias EvidenceVariable
+	return json.Marshal((Alias)(r))
+}
+
 // ExampleScenario represents FHIR ExampleScenario.
 type ExampleScenario struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4311,8 +4801,17 @@ func (r *ExampleScenario) GetResourceType() string {
 	return "ExampleScenario"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ExampleScenario) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ExampleScenario"
+	type Alias ExampleScenario
+	return json.Marshal((Alias)(r))
+}
+
 // ExplanationOfBenefit represents FHIR ExplanationOfBenefit.
 type ExplanationOfBenefit struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4440,8 +4939,17 @@ func (r *ExplanationOfBenefit) GetResourceType() string {
 	return "ExplanationOfBenefit"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ExplanationOfBenefit) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ExplanationOfBenefit"
+	type Alias ExplanationOfBenefit
+	return json.Marshal((Alias)(r))
+}
+
 // FamilyMemberHistory represents FHIR FamilyMemberHistory.
 type FamilyMemberHistory struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4545,8 +5053,17 @@ func (r *FamilyMemberHistory) GetResourceType() string {
 	return "FamilyMemberHistory"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "FamilyMemberHistory"
+	type Alias FamilyMemberHistory
+	return json.Marshal((Alias)(r))
+}
+
 // Flag represents FHIR Flag.
 type Flag struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4592,8 +5109,17 @@ func (r *Flag) GetResourceType() string {
 	return "Flag"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Flag) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Flag"
+	type Alias Flag
+	return json.Marshal((Alias)(r))
+}
+
 // Goal represents FHIR Goal.
 type Goal struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4663,8 +5189,17 @@ func (r *Goal) GetResourceType() string {
 	return "Goal"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Goal) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Goal"
+	type Alias Goal
+	return json.Marshal((Alias)(r))
+}
+
 // GraphDefinition represents FHIR GraphDefinition.
 type GraphDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4744,8 +5279,17 @@ func (r *GraphDefinition) GetResourceType() string {
 	return "GraphDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r GraphDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "GraphDefinition"
+	type Alias GraphDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // Group represents FHIR Group.
 type Group struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4803,8 +5347,17 @@ func (r *Group) GetResourceType() string {
 	return "Group"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Group) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Group"
+	type Alias Group
+	return json.Marshal((Alias)(r))
+}
+
 // GuidanceResponse represents FHIR GuidanceResponse.
 type GuidanceResponse struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4874,8 +5427,17 @@ func (r *GuidanceResponse) GetResourceType() string {
 	return "GuidanceResponse"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "GuidanceResponse"
+	type Alias GuidanceResponse
+	return json.Marshal((Alias)(r))
+}
+
 // HealthcareService represents FHIR HealthcareService.
 type HealthcareService struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -4963,8 +5525,17 @@ func (r *HealthcareService) GetResourceType() string {
 	return "HealthcareService"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r HealthcareService) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "HealthcareService"
+	type Alias HealthcareService
+	return json.Marshal((Alias)(r))
+}
+
 // ImagingStudy represents FHIR ImagingStudy.
 type ImagingStudy struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5042,8 +5613,17 @@ func (r *ImagingStudy) GetResourceType() string {
 	return "ImagingStudy"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ImagingStudy) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ImagingStudy"
+	type Alias ImagingStudy
+	return json.Marshal((Alias)(r))
+}
+
 // Immunization represents FHIR Immunization.
 type Immunization struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5145,8 +5725,17 @@ func (r *Immunization) GetResourceType() string {
 	return "Immunization"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Immunization) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Immunization"
+	type Alias Immunization
+	return json.Marshal((Alias)(r))
+}
+
 // ImmunizationEvaluation represents FHIR ImmunizationEvaluation.
 type ImmunizationEvaluation struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5220,8 +5809,17 @@ func (r *ImmunizationEvaluation) GetResourceType() string {
 	return "ImmunizationEvaluation"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ImmunizationEvaluation"
+	type Alias ImmunizationEvaluation
+	return json.Marshal((Alias)(r))
+}
+
 // ImmunizationRecommendation represents FHIR ImmunizationRecommendation.
 type ImmunizationRecommendation struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5261,8 +5859,17 @@ func (r *ImmunizationRecommendation) GetResourceType() string {
 	return "ImmunizationRecommendation"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ImmunizationRecommendation) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ImmunizationRecommendation"
+	type Alias ImmunizationRecommendation
+	return json.Marshal((Alias)(r))
+}
+
 // ImplementationGuide represents FHIR ImplementationGuide.
 type ImplementationGuide struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5356,8 +5963,17 @@ func (r *ImplementationGuide) GetResourceType() string {
 	return "ImplementationGuide"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ImplementationGuide"
+	type Alias ImplementationGuide
+	return json.Marshal((Alias)(r))
+}
+
 // Ingredient represents FHIR Ingredient.
 type Ingredient struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5405,8 +6021,17 @@ func (r *Ingredient) GetResourceType() string {
 	return "Ingredient"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Ingredient) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Ingredient"
+	type Alias Ingredient
+	return json.Marshal((Alias)(r))
+}
+
 // InsurancePlan represents FHIR InsurancePlan.
 type InsurancePlan struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5468,8 +6093,17 @@ func (r *InsurancePlan) GetResourceType() string {
 	return "InsurancePlan"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r InsurancePlan) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "InsurancePlan"
+	type Alias InsurancePlan
+	return json.Marshal((Alias)(r))
+}
+
 // Invoice represents FHIR Invoice.
 type Invoice struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5537,8 +6171,17 @@ func (r *Invoice) GetResourceType() string {
 	return "Invoice"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Invoice) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Invoice"
+	type Alias Invoice
+	return json.Marshal((Alias)(r))
+}
+
 // Library represents FHIR Library.
 type Library struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5660,8 +6303,17 @@ func (r *Library) GetResourceType() string {
 	return "Library"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Library) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Library"
+	type Alias Library
+	return json.Marshal((Alias)(r))
+}
+
 // Linkage represents FHIR Linkage.
 type Linkage struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5697,8 +6349,17 @@ func (r *Linkage) GetResourceType() string {
 	return "Linkage"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Linkage) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Linkage"
+	type Alias Linkage
+	return json.Marshal((Alias)(r))
+}
+
 // List represents FHIR List.
 type List struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5760,8 +6421,17 @@ func (r *List) GetResourceType() string {
 	return "List"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r List) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "List"
+	type Alias List
+	return json.Marshal((Alias)(r))
+}
+
 // Location represents FHIR Location.
 type Location struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5835,8 +6505,17 @@ func (r *Location) GetResourceType() string {
 	return "Location"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Location) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Location"
+	type Alias Location
+	return json.Marshal((Alias)(r))
+}
+
 // ManufacturedItemDefinition represents FHIR ManufacturedItemDefinition.
 type ManufacturedItemDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -5880,8 +6559,17 @@ func (r *ManufacturedItemDefinition) GetResourceType() string {
 	return "ManufacturedItemDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ManufacturedItemDefinition"
+	type Alias ManufacturedItemDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // Measure represents FHIR Measure.
 type Measure struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6039,8 +6727,17 @@ func (r *Measure) GetResourceType() string {
 	return "Measure"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Measure) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Measure"
+	type Alias Measure
+	return json.Marshal((Alias)(r))
+}
+
 // MeasureReport represents FHIR MeasureReport.
 type MeasureReport struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6098,8 +6795,17 @@ func (r *MeasureReport) GetResourceType() string {
 	return "MeasureReport"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MeasureReport) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MeasureReport"
+	type Alias MeasureReport
+	return json.Marshal((Alias)(r))
+}
+
 // Media represents FHIR Media.
 type Media struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6189,8 +6895,17 @@ func (r *Media) GetResourceType() string {
 	return "Media"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Media) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Media"
+	type Alias Media
+	return json.Marshal((Alias)(r))
+}
+
 // Medication represents FHIR Medication.
 type Medication struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6236,8 +6951,17 @@ func (r *Medication) GetResourceType() string {
 	return "Medication"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Medication) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Medication"
+	type Alias Medication
+	return json.Marshal((Alias)(r))
+}
+
 // MedicationAdministration represents FHIR MedicationAdministration.
 type MedicationAdministration struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6313,8 +7037,17 @@ func (r *MedicationAdministration) GetResourceType() string {
 	return "MedicationAdministration"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MedicationAdministration) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MedicationAdministration"
+	type Alias MedicationAdministration
+	return json.Marshal((Alias)(r))
+}
+
 // MedicationDispense represents FHIR MedicationDispense.
 type MedicationDispense struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6400,8 +7133,17 @@ func (r *MedicationDispense) GetResourceType() string {
 	return "MedicationDispense"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MedicationDispense) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MedicationDispense"
+	type Alias MedicationDispense
+	return json.Marshal((Alias)(r))
+}
+
 // MedicationKnowledge represents FHIR MedicationKnowledge.
 type MedicationKnowledge struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6479,8 +7221,17 @@ func (r *MedicationKnowledge) GetResourceType() string {
 	return "MedicationKnowledge"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MedicationKnowledge) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MedicationKnowledge"
+	type Alias MedicationKnowledge
+	return json.Marshal((Alias)(r))
+}
+
 // MedicationRequest represents FHIR MedicationRequest.
 type MedicationRequest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6592,8 +7343,17 @@ func (r *MedicationRequest) GetResourceType() string {
 	return "MedicationRequest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MedicationRequest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MedicationRequest"
+	type Alias MedicationRequest
+	return json.Marshal((Alias)(r))
+}
+
 // MedicationStatement represents FHIR MedicationStatement.
 type MedicationStatement struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6665,8 +7425,17 @@ func (r *MedicationStatement) GetResourceType() string {
 	return "MedicationStatement"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MedicationStatement) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MedicationStatement"
+	type Alias MedicationStatement
+	return json.Marshal((Alias)(r))
+}
+
 // MedicinalProductDefinition represents FHIR MedicinalProductDefinition.
 type MedicinalProductDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6758,8 +7527,17 @@ func (r *MedicinalProductDefinition) GetResourceType() string {
 	return "MedicinalProductDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MedicinalProductDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MedicinalProductDefinition"
+	type Alias MedicinalProductDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // MessageDefinition represents FHIR MessageDefinition.
 type MessageDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6873,8 +7651,17 @@ func (r *MessageDefinition) GetResourceType() string {
 	return "MessageDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MessageDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MessageDefinition"
+	type Alias MessageDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // MessageHeader represents FHIR MessageHeader.
 type MessageHeader struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6930,8 +7717,17 @@ func (r *MessageHeader) GetResourceType() string {
 	return "MessageHeader"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MessageHeader) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MessageHeader"
+	type Alias MessageHeader
+	return json.Marshal((Alias)(r))
+}
+
 // MolecularSequence represents FHIR MolecularSequence.
 type MolecularSequence struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -6999,8 +7795,17 @@ func (r *MolecularSequence) GetResourceType() string {
 	return "MolecularSequence"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r MolecularSequence) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "MolecularSequence"
+	type Alias MolecularSequence
+	return json.Marshal((Alias)(r))
+}
+
 // NamingSystem represents FHIR NamingSystem.
 type NamingSystem struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7070,8 +7875,17 @@ func (r *NamingSystem) GetResourceType() string {
 	return "NamingSystem"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r NamingSystem) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "NamingSystem"
+	type Alias NamingSystem
+	return json.Marshal((Alias)(r))
+}
+
 // NutritionOrder represents FHIR NutritionOrder.
 type NutritionOrder struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7145,8 +7959,17 @@ func (r *NutritionOrder) GetResourceType() string {
 	return "NutritionOrder"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r NutritionOrder) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "NutritionOrder"
+	type Alias NutritionOrder
+	return json.Marshal((Alias)(r))
+}
+
 // NutritionProduct represents FHIR NutritionProduct.
 type NutritionProduct struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7196,8 +8019,17 @@ func (r *NutritionProduct) GetResourceType() string {
 	return "NutritionProduct"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r NutritionProduct) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "NutritionProduct"
+	type Alias NutritionProduct
+	return json.Marshal((Alias)(r))
+}
+
 // Observation represents FHIR Observation.
 type Observation struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7317,8 +8149,17 @@ func (r *Observation) GetResourceType() string {
 	return "Observation"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Observation) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Observation"
+	type Alias Observation
+	return json.Marshal((Alias)(r))
+}
+
 // ObservationDefinition represents FHIR ObservationDefinition.
 type ObservationDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7378,8 +8219,17 @@ func (r *ObservationDefinition) GetResourceType() string {
 	return "ObservationDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ObservationDefinition"
+	type Alias ObservationDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // OperationDefinition represents FHIR OperationDefinition.
 type OperationDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7501,8 +8351,17 @@ func (r *OperationDefinition) GetResourceType() string {
 	return "OperationDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r OperationDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "OperationDefinition"
+	type Alias OperationDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // OperationOutcome represents FHIR OperationOutcome.
 type OperationOutcome struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7532,8 +8391,17 @@ func (r *OperationOutcome) GetResourceType() string {
 	return "OperationOutcome"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r OperationOutcome) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "OperationOutcome"
+	type Alias OperationOutcome
+	return json.Marshal((Alias)(r))
+}
+
 // Organization represents FHIR Organization.
 type Organization struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7587,8 +8455,17 @@ func (r *Organization) GetResourceType() string {
 	return "Organization"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Organization) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Organization"
+	type Alias Organization
+	return json.Marshal((Alias)(r))
+}
+
 // OrganizationAffiliation represents FHIR OrganizationAffiliation.
 type OrganizationAffiliation struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7642,8 +8519,17 @@ func (r *OrganizationAffiliation) GetResourceType() string {
 	return "OrganizationAffiliation"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r OrganizationAffiliation) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "OrganizationAffiliation"
+	type Alias OrganizationAffiliation
+	return json.Marshal((Alias)(r))
+}
+
 // PackagedProductDefinition represents FHIR PackagedProductDefinition.
 type PackagedProductDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7707,8 +8593,17 @@ func (r *PackagedProductDefinition) GetResourceType() string {
 	return "PackagedProductDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "PackagedProductDefinition"
+	type Alias PackagedProductDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // Parameters represents FHIR Parameters.
 type Parameters struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7730,8 +8625,17 @@ func (r *Parameters) GetResourceType() string {
 	return "Parameters"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Parameters) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Parameters"
+	type Alias Parameters
+	return json.Marshal((Alias)(r))
+}
+
 // Patient represents FHIR Patient.
 type Patient struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7809,8 +8713,17 @@ func (r *Patient) GetResourceType() string {
 	return "Patient"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Patient) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Patient"
+	type Alias Patient
+	return json.Marshal((Alias)(r))
+}
+
 // PaymentNotice represents FHIR PaymentNotice.
 type PaymentNotice struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7868,8 +8781,17 @@ func (r *PaymentNotice) GetResourceType() string {
 	return "PaymentNotice"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r PaymentNotice) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "PaymentNotice"
+	type Alias PaymentNotice
+	return json.Marshal((Alias)(r))
+}
+
 // PaymentReconciliation represents FHIR PaymentReconciliation.
 type PaymentReconciliation struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7937,8 +8859,17 @@ func (r *PaymentReconciliation) GetResourceType() string {
 	return "PaymentReconciliation"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "PaymentReconciliation"
+	type Alias PaymentReconciliation
+	return json.Marshal((Alias)(r))
+}
+
 // Person represents FHIR Person.
 type Person struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -7992,8 +8923,17 @@ func (r *Person) GetResourceType() string {
 	return "Person"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Person) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Person"
+	type Alias Person
+	return json.Marshal((Alias)(r))
+}
+
 // PlanDefinition represents FHIR PlanDefinition.
 type PlanDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8121,8 +9061,17 @@ func (r *PlanDefinition) GetResourceType() string {
 	return "PlanDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r PlanDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "PlanDefinition"
+	type Alias PlanDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // Practitioner represents FHIR Practitioner.
 type Practitioner struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8176,8 +9125,17 @@ func (r *Practitioner) GetResourceType() string {
 	return "Practitioner"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Practitioner) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Practitioner"
+	type Alias Practitioner
+	return json.Marshal((Alias)(r))
+}
+
 // PractitionerRole represents FHIR PractitionerRole.
 type PractitionerRole struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8237,8 +9195,17 @@ func (r *PractitionerRole) GetResourceType() string {
 	return "PractitionerRole"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r PractitionerRole) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "PractitionerRole"
+	type Alias PractitionerRole
+	return json.Marshal((Alias)(r))
+}
+
 // Procedure represents FHIR Procedure.
 type Procedure struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8340,8 +9307,17 @@ func (r *Procedure) GetResourceType() string {
 	return "Procedure"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Procedure) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Procedure"
+	type Alias Procedure
+	return json.Marshal((Alias)(r))
+}
+
 // Provenance represents FHIR Provenance.
 type Provenance struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8397,8 +9373,17 @@ func (r *Provenance) GetResourceType() string {
 	return "Provenance"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Provenance) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Provenance"
+	type Alias Provenance
+	return json.Marshal((Alias)(r))
+}
+
 // Questionnaire represents FHIR Questionnaire.
 type Questionnaire struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8500,8 +9485,17 @@ func (r *Questionnaire) GetResourceType() string {
 	return "Questionnaire"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Questionnaire) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Questionnaire"
+	type Alias Questionnaire
+	return json.Marshal((Alias)(r))
+}
+
 // QuestionnaireResponse represents FHIR QuestionnaireResponse.
 type QuestionnaireResponse struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8557,8 +9551,17 @@ func (r *QuestionnaireResponse) GetResourceType() string {
 	return "QuestionnaireResponse"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r QuestionnaireResponse) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "QuestionnaireResponse"
+	type Alias QuestionnaireResponse
+	return json.Marshal((Alias)(r))
+}
+
 // RegulatedAuthorization represents FHIR RegulatedAuthorization.
 type RegulatedAuthorization struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8618,8 +9621,17 @@ func (r *RegulatedAuthorization) GetResourceType() string {
 	return "RegulatedAuthorization"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r RegulatedAuthorization) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "RegulatedAuthorization"
+	type Alias RegulatedAuthorization
+	return json.Marshal((Alias)(r))
+}
+
 // RelatedPerson represents FHIR RelatedPerson.
 type RelatedPerson struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8677,8 +9689,17 @@ func (r *RelatedPerson) GetResourceType() string {
 	return "RelatedPerson"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r RelatedPerson) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "RelatedPerson"
+	type Alias RelatedPerson
+	return json.Marshal((Alias)(r))
+}
+
 // RequestGroup represents FHIR RequestGroup.
 type RequestGroup struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8754,8 +9775,17 @@ func (r *RequestGroup) GetResourceType() string {
 	return "RequestGroup"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r RequestGroup) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "RequestGroup"
+	type Alias RequestGroup
+	return json.Marshal((Alias)(r))
+}
+
 // ResearchDefinition represents FHIR ResearchDefinition.
 type ResearchDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -8889,8 +9919,17 @@ func (r *ResearchDefinition) GetResourceType() string {
 	return "ResearchDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ResearchDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ResearchDefinition"
+	type Alias ResearchDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // ResearchElementDefinition represents FHIR ResearchElementDefinition.
 type ResearchElementDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9026,8 +10065,17 @@ func (r *ResearchElementDefinition) GetResourceType() string {
 	return "ResearchElementDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ResearchElementDefinition"
+	type Alias ResearchElementDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // ResearchStudy represents FHIR ResearchStudy.
 type ResearchStudy struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9109,8 +10157,17 @@ func (r *ResearchStudy) GetResourceType() string {
 	return "ResearchStudy"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ResearchStudy) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ResearchStudy"
+	type Alias ResearchStudy
+	return json.Marshal((Alias)(r))
+}
+
 // ResearchSubject represents FHIR ResearchSubject.
 type ResearchSubject struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9160,8 +10217,17 @@ func (r *ResearchSubject) GetResourceType() string {
 	return "ResearchSubject"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ResearchSubject) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ResearchSubject"
+	type Alias ResearchSubject
+	return json.Marshal((Alias)(r))
+}
+
 // RiskAssessment represents FHIR RiskAssessment.
 type RiskAssessment struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9231,8 +10297,17 @@ func (r *RiskAssessment) GetResourceType() string {
 	return "RiskAssessment"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r RiskAssessment) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "RiskAssessment"
+	type Alias RiskAssessment
+	return json.Marshal((Alias)(r))
+}
+
 // Schedule represents FHIR Schedule.
 type Schedule struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9280,8 +10355,17 @@ func (r *Schedule) GetResourceType() string {
 	return "Schedule"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Schedule) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Schedule"
+	type Alias Schedule
+	return json.Marshal((Alias)(r))
+}
+
 // SearchParameter represents FHIR SearchParameter.
 type SearchParameter struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9405,8 +10489,17 @@ func (r *SearchParameter) GetResourceType() string {
 	return "SearchParameter"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r SearchParameter) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "SearchParameter"
+	type Alias SearchParameter
+	return json.Marshal((Alias)(r))
+}
+
 // ServiceRequest represents FHIR ServiceRequest.
 type ServiceRequest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9530,8 +10623,17 @@ func (r *ServiceRequest) GetResourceType() string {
 	return "ServiceRequest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ServiceRequest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ServiceRequest"
+	type Alias ServiceRequest
+	return json.Marshal((Alias)(r))
+}
+
 // Slot represents FHIR Slot.
 type Slot struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9591,8 +10693,17 @@ func (r *Slot) GetResourceType() string {
 	return "Slot"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Slot) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Slot"
+	type Alias Slot
+	return json.Marshal((Alias)(r))
+}
+
 // Specimen represents FHIR Specimen.
 type Specimen struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9650,8 +10761,17 @@ func (r *Specimen) GetResourceType() string {
 	return "Specimen"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Specimen) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Specimen"
+	type Alias Specimen
+	return json.Marshal((Alias)(r))
+}
+
 // SpecimenDefinition represents FHIR SpecimenDefinition.
 type SpecimenDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9693,8 +10813,17 @@ func (r *SpecimenDefinition) GetResourceType() string {
 	return "SpecimenDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r SpecimenDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "SpecimenDefinition"
+	type Alias SpecimenDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // StructureDefinition represents FHIR StructureDefinition.
 type StructureDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9812,8 +10941,17 @@ func (r *StructureDefinition) GetResourceType() string {
 	return "StructureDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r StructureDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "StructureDefinition"
+	type Alias StructureDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // StructureMap represents FHIR StructureMap.
 type StructureMap struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9901,8 +11039,17 @@ func (r *StructureMap) GetResourceType() string {
 	return "StructureMap"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r StructureMap) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "StructureMap"
+	type Alias StructureMap
+	return json.Marshal((Alias)(r))
+}
+
 // Subscription represents FHIR Subscription.
 type Subscription struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -9954,8 +11101,17 @@ func (r *Subscription) GetResourceType() string {
 	return "Subscription"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Subscription) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Subscription"
+	type Alias Subscription
+	return json.Marshal((Alias)(r))
+}
+
 // SubscriptionStatus represents FHIR SubscriptionStatus.
 type SubscriptionStatus struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10005,8 +11161,17 @@ func (r *SubscriptionStatus) GetResourceType() string {
 	return "SubscriptionStatus"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "SubscriptionStatus"
+	type Alias SubscriptionStatus
+	return json.Marshal((Alias)(r))
+}
+
 // SubscriptionTopic represents FHIR SubscriptionTopic.
 type SubscriptionTopic struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10104,8 +11269,17 @@ func (r *SubscriptionTopic) GetResourceType() string {
 	return "SubscriptionTopic"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r SubscriptionTopic) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "SubscriptionTopic"
+	type Alias SubscriptionTopic
+	return json.Marshal((Alias)(r))
+}
+
 // Substance represents FHIR Substance.
 type Substance struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10151,8 +11325,17 @@ func (r *Substance) GetResourceType() string {
 	return "Substance"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Substance) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Substance"
+	type Alias Substance
+	return json.Marshal((Alias)(r))
+}
+
 // SubstanceDefinition represents FHIR SubstanceDefinition.
 type SubstanceDefinition struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10222,8 +11405,17 @@ func (r *SubstanceDefinition) GetResourceType() string {
 	return "SubstanceDefinition"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r SubstanceDefinition) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "SubstanceDefinition"
+	type Alias SubstanceDefinition
+	return json.Marshal((Alias)(r))
+}
+
 // SupplyDelivery represents FHIR SupplyDelivery.
 type SupplyDelivery struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10281,8 +11473,17 @@ func (r *SupplyDelivery) GetResourceType() string {
 	return "SupplyDelivery"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r SupplyDelivery) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "SupplyDelivery"
+	type Alias SupplyDelivery
+	return json.Marshal((Alias)(r))
+}
+
 // SupplyRequest represents FHIR SupplyRequest.
 type SupplyRequest struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10354,8 +11555,17 @@ func (r *SupplyRequest) GetResourceType() string {
 	return "SupplyRequest"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r SupplyRequest) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "SupplyRequest"
+	type Alias SupplyRequest
+	return json.Marshal((Alias)(r))
+}
+
 // Task represents FHIR Task.
 type Task struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10461,8 +11671,17 @@ func (r *Task) GetResourceType() string {
 	return "Task"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r Task) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "Task"
+	type Alias Task
+	return json.Marshal((Alias)(r))
+}
+
 // TerminologyCapabilities represents FHIR TerminologyCapabilities.
 type TerminologyCapabilities struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10566,8 +11785,17 @@ func (r *TerminologyCapabilities) GetResourceType() string {
 	return "TerminologyCapabilities"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r TerminologyCapabilities) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "TerminologyCapabilities"
+	type Alias TerminologyCapabilities
+	return json.Marshal((Alias)(r))
+}
+
 // TestReport represents FHIR TestReport.
 type TestReport struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10631,8 +11859,17 @@ func (r *TestReport) GetResourceType() string {
 	return "TestReport"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r TestReport) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "TestReport"
+	type Alias TestReport
+	return json.Marshal((Alias)(r))
+}
+
 // TestScript represents FHIR TestScript.
 type TestScript struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10730,8 +11967,17 @@ func (r *TestScript) GetResourceType() string {
 	return "TestScript"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r TestScript) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "TestScript"
+	type Alias TestScript
+	return json.Marshal((Alias)(r))
+}
+
 // ValueSet represents FHIR ValueSet.
 type ValueSet struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10819,8 +12065,17 @@ func (r *ValueSet) GetResourceType() string {
 	return "ValueSet"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r ValueSet) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "ValueSet"
+	type Alias ValueSet
+	return json.Marshal((Alias)(r))
+}
+
 // VerificationResult represents FHIR VerificationResult.
 type VerificationResult struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10886,8 +12141,17 @@ func (r *VerificationResult) GetResourceType() string {
 	return "VerificationResult"
 }
 
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r VerificationResult) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "VerificationResult"
+	type Alias VerificationResult
+	return json.Marshal((Alias)(r))
+}
+
 // VisionPrescription represents FHIR VisionPrescription.
 type VisionPrescription struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 	// Logical id of this artifact
 	Id *string `json:"id,omitempty"`
 	// Metadata about the resource
@@ -10935,4 +12199,11 @@ type VisionPrescription struct {
 // GetResourceType returns the FHIR resource type.
 func (r *VisionPrescription) GetResourceType() string {
 	return "VisionPrescription"
+}
+
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r VisionPrescription) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "VisionPrescription"
+	type Alias VisionPrescription
+	return json.Marshal((Alias)(r))
 }

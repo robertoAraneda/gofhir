@@ -5,11 +5,15 @@
 
 package {{.PackageName}}
 
+import "encoding/json"
+
 {{range .Types}}
 {{if .Description}}// {{.Name}} {{.Description}}
 {{else}}// {{.Name}} represents FHIR {{.FHIRName}}.
 {{end -}}
 type {{.Name}} struct {
+	// FHIR resource type
+	ResourceType string `json:"resourceType"`
 {{- range .Properties}}
 	{{if .Description}}// {{.Description}}
 	{{end -}}
@@ -28,6 +32,13 @@ type {{.Name}} struct {
 // GetResourceType returns the FHIR resource type.
 func (r *{{.Name}}) GetResourceType() string {
 	return "{{.FHIRName}}"
+}
+
+// MarshalJSON ensures resourceType is always included in JSON output.
+func (r {{.Name}}) MarshalJSON() ([]byte, error) {
+	r.ResourceType = "{{.FHIRName}}"
+	type Alias {{.Name}}
+	return json.Marshal((Alias)(r))
 }
 
 {{end}}

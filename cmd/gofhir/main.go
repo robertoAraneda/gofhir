@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -9,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/robertoaraneda/gofhir/internal/codegen/generator"
+	"github.com/robertoaraneda/gofhir/pkg/fhirpath"
 )
 
 var version = "dev"
@@ -81,18 +83,101 @@ func newValidateCmd() *cobra.Command {
 }
 
 func newFHIRPathCmd() *cobra.Command {
-	return &cobra.Command{
+	var outputFormat string
+
+	cmd := &cobra.Command{
 		Use:   "fhirpath [expression] [file]",
 		Short: "Evaluate a FHIRPath expression",
-		Long:  `Evaluate a FHIRPath expression against a FHIR resource.`,
-		Args:  cobra.ExactArgs(2),
+		Long: `Evaluate a FHIRPath expression against a FHIR resource.
+
+Examples:
+  gofhir fhirpath "Patient.name.given" patient.json
+  gofhir fhirpath "Observation.value.ofType(Quantity).value" observation.json
+  gofhir fhirpath "Bundle.entry.resource.ofType(Patient)" bundle.json --output json`,
+		Args: cobra.ExactArgs(2),
 		RunE: func(_ *cobra.Command, args []string) error {
-			// TODO: Implement FHIRPath evaluation
-			fmt.Printf("Expression: %s\n", args[0])
-			fmt.Printf("File: %s\n", args[1])
-			fmt.Println("FHIRPath evaluation not yet implemented")
-			return nil
+			expression := args[0]
+			filePath := args[1]
+
+			// Read the FHIR resource file
+			resourceData, err := os.ReadFile(filePath)
+			if err != nil {
+				return fmt.Errorf("failed to read file %s: %w", filePath, err)
+			}
+
+			// Compile the expression (with caching for repeated use)
+			compiled, err := fhirpath.Compile(expression)
+			if err != nil {
+				return fmt.Errorf("invalid FHIRPath expression: %w", err)
+			}
+
+			// Evaluate the expression
+			result, err := compiled.Evaluate(resourceData)
+			if err != nil {
+				return fmt.Errorf("evaluation error: %w", err)
+			}
+
+			// Output the result
+			switch outputFormat {
+			case "json":
+				return outputJSON(result)
+			default:
+				return outputText(result)
+			}
 		},
+	}
+
+	cmd.Flags().StringVarP(&outputFormat, "output", "o", "text", "Output format (text, json)")
+
+	return cmd
+}
+
+func outputText(result fhirpath.Collection) error {
+	if result.Empty() {
+		fmt.Println("(empty)")
+		return nil
+	}
+
+	for i, value := range result {
+		if len(result) > 1 {
+			fmt.Printf("[%d] ", i)
+		}
+		fmt.Println(value.String())
+	}
+	return nil
+}
+
+func outputJSON(result fhirpath.Collection) error {
+	if result.Empty() {
+		fmt.Println("[]")
+		return nil
+	}
+
+	// Convert to JSON-serializable format
+	output := make([]interface{}, len(result))
+	for i, value := range result {
+		output[i] = valueToInterface(value)
+	}
+
+	jsonBytes, err := json.MarshalIndent(output, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal result: %w", err)
+	}
+
+	fmt.Println(string(jsonBytes))
+	return nil
+}
+
+func valueToInterface(v fhirpath.Value) interface{} {
+	switch val := v.(type) {
+	case interface{ Bool() bool }:
+		return val.Bool()
+	case interface{ Value() int64 }:
+		return val.Value()
+	case interface{ Value() string }:
+		return val.Value()
+	default:
+		return v.String()
 	}
 }
 
