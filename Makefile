@@ -52,7 +52,18 @@ generate:
 
 ## generate-r4: Generate only R4 types
 generate-r4:
-	$(GOCMD) run $(CMD_DIR) generate --specs $(SPECS_DIR)/r4 --output ./pkg/fhir/r4 --version R4
+	$(GOCMD) run $(CMD_DIR) generate --specs $(SPECS_DIR) --output ./pkg/fhir --version r4
+
+## generate-r4b: Generate only R4B types
+generate-r4b:
+	$(GOCMD) run $(CMD_DIR) generate --specs $(SPECS_DIR) --output ./pkg/fhir --version r4b
+
+## generate-r5: Generate only R5 types
+generate-r5:
+	$(GOCMD) run $(CMD_DIR) generate --specs $(SPECS_DIR) --output ./pkg/fhir --version r5
+
+## generate-all: Generate types for all FHIR versions
+generate-all: generate-r4 generate-r4b generate-r5
 
 ## download-specs: Download FHIR specifications
 download-specs:

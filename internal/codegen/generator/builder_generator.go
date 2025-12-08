@@ -13,11 +13,13 @@ import (
 	"github.com/robertoaraneda/gofhir/internal/codegen/analyzer"
 )
 
+const kindResource = "resource"
+
 // generateBuilders generates builders.go with Functional Options and Fluent Builders.
 func (c *CodeGen) generateBuilders() error {
 	var resources []*analyzer.AnalyzedType
 	for _, t := range c.types {
-		if t.Kind == "resource" {
+		if t.Kind == kindResource {
 			resources = append(resources, t)
 		}
 	}
@@ -135,7 +137,8 @@ func (c *CodeGen) writeFunctionalOption(buf *bytes.Buffer, resourceName string, 
 		return
 	}
 
-	if prop.IsArray {
+	switch {
+	case prop.IsArray:
 		// For arrays, generate Add function
 		optionName = fmt.Sprintf("With%s%s", resourceName, prop.Name)
 		elementType := strings.TrimPrefix(prop.GoType, "[]")
@@ -146,7 +149,7 @@ func (c *CodeGen) writeFunctionalOption(buf *bytes.Buffer, resourceName string, 
 		fmt.Fprintf(buf, "\t\tr.%s = append(r.%s, v)\n", prop.Name, prop.Name)
 		fmt.Fprintf(buf, "\t}\n")
 		fmt.Fprintf(buf, "}\n\n")
-	} else if prop.IsPointer {
+	case prop.IsPointer:
 		// For pointer fields, take value and set pointer
 		baseType := strings.TrimPrefix(prop.GoType, "*")
 
@@ -156,7 +159,7 @@ func (c *CodeGen) writeFunctionalOption(buf *bytes.Buffer, resourceName string, 
 		fmt.Fprintf(buf, "\t\tr.%s = &v\n", prop.Name)
 		fmt.Fprintf(buf, "\t}\n")
 		fmt.Fprintf(buf, "}\n\n")
-	} else {
+	default:
 		// For non-pointer fields, set directly
 		fmt.Fprintf(buf, "// %s sets the %s field.\n", optionName, prop.Name)
 		fmt.Fprintf(buf, "func %s(v %s) %sOption {\n", optionName, prop.GoType, resourceName)
@@ -192,7 +195,8 @@ func (c *CodeGen) writeBuilderMethod(buf *bytes.Buffer, resourceName, lowerName 
 		return
 	}
 
-	if prop.IsArray {
+	switch {
+	case prop.IsArray:
 		// For arrays, generate Add method
 		methodName := fmt.Sprintf("Add%s", prop.Name)
 		elementType := strings.TrimPrefix(prop.GoType, "[]")
@@ -202,7 +206,7 @@ func (c *CodeGen) writeBuilderMethod(buf *bytes.Buffer, resourceName, lowerName 
 		fmt.Fprintf(buf, "\tb.%s.%s = append(b.%s.%s, v)\n", lowerName, prop.Name, lowerName, prop.Name)
 		fmt.Fprintf(buf, "\treturn b\n")
 		fmt.Fprintf(buf, "}\n\n")
-	} else if prop.IsPointer {
+	case prop.IsPointer:
 		// For pointer fields, generate Set method that takes value
 		methodName := fmt.Sprintf("Set%s", prop.Name)
 		baseType := strings.TrimPrefix(prop.GoType, "*")
@@ -212,7 +216,7 @@ func (c *CodeGen) writeBuilderMethod(buf *bytes.Buffer, resourceName, lowerName 
 		fmt.Fprintf(buf, "\tb.%s.%s = &v\n", lowerName, prop.Name)
 		fmt.Fprintf(buf, "\treturn b\n")
 		fmt.Fprintf(buf, "}\n\n")
-	} else {
+	default:
 		// For non-pointer fields, generate Set method
 		methodName := fmt.Sprintf("Set%s", prop.Name)
 
