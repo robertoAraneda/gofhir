@@ -1,0 +1,416 @@
+package generator
+
+import (
+	"bytes"
+	"embed"
+	"fmt"
+	"go/format"
+	"os"
+	"path/filepath"
+	"sort"
+	"strings"
+	"text/template"
+	"unicode"
+
+	"github.com/robertoaraneda/gofhir/internal/codegen/analyzer"
+	"github.com/robertoaraneda/gofhir/internal/codegen/parser"
+)
+
+//go:embed templates/*.tmpl
+var templatesFS embed.FS
+
+// TemplateData holds common data for templates.
+type TemplateData struct {
+	PackageName string
+	Version     string
+	FileType    string
+}
+
+// TypesTemplateData holds data for datatypes and resources templates.
+type TypesTemplateData struct {
+	TemplateData
+	Types []*analyzer.AnalyzedType
+}
+
+// RegistryTemplateData holds data for registry template.
+type RegistryTemplateData struct {
+	TemplateData
+	ResourceNames []string
+}
+
+// CodeSystemsTemplateData holds data for codesystems template.
+type CodeSystemsTemplateData struct {
+	TemplateData
+	ValueSets []ValueSetData
+}
+
+// ValueSetData holds processed value set data for templates.
+type ValueSetData struct {
+	Name     string
+	TypeName string
+	Title    string
+	Codes    []CodeData
+}
+
+// CodeData holds processed code data for templates.
+type CodeData struct {
+	Code      string
+	Display   string
+	ConstName string
+}
+
+// BuildersTemplateData holds data for builders template.
+type BuildersTemplateData struct {
+	TemplateData
+	Resources []ResourceBuilderData
+}
+
+// ResourceBuilderData holds data for a single resource builder.
+type ResourceBuilderData struct {
+	Name       string
+	LowerName  string
+	Properties []PropertyBuilderData
+}
+
+// PropertyBuilderData holds processed property data for builder templates.
+type PropertyBuilderData struct {
+	Name        string
+	GoType      string
+	IsArray     bool
+	IsPointer   bool
+	IsChoice    bool
+	ElementType string // For arrays: the element type (e.g., "HumanName" from "[]HumanName")
+	BaseType    string // For pointers: the base type (e.g., "string" from "*string")
+}
+
+// BackbonesTemplateData holds data for backbones template.
+type BackbonesTemplateData struct {
+	TemplateData
+	Backbones []*analyzer.AnalyzedType
+}
+
+// loadTemplate loads a template by name from embedded files.
+func loadTemplate(name string) (*template.Template, error) {
+	content, err := templatesFS.ReadFile("templates/" + name)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read template %s: %w", name, err)
+	}
+
+	tmpl, err := template.New(name).Parse(string(content))
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse template %s: %w", name, err)
+	}
+
+	return tmpl, nil
+}
+
+// executeTemplate executes a template and returns formatted Go code.
+func executeTemplate(tmpl *template.Template, data interface{}) ([]byte, error) {
+	var buf bytes.Buffer
+	if err := tmpl.Execute(&buf, data); err != nil {
+		return nil, fmt.Errorf("failed to execute template: %w", err)
+	}
+
+	formatted, err := format.Source(buf.Bytes())
+	if err != nil {
+		return buf.Bytes(), fmt.Errorf("failed to format code: %w (unformatted content available)", err)
+	}
+
+	return formatted, nil
+}
+
+// writeTemplateFile executes a template and writes to file.
+func writeTemplateFile(outputPath, templateName string, data interface{}) error {
+	tmpl, err := loadTemplate(templateName)
+	if err != nil {
+		return err
+	}
+
+	content, err := executeTemplate(tmpl, data)
+	if err != nil {
+		// Write unformatted content for debugging
+		unformattedPath := outputPath + ".unformatted"
+		if writeErr := os.WriteFile(unformattedPath, content, 0o600); writeErr != nil {
+			return fmt.Errorf("%w (also failed to write debug file: %v)", err, writeErr)
+		}
+		return fmt.Errorf("%w (saved to %s)", err, unformattedPath)
+	}
+
+	return os.WriteFile(outputPath, content, 0o600)
+}
+
+// generateDatatypesFromTemplate generates datatypes.go using template.
+func (c *CodeGen) generateDatatypesFromTemplate() error {
+	var datatypes []*analyzer.AnalyzedType
+	for _, t := range c.types {
+		if t.Kind == "datatype" || t.Kind == "primitive" || t.Kind == "backbone" {
+			datatypes = append(datatypes, t)
+		}
+	}
+
+	sort.Slice(datatypes, func(i, j int) bool {
+		return datatypes[i].Name < datatypes[j].Name
+	})
+
+	data := TypesTemplateData{
+		TemplateData: TemplateData{
+			PackageName: c.config.PackageName,
+			Version:     strings.ToUpper(c.config.Version),
+			FileType:    "datatypes",
+		},
+		Types: datatypes,
+	}
+
+	path := filepath.Join(c.config.OutputDir, "datatypes.go")
+	return writeTemplateFile(path, "datatypes.go.tmpl", data)
+}
+
+// generateResourcesFromTemplate generates resources.go using template.
+func (c *CodeGen) generateResourcesFromTemplate() error {
+	var resources []*analyzer.AnalyzedType
+	for _, t := range c.types {
+		if t.Kind == "resource" {
+			resources = append(resources, t)
+		}
+	}
+
+	sort.Slice(resources, func(i, j int) bool {
+		return resources[i].Name < resources[j].Name
+	})
+
+	data := TypesTemplateData{
+		TemplateData: TemplateData{
+			PackageName: c.config.PackageName,
+			Version:     strings.ToUpper(c.config.Version),
+			FileType:    "resources",
+		},
+		Types: resources,
+	}
+
+	path := filepath.Join(c.config.OutputDir, "resources.go")
+	return writeTemplateFile(path, "resources.go.tmpl", data)
+}
+
+// generateRegistryFromTemplate generates registry.go using template.
+func (c *CodeGen) generateRegistryFromTemplate() error {
+	var resourceNames []string
+	for _, t := range c.types {
+		if t.Kind == "resource" {
+			resourceNames = append(resourceNames, t.Name)
+		}
+	}
+
+	sort.Strings(resourceNames)
+
+	data := RegistryTemplateData{
+		TemplateData: TemplateData{
+			PackageName: c.config.PackageName,
+			Version:     strings.ToUpper(c.config.Version),
+			FileType:    "registry",
+		},
+		ResourceNames: resourceNames,
+	}
+
+	path := filepath.Join(c.config.OutputDir, "registry.go")
+	return writeTemplateFile(path, "registry.go.tmpl", data)
+}
+
+// generateInterfacesFromTemplate generates interfaces.go using template.
+func (c *CodeGen) generateInterfacesFromTemplate() error {
+	data := TemplateData{
+		PackageName: c.config.PackageName,
+		Version:     strings.ToUpper(c.config.Version),
+		FileType:    "interfaces",
+	}
+
+	path := filepath.Join(c.config.OutputDir, "interfaces.go")
+	return writeTemplateFile(path, "interfaces.go.tmpl", data)
+}
+
+// generateCodeSystemsFromTemplate generates codesystems.go using template.
+func (c *CodeGen) generateCodeSystemsFromTemplate() error {
+	if c.analyzer == nil || len(c.analyzer.UsedBindings) == 0 {
+		return nil
+	}
+
+	// Collect and sort used value sets
+	valueSetURLs := make([]string, 0, len(c.analyzer.UsedBindings))
+	for url := range c.analyzer.UsedBindings {
+		valueSetURLs = append(valueSetURLs, url)
+	}
+	sort.Strings(valueSetURLs)
+
+	// Track generated type names to avoid duplicates
+	generatedTypes := make(map[string]bool)
+	var valueSets []ValueSetData
+
+	for _, url := range valueSetURLs {
+		vs := c.valueSets.Get(url)
+		if vs == nil {
+			continue
+		}
+
+		typeName := sanitizeTypeName(vs.Name)
+		if generatedTypes[typeName] {
+			continue
+		}
+		generatedTypes[typeName] = true
+
+		vsData := ValueSetData{
+			Name:     vs.Name,
+			TypeName: typeName,
+			Title:    vs.Title,
+			Codes:    make([]CodeData, 0, len(vs.Codes)),
+		}
+
+		for _, code := range vs.Codes {
+			vsData.Codes = append(vsData.Codes, CodeData{
+				Code:      code.Code,
+				Display:   code.Display,
+				ConstName: toPascalCaseCode(code.Code),
+			})
+		}
+
+		valueSets = append(valueSets, vsData)
+	}
+
+	data := CodeSystemsTemplateData{
+		TemplateData: TemplateData{
+			PackageName: c.config.PackageName,
+			Version:     strings.ToUpper(c.config.Version),
+			FileType:    "codesystems",
+		},
+		ValueSets: valueSets,
+	}
+
+	path := filepath.Join(c.config.OutputDir, "codesystems.go")
+	return writeTemplateFile(path, "codesystems.go.tmpl", data)
+}
+
+// generateBuildersFromTemplate generates functional_options.go and fluent_builders.go using templates.
+func (c *CodeGen) generateBuildersFromTemplate() error {
+	var resources []ResourceBuilderData
+
+	for _, t := range c.types {
+		if t.Kind != "resource" {
+			continue
+		}
+
+		resource := ResourceBuilderData{
+			Name:       t.Name,
+			LowerName:  toLowerFirstChar(t.Name),
+			Properties: make([]PropertyBuilderData, 0, len(t.Properties)),
+		}
+
+		for _, prop := range t.Properties {
+			propData := PropertyBuilderData{
+				Name:      prop.Name,
+				GoType:    prop.GoType,
+				IsArray:   prop.IsArray,
+				IsPointer: prop.IsPointer,
+				IsChoice:  prop.IsChoice,
+			}
+
+			if prop.IsArray {
+				propData.ElementType = strings.TrimPrefix(prop.GoType, "[]")
+			}
+			if prop.IsPointer {
+				propData.BaseType = strings.TrimPrefix(prop.GoType, "*")
+			}
+
+			resource.Properties = append(resource.Properties, propData)
+		}
+
+		resources = append(resources, resource)
+	}
+
+	sort.Slice(resources, func(i, j int) bool {
+		return resources[i].Name < resources[j].Name
+	})
+
+	data := BuildersTemplateData{
+		TemplateData: TemplateData{
+			PackageName: c.config.PackageName,
+			Version:     strings.ToUpper(c.config.Version),
+			FileType:    "builders",
+		},
+		Resources: resources,
+	}
+
+	// Generate functional_options.go
+	functionalPath := filepath.Join(c.config.OutputDir, "functional_options.go")
+	if err := writeTemplateFile(functionalPath, "functional_options.go.tmpl", data); err != nil {
+		return fmt.Errorf("failed to generate functional_options.go: %w", err)
+	}
+
+	// Generate fluent_builders.go
+	fluentPath := filepath.Join(c.config.OutputDir, "fluent_builders.go")
+	if err := writeTemplateFile(fluentPath, "fluent_builders.go.tmpl", data); err != nil {
+		return fmt.Errorf("failed to generate fluent_builders.go: %w", err)
+	}
+
+	return nil
+}
+
+// toLowerFirstChar converts the first character to lowercase.
+func toLowerFirstChar(s string) string {
+	if s == "" {
+		return ""
+	}
+	runes := []rune(s)
+	runes[0] = unicode.ToLower(runes[0])
+	return string(runes)
+}
+
+// processValueSet converts a ParsedValueSet to ValueSetData.
+func processValueSet(vs *parser.ParsedValueSet) ValueSetData {
+	vsData := ValueSetData{
+		Name:     vs.Name,
+		TypeName: sanitizeTypeName(vs.Name),
+		Title:    vs.Title,
+		Codes:    make([]CodeData, 0, len(vs.Codes)),
+	}
+
+	for _, code := range vs.Codes {
+		vsData.Codes = append(vsData.Codes, CodeData{
+			Code:      code.Code,
+			Display:   code.Display,
+			ConstName: toPascalCaseCode(code.Code),
+		})
+	}
+
+	return vsData
+}
+
+// generateBackbonesFromTemplate generates backbones.go using template.
+func (c *CodeGen) generateBackbonesFromTemplate() error {
+	// Collect all backbone types from resources, datatypes, and backbone types
+	var backbones []*analyzer.AnalyzedType
+
+	for _, t := range c.types {
+		if (t.Kind == "resource" || t.Kind == "datatype" || t.Kind == "backbone") && len(t.BackboneTypes) > 0 {
+			backbones = append(backbones, t.BackboneTypes...)
+		}
+	}
+
+	if len(backbones) == 0 {
+		return nil
+	}
+
+	// Sort by name for consistent output
+	sort.Slice(backbones, func(i, j int) bool {
+		return backbones[i].Name < backbones[j].Name
+	})
+
+	data := BackbonesTemplateData{
+		TemplateData: TemplateData{
+			PackageName: c.config.PackageName,
+			Version:     strings.ToUpper(c.config.Version),
+			FileType:    "backbones",
+		},
+		Backbones: backbones,
+	}
+
+	path := filepath.Join(c.config.OutputDir, "backbones.go")
+	return writeTemplateFile(path, "backbones.go.tmpl", data)
+}

@@ -43,7 +43,7 @@ type Account struct {
 	// Transaction window
 	ServicePeriod *Period `json:"servicePeriod,omitempty"`
 	// The party(s) that are responsible for covering the payment of this account, and what order should they be applied to the account
-	Coverage []BackboneElement `json:"coverage,omitempty"`
+	Coverage []AccountCoverage `json:"coverage,omitempty"`
 	// Entity managing the Account
 	Owner *Reference `json:"owner,omitempty"`
 	// Explanation of purpose/use
@@ -51,7 +51,7 @@ type Account struct {
 	// Extension for Description
 	DescriptionExt *Element `json:"_description,omitempty"`
 	// The parties ultimately responsible for balancing the Account
-	Guarantor []BackboneElement `json:"guarantor,omitempty"`
+	Guarantor []AccountGuarantor `json:"guarantor,omitempty"`
 	// Reference to a parent Account
 	PartOf *Reference `json:"partOf,omitempty"`
 }
@@ -212,7 +212,7 @@ type ActivityDefinition struct {
 	// Where it should happen
 	Location *Reference `json:"location,omitempty"`
 	// Who should participate in the action
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []ActivityDefinitionParticipant `json:"participant,omitempty"`
 	// What's administered/supplied
 	ProductReference *Reference `json:"productReference,omitempty"`
 	// What's administered/supplied
@@ -234,7 +234,7 @@ type ActivityDefinition struct {
 	// Extension for Transform
 	TransformExt *Element `json:"_transform,omitempty"`
 	// Dynamic aspects of the definition
-	DynamicValue []BackboneElement `json:"dynamicValue,omitempty"`
+	DynamicValue []ActivityDefinitionDynamicValue `json:"dynamicValue,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -305,7 +305,7 @@ type AdverseEvent struct {
 	// Who  was involved in the adverse event or the potential adverse event
 	Contributor []Reference `json:"contributor,omitempty"`
 	// The suspected agent causing the adverse event
-	SuspectEntity []BackboneElement `json:"suspectEntity,omitempty"`
+	SuspectEntity []AdverseEventSuspectEntity `json:"suspectEntity,omitempty"`
 	// AdverseEvent.subjectMedicalHistory
 	SubjectMedicalHistory []Reference `json:"subjectMedicalHistory,omitempty"`
 	// AdverseEvent.referenceDocument
@@ -394,7 +394,7 @@ type AllergyIntolerance struct {
 	// Additional text not captured in other fields
 	Note []Annotation `json:"note,omitempty"`
 	// Adverse Reaction Events linked to exposure to substance
-	Reaction []BackboneElement `json:"reaction,omitempty"`
+	Reaction []AllergyIntoleranceReaction `json:"reaction,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -483,7 +483,7 @@ type Appointment struct {
 	// The service request this appointment is allocated to assess
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Participants involved in appointment
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []AppointmentParticipant `json:"participant,omitempty"`
 	// Potential date/time interval(s) requested to allocate the appointment within
 	RequestedPeriod []Period `json:"requestedPeriod,omitempty"`
 }
@@ -593,11 +593,11 @@ type AuditEvent struct {
 	// The purposeOfUse of the event
 	PurposeOfEvent []CodeableConcept `json:"purposeOfEvent,omitempty"`
 	// Actor involved in the event
-	Agent []BackboneElement `json:"agent,omitempty"`
+	Agent []AuditEventAgent `json:"agent,omitempty"`
 	// Audit Event Reporter
-	Source BackboneElement `json:"source"`
+	Source *AuditEventSource `json:"source,omitempty"`
 	// Data or objects used
-	Entity []BackboneElement `json:"entity,omitempty"`
+	Entity []AuditEventEntity `json:"entity,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -720,13 +720,13 @@ type BiologicallyDerivedProduct struct {
 	// BiologicallyDerivedProduct parent
 	Parent []Reference `json:"parent,omitempty"`
 	// How this product was collected
-	Collection *BackboneElement `json:"collection,omitempty"`
+	Collection *BiologicallyDerivedProductCollection `json:"collection,omitempty"`
 	// Any processing of the product during collection
-	Processing []BackboneElement `json:"processing,omitempty"`
+	Processing []BiologicallyDerivedProductProcessing `json:"processing,omitempty"`
 	// Any manipulation of product post-collection
-	Manipulation *BackboneElement `json:"manipulation,omitempty"`
+	Manipulation *BiologicallyDerivedProductManipulation `json:"manipulation,omitempty"`
 	// Product storage
-	Storage []BackboneElement `json:"storage,omitempty"`
+	Storage []BiologicallyDerivedProductStorage `json:"storage,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -812,9 +812,9 @@ type Bundle struct {
 	// Extension for Total
 	TotalExt *Element `json:"_total,omitempty"`
 	// Links related to this Bundle
-	Link []BackboneElement `json:"link,omitempty"`
+	Link []BundleLink `json:"link,omitempty"`
 	// Entry in the bundle - will have a resource or information
-	Entry []BackboneElement `json:"entry,omitempty"`
+	Entry []BundleEntry `json:"entry,omitempty"`
 	// Digital Signature
 	Signature *Signature `json:"signature,omitempty"`
 }
@@ -909,9 +909,9 @@ type CapabilityStatement struct {
 	// Extension for Imports
 	ImportsExt []Element `json:"_imports,omitempty"`
 	// Software that is covered by this capability statement
-	Software *BackboneElement `json:"software,omitempty"`
+	Software *CapabilityStatementSoftware `json:"software,omitempty"`
 	// If this describes a specific instance
-	Implementation *BackboneElement `json:"implementation,omitempty"`
+	Implementation *CapabilityStatementImplementation `json:"implementation,omitempty"`
 	// FHIR Version the system supports
 	FhirVersion *FHIRVersion `json:"fhirVersion,omitempty"`
 	// Extension for FhirVersion
@@ -929,11 +929,11 @@ type CapabilityStatement struct {
 	// Extension for ImplementationGuide
 	ImplementationGuideExt []Element `json:"_implementationGuide,omitempty"`
 	// If the endpoint is a RESTful one
-	Rest []BackboneElement `json:"rest,omitempty"`
+	Rest []CapabilityStatementRest `json:"rest,omitempty"`
 	// If messaging is supported
-	Messaging []BackboneElement `json:"messaging,omitempty"`
+	Messaging []CapabilityStatementMessaging `json:"messaging,omitempty"`
 	// Document definition
-	Document []BackboneElement `json:"document,omitempty"`
+	Document []CapabilityStatementDocument `json:"document,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -1020,7 +1020,7 @@ type CarePlan struct {
 	// Desired outcome of plan
 	Goal []Reference `json:"goal,omitempty"`
 	// Action to occur as part of plan
-	Activity []BackboneElement `json:"activity,omitempty"`
+	Activity []CarePlanActivity `json:"activity,omitempty"`
 	// Comments about the plan
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -1071,7 +1071,7 @@ type CareTeam struct {
 	// Time period team covers
 	Period *Period `json:"period,omitempty"`
 	// Members of the team
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []CareTeamParticipant `json:"participant,omitempty"`
 	// Why the care team exists
 	ReasonCode []CodeableConcept `json:"reasonCode,omitempty"`
 	// Why the care team exists
@@ -1144,7 +1144,7 @@ type CatalogEntry struct {
 	// Additional classification of the catalog entry
 	AdditionalClassification []CodeableConcept `json:"additionalClassification,omitempty"`
 	// An item that this catalog entry is related to
-	RelatedEntry []BackboneElement `json:"relatedEntry,omitempty"`
+	RelatedEntry []CatalogEntryRelatedEntry `json:"relatedEntry,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -1205,7 +1205,7 @@ type ChargeItem struct {
 	// When the charged service was applied
 	OccurrenceTiming *Timing `json:"occurrenceTiming,omitempty"`
 	// Who performed charged service
-	Performer []BackboneElement `json:"performer,omitempty"`
+	Performer []ChargeItemPerformer `json:"performer,omitempty"`
 	// Organization providing the charged service
 	PerformingOrganization *Reference `json:"performingOrganization,omitempty"`
 	// Organization requesting the charged service
@@ -1346,9 +1346,9 @@ type ChargeItemDefinition struct {
 	// Instances this definition applies to
 	Instance []Reference `json:"instance,omitempty"`
 	// Whether or not the billing code is applicable
-	Applicability []BackboneElement `json:"applicability,omitempty"`
+	Applicability []ChargeItemDefinitionApplicability `json:"applicability,omitempty"`
 	// Group of properties which are applicable under the same conditions
-	PropertyGroup []BackboneElement `json:"propertyGroup,omitempty"`
+	PropertyGroup []ChargeItemDefinitionPropertyGroup `json:"propertyGroup,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -1411,31 +1411,31 @@ type Claim struct {
 	// For whom to reserve funds
 	FundsReserve *CodeableConcept `json:"fundsReserve,omitempty"`
 	// Prior or corollary claims
-	Related []BackboneElement `json:"related,omitempty"`
+	Related []ClaimRelated `json:"related,omitempty"`
 	// Prescription authorizing services and products
 	Prescription *Reference `json:"prescription,omitempty"`
 	// Original prescription if superseded by fulfiller
 	OriginalPrescription *Reference `json:"originalPrescription,omitempty"`
 	// Recipient of benefits payable
-	Payee *BackboneElement `json:"payee,omitempty"`
+	Payee *ClaimPayee `json:"payee,omitempty"`
 	// Treatment referral
 	Referral *Reference `json:"referral,omitempty"`
 	// Servicing facility
 	Facility *Reference `json:"facility,omitempty"`
 	// Members of the care team
-	CareTeam []BackboneElement `json:"careTeam,omitempty"`
+	CareTeam []ClaimCareTeam `json:"careTeam,omitempty"`
 	// Supporting information
-	SupportingInfo []BackboneElement `json:"supportingInfo,omitempty"`
+	SupportingInfo []ClaimSupportingInfo `json:"supportingInfo,omitempty"`
 	// Pertinent diagnosis information
-	Diagnosis []BackboneElement `json:"diagnosis,omitempty"`
+	Diagnosis []ClaimDiagnosis `json:"diagnosis,omitempty"`
 	// Clinical procedures performed
-	Procedure []BackboneElement `json:"procedure,omitempty"`
+	Procedure []ClaimProcedure `json:"procedure,omitempty"`
 	// Patient insurance information
-	Insurance []BackboneElement `json:"insurance,omitempty"`
+	Insurance []ClaimInsurance `json:"insurance,omitempty"`
 	// Details of the event
-	Accident *BackboneElement `json:"accident,omitempty"`
+	Accident *ClaimAccident `json:"accident,omitempty"`
 	// Product or service provided
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []ClaimItem `json:"item,omitempty"`
 	// Total claim cost
 	Total *Money `json:"total,omitempty"`
 }
@@ -1510,15 +1510,15 @@ type ClaimResponse struct {
 	// Party to be paid any benefits payable
 	PayeeType *CodeableConcept `json:"payeeType,omitempty"`
 	// Adjudication for claim line items
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []ClaimResponseItem `json:"item,omitempty"`
 	// Insurer added line items
-	AddItem []BackboneElement `json:"addItem,omitempty"`
+	AddItem []ClaimResponseAddItem `json:"addItem,omitempty"`
 	// Header-level adjudication
 	Adjudication *interface{} `json:"adjudication,omitempty"`
 	// Adjudication totals
-	Total []BackboneElement `json:"total,omitempty"`
+	Total []ClaimResponseTotal `json:"total,omitempty"`
 	// Payment Details
-	Payment *BackboneElement `json:"payment,omitempty"`
+	Payment *ClaimResponsePayment `json:"payment,omitempty"`
 	// Funds reserved status
 	FundsReserve *CodeableConcept `json:"fundsReserve,omitempty"`
 	// Printed form identifier
@@ -1526,13 +1526,13 @@ type ClaimResponse struct {
 	// Printed reference or actual form
 	Form *Attachment `json:"form,omitempty"`
 	// Note concerning adjudication
-	ProcessNote []BackboneElement `json:"processNote,omitempty"`
+	ProcessNote []ClaimResponseProcessNote `json:"processNote,omitempty"`
 	// Request for additional information
 	CommunicationRequest []Reference `json:"communicationRequest,omitempty"`
 	// Patient insurance information
-	Insurance []BackboneElement `json:"insurance,omitempty"`
+	Insurance []ClaimResponseInsurance `json:"insurance,omitempty"`
 	// Processing errors
-	Error []BackboneElement `json:"error,omitempty"`
+	Error []ClaimResponseError `json:"error,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -1597,7 +1597,7 @@ type ClinicalImpression struct {
 	// Relevant impressions of patient state
 	Problem []Reference `json:"problem,omitempty"`
 	// One or more sets of investigations (signs, symptoms, etc.)
-	Investigation []BackboneElement `json:"investigation,omitempty"`
+	Investigation []ClinicalImpressionInvestigation `json:"investigation,omitempty"`
 	// Clinical Protocol followed
 	Protocol []string `json:"protocol,omitempty"`
 	// Extension for Protocol
@@ -1607,7 +1607,7 @@ type ClinicalImpression struct {
 	// Extension for Summary
 	SummaryExt *Element `json:"_summary,omitempty"`
 	// Possible or likely findings and diagnoses
-	Finding []BackboneElement `json:"finding,omitempty"`
+	Finding []ClinicalImpressionFinding `json:"finding,omitempty"`
 	// Estimate of likely outcome
 	PrognosisCodeableConcept []CodeableConcept `json:"prognosisCodeableConcept,omitempty"`
 	// RiskAssessment expressing likely outcome
@@ -1730,11 +1730,11 @@ type CodeSystem struct {
 	// Extension for Count
 	CountExt *Element `json:"_count,omitempty"`
 	// Filter that can be used in a value set
-	Filter []BackboneElement `json:"filter,omitempty"`
+	Filter []CodeSystemFilter `json:"filter,omitempty"`
 	// Additional information supplied about each concept
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []CodeSystemProperty `json:"property,omitempty"`
 	// Concepts in the code system
-	Concept []BackboneElement `json:"concept,omitempty"`
+	Concept []CodeSystemConcept `json:"concept,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -1819,7 +1819,7 @@ type Communication struct {
 	// Why was communication done?
 	ReasonReference []Reference `json:"reasonReference,omitempty"`
 	// Message payload
-	Payload []BackboneElement `json:"payload,omitempty"`
+	Payload []CommunicationPayload `json:"payload,omitempty"`
 	// Comments made about the communication
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -1884,7 +1884,7 @@ type CommunicationRequest struct {
 	// Encounter created as part of
 	Encounter *Reference `json:"encounter,omitempty"`
 	// Message payload
-	Payload []BackboneElement `json:"payload,omitempty"`
+	Payload []CommunicationRequestPayload `json:"payload,omitempty"`
 	// When scheduled
 	OccurrenceDateTime *string `json:"occurrenceDateTime,omitempty"`
 	// Extension for OccurrenceDateTime
@@ -1985,7 +1985,7 @@ type CompartmentDefinition struct {
 	// Extension for Search
 	SearchExt *Element `json:"_search,omitempty"`
 	// How a resource is related to the compartment
-	Resource []BackboneElement `json:"resource,omitempty"`
+	Resource []CompartmentDefinitionResource `json:"resource,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2044,15 +2044,15 @@ type Composition struct {
 	// Extension for Confidentiality
 	ConfidentialityExt *Element `json:"_confidentiality,omitempty"`
 	// Attests to accuracy of composition
-	Attester []BackboneElement `json:"attester,omitempty"`
+	Attester []CompositionAttester `json:"attester,omitempty"`
 	// Organization which maintains the composition
 	Custodian *Reference `json:"custodian,omitempty"`
 	// Relationships to other compositions/documents
-	RelatesTo []BackboneElement `json:"relatesTo,omitempty"`
+	RelatesTo []CompositionRelatesTo `json:"relatesTo,omitempty"`
 	// The clinical service(s) being documented
-	Event []BackboneElement `json:"event,omitempty"`
+	Event []CompositionEvent `json:"event,omitempty"`
 	// Composition is broken into sections
-	Section []BackboneElement `json:"section,omitempty"`
+	Section []CompositionSection `json:"section,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2151,7 +2151,7 @@ type ConceptMap struct {
 	// Extension for TargetCanonical
 	TargetCanonicalExt *Element `json:"_targetCanonical,omitempty"`
 	// Same source and target systems
-	Group []BackboneElement `json:"group,omitempty"`
+	Group []ConceptMapGroup `json:"group,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2236,9 +2236,9 @@ type Condition struct {
 	// Person who asserts this condition
 	Asserter *Reference `json:"asserter,omitempty"`
 	// Stage/grade, usually assessed formally
-	Stage []BackboneElement `json:"stage,omitempty"`
+	Stage []ConditionStage `json:"stage,omitempty"`
 	// Supporting evidence
-	Evidence []BackboneElement `json:"evidence,omitempty"`
+	Evidence []ConditionEvidence `json:"evidence,omitempty"`
 	// Additional information about the Condition
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -2295,13 +2295,13 @@ type Consent struct {
 	// Source from which this consent is taken
 	SourceReference *Reference `json:"sourceReference,omitempty"`
 	// Policies covered by this consent
-	Policy []BackboneElement `json:"policy,omitempty"`
+	Policy []ConsentPolicy `json:"policy,omitempty"`
 	// Regulation that this consents to
 	PolicyRule *CodeableConcept `json:"policyRule,omitempty"`
 	// Consent Verified by patient or family
-	Verification []BackboneElement `json:"verification,omitempty"`
+	Verification []ConsentVerification `json:"verification,omitempty"`
 	// Constraints to the base Consent.policyRule
-	Provision *BackboneElement `json:"provision,omitempty"`
+	Provision *ConsentProvision `json:"provision,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2400,21 +2400,21 @@ type Contract struct {
 	// Subtype within the context of type
 	SubType []CodeableConcept `json:"subType,omitempty"`
 	// Contract precursor content
-	ContentDefinition *BackboneElement `json:"contentDefinition,omitempty"`
+	ContentDefinition *ContractContentDefinition `json:"contentDefinition,omitempty"`
 	// Contract Term List
-	Term []BackboneElement `json:"term,omitempty"`
+	Term []ContractTerm `json:"term,omitempty"`
 	// Extra Information
 	SupportingInfo []Reference `json:"supportingInfo,omitempty"`
 	// Key event in Contract History
 	RelevantHistory []Reference `json:"relevantHistory,omitempty"`
 	// Contract Signatory
-	Signer []BackboneElement `json:"signer,omitempty"`
+	Signer []ContractSigner `json:"signer,omitempty"`
 	// Contract Friendly Language
-	Friendly []BackboneElement `json:"friendly,omitempty"`
+	Friendly []ContractFriendly `json:"friendly,omitempty"`
 	// Contract Legal Language
-	Legal []BackboneElement `json:"legal,omitempty"`
+	Legal []ContractLegal `json:"legal,omitempty"`
 	// Computable Contract Language
-	Rule []BackboneElement `json:"rule,omitempty"`
+	Rule []ContractRule `json:"rule,omitempty"`
 	// Binding Contract
 	LegallyBindingAttachment *Attachment `json:"legallyBindingAttachment,omitempty"`
 	// Binding Contract
@@ -2477,7 +2477,7 @@ type Coverage struct {
 	// Issuer of the policy
 	Payor []Reference `json:"payor,omitempty"`
 	// Additional coverage classifications
-	Class []BackboneElement `json:"class,omitempty"`
+	Class []CoverageClass `json:"class,omitempty"`
 	// Relative order of the coverage
 	Order *uint32 `json:"order,omitempty"`
 	// Extension for Order
@@ -2487,7 +2487,7 @@ type Coverage struct {
 	// Extension for Network
 	NetworkExt *Element `json:"_network,omitempty"`
 	// Patient payments for services/products
-	CostToBeneficiary []BackboneElement `json:"costToBeneficiary,omitempty"`
+	CostToBeneficiary []CoverageCostToBeneficiary `json:"costToBeneficiary,omitempty"`
 	// Reimbursement to insurer
 	Subrogation *bool `json:"subrogation,omitempty"`
 	// Extension for Subrogation
@@ -2556,11 +2556,11 @@ type CoverageEligibilityRequest struct {
 	// Servicing facility
 	Facility *Reference `json:"facility,omitempty"`
 	// Supporting information
-	SupportingInfo []BackboneElement `json:"supportingInfo,omitempty"`
+	SupportingInfo []CoverageEligibilityRequestSupportingInfo `json:"supportingInfo,omitempty"`
 	// Patient insurance information
-	Insurance []BackboneElement `json:"insurance,omitempty"`
+	Insurance []CoverageEligibilityRequestInsurance `json:"insurance,omitempty"`
 	// Item to be evaluated for eligibiity
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []CoverageEligibilityRequestItem `json:"item,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2627,7 +2627,7 @@ type CoverageEligibilityResponse struct {
 	// Coverage issuer
 	Insurer Reference `json:"insurer"`
 	// Patient insurance information
-	Insurance []BackboneElement `json:"insurance,omitempty"`
+	Insurance []CoverageEligibilityResponseInsurance `json:"insurance,omitempty"`
 	// Preauthorization reference
 	PreAuthRef *string `json:"preAuthRef,omitempty"`
 	// Extension for PreAuthRef
@@ -2635,7 +2635,7 @@ type CoverageEligibilityResponse struct {
 	// Printed form identifier
 	Form *CodeableConcept `json:"form,omitempty"`
 	// Processing errors
-	Error []BackboneElement `json:"error,omitempty"`
+	Error []CoverageEligibilityResponseError `json:"error,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2690,7 +2690,7 @@ type DetectedIssue struct {
 	// Problem resource
 	Implicated []Reference `json:"implicated,omitempty"`
 	// Supporting evidence
-	Evidence []BackboneElement `json:"evidence,omitempty"`
+	Evidence []DetectedIssueEvidence `json:"evidence,omitempty"`
 	// Description and context
 	Detail *string `json:"detail,omitempty"`
 	// Extension for Detail
@@ -2700,7 +2700,7 @@ type DetectedIssue struct {
 	// Extension for Reference
 	ReferenceExt *Element `json:"_reference,omitempty"`
 	// Step taken to address
-	Mitigation []BackboneElement `json:"mitigation,omitempty"`
+	Mitigation []DetectedIssueMitigation `json:"mitigation,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2735,7 +2735,7 @@ type Device struct {
 	// The reference to the definition for the device
 	Definition *Reference `json:"definition,omitempty"`
 	// Unique Device Identifier (UDI) Barcode string
-	UdiCarrier []BackboneElement `json:"udiCarrier,omitempty"`
+	UdiCarrier []DeviceUdiCarrier `json:"udiCarrier,omitempty"`
 	// active | inactive | entered-in-error | unknown
 	Status *FHIRDeviceStatus `json:"status,omitempty"`
 	// Extension for Status
@@ -2767,7 +2767,7 @@ type Device struct {
 	// Extension for SerialNumber
 	SerialNumberExt *Element `json:"_serialNumber,omitempty"`
 	// The name of the device as given by the manufacturer
-	DeviceName []BackboneElement `json:"deviceName,omitempty"`
+	DeviceName []DeviceDeviceName `json:"deviceName,omitempty"`
 	// The model number for the device
 	ModelNumber *string `json:"modelNumber,omitempty"`
 	// Extension for ModelNumber
@@ -2779,11 +2779,11 @@ type Device struct {
 	// The kind or type of device
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used for the communication
-	Specialization []BackboneElement `json:"specialization,omitempty"`
+	Specialization []DeviceSpecialization `json:"specialization,omitempty"`
 	// The actual design of the device or software version running on the device
-	Version []BackboneElement `json:"version,omitempty"`
+	Version []DeviceVersion `json:"version,omitempty"`
 	// The actual configuration settings of a device as it actually operates, e.g., regulation status, time properties
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []DeviceProperty `json:"property,omitempty"`
 	// Patient to whom Device is affixed
 	Patient *Reference `json:"patient,omitempty"`
 	// Organization responsible for device
@@ -2834,7 +2834,7 @@ type DeviceDefinition struct {
 	// Instance identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Unique Device Identifier (UDI) Barcode string
-	UdiDeviceIdentifier []BackboneElement `json:"udiDeviceIdentifier,omitempty"`
+	UdiDeviceIdentifier []DeviceDefinitionUdiDeviceIdentifier `json:"udiDeviceIdentifier,omitempty"`
 	// Name of device manufacturer
 	ManufacturerString *string `json:"manufacturerString,omitempty"`
 	// Extension for ManufacturerString
@@ -2842,7 +2842,7 @@ type DeviceDefinition struct {
 	// Name of device manufacturer
 	ManufacturerReference *Reference `json:"manufacturerReference,omitempty"`
 	// A name given to the device to identify it
-	DeviceName []BackboneElement `json:"deviceName,omitempty"`
+	DeviceName []DeviceDefinitionDeviceName `json:"deviceName,omitempty"`
 	// The model number for the device
 	ModelNumber *string `json:"modelNumber,omitempty"`
 	// Extension for ModelNumber
@@ -2850,7 +2850,7 @@ type DeviceDefinition struct {
 	// What kind of device or device system this is
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used for the communication
-	Specialization []BackboneElement `json:"specialization,omitempty"`
+	Specialization []DeviceDefinitionSpecialization `json:"specialization,omitempty"`
 	// Available versions
 	Version []string `json:"version,omitempty"`
 	// Extension for Version
@@ -2864,9 +2864,9 @@ type DeviceDefinition struct {
 	// Language code for the human-readable text strings produced by the device (all supported)
 	LanguageCode []CodeableConcept `json:"languageCode,omitempty"`
 	// Device capabilities
-	Capability []BackboneElement `json:"capability,omitempty"`
+	Capability []DeviceDefinitionCapability `json:"capability,omitempty"`
 	// The actual configuration settings of a device as it actually operates, e.g., regulation status, time properties
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []DeviceDefinitionProperty `json:"property,omitempty"`
 	// Organization responsible for device
 	Owner *Reference `json:"owner,omitempty"`
 	// Details for human/organization for support
@@ -2886,7 +2886,7 @@ type DeviceDefinition struct {
 	// The parent device it can be part of
 	ParentDevice *Reference `json:"parentDevice,omitempty"`
 	// A substance used to create the material(s) of which the device is made
-	Material []BackboneElement `json:"material,omitempty"`
+	Material []DeviceDefinitionMaterial `json:"material,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2941,7 +2941,7 @@ type DeviceMetric struct {
 	// Describes the measurement repetition time
 	MeasurementPeriod *Timing `json:"measurementPeriod,omitempty"`
 	// Describes the calibrations that have been performed or that are required to be performed
-	Calibration []BackboneElement `json:"calibration,omitempty"`
+	Calibration []DeviceMetricCalibration `json:"calibration,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -3004,7 +3004,7 @@ type DeviceRequest struct {
 	// Device requested
 	CodeCodeableConcept *CodeableConcept `json:"codeCodeableConcept,omitempty"`
 	// Device details
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []DeviceRequestParameter `json:"parameter,omitempty"`
 	// Focus of request
 	Subject Reference `json:"subject"`
 	// Encounter motivating request
@@ -3170,7 +3170,7 @@ type DiagnosticReport struct {
 	// Reference to full details of imaging associated with the diagnostic report
 	ImagingStudy []Reference `json:"imagingStudy,omitempty"`
 	// Key images associated with this report
-	Media []BackboneElement `json:"media,omitempty"`
+	Media []DiagnosticReportMedia `json:"media,omitempty"`
 	// Clinical conclusion (interpretation) of test results
 	Conclusion *string `json:"conclusion,omitempty"`
 	// Extension for Conclusion
@@ -3239,7 +3239,7 @@ type DocumentManifest struct {
 	// Items in manifest
 	Content []Reference `json:"content,omitempty"`
 	// Related things
-	Related []BackboneElement `json:"related,omitempty"`
+	Related []DocumentManifestRelated `json:"related,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -3298,7 +3298,7 @@ type DocumentReference struct {
 	// Organization which maintains the document
 	Custodian *Reference `json:"custodian,omitempty"`
 	// Relationships to other documents
-	RelatesTo []BackboneElement `json:"relatesTo,omitempty"`
+	RelatesTo []DocumentReferenceRelatesTo `json:"relatesTo,omitempty"`
 	// Human-readable description
 	Description *string `json:"description,omitempty"`
 	// Extension for Description
@@ -3306,9 +3306,9 @@ type DocumentReference struct {
 	// Document security-tags
 	SecurityLabel []CodeableConcept `json:"securityLabel,omitempty"`
 	// Document referenced
-	Content []BackboneElement `json:"content,omitempty"`
+	Content []DocumentReferenceContent `json:"content,omitempty"`
 	// Clinical context of document
-	Context *BackboneElement `json:"context,omitempty"`
+	Context *DocumentReferenceContext `json:"context,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -3419,13 +3419,13 @@ type EffectEvidenceSynthesis struct {
 	// What outcome?
 	Outcome Reference `json:"outcome"`
 	// What sample size was involved?
-	SampleSize *BackboneElement `json:"sampleSize,omitempty"`
+	SampleSize *EffectEvidenceSynthesisSampleSize `json:"sampleSize,omitempty"`
 	// What was the result per exposure?
-	ResultsByExposure []BackboneElement `json:"resultsByExposure,omitempty"`
+	ResultsByExposure []EffectEvidenceSynthesisResultsByExposure `json:"resultsByExposure,omitempty"`
 	// What was the estimated effect
-	EffectEstimate []BackboneElement `json:"effectEstimate,omitempty"`
+	EffectEstimate []EffectEvidenceSynthesisEffectEstimate `json:"effectEstimate,omitempty"`
 	// How certain is the effect
-	Certainty []BackboneElement `json:"certainty,omitempty"`
+	Certainty []EffectEvidenceSynthesisCertainty `json:"certainty,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -3462,11 +3462,11 @@ type Encounter struct {
 	// Extension for Status
 	StatusExt *Element `json:"_status,omitempty"`
 	// List of past encounter statuses
-	StatusHistory []BackboneElement `json:"statusHistory,omitempty"`
+	StatusHistory []EncounterStatusHistory `json:"statusHistory,omitempty"`
 	// Classification of patient encounter
 	Class Coding `json:"class"`
 	// List of past encounter classes
-	ClassHistory []BackboneElement `json:"classHistory,omitempty"`
+	ClassHistory []EncounterClassHistory `json:"classHistory,omitempty"`
 	// Specific type of encounter
 	Type []CodeableConcept `json:"type,omitempty"`
 	// Specific type of service
@@ -3480,7 +3480,7 @@ type Encounter struct {
 	// The ServiceRequest that initiated this encounter
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// List of participants involved in the encounter
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []EncounterParticipant `json:"participant,omitempty"`
 	// The appointment that scheduled this encounter
 	Appointment []Reference `json:"appointment,omitempty"`
 	// The start and end time of the encounter
@@ -3492,13 +3492,13 @@ type Encounter struct {
 	// Reason the encounter takes place (reference)
 	ReasonReference []Reference `json:"reasonReference,omitempty"`
 	// The list of diagnosis relevant to this encounter
-	Diagnosis []BackboneElement `json:"diagnosis,omitempty"`
+	Diagnosis []EncounterDiagnosis `json:"diagnosis,omitempty"`
 	// The set of accounts that may be used for billing for this Encounter
 	Account []Reference `json:"account,omitempty"`
 	// Details about the admission to a healthcare service
-	Hospitalization *BackboneElement `json:"hospitalization,omitempty"`
+	Hospitalization *EncounterHospitalization `json:"hospitalization,omitempty"`
 	// List of locations where the patient has been
-	Location []BackboneElement `json:"location,omitempty"`
+	Location []EncounterLocation `json:"location,omitempty"`
 	// The organization (facility) responsible for this encounter
 	ServiceProvider *Reference `json:"serviceProvider,omitempty"`
 	// Another Encounter this encounter is part of
@@ -3700,11 +3700,11 @@ type EpisodeOfCare struct {
 	// Extension for Status
 	StatusExt *Element `json:"_status,omitempty"`
 	// Past list of status codes (the current status may be included to cover the start date of the status)
-	StatusHistory []BackboneElement `json:"statusHistory,omitempty"`
+	StatusHistory []EpisodeOfCareStatusHistory `json:"statusHistory,omitempty"`
 	// Type/class  - e.g. specialist referral, disease management
 	Type []CodeableConcept `json:"type,omitempty"`
 	// The list of diagnosis relevant to this episode of care
-	Diagnosis []BackboneElement `json:"diagnosis,omitempty"`
+	Diagnosis []EpisodeOfCareDiagnosis `json:"diagnosis,omitempty"`
 	// The patient who is the focus of this episode of care
 	Patient Reference `json:"patient"`
 	// Organization that assumes care
@@ -4057,7 +4057,7 @@ type EvidenceVariable struct {
 	// Extension for Type
 	TypeExt *Element `json:"_type,omitempty"`
 	// What defines the members of the evidence element
-	Characteristic []BackboneElement `json:"characteristic,omitempty"`
+	Characteristic []EvidenceVariableCharacteristic `json:"characteristic,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -4132,11 +4132,11 @@ type ExampleScenario struct {
 	// Extension for Purpose
 	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Actor participating in the resource
-	Actor []BackboneElement `json:"actor,omitempty"`
+	Actor []ExampleScenarioActor `json:"actor,omitempty"`
 	// Each resource and each version that is present in the workflow
-	Instance []BackboneElement `json:"instance,omitempty"`
+	Instance []ExampleScenarioInstance `json:"instance,omitempty"`
 	// Each major process - a group of operations
-	Process []BackboneElement `json:"process,omitempty"`
+	Process []ExampleScenarioProcess `json:"process,omitempty"`
 	// Another nested workflow
 	Workflow []string `json:"workflow,omitempty"`
 	// Extension for Workflow
@@ -4205,13 +4205,13 @@ type ExplanationOfBenefit struct {
 	// Funds reserved status
 	FundsReserve *CodeableConcept `json:"fundsReserve,omitempty"`
 	// Prior or corollary claims
-	Related []BackboneElement `json:"related,omitempty"`
+	Related []ExplanationOfBenefitRelated `json:"related,omitempty"`
 	// Prescription authorizing services or products
 	Prescription *Reference `json:"prescription,omitempty"`
 	// Original prescription if superceded by fulfiller
 	OriginalPrescription *Reference `json:"originalPrescription,omitempty"`
 	// Recipient of benefits payable
-	Payee *BackboneElement `json:"payee,omitempty"`
+	Payee *ExplanationOfBenefitPayee `json:"payee,omitempty"`
 	// Treatment Referral
 	Referral *Reference `json:"referral,omitempty"`
 	// Servicing Facility
@@ -4235,41 +4235,41 @@ type ExplanationOfBenefit struct {
 	// Preauthorization in-effect period
 	PreAuthRefPeriod []Period `json:"preAuthRefPeriod,omitempty"`
 	// Care Team members
-	CareTeam []BackboneElement `json:"careTeam,omitempty"`
+	CareTeam []ExplanationOfBenefitCareTeam `json:"careTeam,omitempty"`
 	// Supporting information
-	SupportingInfo []BackboneElement `json:"supportingInfo,omitempty"`
+	SupportingInfo []ExplanationOfBenefitSupportingInfo `json:"supportingInfo,omitempty"`
 	// Pertinent diagnosis information
-	Diagnosis []BackboneElement `json:"diagnosis,omitempty"`
+	Diagnosis []ExplanationOfBenefitDiagnosis `json:"diagnosis,omitempty"`
 	// Clinical procedures performed
-	Procedure []BackboneElement `json:"procedure,omitempty"`
+	Procedure []ExplanationOfBenefitProcedure `json:"procedure,omitempty"`
 	// Precedence (primary, secondary, etc.)
 	Precedence *uint32 `json:"precedence,omitempty"`
 	// Extension for Precedence
 	PrecedenceExt *Element `json:"_precedence,omitempty"`
 	// Patient insurance information
-	Insurance []BackboneElement `json:"insurance,omitempty"`
+	Insurance []ExplanationOfBenefitInsurance `json:"insurance,omitempty"`
 	// Details of the event
-	Accident *BackboneElement `json:"accident,omitempty"`
+	Accident *ExplanationOfBenefitAccident `json:"accident,omitempty"`
 	// Product or service provided
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []ExplanationOfBenefitItem `json:"item,omitempty"`
 	// Insurer added line items
-	AddItem []BackboneElement `json:"addItem,omitempty"`
+	AddItem []ExplanationOfBenefitAddItem `json:"addItem,omitempty"`
 	// Header-level adjudication
 	Adjudication *interface{} `json:"adjudication,omitempty"`
 	// Adjudication totals
-	Total []BackboneElement `json:"total,omitempty"`
+	Total []ExplanationOfBenefitTotal `json:"total,omitempty"`
 	// Payment Details
-	Payment *BackboneElement `json:"payment,omitempty"`
+	Payment *ExplanationOfBenefitPayment `json:"payment,omitempty"`
 	// Printed form identifier
 	FormCode *CodeableConcept `json:"formCode,omitempty"`
 	// Printed reference or actual form
 	Form *Attachment `json:"form,omitempty"`
 	// Note concerning adjudication
-	ProcessNote []BackboneElement `json:"processNote,omitempty"`
+	ProcessNote []ExplanationOfBenefitProcessNote `json:"processNote,omitempty"`
 	// When the benefits are applicable
 	BenefitPeriod *Period `json:"benefitPeriod,omitempty"`
 	// Balance by Benefit Category
-	BenefitBalance []BackboneElement `json:"benefitBalance,omitempty"`
+	BenefitBalance []ExplanationOfBenefitBenefitBalance `json:"benefitBalance,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -4374,7 +4374,7 @@ type FamilyMemberHistory struct {
 	// General note about related person
 	Note []Annotation `json:"note,omitempty"`
 	// Condition that the related person had
-	Condition []BackboneElement `json:"condition,omitempty"`
+	Condition []FamilyMemberHistoryCondition `json:"condition,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -4474,7 +4474,7 @@ type Goal struct {
 	// When goal pursuit begins
 	StartCodeableConcept *CodeableConcept `json:"startCodeableConcept,omitempty"`
 	// Target outcome for the goal
-	Target []BackboneElement `json:"target,omitempty"`
+	Target []GoalTarget `json:"target,omitempty"`
 	// When goal status took effect
 	StatusDate *string `json:"statusDate,omitempty"`
 	// Extension for StatusDate
@@ -4573,7 +4573,7 @@ type GraphDefinition struct {
 	// Extension for Profile
 	ProfileExt *Element `json:"_profile,omitempty"`
 	// Links this graph makes rules about
-	Link []BackboneElement `json:"link,omitempty"`
+	Link []GraphDefinitionLink `json:"link,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -4630,9 +4630,9 @@ type Group struct {
 	// Entity that is the custodian of the Group's definition
 	ManagingEntity *Reference `json:"managingEntity,omitempty"`
 	// Include / Exclude group members by Trait
-	Characteristic []BackboneElement `json:"characteristic,omitempty"`
+	Characteristic []GroupCharacteristic `json:"characteristic,omitempty"`
 	// Who or what is in group
-	Member []BackboneElement `json:"member,omitempty"`
+	Member []GroupMember `json:"member,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -4770,7 +4770,7 @@ type HealthcareService struct {
 	// Conditions under which service is available/offered
 	ServiceProvisionCode []CodeableConcept `json:"serviceProvisionCode,omitempty"`
 	// Specific eligibility requirements required to use the service
-	Eligibility []BackboneElement `json:"eligibility,omitempty"`
+	Eligibility []HealthcareServiceEligibility `json:"eligibility,omitempty"`
 	// Programs that this service is applicable to
 	Program []CodeableConcept `json:"program,omitempty"`
 	// Collection of characteristics (attributes)
@@ -4784,9 +4784,9 @@ type HealthcareService struct {
 	// Extension for AppointmentRequired
 	AppointmentRequiredExt *Element `json:"_appointmentRequired,omitempty"`
 	// Times the Service Site is available
-	AvailableTime []BackboneElement `json:"availableTime,omitempty"`
+	AvailableTime []HealthcareServiceAvailableTime `json:"availableTime,omitempty"`
 	// Not available during this time due to provided reason
-	NotAvailable []BackboneElement `json:"notAvailable,omitempty"`
+	NotAvailable []HealthcareServiceNotAvailable `json:"notAvailable,omitempty"`
 	// Description of availability exceptions
 	AvailabilityExceptions *string `json:"availabilityExceptions,omitempty"`
 	// Extension for AvailabilityExceptions
@@ -4871,7 +4871,7 @@ type ImagingStudy struct {
 	// Extension for Description
 	DescriptionExt *Element `json:"_description,omitempty"`
 	// Each study has one or more series of instances
-	Series []BackboneElement `json:"series,omitempty"`
+	Series []ImagingStudySeries `json:"series,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -4952,7 +4952,7 @@ type Immunization struct {
 	// Amount of vaccine administered
 	DoseQuantity *Quantity `json:"doseQuantity,omitempty"`
 	// Who performed event
-	Performer []BackboneElement `json:"performer,omitempty"`
+	Performer []ImmunizationPerformer `json:"performer,omitempty"`
 	// Additional immunization notes
 	Note []Annotation `json:"note,omitempty"`
 	// Why immunization occurred
@@ -4966,15 +4966,15 @@ type Immunization struct {
 	// Reason for being subpotent
 	SubpotentReason []CodeableConcept `json:"subpotentReason,omitempty"`
 	// Educational material presented to patient
-	Education []BackboneElement `json:"education,omitempty"`
+	Education []ImmunizationEducation `json:"education,omitempty"`
 	// Patient eligibility for a vaccination program
 	ProgramEligibility []CodeableConcept `json:"programEligibility,omitempty"`
 	// Funding source for the vaccine
 	FundingSource *CodeableConcept `json:"fundingSource,omitempty"`
 	// Details of a reaction that follows immunization
-	Reaction []BackboneElement `json:"reaction,omitempty"`
+	Reaction []ImmunizationReaction `json:"reaction,omitempty"`
 	// Protocol followed by the provider
-	ProtocolApplied []BackboneElement `json:"protocolApplied,omitempty"`
+	ProtocolApplied []ImmunizationProtocolApplied `json:"protocolApplied,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5090,7 +5090,7 @@ type ImmunizationRecommendation struct {
 	// Who is responsible for protocol
 	Authority *Reference `json:"authority,omitempty"`
 	// Vaccine administration recommendations
-	Recommendation []BackboneElement `json:"recommendation,omitempty"`
+	Recommendation []ImmunizationRecommendationRecommendation `json:"recommendation,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5179,13 +5179,13 @@ type ImplementationGuide struct {
 	// Extension for FhirVersion
 	FhirVersionExt []Element `json:"_fhirVersion,omitempty"`
 	// Another Implementation guide this depends on
-	DependsOn []BackboneElement `json:"dependsOn,omitempty"`
+	DependsOn []ImplementationGuideDependsOn `json:"dependsOn,omitempty"`
 	// Profiles that apply globally
-	Global []BackboneElement `json:"global,omitempty"`
+	Global []ImplementationGuideGlobal `json:"global,omitempty"`
 	// Information needed to build the IG
-	Definition *BackboneElement `json:"definition,omitempty"`
+	Definition *ImplementationGuideDefinition `json:"definition,omitempty"`
 	// Information about an assembled IG
-	Manifest *BackboneElement `json:"manifest,omitempty"`
+	Manifest *ImplementationGuideManifest `json:"manifest,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5240,15 +5240,15 @@ type InsurancePlan struct {
 	// Where product applies
 	CoverageArea []Reference `json:"coverageArea,omitempty"`
 	// Contact for the product
-	Contact []BackboneElement `json:"contact,omitempty"`
+	Contact []InsurancePlanContact `json:"contact,omitempty"`
 	// Technical endpoint
 	Endpoint []Reference `json:"endpoint,omitempty"`
 	// What networks are Included
 	Network []Reference `json:"network,omitempty"`
 	// Coverage details
-	Coverage []BackboneElement `json:"coverage,omitempty"`
+	Coverage []InsurancePlanCoverage `json:"coverage,omitempty"`
 	// Plan details
-	Plan []BackboneElement `json:"plan,omitempty"`
+	Plan []InsurancePlanPlan `json:"plan,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5299,13 +5299,13 @@ type Invoice struct {
 	// Extension for Date
 	DateExt *Element `json:"_date,omitempty"`
 	// Participant in creation of this Invoice
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []InvoiceParticipant `json:"participant,omitempty"`
 	// Issuing Organization of Invoice
 	Issuer *Reference `json:"issuer,omitempty"`
 	// Account that is being balanced
 	Account *Reference `json:"account,omitempty"`
 	// Line items of this Invoice
-	LineItem []BackboneElement `json:"lineItem,omitempty"`
+	LineItem []InvoiceLineItem `json:"lineItem,omitempty"`
 	// Components of Invoice total
 	TotalPriceComponent *interface{} `json:"totalPriceComponent,omitempty"`
 	// Net total of this Invoice
@@ -5477,7 +5477,7 @@ type Linkage struct {
 	// Who is responsible for linkages
 	Author *Reference `json:"author,omitempty"`
 	// Item to be linked
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []LinkageItem `json:"item,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5538,7 +5538,7 @@ type List struct {
 	// Comments about the list
 	Note []Annotation `json:"note,omitempty"`
 	// Entries in the list
-	Entry []BackboneElement `json:"entry,omitempty"`
+	Entry []ListEntry `json:"entry,omitempty"`
 	// Why list is empty
 	EmptyReason *CodeableConcept `json:"emptyReason,omitempty"`
 }
@@ -5603,13 +5603,13 @@ type Location struct {
 	// Physical form of the location
 	PhysicalType *CodeableConcept `json:"physicalType,omitempty"`
 	// The absolute geographic location
-	Position *BackboneElement `json:"position,omitempty"`
+	Position *LocationPosition `json:"position,omitempty"`
 	// Organization responsible for provisioning and upkeep
 	ManagingOrganization *Reference `json:"managingOrganization,omitempty"`
 	// Another Location this one is physically a part of
 	PartOf *Reference `json:"partOf,omitempty"`
 	// What days/times during a week is this location usually open
-	HoursOfOperation []BackboneElement `json:"hoursOfOperation,omitempty"`
+	HoursOfOperation []LocationHoursOfOperation `json:"hoursOfOperation,omitempty"`
 	// Description of availability exceptions
 	AvailabilityExceptions *string `json:"availabilityExceptions,omitempty"`
 	// Extension for AvailabilityExceptions
@@ -5772,9 +5772,9 @@ type Measure struct {
 	// Extension for Guidance
 	GuidanceExt *Element `json:"_guidance,omitempty"`
 	// Population criteria group
-	Group []BackboneElement `json:"group,omitempty"`
+	Group []MeasureGroup `json:"group,omitempty"`
 	// What other data should be reported with the measure
-	SupplementalData []BackboneElement `json:"supplementalData,omitempty"`
+	SupplementalData []MeasureSupplementalData `json:"supplementalData,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5831,7 +5831,7 @@ type MeasureReport struct {
 	// increase | decrease
 	ImprovementNotation *CodeableConcept `json:"improvementNotation,omitempty"`
 	// Measure results for each group
-	Group []BackboneElement `json:"group,omitempty"`
+	Group []MeasureReportGroup `json:"group,omitempty"`
 	// What data was used to calculate the measure score
 	EvaluatedResource []Reference `json:"evaluatedResource,omitempty"`
 }
@@ -5969,9 +5969,9 @@ type Medication struct {
 	// Amount of drug in package
 	Amount *Ratio `json:"amount,omitempty"`
 	// Active or inactive ingredient
-	Ingredient []BackboneElement `json:"ingredient,omitempty"`
+	Ingredient []MedicationIngredient `json:"ingredient,omitempty"`
 	// Details about packaged medications
-	Batch *BackboneElement `json:"batch,omitempty"`
+	Batch *MedicationBatch `json:"batch,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -6034,7 +6034,7 @@ type MedicationAdministration struct {
 	// Start and end time of administration
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// Who performed the medication administration and what they did
-	Performer []BackboneElement `json:"performer,omitempty"`
+	Performer []MedicationAdministrationPerformer `json:"performer,omitempty"`
 	// Reason administration performed
 	ReasonCode []CodeableConcept `json:"reasonCode,omitempty"`
 	// Condition or observation that supports why the medication was administered
@@ -6046,7 +6046,7 @@ type MedicationAdministration struct {
 	// Information about the administration
 	Note []Annotation `json:"note,omitempty"`
 	// Details of how medication was taken
-	Dosage *BackboneElement `json:"dosage,omitempty"`
+	Dosage *MedicationAdministrationDosage `json:"dosage,omitempty"`
 	// A list of events of interest in the lifecycle
 	EventHistory []Reference `json:"eventHistory,omitempty"`
 }
@@ -6103,7 +6103,7 @@ type MedicationDispense struct {
 	// Information that supports the dispensing of the medication
 	SupportingInformation []Reference `json:"supportingInformation,omitempty"`
 	// Who performed event
-	Performer []BackboneElement `json:"performer,omitempty"`
+	Performer []MedicationDispensePerformer `json:"performer,omitempty"`
 	// Where the dispense occurred
 	Location *Reference `json:"location,omitempty"`
 	// Medication order that authorizes the dispense
@@ -6131,7 +6131,7 @@ type MedicationDispense struct {
 	// How the medication is to be used by the patient or administered by the caregiver
 	DosageInstruction []Dosage `json:"dosageInstruction,omitempty"`
 	// Whether a substitution was performed on the dispense
-	Substitution *BackboneElement `json:"substitution,omitempty"`
+	Substitution *MedicationDispenseSubstitution `json:"substitution,omitempty"`
 	// Clinical issue with action
 	DetectedIssue []Reference `json:"detectedIssue,omitempty"`
 	// A list of relevant lifecycle events
@@ -6182,15 +6182,15 @@ type MedicationKnowledge struct {
 	// Extension for Synonym
 	SynonymExt []Element `json:"_synonym,omitempty"`
 	// Associated or related medication information
-	RelatedMedicationKnowledge []BackboneElement `json:"relatedMedicationKnowledge,omitempty"`
+	RelatedMedicationKnowledge []MedicationKnowledgeRelatedMedicationKnowledge `json:"relatedMedicationKnowledge,omitempty"`
 	// A medication resource that is associated with this medication
 	AssociatedMedication []Reference `json:"associatedMedication,omitempty"`
 	// Category of the medication or product
 	ProductType []CodeableConcept `json:"productType,omitempty"`
 	// Associated documentation about the medication
-	Monograph []BackboneElement `json:"monograph,omitempty"`
+	Monograph []MedicationKnowledgeMonograph `json:"monograph,omitempty"`
 	// Active or inactive ingredient
-	Ingredient []BackboneElement `json:"ingredient,omitempty"`
+	Ingredient []MedicationKnowledgeIngredient `json:"ingredient,omitempty"`
 	// The instructions for preparing the medication
 	PreparationInstruction *string `json:"preparationInstruction,omitempty"`
 	// Extension for PreparationInstruction
@@ -6198,23 +6198,23 @@ type MedicationKnowledge struct {
 	// The intended or approved route of administration
 	IntendedRoute []CodeableConcept `json:"intendedRoute,omitempty"`
 	// The pricing of the medication
-	Cost []BackboneElement `json:"cost,omitempty"`
+	Cost []MedicationKnowledgeCost `json:"cost,omitempty"`
 	// Program under which a medication is reviewed
-	MonitoringProgram []BackboneElement `json:"monitoringProgram,omitempty"`
+	MonitoringProgram []MedicationKnowledgeMonitoringProgram `json:"monitoringProgram,omitempty"`
 	// Guidelines for administration of the medication
-	AdministrationGuidelines []BackboneElement `json:"administrationGuidelines,omitempty"`
+	AdministrationGuidelines []MedicationKnowledgeAdministrationGuidelines `json:"administrationGuidelines,omitempty"`
 	// Categorization of the medication within a formulary or classification system
-	MedicineClassification []BackboneElement `json:"medicineClassification,omitempty"`
+	MedicineClassification []MedicationKnowledgeMedicineClassification `json:"medicineClassification,omitempty"`
 	// Details about packaged medications
-	Packaging *BackboneElement `json:"packaging,omitempty"`
+	Packaging *MedicationKnowledgePackaging `json:"packaging,omitempty"`
 	// Specifies descriptive properties of the medicine
-	DrugCharacteristic []BackboneElement `json:"drugCharacteristic,omitempty"`
+	DrugCharacteristic []MedicationKnowledgeDrugCharacteristic `json:"drugCharacteristic,omitempty"`
 	// Potential clinical issue with or between medication(s)
 	Contraindication []Reference `json:"contraindication,omitempty"`
 	// Regulatory information about a medication
-	Regulatory []BackboneElement `json:"regulatory,omitempty"`
+	Regulatory []MedicationKnowledgeRegulatory `json:"regulatory,omitempty"`
 	// The time course of drug absorption, distribution, metabolism and excretion of a medication from the body
-	Kinetics []BackboneElement `json:"kinetics,omitempty"`
+	Kinetics []MedicationKnowledgeKinetics `json:"kinetics,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -6319,9 +6319,9 @@ type MedicationRequest struct {
 	// How the medication should be taken
 	DosageInstruction []Dosage `json:"dosageInstruction,omitempty"`
 	// Medication supply authorization
-	DispenseRequest *BackboneElement `json:"dispenseRequest,omitempty"`
+	DispenseRequest *MedicationRequestDispenseRequest `json:"dispenseRequest,omitempty"`
 	// Any restrictions on medication substitution
-	Substitution *BackboneElement `json:"substitution,omitempty"`
+	Substitution *MedicationRequestSubstitution `json:"substitution,omitempty"`
 	// An order/prescription that is being replaced
 	PriorPrescription *Reference `json:"priorPrescription,omitempty"`
 	// Clinical Issue with action
@@ -6465,13 +6465,13 @@ type MedicinalProduct struct {
 	// Clinical trials or studies that this product is involved in
 	ClinicalTrial []Reference `json:"clinicalTrial,omitempty"`
 	// The product's name, including full name and possibly coded parts
-	Name []BackboneElement `json:"name,omitempty"`
+	Name []MedicinalProductName `json:"name,omitempty"`
 	// Reference to another product, e.g. for linking authorised to investigational product
 	CrossReference []Identifier `json:"crossReference,omitempty"`
 	// An operation applied to the product, for manufacturing or adminsitrative purpose
-	ManufacturingBusinessOperation []BackboneElement `json:"manufacturingBusinessOperation,omitempty"`
+	ManufacturingBusinessOperation []MedicinalProductManufacturingBusinessOperation `json:"manufacturingBusinessOperation,omitempty"`
 	// Indicates if the medicinal product has an orphan designation for the treatment of a rare disease
-	SpecialDesignation []BackboneElement `json:"specialDesignation,omitempty"`
+	SpecialDesignation []MedicinalProductSpecialDesignation `json:"specialDesignation,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -6534,13 +6534,13 @@ type MedicinalProductAuthorization struct {
 	// The legal framework against which this authorization is granted
 	LegalBasis *CodeableConcept `json:"legalBasis,omitempty"`
 	// Authorization in areas within a country
-	JurisdictionalAuthorization []BackboneElement `json:"jurisdictionalAuthorization,omitempty"`
+	JurisdictionalAuthorization []MedicinalProductAuthorizationJurisdictionalAuthorization `json:"jurisdictionalAuthorization,omitempty"`
 	// Marketing Authorization Holder
 	Holder *Reference `json:"holder,omitempty"`
 	// Medicines Regulatory Agency
 	Regulator *Reference `json:"regulator,omitempty"`
 	// The regulatory procedure for granting or amending a marketing authorization
-	Procedure *BackboneElement `json:"procedure,omitempty"`
+	Procedure *MedicinalProductAuthorizationProcedure `json:"procedure,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -6581,7 +6581,7 @@ type MedicinalProductContraindication struct {
 	// Information about the use of the medicinal product in relation to other therapies as part of the indication
 	TherapeuticIndication []Reference `json:"therapeuticIndication,omitempty"`
 	// Information about the use of the medicinal product in relation to other therapies described as part of the indication
-	OtherTherapy []BackboneElement `json:"otherTherapy,omitempty"`
+	OtherTherapy []MedicinalProductContraindicationOtherTherapy `json:"otherTherapy,omitempty"`
 	// The population group to which this applies
 	Population []Population `json:"population,omitempty"`
 }
@@ -6626,7 +6626,7 @@ type MedicinalProductIndication struct {
 	// Timing or duration information as part of the indication
 	Duration *Quantity `json:"duration,omitempty"`
 	// Information about the use of the medicinal product in relation to other therapies described as part of the indication
-	OtherTherapy []BackboneElement `json:"otherTherapy,omitempty"`
+	OtherTherapy []MedicinalProductIndicationOtherTherapy `json:"otherTherapy,omitempty"`
 	// Describe the undesirable effects of the medicinal product
 	UndesirableEffect []Reference `json:"undesirableEffect,omitempty"`
 	// The population group to which this applies
@@ -6671,9 +6671,9 @@ type MedicinalProductIngredient struct {
 	// Manufacturer of this Ingredient
 	Manufacturer []Reference `json:"manufacturer,omitempty"`
 	// A specified substance that comprises this ingredient
-	SpecifiedSubstance []BackboneElement `json:"specifiedSubstance,omitempty"`
+	SpecifiedSubstance []MedicinalProductIngredientSpecifiedSubstance `json:"specifiedSubstance,omitempty"`
 	// The ingredient substance
-	Substance *BackboneElement `json:"substance,omitempty"`
+	Substance *MedicinalProductIngredientSubstance `json:"substance,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -6710,7 +6710,7 @@ type MedicinalProductInteraction struct {
 	// Extension for Description
 	DescriptionExt *Element `json:"_description,omitempty"`
 	// The specific medication, food or laboratory test that interacts
-	Interactant []BackboneElement `json:"interactant,omitempty"`
+	Interactant []MedicinalProductInteractionInteractant `json:"interactant,omitempty"`
 	// The type of the interaction e.g. drug-drug interaction, drug-food interaction, drug-lab test interaction
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The effect of the interaction, for example "reduced gastric absorption of primary medication"
@@ -6808,9 +6808,9 @@ type MedicinalProductPackaged struct {
 	// Manufacturer of this Package Item
 	Manufacturer []Reference `json:"manufacturer,omitempty"`
 	// Batch numbering
-	BatchIdentifier []BackboneElement `json:"batchIdentifier,omitempty"`
+	BatchIdentifier []MedicinalProductPackagedBatchIdentifier `json:"batchIdentifier,omitempty"`
 	// A packaging item, as a contained for medicine, possibly with other packaging items within
-	PackageItem []BackboneElement `json:"packageItem,omitempty"`
+	PackageItem []MedicinalProductPackagedPackageItem `json:"packageItem,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -6851,9 +6851,9 @@ type MedicinalProductPharmaceutical struct {
 	// Accompanying device
 	Device []Reference `json:"device,omitempty"`
 	// Characteristics e.g. a products onset of action
-	Characteristics []BackboneElement `json:"characteristics,omitempty"`
+	Characteristics []MedicinalProductPharmaceuticalCharacteristics `json:"characteristics,omitempty"`
 	// The path by which the pharmaceutical product is taken into or makes contact with the body
-	RouteOfAdministration []BackboneElement `json:"routeOfAdministration,omitempty"`
+	RouteOfAdministration []MedicinalProductPharmaceuticalRouteOfAdministration `json:"routeOfAdministration,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -6997,13 +6997,13 @@ type MessageDefinition struct {
 	// Extension for Category
 	CategoryExt *Element `json:"_category,omitempty"`
 	// Resource(s) that are the subject of the event
-	Focus []BackboneElement `json:"focus,omitempty"`
+	Focus []MessageDefinitionFocus `json:"focus,omitempty"`
 	// always | on-error | never | on-success
 	ResponseRequired *Messageheaderresponserequest `json:"responseRequired,omitempty"`
 	// Extension for ResponseRequired
 	ResponseRequiredExt *Element `json:"_responseRequired,omitempty"`
 	// Responses to this message
-	AllowedResponse []BackboneElement `json:"allowedResponse,omitempty"`
+	AllowedResponse []MessageDefinitionAllowedResponse `json:"allowedResponse,omitempty"`
 	// Canonical reference to a GraphDefinition
 	Graph []string `json:"graph,omitempty"`
 	// Extension for Graph
@@ -7044,7 +7044,7 @@ type MessageHeader struct {
 	// Extension for EventUri
 	EventUriExt *Element `json:"_eventUri,omitempty"`
 	// Message destination application(s)
-	Destination []BackboneElement `json:"destination,omitempty"`
+	Destination []MessageHeaderDestination `json:"destination,omitempty"`
 	// Real world sender of the message
 	Sender *Reference `json:"sender,omitempty"`
 	// The source of the data entry
@@ -7052,13 +7052,13 @@ type MessageHeader struct {
 	// The source of the decision
 	Author *Reference `json:"author,omitempty"`
 	// Message source application
-	Source BackboneElement `json:"source"`
+	Source *MessageHeaderSource `json:"source,omitempty"`
 	// Final responsibility for event
 	Responsible *Reference `json:"responsible,omitempty"`
 	// Cause of event
 	Reason *CodeableConcept `json:"reason,omitempty"`
 	// If this is a reply to prior message
-	Response *BackboneElement `json:"response,omitempty"`
+	Response *MessageHeaderResponse `json:"response,omitempty"`
 	// The actual content of the message
 	Focus []Reference `json:"focus,omitempty"`
 	// Link to the definition for this message
@@ -7115,25 +7115,25 @@ type MolecularSequence struct {
 	// The number of copies of the sequence of interest.  (RNASeq)
 	Quantity *Quantity `json:"quantity,omitempty"`
 	// A sequence used as reference
-	ReferenceSeq *BackboneElement `json:"referenceSeq,omitempty"`
+	ReferenceSeq *MolecularSequenceReferenceSeq `json:"referenceSeq,omitempty"`
 	// Variant in sequence
-	Variant []BackboneElement `json:"variant,omitempty"`
+	Variant []MolecularSequenceVariant `json:"variant,omitempty"`
 	// Sequence that was observed
 	ObservedSeq *string `json:"observedSeq,omitempty"`
 	// Extension for ObservedSeq
 	ObservedSeqExt *Element `json:"_observedSeq,omitempty"`
 	// An set of value as quality of sequence
-	Quality []BackboneElement `json:"quality,omitempty"`
+	Quality []MolecularSequenceQuality `json:"quality,omitempty"`
 	// Average number of reads representing a given nucleotide in the reconstructed sequence
 	ReadCoverage *int `json:"readCoverage,omitempty"`
 	// Extension for ReadCoverage
 	ReadCoverageExt *Element `json:"_readCoverage,omitempty"`
 	// External repository which contains detailed report related with observedSeq in this resource
-	Repository []BackboneElement `json:"repository,omitempty"`
+	Repository []MolecularSequenceRepository `json:"repository,omitempty"`
 	// Pointer to next atomic sequence
 	Pointer []Reference `json:"pointer,omitempty"`
 	// Structural variant
-	StructureVariant []BackboneElement `json:"structureVariant,omitempty"`
+	StructureVariant []MolecularSequenceStructureVariant `json:"structureVariant,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7204,7 +7204,7 @@ type NamingSystem struct {
 	// Extension for Usage
 	UsageExt *Element `json:"_usage,omitempty"`
 	// Unique identifiers used for system
-	UniqueId []BackboneElement `json:"uniqueId,omitempty"`
+	UniqueId []NamingSystemUniqueId `json:"uniqueId,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7273,11 +7273,11 @@ type NutritionOrder struct {
 	// Order-specific modifier about the type of food that should not be given
 	ExcludeFoodModifier []CodeableConcept `json:"excludeFoodModifier,omitempty"`
 	// Oral diet components
-	OralDiet *BackboneElement `json:"oralDiet,omitempty"`
+	OralDiet *NutritionOrderOralDiet `json:"oralDiet,omitempty"`
 	// Supplement components
-	Supplement []BackboneElement `json:"supplement,omitempty"`
+	Supplement []NutritionOrderSupplement `json:"supplement,omitempty"`
 	// Enteral formula components
-	EnteralFormula *BackboneElement `json:"enteralFormula,omitempty"`
+	EnteralFormula *NutritionOrderEnteralFormula `json:"enteralFormula,omitempty"`
 	// Comments
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -7394,13 +7394,13 @@ type Observation struct {
 	// (Measurement) Device
 	Device *Reference `json:"device,omitempty"`
 	// Provides guide for interpretation
-	ReferenceRange []BackboneElement `json:"referenceRange,omitempty"`
+	ReferenceRange []ObservationReferenceRange `json:"referenceRange,omitempty"`
 	// Related resource that belongs to the Observation group
 	HasMember []Reference `json:"hasMember,omitempty"`
 	// Related measurements the observation is made from
 	DerivedFrom []Reference `json:"derivedFrom,omitempty"`
 	// Component results
-	Component []BackboneElement `json:"component,omitempty"`
+	Component []ObservationComponent `json:"component,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7451,9 +7451,9 @@ type ObservationDefinition struct {
 	// Extension for PreferredReportName
 	PreferredReportNameExt *Element `json:"_preferredReportName,omitempty"`
 	// Characteristics of quantitative results
-	QuantitativeDetails *BackboneElement `json:"quantitativeDetails,omitempty"`
+	QuantitativeDetails *ObservationDefinitionQuantitativeDetails `json:"quantitativeDetails,omitempty"`
 	// Qualified range for continuous and ordinal observation results
-	QualifiedInterval []BackboneElement `json:"qualifiedInterval,omitempty"`
+	QualifiedInterval []ObservationDefinitionQualifiedInterval `json:"qualifiedInterval,omitempty"`
 	// Value set of valid coded values for the observations conforming to this ObservationDefinition
 	ValidCodedValueSet *Reference `json:"validCodedValueSet,omitempty"`
 	// Value set of normal coded values for the observations conforming to this ObservationDefinition
@@ -7582,9 +7582,9 @@ type OperationDefinition struct {
 	// Extension for OutputProfile
 	OutputProfileExt *Element `json:"_outputProfile,omitempty"`
 	// Parameters for the operation/query
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []OperationDefinitionParameter `json:"parameter,omitempty"`
 	// Define overloaded variants for when  generating code
-	Overload []BackboneElement `json:"overload,omitempty"`
+	Overload []OperationDefinitionOverload `json:"overload,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7615,7 +7615,7 @@ type OperationOutcome struct {
 	// Extensions that cannot be ignored
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// A single issue associated with the action
-	Issue []BackboneElement `json:"issue,omitempty"`
+	Issue []OperationOutcomeIssue `json:"issue,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7668,7 +7668,7 @@ type Organization struct {
 	// The organization of which this organization forms a part
 	PartOf *Reference `json:"partOf,omitempty"`
 	// Contact for the organization for a certain purpose
-	Contact []BackboneElement `json:"contact,omitempty"`
+	Contact []OrganizationContact `json:"contact,omitempty"`
 	// Technical endpoints providing access to services operated for the organization
 	Endpoint []Reference `json:"endpoint,omitempty"`
 }
@@ -7748,7 +7748,7 @@ type Parameters struct {
 	// Extension for Language
 	LanguageExt *Element `json:"_language,omitempty"`
 	// Operation Parameter
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []ParametersParameter `json:"parameter,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7819,15 +7819,15 @@ type Patient struct {
 	// Image of the patient
 	Photo []Attachment `json:"photo,omitempty"`
 	// A contact party (e.g. guardian, partner, friend) for the patient
-	Contact []BackboneElement `json:"contact,omitempty"`
+	Contact []PatientContact `json:"contact,omitempty"`
 	// A language which may be used to communicate with the patient about his or her health
-	Communication []BackboneElement `json:"communication,omitempty"`
+	Communication []PatientCommunication `json:"communication,omitempty"`
 	// Patient's nominated primary care provider
 	GeneralPractitioner []Reference `json:"generalPractitioner,omitempty"`
 	// Organization that is the custodian of the patient record
 	ManagingOrganization *Reference `json:"managingOrganization,omitempty"`
 	// Link to another patient resource that concerns the same actual person
-	Link []BackboneElement `json:"link,omitempty"`
+	Link []PatientLink `json:"link,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7951,11 +7951,11 @@ type PaymentReconciliation struct {
 	// Business identifier for the payment
 	PaymentIdentifier *Identifier `json:"paymentIdentifier,omitempty"`
 	// Settlement particulars
-	Detail []BackboneElement `json:"detail,omitempty"`
+	Detail []PaymentReconciliationDetail `json:"detail,omitempty"`
 	// Printed form identifier
 	FormCode *CodeableConcept `json:"formCode,omitempty"`
 	// Note concerning processing
-	ProcessNote []BackboneElement `json:"processNote,omitempty"`
+	ProcessNote []PaymentReconciliationProcessNote `json:"processNote,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -8010,7 +8010,7 @@ type Person struct {
 	// Extension for Active
 	ActiveExt *Element `json:"_active,omitempty"`
 	// Link to a resource that concerns the same actual person
-	Link []BackboneElement `json:"link,omitempty"`
+	Link []PersonLink `json:"link,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -8133,9 +8133,9 @@ type PlanDefinition struct {
 	// Extension for Library
 	LibraryExt []Element `json:"_library,omitempty"`
 	// What the plan is trying to accomplish
-	Goal []BackboneElement `json:"goal,omitempty"`
+	Goal []PlanDefinitionGoal `json:"goal,omitempty"`
 	// Action defined by the plan
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []PlanDefinitionAction `json:"action,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -8188,7 +8188,7 @@ type Practitioner struct {
 	// Image of the person
 	Photo []Attachment `json:"photo,omitempty"`
 	// Certification, licenses, or training pertaining to the provision of care
-	Qualification []BackboneElement `json:"qualification,omitempty"`
+	Qualification []PractitionerQualification `json:"qualification,omitempty"`
 	// A language the practitioner can use in patient communication
 	Communication []CodeableConcept `json:"communication,omitempty"`
 }
@@ -8243,9 +8243,9 @@ type PractitionerRole struct {
 	// Contact details that are specific to the role/location/service
 	Telecom []ContactPoint `json:"telecom,omitempty"`
 	// Times the Service Site is available
-	AvailableTime []BackboneElement `json:"availableTime,omitempty"`
+	AvailableTime []PractitionerRoleAvailableTime `json:"availableTime,omitempty"`
 	// Not available during this time due to provided reason
-	NotAvailable []BackboneElement `json:"notAvailable,omitempty"`
+	NotAvailable []PractitionerRoleNotAvailable `json:"notAvailable,omitempty"`
 	// Description of availability exceptions
 	AvailabilityExceptions *string `json:"availabilityExceptions,omitempty"`
 	// Extension for AvailabilityExceptions
@@ -8328,7 +8328,7 @@ type Procedure struct {
 	// Person who asserts this procedure
 	Asserter *Reference `json:"asserter,omitempty"`
 	// The people who performed the procedure
-	Performer []BackboneElement `json:"performer,omitempty"`
+	Performer []ProcedurePerformer `json:"performer,omitempty"`
 	// Where the procedure happened
 	Location *Reference `json:"location,omitempty"`
 	// Coded reason procedure performed
@@ -8350,7 +8350,7 @@ type Procedure struct {
 	// Additional information about the procedure
 	Note []Annotation `json:"note,omitempty"`
 	// Manipulated, implanted, or removed device
-	FocalDevice []BackboneElement `json:"focalDevice,omitempty"`
+	FocalDevice []ProcedureFocalDevice `json:"focalDevice,omitempty"`
 	// Items used during procedure
 	UsedReference []Reference `json:"usedReference,omitempty"`
 	// Coded items used during the procedure
@@ -8407,9 +8407,9 @@ type Provenance struct {
 	// Activity that occurred
 	Activity *CodeableConcept `json:"activity,omitempty"`
 	// Actor involved
-	Agent []BackboneElement `json:"agent,omitempty"`
+	Agent []ProvenanceAgent `json:"agent,omitempty"`
 	// An entity used in this activity
-	Entity []BackboneElement `json:"entity,omitempty"`
+	Entity []ProvenanceEntity `json:"entity,omitempty"`
 	// Signature on target
 	Signature []Signature `json:"signature,omitempty"`
 }
@@ -8514,7 +8514,7 @@ type Questionnaire struct {
 	// Concept that represents the overall questionnaire
 	Code []Coding `json:"code,omitempty"`
 	// Questions and sections within the Questionnaire
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []QuestionnaireItem `json:"item,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -8571,7 +8571,7 @@ type QuestionnaireResponse struct {
 	// The person who answered the questions
 	Source *Reference `json:"source,omitempty"`
 	// Groups and questions
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []QuestionnaireResponseItem `json:"item,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -8630,7 +8630,7 @@ type RelatedPerson struct {
 	// Period of time that this relationship is considered valid
 	Period *Period `json:"period,omitempty"`
 	// A language which may be used to communicate with about the patient's health
-	Communication []BackboneElement `json:"communication,omitempty"`
+	Communication []RelatedPersonCommunication `json:"communication,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -8707,7 +8707,7 @@ type RequestGroup struct {
 	// Additional notes about the response
 	Note []Annotation `json:"note,omitempty"`
 	// Proposed actions, if any
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []RequestGroupAction `json:"action,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -8979,7 +8979,7 @@ type ResearchElementDefinition struct {
 	// Extension for VariableType
 	VariableTypeExt *Element `json:"_variableType,omitempty"`
 	// What defines the members of the research element
-	Characteristic []BackboneElement `json:"characteristic,omitempty"`
+	Characteristic []ResearchElementDefinitionCharacteristic `json:"characteristic,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -9060,9 +9060,9 @@ type ResearchStudy struct {
 	// Comments made about the study
 	Note []Annotation `json:"note,omitempty"`
 	// Defined path through the study for a subject
-	Arm []BackboneElement `json:"arm,omitempty"`
+	Arm []ResearchStudyArm `json:"arm,omitempty"`
 	// A goal for the study
-	Objective []BackboneElement `json:"objective,omitempty"`
+	Objective []ResearchStudyObjective `json:"objective,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -9178,7 +9178,7 @@ type RiskAssessment struct {
 	// Information used in assessment
 	Basis []Reference `json:"basis,omitempty"`
 	// Outcome predicted
-	Prediction []BackboneElement `json:"prediction,omitempty"`
+	Prediction []RiskAssessmentPrediction `json:"prediction,omitempty"`
 	// How to reduce risk
 	Mitigation *string `json:"mitigation,omitempty"`
 	// Extension for Mitigation
@@ -9293,11 +9293,11 @@ type RiskEvidenceSynthesis struct {
 	// What outcome?
 	Outcome Reference `json:"outcome"`
 	// What sample size was involved?
-	SampleSize *BackboneElement `json:"sampleSize,omitempty"`
+	SampleSize *RiskEvidenceSynthesisSampleSize `json:"sampleSize,omitempty"`
 	// What was the estimated risk
-	RiskEstimate *BackboneElement `json:"riskEstimate,omitempty"`
+	RiskEstimate *RiskEvidenceSynthesisRiskEstimate `json:"riskEstimate,omitempty"`
 	// How certain is the risk
-	Certainty []BackboneElement `json:"certainty,omitempty"`
+	Certainty []RiskEvidenceSynthesisCertainty `json:"certainty,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -9471,7 +9471,7 @@ type SearchParameter struct {
 	// Extension for Chain
 	ChainExt []Element `json:"_chain,omitempty"`
 	// For Composite resources to define the parts
-	Component []BackboneElement `json:"component,omitempty"`
+	Component []SearchParameterComponent `json:"component,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -9708,11 +9708,11 @@ type Specimen struct {
 	// Why the specimen was collected
 	Request []Reference `json:"request,omitempty"`
 	// Collection details
-	Collection *BackboneElement `json:"collection,omitempty"`
+	Collection *SpecimenCollection `json:"collection,omitempty"`
 	// Processing and processing step details
-	Processing []BackboneElement `json:"processing,omitempty"`
+	Processing []SpecimenProcessing `json:"processing,omitempty"`
 	// Direct container of specimen (tube/slide, etc.)
-	Container []BackboneElement `json:"container,omitempty"`
+	Container []SpecimenContainer `json:"container,omitempty"`
 	// State of the specimen
 	Condition []CodeableConcept `json:"condition,omitempty"`
 	// Comments
@@ -9759,7 +9759,7 @@ type SpecimenDefinition struct {
 	// Specimen collection procedure
 	Collection []CodeableConcept `json:"collection,omitempty"`
 	// Specimen in container intended for testing by lab
-	TypeTested []BackboneElement `json:"typeTested,omitempty"`
+	TypeTested []SpecimenDefinitionTypeTested `json:"typeTested,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -9848,7 +9848,7 @@ type StructureDefinition struct {
 	// Extension for FhirVersion
 	FhirVersionExt *Element `json:"_fhirVersion,omitempty"`
 	// External specification that the content is mapped to
-	Mapping []BackboneElement `json:"mapping,omitempty"`
+	Mapping []StructureDefinitionMapping `json:"mapping,omitempty"`
 	// primitive-type | complex-type | resource | logical
 	Kind *StructureDefinitionKind `json:"kind,omitempty"`
 	// Extension for Kind
@@ -9858,7 +9858,7 @@ type StructureDefinition struct {
 	// Extension for Abstract
 	AbstractExt *Element `json:"_abstract,omitempty"`
 	// If an extension, where it can be used in instances
-	Context []BackboneElement `json:"context,omitempty"`
+	Context []StructureDefinitionContext `json:"context,omitempty"`
 	// FHIRPath invariants - when the extension can be used
 	ContextInvariant []string `json:"contextInvariant,omitempty"`
 	// Extension for ContextInvariant
@@ -9876,9 +9876,9 @@ type StructureDefinition struct {
 	// Extension for Derivation
 	DerivationExt *Element `json:"_derivation,omitempty"`
 	// Snapshot view of the structure
-	Snapshot *BackboneElement `json:"snapshot,omitempty"`
+	Snapshot *StructureDefinitionSnapshot `json:"snapshot,omitempty"`
 	// Differential view of the structure
-	Differential *BackboneElement `json:"differential,omitempty"`
+	Differential *StructureDefinitionDifferential `json:"differential,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -9961,13 +9961,13 @@ type StructureMap struct {
 	// Extension for Copyright
 	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// Structure Definition used by this map
-	Structure []BackboneElement `json:"structure,omitempty"`
+	Structure []StructureMapStructure `json:"structure,omitempty"`
 	// Other maps used by this map (canonical URLs)
 	Import []string `json:"import,omitempty"`
 	// Extension for Import
 	ImportExt []Element `json:"_import,omitempty"`
 	// Named sections for reader convenience
-	Group []BackboneElement `json:"group,omitempty"`
+	Group []StructureMapGroup `json:"group,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10020,7 +10020,7 @@ type Subscription struct {
 	// Extension for Error
 	ErrorExt *Element `json:"_error,omitempty"`
 	// The channel on which to report matches to the criteria
-	Channel BackboneElement `json:"channel"`
+	Channel *SubscriptionChannel `json:"channel,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10065,9 +10065,9 @@ type Substance struct {
 	// Extension for Description
 	DescriptionExt *Element `json:"_description,omitempty"`
 	// If this describes a specific package/container of the substance
-	Instance []BackboneElement `json:"instance,omitempty"`
+	Instance []SubstanceInstance `json:"instance,omitempty"`
 	// Composition information about the substance
-	Ingredient []BackboneElement `json:"ingredient,omitempty"`
+	Ingredient []SubstanceIngredient `json:"ingredient,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10110,7 +10110,7 @@ type SubstanceNucleicAcid struct {
 	// (TBC)
 	OligoNucleotideType *CodeableConcept `json:"oligoNucleotideType,omitempty"`
 	// Subunits are listed in order of decreasing length; sequences of the same length will be ordered by molecular weight; subunits that have identical sequences will be repeated multiple times
-	Subunit []BackboneElement `json:"subunit,omitempty"`
+	Subunit []SubstanceNucleicAcidSubunit `json:"subunit,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10151,9 +10151,9 @@ type SubstancePolymer struct {
 	// Extension for Modification
 	ModificationExt []Element `json:"_modification,omitempty"`
 	// Todo
-	MonomerSet []BackboneElement `json:"monomerSet,omitempty"`
+	MonomerSet []SubstancePolymerMonomerSet `json:"monomerSet,omitempty"`
 	// Todo
-	Repeat []BackboneElement `json:"repeat,omitempty"`
+	Repeat []SubstancePolymerRepeat `json:"repeat,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10194,7 +10194,7 @@ type SubstanceProtein struct {
 	// Extension for DisulfideLinkage
 	DisulfideLinkageExt []Element `json:"_disulfideLinkage,omitempty"`
 	// This subclause refers to the description of each subunit constituting the SubstanceProtein. A subunit is a linear sequence of amino acids linked through peptide bonds. The Subunit information shall be provided when the finished SubstanceProtein is a complex of multiple sequences; subunits are not used to delineate domains within a single sequence. Subunits are listed in order of decreasing length; sequences of the same length will be ordered by decreasing molecular weight; subunits that have identical sequences will be repeated multiple times
-	Subunit []BackboneElement `json:"subunit,omitempty"`
+	Subunit []SubstanceProteinSubunit `json:"subunit,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10229,13 +10229,13 @@ type SubstanceReferenceInformation struct {
 	// Extension for Comment
 	CommentExt *Element `json:"_comment,omitempty"`
 	// Todo
-	Gene []BackboneElement `json:"gene,omitempty"`
+	Gene []SubstanceReferenceInformationGene `json:"gene,omitempty"`
 	// Todo
-	GeneElement []BackboneElement `json:"geneElement,omitempty"`
+	GeneElement []SubstanceReferenceInformationGeneElement `json:"geneElement,omitempty"`
 	// Todo
-	Classification []BackboneElement `json:"classification,omitempty"`
+	Classification []SubstanceReferenceInformationClassification `json:"classification,omitempty"`
 	// Todo
-	Target []BackboneElement `json:"target,omitempty"`
+	Target []SubstanceReferenceInformationTarget `json:"target,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10292,11 +10292,11 @@ type SubstanceSourceMaterial struct {
 	// Stage of life for animals, plants, insects and microorganisms. This information shall be provided only when the substance is significantly different in these stages (e.g. foetal bovine serum)
 	DevelopmentStage *CodeableConcept `json:"developmentStage,omitempty"`
 	// Many complex materials are fractions of parts of plants, animals, or minerals. Fraction elements are often necessary to define both Substances and Specified Group 1 Substances. For substances derived from Plants, fraction information will be captured at the Substance information level ( . Oils, Juices and Exudates). Additional information for Extracts, such as extraction solvent composition, will be captured at the Specified Substance Group 1 information level. For plasma-derived products fraction information will be captured at the Substance and the Specified Substance Group 1 levels
-	FractionDescription []BackboneElement `json:"fractionDescription,omitempty"`
+	FractionDescription []SubstanceSourceMaterialFractionDescription `json:"fractionDescription,omitempty"`
 	// This subclause describes the organism which the substance is derived from. For vaccines, the parent organism shall be specified based on these subclause elements. As an example, full taxonomy will be described for the Substance Name: ., Leaf
-	Organism *BackboneElement `json:"organism,omitempty"`
+	Organism *SubstanceSourceMaterialOrganism `json:"organism,omitempty"`
 	// To do
-	PartDescription []BackboneElement `json:"partDescription,omitempty"`
+	PartDescription []SubstanceSourceMaterialPartDescription `json:"partDescription,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10345,21 +10345,21 @@ type SubstanceSpecification struct {
 	// Extension for Comment
 	CommentExt *Element `json:"_comment,omitempty"`
 	// Moiety, for structural modifications
-	Moiety []BackboneElement `json:"moiety,omitempty"`
+	Moiety []SubstanceSpecificationMoiety `json:"moiety,omitempty"`
 	// General specifications for this substance, including how it is related to other substances
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []SubstanceSpecificationProperty `json:"property,omitempty"`
 	// General information detailing this substance
 	ReferenceInformation *Reference `json:"referenceInformation,omitempty"`
 	// Structural information
-	Structure *BackboneElement `json:"structure,omitempty"`
+	Structure *SubstanceSpecificationStructure `json:"structure,omitempty"`
 	// Codes associated with the substance
-	Code []BackboneElement `json:"code,omitempty"`
+	Code []SubstanceSpecificationCode `json:"code,omitempty"`
 	// Names applicable to this substance
-	Name []BackboneElement `json:"name,omitempty"`
+	Name []SubstanceSpecificationName `json:"name,omitempty"`
 	// The molecular weight or weight range (for proteins, polymers or nucleic acids)
 	MolecularWeight *interface{} `json:"molecularWeight,omitempty"`
 	// A link between this substance and another, with details of the relationship
-	Relationship []BackboneElement `json:"relationship,omitempty"`
+	Relationship []SubstanceSpecificationRelationship `json:"relationship,omitempty"`
 	// Data items specific to nucleic acids
 	NucleicAcid *Reference `json:"nucleicAcid,omitempty"`
 	// Data items specific to polymers
@@ -10412,7 +10412,7 @@ type SupplyDelivery struct {
 	// Category of dispense event
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The item that is delivered or supplied
-	SuppliedItem *BackboneElement `json:"suppliedItem,omitempty"`
+	SuppliedItem *SupplyDeliverySuppliedItem `json:"suppliedItem,omitempty"`
 	// When event occurred
 	OccurrenceDateTime *string `json:"occurrenceDateTime,omitempty"`
 	// Extension for OccurrenceDateTime
@@ -10475,7 +10475,7 @@ type SupplyRequest struct {
 	// The requested amount of the item indicated
 	Quantity Quantity `json:"quantity"`
 	// Ordered item details
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []SupplyRequestParameter `json:"parameter,omitempty"`
 	// When the request should be fulfilled
 	OccurrenceDateTime *string `json:"occurrenceDateTime,omitempty"`
 	// Extension for OccurrenceDateTime
@@ -10602,11 +10602,11 @@ type Task struct {
 	// Key events in history of the Task
 	RelevantHistory []Reference `json:"relevantHistory,omitempty"`
 	// Constraints on fulfillment tasks
-	Restriction *BackboneElement `json:"restriction,omitempty"`
+	Restriction *TaskRestriction `json:"restriction,omitempty"`
 	// Information used to perform task
-	Input []BackboneElement `json:"input,omitempty"`
+	Input []TaskInput `json:"input,omitempty"`
 	// Information produced as part of task
-	Output []BackboneElement `json:"output,omitempty"`
+	Output []TaskOutput `json:"output,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10691,27 +10691,27 @@ type TerminologyCapabilities struct {
 	// Extension for Kind
 	KindExt *Element `json:"_kind,omitempty"`
 	// Software that is covered by this terminology capability statement
-	Software *BackboneElement `json:"software,omitempty"`
+	Software *TerminologyCapabilitiesSoftware `json:"software,omitempty"`
 	// If this describes a specific instance
-	Implementation *BackboneElement `json:"implementation,omitempty"`
+	Implementation *TerminologyCapabilitiesImplementation `json:"implementation,omitempty"`
 	// Whether lockedDate is supported
 	LockedDate *bool `json:"lockedDate,omitempty"`
 	// Extension for LockedDate
 	LockedDateExt *Element `json:"_lockedDate,omitempty"`
 	// A code system supported by the server
-	CodeSystem []BackboneElement `json:"codeSystem,omitempty"`
+	CodeSystem []TerminologyCapabilitiesCodeSystem `json:"codeSystem,omitempty"`
 	// Information about the [ValueSet/$expand](valueset-operation-expand.html) operation
-	Expansion *BackboneElement `json:"expansion,omitempty"`
+	Expansion *TerminologyCapabilitiesExpansion `json:"expansion,omitempty"`
 	// explicit | all
 	CodeSearch *CodeSearchSupport `json:"codeSearch,omitempty"`
 	// Extension for CodeSearch
 	CodeSearchExt *Element `json:"_codeSearch,omitempty"`
 	// Information about the [ValueSet/$validate-code](valueset-operation-validate-code.html) operation
-	ValidateCode *BackboneElement `json:"validateCode,omitempty"`
+	ValidateCode *TerminologyCapabilitiesValidateCode `json:"validateCode,omitempty"`
 	// Information about the [ConceptMap/$translate](conceptmap-operation-translate.html) operation
-	Translation *BackboneElement `json:"translation,omitempty"`
+	Translation *TerminologyCapabilitiesTranslation `json:"translation,omitempty"`
 	// Information about the [ConceptMap/$closure](conceptmap-operation-closure.html) operation
-	Closure *BackboneElement `json:"closure,omitempty"`
+	Closure *TerminologyCapabilitiesClosure `json:"closure,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10770,13 +10770,13 @@ type TestReport struct {
 	// Extension for Issued
 	IssuedExt *Element `json:"_issued,omitempty"`
 	// A participant in the test execution, either the execution engine, a client, or a server
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []TestReportParticipant `json:"participant,omitempty"`
 	// The results of the series of required setup operations before the tests were executed
-	Setup *BackboneElement `json:"setup,omitempty"`
+	Setup *TestReportSetup `json:"setup,omitempty"`
 	// A test executed from the test script
-	Test []BackboneElement `json:"test,omitempty"`
+	Test []TestReportTest `json:"test,omitempty"`
 	// The results of running the series of required clean up steps
-	Teardown *BackboneElement `json:"teardown,omitempty"`
+	Teardown *TestReportTeardown `json:"teardown,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10859,23 +10859,23 @@ type TestScript struct {
 	// Extension for Copyright
 	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// An abstract server representing a client or sender in a message exchange
-	Origin []BackboneElement `json:"origin,omitempty"`
+	Origin []TestScriptOrigin `json:"origin,omitempty"`
 	// An abstract server representing a destination or receiver in a message exchange
-	Destination []BackboneElement `json:"destination,omitempty"`
+	Destination []TestScriptDestination `json:"destination,omitempty"`
 	// Required capability that is assumed to function correctly on the FHIR server being tested
-	Metadata *BackboneElement `json:"metadata,omitempty"`
+	Metadata *TestScriptMetadata `json:"metadata,omitempty"`
 	// Fixture in the test script - by reference (uri)
-	Fixture []BackboneElement `json:"fixture,omitempty"`
+	Fixture []TestScriptFixture `json:"fixture,omitempty"`
 	// Reference of the validation profile
 	Profile []Reference `json:"profile,omitempty"`
 	// Placeholder for evaluated elements
-	Variable []BackboneElement `json:"variable,omitempty"`
+	Variable []TestScriptVariable `json:"variable,omitempty"`
 	// A series of required setup operations before tests are executed
-	Setup *BackboneElement `json:"setup,omitempty"`
+	Setup *TestScriptSetup `json:"setup,omitempty"`
 	// A test in this script
-	Test []BackboneElement `json:"test,omitempty"`
+	Test []TestScriptTest `json:"test,omitempty"`
 	// A series of required clean up steps
-	Teardown *BackboneElement `json:"teardown,omitempty"`
+	Teardown *TestScriptTeardown `json:"teardown,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -10962,9 +10962,9 @@ type ValueSet struct {
 	// Extension for Copyright
 	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// Content logical definition of the value set (CLD)
-	Compose *BackboneElement `json:"compose,omitempty"`
+	Compose *ValueSetCompose `json:"compose,omitempty"`
 	// Used when the value set is "expanded"
-	Expansion *BackboneElement `json:"expansion,omitempty"`
+	Expansion *ValueSetExpansion `json:"expansion,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -11027,11 +11027,11 @@ type VerificationResult struct {
 	// fatal | warn | rec-only | none
 	FailureAction *CodeableConcept `json:"failureAction,omitempty"`
 	// Information about the primary source(s) involved in validation
-	PrimarySource []BackboneElement `json:"primarySource,omitempty"`
+	PrimarySource []VerificationResultPrimarySource `json:"primarySource,omitempty"`
 	// Information about the entity attesting to information
-	Attestation *BackboneElement `json:"attestation,omitempty"`
+	Attestation *VerificationResultAttestation `json:"attestation,omitempty"`
 	// Information about the entity validating information
-	Validator []BackboneElement `json:"validator,omitempty"`
+	Validator []VerificationResultValidator `json:"validator,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -11082,7 +11082,7 @@ type VisionPrescription struct {
 	// Who authorized the vision prescription
 	Prescriber Reference `json:"prescriber"`
 	// Vision lens authorization
-	LensSpecification []BackboneElement `json:"lensSpecification,omitempty"`
+	LensSpecification []VisionPrescriptionLensSpecification `json:"lensSpecification,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.

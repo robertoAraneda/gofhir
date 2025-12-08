@@ -78,8 +78,8 @@ coding := &r4.Coding{}
 #### 0.2 Descarga de Especificaciones FHIR
 - [x] Crear script para descargar specs de hl7.org/fhir
 - [x] Descargar R4 (4.0.1): StructureDefinitions, ValueSets, CodeSystems
-- [ ] Descargar R4B (4.3.0)
-- [ ] Descargar R5 (5.0.0)
+- [x] Descargar R4B (4.3.0)
+- [x] Descargar R5 (5.0.0)
 - [x] Almacenar en `specs/r4/`, `specs/r4b/`, `specs/r5/`
 
 #### 0.3 Configuracion CI/CD
@@ -609,7 +609,7 @@ func (g *ValueSetGenerator) GenerateCodeSystem(cs *CodeSystem) error
 - [x] Parsear ValueSets y CodeSystems
 - [x] Generar tipos string tipados
 - [x] Generar constantes para cada codigo
-- [ ] Generar metodo IsValid() opcional
+- [~] Generar metodo IsValid() opcional - DEFERRED (validación se hace en validator)
 
 #### 2.5 Ejecutar Generacion R4 Completa
 
@@ -749,10 +749,10 @@ func (r *{{$.Name}}) Set{{.FieldName}}(v {{.GoType}}) {
 ```
 
 - [x] Detectar choice types en analyzer
-- [ ] Generar GetValue/GetEffective/GetDeceased etc
-- [ ] Generar HasValue/HasEffective etc
-- [ ] Generar SetValueQuantity/SetValueString etc
-- [ ] Generar clearValue helper privado
+- [~] Generar GetValue/GetEffective/GetDeceased etc - SKIPPED (acceso directo es más idiomático en Go)
+- [~] Generar HasValue/HasEffective etc - SKIPPED (acceso directo es más idiomático en Go)
+- [~] Generar SetValueQuantity/SetValueString etc - SKIPPED (los Builders ya proveen esta funcionalidad)
+- [~] Generar clearValue helper privado - SKIPPED (no necesario sin los helpers anteriores)
 
 #### 3.4 Registry de Recursos (Generado)
 
@@ -817,29 +817,30 @@ func GetResourceType(data []byte) (string, error) {
 }
 ```
 
-- [ ] Crear template para registry
-- [ ] Generar map de factories
-- [ ] Implementar NewResource
-- [ ] Implementar UnmarshalResource dinamico
-- [ ] Implementar GetResourceType helper
+- [x] Crear template para registry
+- [x] Generar map de factories
+- [x] Implementar NewResource
+- [x] Implementar UnmarshalResource dinamico
+- [x] Implementar GetResourceType helper
 
 #### 3.5 Regenerar Todo con Metodos
 
-- [ ] Actualizar generador para incluir metodos
-- [ ] Regenerar todos los datatypes
-- [ ] Regenerar todos los resources
-- [ ] Regenerar registry
-- [ ] Verificar compilacion
+- [x] Actualizar generador para incluir metodos
+- [x] Regenerar todos los datatypes
+- [x] Regenerar todos los resources
+- [x] Regenerar registry
+- [x] Verificar compilacion
 
 ### Tests Sprint 3
 
-- [ ] Tests de interface Resource (GetResourceType)
-- [ ] Tests de common.Clone[T] con resources
-- [ ] Tests de common.Clone[T] con datatypes
-- [ ] Tests de choice type helpers (GetValue, HasValue, SetValue*)
-- [ ] Tests de registry (NewResource, UnmarshalResource)
-- [ ] Tests de round-trip JSON con json.Marshal/Unmarshal
-- [ ] Tests de Extension en primitivos (_field)
+- [x] Tests de interface Resource (GetResourceType)
+- [x] Tests de common.Clone[T] con resources
+- [x] Tests de common.Clone[T] con datatypes
+- [~] Tests de choice type helpers (GetValue, HasValue, SetValue*) - SKIPPED (helpers no implementados)
+- [x] Tests de registry (NewResource, UnmarshalResource)
+- [x] Tests de round-trip JSON con json.Marshal/Unmarshal
+- [x] Tests de Extension en primitivos (_field)
+- [x] Tests de backbone elements (R4, R4B, R5)
 
 ### Entregables
 
@@ -944,10 +945,10 @@ func (b *{{$.ResourceName}}Builder) Set{{.FieldName}}(value {{.GoType}}) *{{$.Re
 {{end}}
 ```
 
-- [ ] Crear template para resource builders
-- [ ] Generar Set* para campos singulares con puntero
-- [ ] Generar Add* para campos array
-- [ ] Generar Set* para choice types (SetValueQuantity, SetValueString, etc)
+- [x] Crear template para resource builders (fluent_builders.go.tmpl)
+- [x] Generar Set* para campos singulares con puntero
+- [x] Generar Add* para campos array
+- [x] Generar Set* para choice types (SetValueQuantity, SetValueString, etc)
 
 #### 4.2 Template de Builders para Datatypes
 
@@ -978,16 +979,16 @@ func (b *{{.Name}}Builder) BuildPtr() *datatypes.{{.Name}} {
 {{end}}
 ```
 
-- [ ] Crear template para datatype builders
-- [ ] Generar builders para todos los datatypes complejos
+- [x] Crear template para datatype builders (functional_options.go.tmpl - patrón funcional)
+- [x] Generar builders para todos los datatypes complejos
 
 #### 4.3 Generar Todos los Builders
 
-- [ ] Generar builders para ~150 resources
-- [ ] Generar builders para ~50 datatypes
-- [ ] Generar builders para backbone elements importantes
-- [ ] Verificar compilacion
-- [ ] Verificar que Build() retorna tipos correctos
+- [x] Generar builders para ~150 resources (fluent_builders.go: R4=25K, R4B=25K, R5=30K líneas)
+- [x] Generar functional options para ~150 resources (functional_options.go: R4=28K, R4B=28K, R5=33K líneas)
+- [~] Generar builders para backbone elements importantes - DEFERRED (se usan directamente como structs)
+- [x] Verificar compilacion
+- [x] Verificar que Build() retorna tipos correctos
 
 #### 4.4 Helpers Clinicos Manuales (pkg/fhir/r4/helpers/)
 
@@ -1058,26 +1059,33 @@ var (
 )
 ```
 
-- [ ] Crear helpers LOINC para signos vitales (~20 codigos)
-- [ ] Crear helpers UCUM para unidades (~15 funciones)
-- [ ] Crear helpers para categorias de Observation
-- [ ] Crear helpers para identifier types comunes
+- [x] Crear helpers LOINC para signos vitales (~20 codigos) - COMPLETADO
+- [x] Crear helpers UCUM para unidades (~30 funciones) - COMPLETADO
+- [x] Crear helpers para categorias de Observation - COMPLETADO
+- [x] Crear helpers para IPS section codes - COMPLETADO
+- [x] Crear helpers para document types (IPS, CCD, Discharge, etc.) - COMPLETADO
+- [ ] Crear helpers para identifier types comunes - OPTIONAL (para futuro)
 
 ### Tests Sprint 4
 
-- [ ] Tests de builders de resources (Patient, Observation, Bundle)
-- [ ] Tests de builders de datatypes (Coding, CodeableConcept, Quantity)
-- [ ] Tests de choice types en builders
-- [ ] Tests de helpers clinicos
-- [ ] Tests de integracion (builder + ToJSON + UnmarshalResource)
+- [x] Tests de builders de resources (Patient, Observation, Bundle) - fluent_builders_test.go
+- [x] Tests de builders de datatypes (functional options) - functional_options_test.go
+- [x] Tests de choice types en builders
+- [x] Tests de helpers clinicos - helpers_test.go (100% cobertura)
+- [x] Tests de integracion (builder + ToJSON + UnmarshalResource)
 
 ### Entregables
 
-- Template de builders para resources
-- Template de builders para datatypes
-- `pkg/fhir/r4/builders/` - 100% generado
-- `pkg/fhir/r4/helpers/` - manual con helpers clinicos
-- Ejemplo de uso documentado
+- [x] Template de builders para resources (fluent_builders.go.tmpl)
+- [x] Template de functional options para resources (functional_options.go.tmpl)
+- [x] `pkg/fhir/r4/fluent_builders.go` - 100% generado (~25K líneas)
+- [x] `pkg/fhir/r4/functional_options.go` - 100% generado (~28K líneas)
+- [x] `pkg/fhir/r4b/` y `pkg/fhir/r5/` - builders generados para todas las versiones
+- [x] `pkg/fhir/r4/helpers/` - helpers clínicos implementados:
+  - `loinc.go` - Códigos LOINC (vital signs, lab, IPS sections)
+  - `ucum.go` - Funciones para Quantity con UCUM
+  - `categories.go` - Categorías (Observation, Condition, Allergy, Document types)
+  - `helpers_test.go` - Tests completos
 
 ---
 
@@ -1793,19 +1801,21 @@ func (v *ExtensionValidator) Validate(ctx context.Context, vctx *ValidationConte
 
 ### Tareas
 
-#### 7.1 Generacion R4B
-- [ ] Adaptar generador para diferencias R4B
-- [ ] Generar `pkg/fhir/r4b/datatypes/`
-- [ ] Generar `pkg/fhir/r4b/resources/`
-- [ ] Generar `pkg/fhir/r4b/builders/`
-- [ ] Generar `pkg/fhir/r4b/valuesets/`
-- [ ] Actualizar registry para R4B
+#### 7.1 Generacion R4B - ✅ COMPLETADO
+- [x] Adaptar generador para diferencias R4B
+- [x] Generar `pkg/fhir/r4b/datatypes.go`
+- [x] Generar `pkg/fhir/r4b/resources.go`
+- [x] Generar `pkg/fhir/r4b/backbones.go`
+- [x] Generar `pkg/fhir/r4b/fluent_builders.go`
+- [x] Generar `pkg/fhir/r4b/functional_options.go`
+- [x] Generar `pkg/fhir/r4b/codesystems.go`
+- [x] Actualizar registry para R4B
 
-#### 7.2 Generacion R5
-- [ ] Adaptar generador para diferencias R5
-- [ ] Manejar nuevos recursos R5
-- [ ] Manejar cambios de estructura R5
-- [ ] Generar `pkg/fhir/r5/*`
+#### 7.2 Generacion R5 - ✅ COMPLETADO
+- [x] Adaptar generador para diferencias R5
+- [x] Manejar nuevos recursos R5
+- [x] Manejar cambios de estructura R5
+- [x] Generar `pkg/fhir/r5/*` (todos los archivos)
 
 #### 7.3 Validador de Terminologia
 ```go
@@ -1911,17 +1921,19 @@ func generateCmd() *cobra.Command {
 - [ ] Agregar ejemplos en help
 
 ### Tests Sprint 7
-- [ ] Tests de generacion R4B
-- [ ] Tests de generacion R5
+
+- [x] Tests de generacion R4B (backbones_test.go, etc.)
+- [x] Tests de generacion R5 (backbones_test.go, etc.)
 - [ ] Tests de validacion de terminologia
 - [ ] Tests E2E del CLI
-- [ ] Tests de integracion multi-version
+- [x] Tests de integracion multi-version
 
 ### Entregables
-- Packages R4B y R5 generados
-- Validador de terminologia
-- CLI tool funcional
-- Documentacion de CLI
+
+- [x] Packages R4B y R5 generados
+- [ ] Validador de terminologia
+- [ ] CLI tool funcional
+- [ ] Documentacion de CLI
 
 ---
 

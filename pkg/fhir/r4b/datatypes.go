@@ -313,15 +313,15 @@ type DataRequirement struct {
 	// Extension for MustSupport
 	MustSupportExt []Element `json:"_mustSupport,omitempty"`
 	// What codes are expected
-	CodeFilter []Element `json:"codeFilter,omitempty"`
+	CodeFilter []DataRequirementCodeFilter `json:"codeFilter,omitempty"`
 	// What dates/date ranges are expected
-	DateFilter []Element `json:"dateFilter,omitempty"`
+	DateFilter []DataRequirementDateFilter `json:"dateFilter,omitempty"`
 	// Number of results
 	Limit *uint32 `json:"limit,omitempty"`
 	// Extension for Limit
 	LimitExt *Element `json:"_limit,omitempty"`
 	// Order of the results
-	Sort []Element `json:"sort,omitempty"`
+	Sort []DataRequirementSort `json:"sort,omitempty"`
 }
 
 // Distance represents FHIR Distance.
@@ -389,7 +389,7 @@ type Dosage struct {
 	// Technique for administering medication
 	Method *CodeableConcept `json:"method,omitempty"`
 	// Amount of medication administered
-	DoseAndRate []Element `json:"doseAndRate,omitempty"`
+	DoseAndRate []DosageDoseAndRate `json:"doseAndRate,omitempty"`
 	// Upper limit on medication per unit of time
 	MaxDosePerPeriod *Ratio `json:"maxDosePerPeriod,omitempty"`
 	// Upper limit on medication per administration
@@ -465,7 +465,7 @@ type ElementDefinition struct {
 	// Corresponding codes in terminologies
 	Code []Coding `json:"code,omitempty"`
 	// This element is sliced - slices follow
-	Slicing *Element `json:"slicing,omitempty"`
+	Slicing *ElementDefinitionSlicing `json:"slicing,omitempty"`
 	// Concise definition for space-constrained presentation
 	Short *string `json:"short,omitempty"`
 	// Extension for Short
@@ -495,13 +495,13 @@ type ElementDefinition struct {
 	// Extension for Max
 	MaxExt *Element `json:"_max,omitempty"`
 	// Base definition information for tools
-	Base *Element `json:"base,omitempty"`
+	Base *ElementDefinitionBase `json:"base,omitempty"`
 	// Reference to definition of content for the element
 	ContentReference *string `json:"contentReference,omitempty"`
 	// Extension for ContentReference
 	ContentReferenceExt *Element `json:"_contentReference,omitempty"`
 	// Data type and Profile for this element
-	Type []Element `json:"type,omitempty"`
+	Type []ElementDefinitionType `json:"type,omitempty"`
 	// Specified value if missing from instance
 	DefaultValueBase64Binary *string `json:"defaultValueBase64Binary,omitempty"`
 	// Extension for DefaultValueBase64Binary
@@ -931,7 +931,7 @@ type ElementDefinition struct {
 	// Value must have at least these property values
 	PatternDosage *Dosage `json:"patternDosage,omitempty"`
 	// Example value (as defined for type)
-	Example []Element `json:"example,omitempty"`
+	Example []ElementDefinitionExample `json:"example,omitempty"`
 	// Minimum Allowed Value (for some types)
 	MinValueDate *string `json:"minValueDate,omitempty"`
 	// Extension for MinValueDate
@@ -1009,7 +1009,7 @@ type ElementDefinition struct {
 	// Extension for Condition
 	ConditionExt []Element `json:"_condition,omitempty"`
 	// Condition that must evaluate to true
-	Constraint []Element `json:"constraint,omitempty"`
+	Constraint []ElementDefinitionConstraint `json:"constraint,omitempty"`
 	// If the element must be supported
 	MustSupport *bool `json:"mustSupport,omitempty"`
 	// Extension for MustSupport
@@ -1027,9 +1027,9 @@ type ElementDefinition struct {
 	// Extension for IsSummary
 	IsSummaryExt *Element `json:"_isSummary,omitempty"`
 	// ValueSet details if this is coded
-	Binding *Element `json:"binding,omitempty"`
+	Binding *ElementDefinitionBinding `json:"binding,omitempty"`
 	// Map element to another set of definitions
-	Mapping []Element `json:"mapping,omitempty"`
+	Mapping []ElementDefinitionMapping `json:"mapping,omitempty"`
 }
 
 // Expression represents FHIR Expression.
@@ -1735,7 +1735,7 @@ type Timing struct {
 	// Extension for Event
 	EventExt []Element `json:"_event,omitempty"`
 	// When the event is to occur
-	Repeat *Element `json:"repeat,omitempty"`
+	Repeat *TimingRepeat `json:"repeat,omitempty"`
 	// BID | TID | QID | AM | PM | QD | QOD | +
 	Code *CodeableConcept `json:"code,omitempty"`
 }

@@ -33,14 +33,16 @@ func NewAnalyzer(definitions []*parser.StructureDefinition, valueSets *parser.Va
 
 // AnalyzedType represents a fully analyzed type ready for code generation.
 type AnalyzedType struct {
-	Name        string             // Go type name (PascalCase)
-	FHIRName    string             // Original FHIR name
-	Kind        string             // primitive, datatype, resource, backbone
-	Description string             // Documentation
-	URL         string             // Canonical URL
-	IsAbstract  bool               // Whether this is an abstract type
-	Properties  []AnalyzedProperty // Fields of this type
-	Constraints []AnalyzedConstraint
+	Name           string             // Go type name (PascalCase)
+	FHIRName       string             // Original FHIR name
+	Kind           string             // primitive, datatype, resource, backbone
+	Description    string             // Documentation
+	URL            string             // Canonical URL
+	IsAbstract     bool               // Whether this is an abstract type
+	Properties     []AnalyzedProperty // Fields of this type
+	Constraints    []AnalyzedConstraint
+	BackboneTypes  []*AnalyzedType // Nested backbone element types for this resource
+	ParentResource string          // For backbone types: name of the parent resource
 }
 
 // AnalyzedProperty represents a single property of a type.
@@ -57,7 +59,9 @@ type AnalyzedProperty struct {
 	ChoiceTypes  []string // For choice types, the list of allowed types
 	FHIRType     string   // Original FHIR type code
 	Binding      *AnalyzedBinding
-	HasExtension bool // Whether this primitive needs a _field for extensions
+	HasExtension bool   // Whether this primitive needs a _field for extensions
+	IsBackbone   bool   // Whether this is a backbone element reference
+	BackboneType string // For backbone: the specific backbone type name (e.g., "PatientContact")
 }
 
 // AnalyzedBinding represents a value set binding.
@@ -96,6 +100,12 @@ func (a *Analyzer) Analyze(sd *parser.StructureDefinition) (*AnalyzedType, error
 		return analyzed, nil
 	}
 
+	// For resources, datatypes, and backbone types, extract nested backbone elements
+	if kind == "resource" || kind == "datatype" || kind == "backbone" {
+		backbones := a.extractBackboneElements(sd)
+		analyzed.BackboneTypes = backbones
+	}
+
 	// Skip the root element (first element is always the type itself)
 	for i := 1; i < len(elements); i++ {
 		elem := elements[i]
@@ -110,7 +120,7 @@ func (a *Analyzer) Analyze(sd *parser.StructureDefinition) (*AnalyzedType, error
 			continue
 		}
 
-		props, err := a.analyzeElement(&elem, sd.Type)
+		props, err := a.analyzeElement(&elem, sd.Type, sd.Name)
 		if err != nil {
 			return nil, fmt.Errorf("failed to analyze element %s: %w", elem.Path, err)
 		}
@@ -130,6 +140,98 @@ func (a *Analyzer) Analyze(sd *parser.StructureDefinition) (*AnalyzedType, error
 	}
 
 	return analyzed, nil
+}
+
+// extractBackboneElements extracts all backbone element types from a resource.
+func (a *Analyzer) extractBackboneElements(sd *parser.StructureDefinition) []*AnalyzedType {
+	elements := sd.GetElements()
+	backboneMap := make(map[string]*AnalyzedType)
+
+	// First pass: identify all backbone element paths
+	for _, elem := range elements {
+		if elem.IsBackboneElement() {
+			// Get the backbone type name: ResourceName + FieldName(s)
+			// e.g., Patient.contact -> PatientContact
+			// e.g., Bundle.entry.search -> BundleEntrySearch
+			backboneName := a.getBackboneTypeName(elem.Path)
+			backboneMap[elem.Path] = &AnalyzedType{
+				Name:           backboneName,
+				FHIRName:       elem.Path,
+				Kind:           "backbone",
+				Description:    elem.Short,
+				ParentResource: sd.Name,
+				Properties:     []AnalyzedProperty{},
+			}
+		}
+	}
+
+	// Second pass: assign properties to backbone types
+	for _, elem := range elements {
+		if elem.SliceName != "" {
+			continue
+		}
+
+		// Find the parent backbone for this element
+		parentPath := a.findParentBackbonePath(elem.Path, backboneMap)
+		if parentPath == "" {
+			continue
+		}
+
+		// Only process direct children of the backbone
+		suffix := strings.TrimPrefix(elem.Path, parentPath+".")
+		if suffix == elem.Path || strings.Contains(suffix, ".") {
+			continue
+		}
+
+		// Get the backbone type
+		backbone := backboneMap[parentPath]
+		if backbone == nil {
+			continue
+		}
+
+		// Create the property
+		fieldName := suffix
+		if elem.IsChoiceType() {
+			props, _ := a.analyzeChoiceType(&elem, strings.TrimSuffix(fieldName, "[x]"))
+			backbone.Properties = append(backbone.Properties, props...)
+		} else if len(elem.Type) > 0 {
+			prop := a.createProperty(&elem, fieldName, elem.Type[0])
+			backbone.Properties = append(backbone.Properties, prop)
+		}
+	}
+
+	// Convert map to slice
+	backbones := make([]*AnalyzedType, 0, len(backboneMap))
+	for _, bb := range backboneMap {
+		backbones = append(backbones, bb)
+	}
+
+	return backbones
+}
+
+// getBackboneTypeName generates a Go type name for a backbone element path.
+func (a *Analyzer) getBackboneTypeName(path string) string {
+	// Split the path and PascalCase each part
+	// e.g., "Patient.contact" -> "PatientContact"
+	// e.g., "Bundle.entry.search" -> "BundleEntrySearch"
+	parts := strings.Split(path, ".")
+	result := ""
+	for _, part := range parts {
+		result += toPascalCase(part)
+	}
+	return result
+}
+
+// findParentBackbonePath finds the immediate parent backbone path for an element.
+func (a *Analyzer) findParentBackbonePath(elemPath string, backboneMap map[string]*AnalyzedType) string {
+	// Find the longest matching backbone path
+	longestMatch := ""
+	for bbPath := range backboneMap {
+		if strings.HasPrefix(elemPath, bbPath+".") && len(bbPath) > len(longestMatch) {
+			longestMatch = bbPath
+		}
+	}
+	return longestMatch
 }
 
 // determineKind determines the kind of type (primitive, datatype, resource, backbone).
@@ -163,7 +265,7 @@ func (a *Analyzer) isNestedElement(path, rootType string) bool {
 
 // analyzeElement analyzes a single element and returns properties.
 // May return multiple properties for choice types.
-func (a *Analyzer) analyzeElement(elem *parser.ElementDefinition, rootType string) ([]AnalyzedProperty, error) {
+func (a *Analyzer) analyzeElement(elem *parser.ElementDefinition, rootType string, resourceName string) ([]AnalyzedProperty, error) {
 	// Get the field name from the path
 	fieldName := a.extractFieldName(elem.Path, rootType)
 	if fieldName == "" {
@@ -180,9 +282,35 @@ func (a *Analyzer) analyzeElement(elem *parser.ElementDefinition, rootType strin
 		return a.analyzeContentReference(elem, fieldName)
 	}
 
+	// Handle backbone elements - use specific type instead of generic BackboneElement
+	if elem.IsBackboneElement() {
+		backboneTypeName := a.getBackboneTypeName(elem.Path)
+		isArray := elem.IsArray()
+		goType := backboneTypeName
+		if isArray {
+			goType = "[]" + backboneTypeName
+		} else {
+			goType = "*" + backboneTypeName
+		}
+
+		prop := AnalyzedProperty{
+			Name:         toGoFieldName(fieldName),
+			JSONName:     toLowerFirst(fieldName),
+			GoType:       goType,
+			Description:  elem.Short,
+			IsPointer:    !isArray,
+			IsArray:      isArray,
+			IsRequired:   elem.IsRequired(),
+			IsPrimitive:  false,
+			FHIRType:     "BackboneElement",
+			IsBackbone:   true,
+			BackboneType: backboneTypeName,
+		}
+		return []AnalyzedProperty{prop}, nil
+	}
+
 	// Regular element
 	if len(elem.Type) == 0 {
-		// Backbone element - will be handled separately
 		return nil, nil
 	}
 

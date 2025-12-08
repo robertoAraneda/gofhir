@@ -142,6 +142,165 @@ const (
 	AccountStatusUnknown AccountStatus = "unknown"
 )
 
+// ActionCardinalityBehavior represents Action Cardinality Behavior.
+type ActionCardinalityBehavior string
+
+// ActionCardinalityBehavior values.
+const (
+	// ActionCardinalityBehaviorSingle - Single
+	ActionCardinalityBehaviorSingle ActionCardinalityBehavior = "single"
+	// ActionCardinalityBehaviorMultiple - Multiple
+	ActionCardinalityBehaviorMultiple ActionCardinalityBehavior = "multiple"
+)
+
+// ActionConditionKind represents Action Condition Kind.
+type ActionConditionKind string
+
+// ActionConditionKind values.
+const (
+	// ActionConditionKindApplicability - Applicability
+	ActionConditionKindApplicability ActionConditionKind = "applicability"
+	// ActionConditionKindStart - Start
+	ActionConditionKindStart ActionConditionKind = "start"
+	// ActionConditionKindStop - Stop
+	ActionConditionKindStop ActionConditionKind = "stop"
+)
+
+// ActionGroupingBehavior represents Action Grouping Behavior.
+type ActionGroupingBehavior string
+
+// ActionGroupingBehavior values.
+const (
+	// ActionGroupingBehaviorVisualGroup - Visual Group
+	ActionGroupingBehaviorVisualGroup ActionGroupingBehavior = "visual-group"
+	// ActionGroupingBehaviorLogicalGroup - Logical Group
+	ActionGroupingBehaviorLogicalGroup ActionGroupingBehavior = "logical-group"
+	// ActionGroupingBehaviorSentenceGroup - Sentence Group
+	ActionGroupingBehaviorSentenceGroup ActionGroupingBehavior = "sentence-group"
+)
+
+// ActionParticipantType represents Action Participant Type.
+type ActionParticipantType string
+
+// ActionParticipantType values.
+const (
+	// ActionParticipantTypeCareteam - CareTeam
+	ActionParticipantTypeCareteam ActionParticipantType = "careteam"
+	// ActionParticipantTypeDevice - Device
+	ActionParticipantTypeDevice ActionParticipantType = "device"
+	// ActionParticipantTypeGroup - Group
+	ActionParticipantTypeGroup ActionParticipantType = "group"
+	// ActionParticipantTypeHealthcareservice - HealthcareService
+	ActionParticipantTypeHealthcareservice ActionParticipantType = "healthcareservice"
+	// ActionParticipantTypeLocation - Location
+	ActionParticipantTypeLocation ActionParticipantType = "location"
+	// ActionParticipantTypeOrganization - Organization
+	ActionParticipantTypeOrganization ActionParticipantType = "organization"
+	// ActionParticipantTypePatient - Patient
+	ActionParticipantTypePatient ActionParticipantType = "patient"
+	// ActionParticipantTypePractitioner - Practitioner
+	ActionParticipantTypePractitioner ActionParticipantType = "practitioner"
+	// ActionParticipantTypePractitionerrole - PractitionerRole
+	ActionParticipantTypePractitionerrole ActionParticipantType = "practitionerrole"
+	// ActionParticipantTypeRelatedperson - RelatedPerson
+	ActionParticipantTypeRelatedperson ActionParticipantType = "relatedperson"
+)
+
+// ActionPrecheckBehavior represents Action Precheck Behavior.
+type ActionPrecheckBehavior string
+
+// ActionPrecheckBehavior values.
+const (
+	// ActionPrecheckBehaviorYes - Yes
+	ActionPrecheckBehaviorYes ActionPrecheckBehavior = "yes"
+	// ActionPrecheckBehaviorNo - No
+	ActionPrecheckBehaviorNo ActionPrecheckBehavior = "no"
+)
+
+// ActionRelationshipType represents Action Relationship Type.
+type ActionRelationshipType string
+
+// ActionRelationshipType values.
+const (
+	// ActionRelationshipTypeBefore - Before
+	ActionRelationshipTypeBefore ActionRelationshipType = "before"
+	// ActionRelationshipTypeBeforeStart - Before Start
+	ActionRelationshipTypeBeforeStart ActionRelationshipType = "before-start"
+	// ActionRelationshipTypeBeforeEnd - Before End
+	ActionRelationshipTypeBeforeEnd ActionRelationshipType = "before-end"
+	// ActionRelationshipTypeConcurrent - Concurrent
+	ActionRelationshipTypeConcurrent ActionRelationshipType = "concurrent"
+	// ActionRelationshipTypeConcurrentWithStart - Concurrent With Start
+	ActionRelationshipTypeConcurrentWithStart ActionRelationshipType = "concurrent-with-start"
+	// ActionRelationshipTypeConcurrentWithEnd - Concurrent With End
+	ActionRelationshipTypeConcurrentWithEnd ActionRelationshipType = "concurrent-with-end"
+	// ActionRelationshipTypeAfter - After
+	ActionRelationshipTypeAfter ActionRelationshipType = "after"
+	// ActionRelationshipTypeAfterStart - After Start
+	ActionRelationshipTypeAfterStart ActionRelationshipType = "after-start"
+	// ActionRelationshipTypeAfterEnd - After End
+	ActionRelationshipTypeAfterEnd ActionRelationshipType = "after-end"
+)
+
+// ActionRequiredBehavior represents Action Required Behavior.
+type ActionRequiredBehavior string
+
+// ActionRequiredBehavior values.
+const (
+	// ActionRequiredBehaviorMust - Must
+	ActionRequiredBehaviorMust ActionRequiredBehavior = "must"
+	// ActionRequiredBehaviorCould - Could
+	ActionRequiredBehaviorCould ActionRequiredBehavior = "could"
+	// ActionRequiredBehaviorMustUnlessDocumented - Must Unless Documented
+	ActionRequiredBehaviorMustUnlessDocumented ActionRequiredBehavior = "must-unless-documented"
+)
+
+// ActionSelectionBehavior represents Action Selection Behavior.
+type ActionSelectionBehavior string
+
+// ActionSelectionBehavior values.
+const (
+	// ActionSelectionBehaviorAny - Any
+	ActionSelectionBehaviorAny ActionSelectionBehavior = "any"
+	// ActionSelectionBehaviorAll - All
+	ActionSelectionBehaviorAll ActionSelectionBehavior = "all"
+	// ActionSelectionBehaviorAllOrNone - All Or None
+	ActionSelectionBehaviorAllOrNone ActionSelectionBehavior = "all-or-none"
+	// ActionSelectionBehaviorExactlyOne - Exactly One
+	ActionSelectionBehaviorExactlyOne ActionSelectionBehavior = "exactly-one"
+	// ActionSelectionBehaviorAtMostOne - At Most One
+	ActionSelectionBehaviorAtMostOne ActionSelectionBehavior = "at-most-one"
+	// ActionSelectionBehaviorOneOrMore - One Or More
+	ActionSelectionBehaviorOneOrMore ActionSelectionBehavior = "one-or-more"
+)
+
+// AdditionalBindingPurposeVS represents Additional Binding Purpose ValueSet.
+type AdditionalBindingPurposeVS string
+
+// AdditionalBindingPurposeVS values.
+const (
+	// AdditionalBindingPurposeVSMaximum - Maximum Binding
+	AdditionalBindingPurposeVSMaximum AdditionalBindingPurposeVS = "maximum"
+	// AdditionalBindingPurposeVSMinimum - Minimum Binding
+	AdditionalBindingPurposeVSMinimum AdditionalBindingPurposeVS = "minimum"
+	// AdditionalBindingPurposeVSRequired - Required Binding
+	AdditionalBindingPurposeVSRequired AdditionalBindingPurposeVS = "required"
+	// AdditionalBindingPurposeVSExtensible - Conformance Binding
+	AdditionalBindingPurposeVSExtensible AdditionalBindingPurposeVS = "extensible"
+	// AdditionalBindingPurposeVSCandidate - Candidate Binding
+	AdditionalBindingPurposeVSCandidate AdditionalBindingPurposeVS = "candidate"
+	// AdditionalBindingPurposeVSCurrent - Current Binding
+	AdditionalBindingPurposeVSCurrent AdditionalBindingPurposeVS = "current"
+	// AdditionalBindingPurposeVSPreferred - Preferred Binding
+	AdditionalBindingPurposeVSPreferred AdditionalBindingPurposeVS = "preferred"
+	// AdditionalBindingPurposeVSUi - UI Suggested Binding
+	AdditionalBindingPurposeVSUi AdditionalBindingPurposeVS = "ui"
+	// AdditionalBindingPurposeVSStarter - Starter Binding
+	AdditionalBindingPurposeVSStarter AdditionalBindingPurposeVS = "starter"
+	// AdditionalBindingPurposeVSComponent - Component Binding
+	AdditionalBindingPurposeVSComponent AdditionalBindingPurposeVS = "component"
+)
+
 // AddressType represents AddressType.
 type AddressType string
 
@@ -298,6 +457,25 @@ const (
 	ArtifactAssessmentDispositionNotPersuasiveWithModification ArtifactAssessmentDisposition = "not-persuasive-with-modification"
 )
 
+// ArtifactAssessmentInformationType represents Artifact Assessment Information Type.
+type ArtifactAssessmentInformationType string
+
+// ArtifactAssessmentInformationType values.
+const (
+	// ArtifactAssessmentInformationTypeComment - Comment
+	ArtifactAssessmentInformationTypeComment ArtifactAssessmentInformationType = "comment"
+	// ArtifactAssessmentInformationTypeClassifier - Classifier
+	ArtifactAssessmentInformationTypeClassifier ArtifactAssessmentInformationType = "classifier"
+	// ArtifactAssessmentInformationTypeRating - Rating
+	ArtifactAssessmentInformationTypeRating ArtifactAssessmentInformationType = "rating"
+	// ArtifactAssessmentInformationTypeContainer - Container
+	ArtifactAssessmentInformationTypeContainer ArtifactAssessmentInformationType = "container"
+	// ArtifactAssessmentInformationTypeResponse - Response
+	ArtifactAssessmentInformationTypeResponse ArtifactAssessmentInformationType = "response"
+	// ArtifactAssessmentInformationTypeChangeRequest - Change Request
+	ArtifactAssessmentInformationTypeChangeRequest ArtifactAssessmentInformationType = "change-request"
+)
+
 // ArtifactAssessmentWorkflowStatus represents Artifact Assessment Workflow Status.
 type ArtifactAssessmentWorkflowStatus string
 
@@ -323,6 +501,158 @@ const (
 	ArtifactAssessmentWorkflowStatusPublished ArtifactAssessmentWorkflowStatus = "published"
 	// ArtifactAssessmentWorkflowStatusEnteredInError - Entered in Error
 	ArtifactAssessmentWorkflowStatusEnteredInError ArtifactAssessmentWorkflowStatus = "entered-in-error"
+)
+
+// AssertionDirectionType represents Assertion Direction Type.
+type AssertionDirectionType string
+
+// AssertionDirectionType values.
+const (
+	// AssertionDirectionTypeResponse - response
+	AssertionDirectionTypeResponse AssertionDirectionType = "response"
+	// AssertionDirectionTypeRequest - request
+	AssertionDirectionTypeRequest AssertionDirectionType = "request"
+)
+
+// AssertionManualCompletionType represents Assertion Manual Completion Type.
+type AssertionManualCompletionType string
+
+// AssertionManualCompletionType values.
+const (
+	// AssertionManualCompletionTypeFail - Fail
+	AssertionManualCompletionTypeFail AssertionManualCompletionType = "fail"
+	// AssertionManualCompletionTypePass - Pass
+	AssertionManualCompletionTypePass AssertionManualCompletionType = "pass"
+	// AssertionManualCompletionTypeSkip - Skip
+	AssertionManualCompletionTypeSkip AssertionManualCompletionType = "skip"
+	// AssertionManualCompletionTypeStop - Stop
+	AssertionManualCompletionTypeStop AssertionManualCompletionType = "stop"
+)
+
+// AssertionOperatorType represents Assertion Operator Type.
+type AssertionOperatorType string
+
+// AssertionOperatorType values.
+const (
+	// AssertionOperatorTypeEquals - equals
+	AssertionOperatorTypeEquals AssertionOperatorType = "equals"
+	// AssertionOperatorTypeNotequals - notEquals
+	AssertionOperatorTypeNotequals AssertionOperatorType = "notEquals"
+	// AssertionOperatorTypeIn - in
+	AssertionOperatorTypeIn AssertionOperatorType = "in"
+	// AssertionOperatorTypeNotin - notIn
+	AssertionOperatorTypeNotin AssertionOperatorType = "notIn"
+	// AssertionOperatorTypeGreaterthan - greaterThan
+	AssertionOperatorTypeGreaterthan AssertionOperatorType = "greaterThan"
+	// AssertionOperatorTypeLessthan - lessThan
+	AssertionOperatorTypeLessthan AssertionOperatorType = "lessThan"
+	// AssertionOperatorTypeEmpty - empty
+	AssertionOperatorTypeEmpty AssertionOperatorType = "empty"
+	// AssertionOperatorTypeNotempty - notEmpty
+	AssertionOperatorTypeNotempty AssertionOperatorType = "notEmpty"
+	// AssertionOperatorTypeContains - contains
+	AssertionOperatorTypeContains AssertionOperatorType = "contains"
+	// AssertionOperatorTypeNotcontains - notContains
+	AssertionOperatorTypeNotcontains AssertionOperatorType = "notContains"
+	// AssertionOperatorTypeEval - evaluate
+	AssertionOperatorTypeEval AssertionOperatorType = "eval"
+	// AssertionOperatorTypeManualeval - manualEvaluate
+	AssertionOperatorTypeManualeval AssertionOperatorType = "manualEval"
+)
+
+// AssertionResponseTypes represents Assertion Response Types.
+type AssertionResponseTypes string
+
+// AssertionResponseTypes values.
+const (
+	// AssertionResponseTypesContinue - Continue
+	AssertionResponseTypesContinue AssertionResponseTypes = "continue"
+	// AssertionResponseTypesSwitchingprotocols - Switching Protocols
+	AssertionResponseTypesSwitchingprotocols AssertionResponseTypes = "switchingProtocols"
+	// AssertionResponseTypesOkay - OK
+	AssertionResponseTypesOkay AssertionResponseTypes = "okay"
+	// AssertionResponseTypesCreated - Created
+	AssertionResponseTypesCreated AssertionResponseTypes = "created"
+	// AssertionResponseTypesAccepted - Accepted
+	AssertionResponseTypesAccepted AssertionResponseTypes = "accepted"
+	// AssertionResponseTypesNonauthoritativeinformation - Non-Authoritative Information
+	AssertionResponseTypesNonauthoritativeinformation AssertionResponseTypes = "nonAuthoritativeInformation"
+	// AssertionResponseTypesNocontent - No Content
+	AssertionResponseTypesNocontent AssertionResponseTypes = "noContent"
+	// AssertionResponseTypesResetcontent - Reset Content
+	AssertionResponseTypesResetcontent AssertionResponseTypes = "resetContent"
+	// AssertionResponseTypesPartialcontent - Partial Content
+	AssertionResponseTypesPartialcontent AssertionResponseTypes = "partialContent"
+	// AssertionResponseTypesMultiplechoices - Multiple Choices
+	AssertionResponseTypesMultiplechoices AssertionResponseTypes = "multipleChoices"
+	// AssertionResponseTypesMovedpermanently - Moved Permanently
+	AssertionResponseTypesMovedpermanently AssertionResponseTypes = "movedPermanently"
+	// AssertionResponseTypesFound - Found
+	AssertionResponseTypesFound AssertionResponseTypes = "found"
+	// AssertionResponseTypesSeeother - See Other
+	AssertionResponseTypesSeeother AssertionResponseTypes = "seeOther"
+	// AssertionResponseTypesNotmodified - Not Modified
+	AssertionResponseTypesNotmodified AssertionResponseTypes = "notModified"
+	// AssertionResponseTypesUseproxy - Use Proxy
+	AssertionResponseTypesUseproxy AssertionResponseTypes = "useProxy"
+	// AssertionResponseTypesTemporaryredirect - Temporary Redirect
+	AssertionResponseTypesTemporaryredirect AssertionResponseTypes = "temporaryRedirect"
+	// AssertionResponseTypesPermanentredirect - Permanent Redirect
+	AssertionResponseTypesPermanentredirect AssertionResponseTypes = "permanentRedirect"
+	// AssertionResponseTypesBadrequest - Bad Request
+	AssertionResponseTypesBadrequest AssertionResponseTypes = "badRequest"
+	// AssertionResponseTypesUnauthorized - Unauthorized
+	AssertionResponseTypesUnauthorized AssertionResponseTypes = "unauthorized"
+	// AssertionResponseTypesPaymentrequired - Payment Required
+	AssertionResponseTypesPaymentrequired AssertionResponseTypes = "paymentRequired"
+	// AssertionResponseTypesForbidden - Forbidden
+	AssertionResponseTypesForbidden AssertionResponseTypes = "forbidden"
+	// AssertionResponseTypesNotfound - Not Found
+	AssertionResponseTypesNotfound AssertionResponseTypes = "notFound"
+	// AssertionResponseTypesMethodnotallowed - Method Not Allowed
+	AssertionResponseTypesMethodnotallowed AssertionResponseTypes = "methodNotAllowed"
+	// AssertionResponseTypesNotacceptable - Not Acceptable
+	AssertionResponseTypesNotacceptable AssertionResponseTypes = "notAcceptable"
+	// AssertionResponseTypesProxyauthenticationrequired - Proxy Authentication Required
+	AssertionResponseTypesProxyauthenticationrequired AssertionResponseTypes = "proxyAuthenticationRequired"
+	// AssertionResponseTypesRequesttimeout - Request Timeout
+	AssertionResponseTypesRequesttimeout AssertionResponseTypes = "requestTimeout"
+	// AssertionResponseTypesConflict - Conflict
+	AssertionResponseTypesConflict AssertionResponseTypes = "conflict"
+	// AssertionResponseTypesGone - Gone
+	AssertionResponseTypesGone AssertionResponseTypes = "gone"
+	// AssertionResponseTypesLengthrequired - Length Required
+	AssertionResponseTypesLengthrequired AssertionResponseTypes = "lengthRequired"
+	// AssertionResponseTypesPreconditionfailed - Precondition Failed
+	AssertionResponseTypesPreconditionfailed AssertionResponseTypes = "preconditionFailed"
+	// AssertionResponseTypesContenttoolarge - Content Too Large
+	AssertionResponseTypesContenttoolarge AssertionResponseTypes = "contentTooLarge"
+	// AssertionResponseTypesUritoolong - URI Too Long
+	AssertionResponseTypesUritoolong AssertionResponseTypes = "uriTooLong"
+	// AssertionResponseTypesUnsupportedmediatype - Unsupported Media Type
+	AssertionResponseTypesUnsupportedmediatype AssertionResponseTypes = "unsupportedMediaType"
+	// AssertionResponseTypesRangenotsatisfiable - Range Not Satisfiable
+	AssertionResponseTypesRangenotsatisfiable AssertionResponseTypes = "rangeNotSatisfiable"
+	// AssertionResponseTypesExpectationfailed - Expectation Failed
+	AssertionResponseTypesExpectationfailed AssertionResponseTypes = "expectationFailed"
+	// AssertionResponseTypesMisdirectedrequest - Misdirected Request
+	AssertionResponseTypesMisdirectedrequest AssertionResponseTypes = "misdirectedRequest"
+	// AssertionResponseTypesUnprocessablecontent - Unprocessable Content
+	AssertionResponseTypesUnprocessablecontent AssertionResponseTypes = "unprocessableContent"
+	// AssertionResponseTypesUpgraderequired - Upgrade Required
+	AssertionResponseTypesUpgraderequired AssertionResponseTypes = "upgradeRequired"
+	// AssertionResponseTypesInternalservererror - Internal Server Error
+	AssertionResponseTypesInternalservererror AssertionResponseTypes = "internalServerError"
+	// AssertionResponseTypesNotimplemented - Not Implemented
+	AssertionResponseTypesNotimplemented AssertionResponseTypes = "notImplemented"
+	// AssertionResponseTypesBadgateway - Bad Gateway
+	AssertionResponseTypesBadgateway AssertionResponseTypes = "badGateway"
+	// AssertionResponseTypesServiceunavailable - Service Unavailable
+	AssertionResponseTypesServiceunavailable AssertionResponseTypes = "serviceUnavailable"
+	// AssertionResponseTypesGatewaytimeout - Gateway Timeout
+	AssertionResponseTypesGatewaytimeout AssertionResponseTypes = "gatewayTimeout"
+	// AssertionResponseTypesHttpversionnotsupported - HTTP Version Not Supported
+	AssertionResponseTypesHttpversionnotsupported AssertionResponseTypes = "httpVersionNotSupported"
 )
 
 // AuditEventAction represents Audit Event Action.
@@ -363,6 +693,21 @@ const (
 	AuditEventSeverityInformational AuditEventSeverity = "informational"
 	// AuditEventSeverityDebug - Debug
 	AuditEventSeverityDebug AuditEventSeverity = "debug"
+)
+
+// BindingStrength represents BindingStrength.
+type BindingStrength string
+
+// BindingStrength values.
+const (
+	// BindingStrengthRequired - Required
+	BindingStrengthRequired BindingStrength = "required"
+	// BindingStrengthExtensible - Extensible
+	BindingStrengthExtensible BindingStrength = "extensible"
+	// BindingStrengthPreferred - Preferred
+	BindingStrengthPreferred BindingStrength = "preferred"
+	// BindingStrengthExample - Example
+	BindingStrengthExample BindingStrength = "example"
 )
 
 // BiologicallyDerivedProductDispenseCodes represents BiologicallyDerivedProductDispense Status Codes.
@@ -455,6 +800,27 @@ const (
 	CareTeamStatusInactive CareTeamStatus = "inactive"
 	// CareTeamStatusEnteredInError - Entered in Error
 	CareTeamStatusEnteredInError CareTeamStatus = "entered-in-error"
+)
+
+// CharacteristicCombination represents Characteristic Combination.
+type CharacteristicCombination string
+
+// CharacteristicCombination values.
+const (
+	// CharacteristicCombinationAllOf - All of
+	CharacteristicCombinationAllOf CharacteristicCombination = "all-of"
+	// CharacteristicCombinationAnyOf - Any of
+	CharacteristicCombinationAnyOf CharacteristicCombination = "any-of"
+	// CharacteristicCombinationAtLeast - At least
+	CharacteristicCombinationAtLeast CharacteristicCombination = "at-least"
+	// CharacteristicCombinationAtMost - At most
+	CharacteristicCombinationAtMost CharacteristicCombination = "at-most"
+	// CharacteristicCombinationStatistical - Statistical
+	CharacteristicCombinationStatistical CharacteristicCombination = "statistical"
+	// CharacteristicCombinationNetEffect - Net effect
+	CharacteristicCombinationNetEffect CharacteristicCombination = "net-effect"
+	// CharacteristicCombinationDataset - Dataset
+	CharacteristicCombinationDataset CharacteristicCombination = "dataset"
 )
 
 // ChargeItemStatus represents Charge Item Status.
@@ -616,6 +982,177 @@ const (
 	CompositionStatusUnknown CompositionStatus = "unknown"
 )
 
+// ConceptMapRelationship represents ConceptMapRelationship.
+type ConceptMapRelationship string
+
+// ConceptMapRelationship values.
+const (
+	// ConceptMapRelationshipRelatedTo - Related To
+	ConceptMapRelationshipRelatedTo ConceptMapRelationship = "related-to"
+	// ConceptMapRelationshipEquivalent - Equivalent
+	ConceptMapRelationshipEquivalent ConceptMapRelationship = "equivalent"
+	// ConceptMapRelationshipSourceIsNarrowerThanTarget - Source Is Narrower Than Target
+	ConceptMapRelationshipSourceIsNarrowerThanTarget ConceptMapRelationship = "source-is-narrower-than-target"
+	// ConceptMapRelationshipSourceIsBroaderThanTarget - Source Is Broader Than Target
+	ConceptMapRelationshipSourceIsBroaderThanTarget ConceptMapRelationship = "source-is-broader-than-target"
+	// ConceptMapRelationshipNotRelatedTo - Not Related To
+	ConceptMapRelationshipNotRelatedTo ConceptMapRelationship = "not-related-to"
+)
+
+// PropertyType represents Property Type.
+type PropertyType string
+
+// PropertyType values.
+const (
+	// PropertyTypeCode - code (internal reference)
+	PropertyTypeCode PropertyType = "code"
+	// PropertyTypeCoding - Coding (external reference)
+	PropertyTypeCoding PropertyType = "Coding"
+	// PropertyTypeString - string
+	PropertyTypeString PropertyType = "string"
+	// PropertyTypeInteger - integer
+	PropertyTypeInteger PropertyType = "integer"
+	// PropertyTypeBoolean - boolean
+	PropertyTypeBoolean PropertyType = "boolean"
+	// PropertyTypeDatetime - dateTime
+	PropertyTypeDatetime PropertyType = "dateTime"
+	// PropertyTypeDecimal - decimal
+	PropertyTypeDecimal PropertyType = "decimal"
+)
+
+// ConceptMapAttributeType represents ConceptMap Attribute Type.
+type ConceptMapAttributeType string
+
+// ConceptMapAttributeType values.
+const (
+	// ConceptMapAttributeTypeCode - code
+	ConceptMapAttributeTypeCode ConceptMapAttributeType = "code"
+	// ConceptMapAttributeTypeCoding - Coding
+	ConceptMapAttributeTypeCoding ConceptMapAttributeType = "Coding"
+	// ConceptMapAttributeTypeString - string
+	ConceptMapAttributeTypeString ConceptMapAttributeType = "string"
+	// ConceptMapAttributeTypeBoolean - boolean
+	ConceptMapAttributeTypeBoolean ConceptMapAttributeType = "boolean"
+	// ConceptMapAttributeTypeQuantity - Quantity
+	ConceptMapAttributeTypeQuantity ConceptMapAttributeType = "Quantity"
+)
+
+// ConceptMapPropertyType represents ConceptMap Property Type.
+type ConceptMapPropertyType string
+
+// ConceptMapPropertyType values.
+const (
+	// ConceptMapPropertyTypeCoding - Coding (external reference)
+	ConceptMapPropertyTypeCoding ConceptMapPropertyType = "Coding"
+	// ConceptMapPropertyTypeString - string
+	ConceptMapPropertyTypeString ConceptMapPropertyType = "string"
+	// ConceptMapPropertyTypeInteger - integer
+	ConceptMapPropertyTypeInteger ConceptMapPropertyType = "integer"
+	// ConceptMapPropertyTypeBoolean - boolean
+	ConceptMapPropertyTypeBoolean ConceptMapPropertyType = "boolean"
+	// ConceptMapPropertyTypeDatetime - dateTime
+	ConceptMapPropertyTypeDatetime ConceptMapPropertyType = "dateTime"
+	// ConceptMapPropertyTypeDecimal - decimal
+	ConceptMapPropertyTypeDecimal ConceptMapPropertyType = "decimal"
+	// ConceptMapPropertyTypeCode - code
+	ConceptMapPropertyTypeCode ConceptMapPropertyType = "code"
+)
+
+// ConceptMapGroupUnmappedMode represents Concept Map Group Unmapped Mode.
+type ConceptMapGroupUnmappedMode string
+
+// ConceptMapGroupUnmappedMode values.
+const (
+	// ConceptMapGroupUnmappedModeUseSourceCode - Use Provided Source Code
+	ConceptMapGroupUnmappedModeUseSourceCode ConceptMapGroupUnmappedMode = "use-source-code"
+	// ConceptMapGroupUnmappedModeFixed - Fixed Code
+	ConceptMapGroupUnmappedModeFixed ConceptMapGroupUnmappedMode = "fixed"
+	// ConceptMapGroupUnmappedModeOtherMap - Other Map
+	ConceptMapGroupUnmappedModeOtherMap ConceptMapGroupUnmappedMode = "other-map"
+)
+
+// ConditionPreconditionType represents Condition Precondition Type.
+type ConditionPreconditionType string
+
+// ConditionPreconditionType values.
+const (
+	// ConditionPreconditionTypeSensitive - Sensitive
+	ConditionPreconditionTypeSensitive ConditionPreconditionType = "sensitive"
+	// ConditionPreconditionTypeSpecific - Specific
+	ConditionPreconditionTypeSpecific ConditionPreconditionType = "specific"
+)
+
+// ConditionQuestionnairePurpose represents Condition Questionnaire Purpose.
+type ConditionQuestionnairePurpose string
+
+// ConditionQuestionnairePurpose values.
+const (
+	// ConditionQuestionnairePurposePreadmit - Pre-admit
+	ConditionQuestionnairePurposePreadmit ConditionQuestionnairePurpose = "preadmit"
+	// ConditionQuestionnairePurposeDiffDiagnosis - Diff Diagnosis
+	ConditionQuestionnairePurposeDiffDiagnosis ConditionQuestionnairePurpose = "diff-diagnosis"
+	// ConditionQuestionnairePurposeOutcome - Outcome
+	ConditionQuestionnairePurposeOutcome ConditionQuestionnairePurpose = "outcome"
+)
+
+// ConditionalDeleteStatus represents Conditional Delete Status.
+type ConditionalDeleteStatus string
+
+// ConditionalDeleteStatus values.
+const (
+	// ConditionalDeleteStatusNotSupported - Not Supported
+	ConditionalDeleteStatusNotSupported ConditionalDeleteStatus = "not-supported"
+	// ConditionalDeleteStatusSingle - Single Deletes Supported
+	ConditionalDeleteStatusSingle ConditionalDeleteStatus = "single"
+	// ConditionalDeleteStatusMultiple - Multiple Deletes Supported
+	ConditionalDeleteStatusMultiple ConditionalDeleteStatus = "multiple"
+)
+
+// ConditionalReadStatus represents Conditional Read Status.
+type ConditionalReadStatus string
+
+// ConditionalReadStatus values.
+const (
+	// ConditionalReadStatusNotSupported - Not Supported
+	ConditionalReadStatusNotSupported ConditionalReadStatus = "not-supported"
+	// ConditionalReadStatusModifiedSince - If-Modified-Since
+	ConditionalReadStatusModifiedSince ConditionalReadStatus = "modified-since"
+	// ConditionalReadStatusNotMatch - If-None-Match
+	ConditionalReadStatusNotMatch ConditionalReadStatus = "not-match"
+	// ConditionalReadStatusFullSupport - Full Support
+	ConditionalReadStatusFullSupport ConditionalReadStatus = "full-support"
+)
+
+// ConformanceExpectation represents Conformance Expectation.
+type ConformanceExpectation string
+
+// ConformanceExpectation values.
+const (
+	// ConformanceExpectationShall - SHALL
+	ConformanceExpectationShall ConformanceExpectation = "SHALL"
+	// ConformanceExpectationShould - SHOULD
+	ConformanceExpectationShould ConformanceExpectation = "SHOULD"
+	// ConformanceExpectationMay - MAY
+	ConformanceExpectationMay ConformanceExpectation = "MAY"
+	// ConformanceExpectationShouldNot - SHOULD-NOT
+	ConformanceExpectationShouldNot ConformanceExpectation = "SHOULD-NOT"
+)
+
+// ConsentDataMeaning represents Consent Data Meaning.
+type ConsentDataMeaning string
+
+// ConsentDataMeaning values.
+const (
+	// ConsentDataMeaningInstance - Instance
+	ConsentDataMeaningInstance ConsentDataMeaning = "instance"
+	// ConsentDataMeaningRelated - Related
+	ConsentDataMeaningRelated ConsentDataMeaning = "related"
+	// ConsentDataMeaningDependents - Dependents
+	ConsentDataMeaningDependents ConsentDataMeaning = "dependents"
+	// ConsentDataMeaningAuthoredby - AuthoredBy
+	ConsentDataMeaningAuthoredby ConsentDataMeaning = "authoredby"
+)
+
 // ConsentProvisionType represents Consent Provision Type.
 type ConsentProvisionType string
 
@@ -644,6 +1181,17 @@ const (
 	ConsentStateEnteredInError ConsentState = "entered-in-error"
 	// ConsentStateUnknown - Unknown
 	ConsentStateUnknown ConsentState = "unknown"
+)
+
+// ConstraintSeverity represents ConstraintSeverity.
+type ConstraintSeverity string
+
+// ConstraintSeverity values.
+const (
+	// ConstraintSeverityError - Error
+	ConstraintSeverityError ConstraintSeverity = "error"
+	// ConstraintSeverityWarning - Warning
+	ConstraintSeverityWarning ConstraintSeverity = "warning"
 )
 
 // ContactPointSystem represents ContactPointSystem.
@@ -682,6 +1230,43 @@ const (
 	ContactPointUseOld ContactPointUse = "old"
 	// ContactPointUseMobile - Mobile
 	ContactPointUseMobile ContactPointUse = "mobile"
+)
+
+// ContractResourcePublicationStatusCodes represents Contract Resource Publication Status codes.
+type ContractResourcePublicationStatusCodes string
+
+// ContractResourcePublicationStatusCodes values.
+const (
+	// ContractResourcePublicationStatusCodesAmended - Amended
+	ContractResourcePublicationStatusCodesAmended ContractResourcePublicationStatusCodes = "amended"
+	// ContractResourcePublicationStatusCodesAppended - Appended
+	ContractResourcePublicationStatusCodesAppended ContractResourcePublicationStatusCodes = "appended"
+	// ContractResourcePublicationStatusCodesCancelled - Cancelled
+	ContractResourcePublicationStatusCodesCancelled ContractResourcePublicationStatusCodes = "cancelled"
+	// ContractResourcePublicationStatusCodesDisputed - Disputed
+	ContractResourcePublicationStatusCodesDisputed ContractResourcePublicationStatusCodes = "disputed"
+	// ContractResourcePublicationStatusCodesEnteredInError - Entered in Error
+	ContractResourcePublicationStatusCodesEnteredInError ContractResourcePublicationStatusCodes = "entered-in-error"
+	// ContractResourcePublicationStatusCodesExecutable - Executable
+	ContractResourcePublicationStatusCodesExecutable ContractResourcePublicationStatusCodes = "executable"
+	// ContractResourcePublicationStatusCodesExecuted - Executed
+	ContractResourcePublicationStatusCodesExecuted ContractResourcePublicationStatusCodes = "executed"
+	// ContractResourcePublicationStatusCodesNegotiable - Negotiable
+	ContractResourcePublicationStatusCodesNegotiable ContractResourcePublicationStatusCodes = "negotiable"
+	// ContractResourcePublicationStatusCodesOffered - Offered
+	ContractResourcePublicationStatusCodesOffered ContractResourcePublicationStatusCodes = "offered"
+	// ContractResourcePublicationStatusCodesPolicy - Policy
+	ContractResourcePublicationStatusCodesPolicy ContractResourcePublicationStatusCodes = "policy"
+	// ContractResourcePublicationStatusCodesRejected - Rejected
+	ContractResourcePublicationStatusCodesRejected ContractResourcePublicationStatusCodes = "rejected"
+	// ContractResourcePublicationStatusCodesRenewed - Renewed
+	ContractResourcePublicationStatusCodesRenewed ContractResourcePublicationStatusCodes = "renewed"
+	// ContractResourcePublicationStatusCodesRevoked - Revoked
+	ContractResourcePublicationStatusCodesRevoked ContractResourcePublicationStatusCodes = "revoked"
+	// ContractResourcePublicationStatusCodesResolved - Resolved
+	ContractResourcePublicationStatusCodesResolved ContractResourcePublicationStatusCodes = "resolved"
+	// ContractResourcePublicationStatusCodesTerminated - Terminated
+	ContractResourcePublicationStatusCodesTerminated ContractResourcePublicationStatusCodes = "terminated"
 )
 
 // ContractResourceStatusCodes represents Contract Resource Status Codes.
@@ -749,6 +1334,27 @@ const (
 	KindOther Kind = "other"
 )
 
+// DaysOfWeek represents Days Of Week.
+type DaysOfWeek string
+
+// DaysOfWeek values.
+const (
+	// DaysOfWeekMon - Monday
+	DaysOfWeekMon DaysOfWeek = "mon"
+	// DaysOfWeekTue - Tuesday
+	DaysOfWeekTue DaysOfWeek = "tue"
+	// DaysOfWeekWed - Wednesday
+	DaysOfWeekWed DaysOfWeek = "wed"
+	// DaysOfWeekThu - Thursday
+	DaysOfWeekThu DaysOfWeek = "thu"
+	// DaysOfWeekFri - Friday
+	DaysOfWeekFri DaysOfWeek = "fri"
+	// DaysOfWeekSat - Saturday
+	DaysOfWeekSat DaysOfWeek = "sat"
+	// DaysOfWeekSun - Sunday
+	DaysOfWeekSun DaysOfWeek = "sun"
+)
+
 // DetectedIssueSeverity represents Detected Issue Severity.
 type DetectedIssueSeverity string
 
@@ -775,6 +1381,32 @@ const (
 	DetectedIssueStatusEnteredInError DetectedIssueStatus = "entered-in-error"
 	// DetectedIssueStatusMitigated - Mitigated
 	DetectedIssueStatusMitigated DetectedIssueStatus = "mitigated"
+)
+
+// DeviceCorrectiveActionScope represents Device Corrective Action Scope.
+type DeviceCorrectiveActionScope string
+
+// DeviceCorrectiveActionScope values.
+const (
+	// DeviceCorrectiveActionScopeModel - Model
+	DeviceCorrectiveActionScopeModel DeviceCorrectiveActionScope = "model"
+	// DeviceCorrectiveActionScopeLotNumbers - Lot Numbers
+	DeviceCorrectiveActionScopeLotNumbers DeviceCorrectiveActionScope = "lot-numbers"
+	// DeviceCorrectiveActionScopeSerialNumbers - Serial Numbers
+	DeviceCorrectiveActionScopeSerialNumbers DeviceCorrectiveActionScope = "serial-numbers"
+)
+
+// DeviceNameType represents Device Name Type.
+type DeviceNameType string
+
+// DeviceNameType values.
+const (
+	// DeviceNameTypeRegisteredName - Registered name
+	DeviceNameTypeRegisteredName DeviceNameType = "registered-name"
+	// DeviceNameTypeUserFriendlyName - User Friendly name
+	DeviceNameTypeUserFriendlyName DeviceNameType = "user-friendly-name"
+	// DeviceNameTypePatientReportedName - Patient Reported name
+	DeviceNameTypePatientReportedName DeviceNameType = "patient-reported-name"
 )
 
 // DeviceProductionIdentifierInUDI represents Device Production Identifier In UDI.
@@ -807,6 +1439,19 @@ const (
 	FHIRDeviceStatusInactive FHIRDeviceStatus = "inactive"
 	// FHIRDeviceStatusEnteredInError - Entered in Error
 	FHIRDeviceStatusEnteredInError FHIRDeviceStatus = "entered-in-error"
+)
+
+// DeviceDefinitionRegulatoryIdentifierType represents Device Definition Regulatory Identifier Type.
+type DeviceDefinitionRegulatoryIdentifierType string
+
+// DeviceDefinitionRegulatoryIdentifierType values.
+const (
+	// DeviceDefinitionRegulatoryIdentifierTypeBasic - Basic
+	DeviceDefinitionRegulatoryIdentifierTypeBasic DeviceDefinitionRegulatoryIdentifierType = "basic"
+	// DeviceDefinitionRegulatoryIdentifierTypeMaster - Master
+	DeviceDefinitionRegulatoryIdentifierTypeMaster DeviceDefinitionRegulatoryIdentifierType = "master"
+	// DeviceDefinitionRegulatoryIdentifierTypeLicense - License
+	DeviceDefinitionRegulatoryIdentifierTypeLicense DeviceDefinitionRegulatoryIdentifierType = "license"
 )
 
 // DeviceDispenseStatusCodes represents DeviceDispense Status Codes.
@@ -884,6 +1529,36 @@ const (
 	DiagnosticReportStatusUnknown DiagnosticReportStatus = "unknown"
 )
 
+// DiscriminatorType represents DiscriminatorType.
+type DiscriminatorType string
+
+// DiscriminatorType values.
+const (
+	// DiscriminatorTypeValue - Value
+	DiscriminatorTypeValue DiscriminatorType = "value"
+	// DiscriminatorTypeExists - Exists
+	DiscriminatorTypeExists DiscriminatorType = "exists"
+	// DiscriminatorTypePattern - Pattern
+	DiscriminatorTypePattern DiscriminatorType = "pattern"
+	// DiscriminatorTypeType - Type
+	DiscriminatorTypeType DiscriminatorType = "type"
+	// DiscriminatorTypeProfile - Profile
+	DiscriminatorTypeProfile DiscriminatorType = "profile"
+	// DiscriminatorTypePosition - Position
+	DiscriminatorTypePosition DiscriminatorType = "position"
+)
+
+// DocumentMode represents Document Mode.
+type DocumentMode string
+
+// DocumentMode values.
+const (
+	// DocumentModeProducer - Producer
+	DocumentModeProducer DocumentMode = "producer"
+	// DocumentModeConsumer - Consumer
+	DocumentModeConsumer DocumentMode = "consumer"
+)
+
 // DocumentReferenceStatus represents DocumentReferenceStatus.
 type DocumentReferenceStatus string
 
@@ -940,6 +1615,21 @@ const (
 	EligibilityResponsePurposeDiscovery EligibilityResponsePurpose = "discovery"
 	// EligibilityResponsePurposeValidation - Coverage Validation
 	EligibilityResponsePurposeValidation EligibilityResponsePurpose = "validation"
+)
+
+// EncounterLocationStatus represents Encounter Location Status.
+type EncounterLocationStatus string
+
+// EncounterLocationStatus values.
+const (
+	// EncounterLocationStatusPlanned - Planned
+	EncounterLocationStatusPlanned EncounterLocationStatus = "planned"
+	// EncounterLocationStatusActive - Active
+	EncounterLocationStatusActive EncounterLocationStatus = "active"
+	// EncounterLocationStatusReserved - Reserved
+	EncounterLocationStatusReserved EncounterLocationStatus = "reserved"
+	// EncounterLocationStatusCompleted - Completed
+	EncounterLocationStatusCompleted EncounterLocationStatus = "completed"
 )
 
 // EncounterStatus represents Encounter Status.
@@ -1020,6 +1710,17 @@ const (
 	EpisodeOfCareStatusEnteredInError EpisodeOfCareStatus = "entered-in-error"
 )
 
+// EventCapabilityMode represents Event Capability Mode.
+type EventCapabilityMode string
+
+// EventCapabilityMode values.
+const (
+	// EventCapabilityModeSender - Sender
+	EventCapabilityModeSender EventCapabilityMode = "sender"
+	// EventCapabilityModeReceiver - Receiver
+	EventCapabilityModeReceiver EventCapabilityMode = "receiver"
+)
+
 // EventStatus represents EventStatus.
 type EventStatus string
 
@@ -1041,6 +1742,53 @@ const (
 	EventStatusEnteredInError EventStatus = "entered-in-error"
 	// EventStatusUnknown - Unknown
 	EventStatusUnknown EventStatus = "unknown"
+)
+
+// EventTiming represents EventTiming.
+type EventTiming string
+
+// EventTiming values.
+const (
+	// EventTimingMorn - Morning
+	EventTimingMorn EventTiming = "MORN"
+	// EventTimingMornEarly - Early Morning
+	EventTimingMornEarly EventTiming = "MORN.early"
+	// EventTimingMornLate - Late Morning
+	EventTimingMornLate EventTiming = "MORN.late"
+	// EventTimingNoon - Noon
+	EventTimingNoon EventTiming = "NOON"
+	// EventTimingAft - Afternoon
+	EventTimingAft EventTiming = "AFT"
+	// EventTimingAftEarly - Early Afternoon
+	EventTimingAftEarly EventTiming = "AFT.early"
+	// EventTimingAftLate - Late Afternoon
+	EventTimingAftLate EventTiming = "AFT.late"
+	// EventTimingEve - Evening
+	EventTimingEve EventTiming = "EVE"
+	// EventTimingEveEarly - Early Evening
+	EventTimingEveEarly EventTiming = "EVE.early"
+	// EventTimingEveLate - Late Evening
+	EventTimingEveLate EventTiming = "EVE.late"
+	// EventTimingNight - Night
+	EventTimingNight EventTiming = "NIGHT"
+	// EventTimingPhs - After Sleep
+	EventTimingPhs EventTiming = "PHS"
+	// EventTimingImd - Immediate
+	EventTimingImd  EventTiming = "IMD"
+	EventTimingHs   EventTiming = "HS"
+	EventTimingWake EventTiming = "WAKE"
+	EventTimingC    EventTiming = "C"
+	EventTimingCm   EventTiming = "CM"
+	EventTimingCd   EventTiming = "CD"
+	EventTimingCv   EventTiming = "CV"
+	EventTimingAc   EventTiming = "AC"
+	EventTimingAcm  EventTiming = "ACM"
+	EventTimingAcd  EventTiming = "ACD"
+	EventTimingAcv  EventTiming = "ACV"
+	EventTimingPc   EventTiming = "PC"
+	EventTimingPcm  EventTiming = "PCM"
+	EventTimingPcd  EventTiming = "PCD"
+	EventTimingPcv  EventTiming = "PCV"
 )
 
 // ExampleScenarioActorType represents Example Scenario Actor Type.
@@ -1067,6 +1815,48 @@ const (
 	ExplanationOfBenefitStatusDraft ExplanationOfBenefitStatus = "draft"
 	// ExplanationOfBenefitStatusEnteredInError - Entered In Error
 	ExplanationOfBenefitStatusEnteredInError ExplanationOfBenefitStatus = "entered-in-error"
+)
+
+// ExtensionContextType represents Extension Context Type.
+type ExtensionContextType string
+
+// ExtensionContextType values.
+const (
+	// ExtensionContextTypeFhirpath - FHIRPath
+	ExtensionContextTypeFhirpath ExtensionContextType = "fhirpath"
+	// ExtensionContextTypeElement - Element ID
+	ExtensionContextTypeElement ExtensionContextType = "element"
+	// ExtensionContextTypeExtension - Extension URL
+	ExtensionContextTypeExtension ExtensionContextType = "extension"
+)
+
+// FilterOperator represents Filter Operator.
+type FilterOperator string
+
+// FilterOperator values.
+const (
+	// FilterOperatorEqual - Equals
+	FilterOperatorEqual FilterOperator = "="
+	// FilterOperatorIsA - Is A (by subsumption)
+	FilterOperatorIsA FilterOperator = "is-a"
+	// FilterOperatorDescendentOf - Descendent Of (by subsumption)
+	FilterOperatorDescendentOf FilterOperator = "descendent-of"
+	// FilterOperatorIsNotA - Not (Is A) (by subsumption)
+	FilterOperatorIsNotA FilterOperator = "is-not-a"
+	// FilterOperatorRegex - Regular Expression
+	FilterOperatorRegex FilterOperator = "regex"
+	// FilterOperatorIn - In Set
+	FilterOperatorIn FilterOperator = "in"
+	// FilterOperatorNotIn - Not in Set
+	FilterOperatorNotIn FilterOperator = "not-in"
+	// FilterOperatorGeneralizes - Generalizes (by Subsumption)
+	FilterOperatorGeneralizes FilterOperator = "generalizes"
+	// FilterOperatorChildOf - Child Of
+	FilterOperatorChildOf FilterOperator = "child-of"
+	// FilterOperatorDescendentLeaf - Descendent Leaf
+	FilterOperatorDescendentLeaf FilterOperator = "descendent-leaf"
+	// FilterOperatorExists - Exists
+	FilterOperatorExists FilterOperator = "exists"
 )
 
 // FlagStatus represents Flag Status.
@@ -1152,6 +1942,32 @@ const (
 	GoalLifecycleStatusRejected GoalLifecycleStatus = "rejected"
 )
 
+// GraphCompartmentRule represents Graph Compartment Rule.
+type GraphCompartmentRule string
+
+// GraphCompartmentRule values.
+const (
+	// GraphCompartmentRuleIdentical - Identical
+	GraphCompartmentRuleIdentical GraphCompartmentRule = "identical"
+	// GraphCompartmentRuleMatching - Matching
+	GraphCompartmentRuleMatching GraphCompartmentRule = "matching"
+	// GraphCompartmentRuleDifferent - Different
+	GraphCompartmentRuleDifferent GraphCompartmentRule = "different"
+	// GraphCompartmentRuleCustom - Custom
+	GraphCompartmentRuleCustom GraphCompartmentRule = "custom"
+)
+
+// GraphCompartmentUse represents Graph Compartment Use.
+type GraphCompartmentUse string
+
+// GraphCompartmentUse values.
+const (
+	// GraphCompartmentUseWhere - Where
+	GraphCompartmentUseWhere GraphCompartmentUse = "where"
+	// GraphCompartmentUseRequires - requires
+	GraphCompartmentUseRequires GraphCompartmentUse = "requires"
+)
+
 // GroupMembershipBasis represents Group Membership Basis.
 type GroupMembershipBasis string
 
@@ -1209,6 +2025,21 @@ const (
 	GuidanceResponseStatusEnteredInError GuidanceResponseStatus = "entered-in-error"
 )
 
+// GuidePageGeneration represents Guide Page Generation.
+type GuidePageGeneration string
+
+// GuidePageGeneration values.
+const (
+	// GuidePageGenerationHtml - HTML
+	GuidePageGenerationHtml GuidePageGeneration = "html"
+	// GuidePageGenerationMarkdown - Markdown
+	GuidePageGenerationMarkdown GuidePageGeneration = "markdown"
+	// GuidePageGenerationXml - XML
+	GuidePageGenerationXml GuidePageGeneration = "xml"
+	// GuidePageGenerationGenerated - Generated
+	GuidePageGenerationGenerated GuidePageGeneration = "generated"
+)
+
 // FamilyHistoryStatus represents Family History Status.
 type FamilyHistoryStatus string
 
@@ -1222,6 +2053,46 @@ const (
 	FamilyHistoryStatusEnteredInError FamilyHistoryStatus = "entered-in-error"
 	// FamilyHistoryStatusHealthUnknown - Health Unknown
 	FamilyHistoryStatusHealthUnknown FamilyHistoryStatus = "health-unknown"
+)
+
+// TestScriptRequestMethodCode represents Test Script Request Method Code.
+type TestScriptRequestMethodCode string
+
+// TestScriptRequestMethodCode values.
+const (
+	// TestScriptRequestMethodCodeDelete - DELETE
+	TestScriptRequestMethodCodeDelete TestScriptRequestMethodCode = "delete"
+	// TestScriptRequestMethodCodeGet - GET
+	TestScriptRequestMethodCodeGet TestScriptRequestMethodCode = "get"
+	// TestScriptRequestMethodCodeOptions - OPTIONS
+	TestScriptRequestMethodCodeOptions TestScriptRequestMethodCode = "options"
+	// TestScriptRequestMethodCodePatch - PATCH
+	TestScriptRequestMethodCodePatch TestScriptRequestMethodCode = "patch"
+	// TestScriptRequestMethodCodePost - POST
+	TestScriptRequestMethodCodePost TestScriptRequestMethodCode = "post"
+	// TestScriptRequestMethodCodePut - PUT
+	TestScriptRequestMethodCodePut TestScriptRequestMethodCode = "put"
+	// TestScriptRequestMethodCodeHead - HEAD
+	TestScriptRequestMethodCodeHead TestScriptRequestMethodCode = "head"
+)
+
+// HTTPVerb represents H T T P Verb.
+type HTTPVerb string
+
+// HTTPVerb values.
+const (
+	// HTTPVerbGet - GET
+	HTTPVerbGet HTTPVerb = "GET"
+	// HTTPVerbHead - HEAD
+	HTTPVerbHead HTTPVerb = "HEAD"
+	// HTTPVerbPost - POST
+	HTTPVerbPost HTTPVerb = "POST"
+	// HTTPVerbPut - PUT
+	HTTPVerbPut HTTPVerb = "PUT"
+	// HTTPVerbDelete - DELETE
+	HTTPVerbDelete HTTPVerb = "DELETE"
+	// HTTPVerbPatch - PATCH
+	HTTPVerbPatch HTTPVerb = "PATCH"
 )
 
 // IdentifierUse represents IdentifierUse.
@@ -1239,6 +2110,57 @@ const (
 	IdentifierUseSecondary IdentifierUse = "secondary"
 	// IdentifierUseOld - Old
 	IdentifierUseOld IdentifierUse = "old"
+)
+
+// IdentityAssuranceLevel represents Identity Assurance Level.
+type IdentityAssuranceLevel string
+
+// IdentityAssuranceLevel values.
+const (
+	// IdentityAssuranceLevelLevel1 - Level 1
+	IdentityAssuranceLevelLevel1 IdentityAssuranceLevel = "level1"
+	// IdentityAssuranceLevelLevel2 - Level 2
+	IdentityAssuranceLevelLevel2 IdentityAssuranceLevel = "level2"
+	// IdentityAssuranceLevelLevel3 - Level 3
+	IdentityAssuranceLevelLevel3 IdentityAssuranceLevel = "level3"
+	// IdentityAssuranceLevelLevel4 - Level 4
+	IdentityAssuranceLevelLevel4 IdentityAssuranceLevel = "level4"
+)
+
+// ImagingSelection2DGraphicType represents Imaging Selection2 D Graphic Type.
+type ImagingSelection2DGraphicType string
+
+// ImagingSelection2DGraphicType values.
+const (
+	// ImagingSelection2DGraphicTypePoint - POINT
+	ImagingSelection2DGraphicTypePoint ImagingSelection2DGraphicType = "point"
+	// ImagingSelection2DGraphicTypePolyline - POLYLINE
+	ImagingSelection2DGraphicTypePolyline ImagingSelection2DGraphicType = "polyline"
+	// ImagingSelection2DGraphicTypeInterpolated - INTERPOLATED
+	ImagingSelection2DGraphicTypeInterpolated ImagingSelection2DGraphicType = "interpolated"
+	// ImagingSelection2DGraphicTypeCircle - CIRCLE
+	ImagingSelection2DGraphicTypeCircle ImagingSelection2DGraphicType = "circle"
+	// ImagingSelection2DGraphicTypeEllipse - ELLIPSE
+	ImagingSelection2DGraphicTypeEllipse ImagingSelection2DGraphicType = "ellipse"
+)
+
+// ImagingSelection3DGraphicType represents Imaging Selection3 D Graphic Type.
+type ImagingSelection3DGraphicType string
+
+// ImagingSelection3DGraphicType values.
+const (
+	// ImagingSelection3DGraphicTypePoint - POINT
+	ImagingSelection3DGraphicTypePoint ImagingSelection3DGraphicType = "point"
+	// ImagingSelection3DGraphicTypeMultipoint - MULTIPOINT
+	ImagingSelection3DGraphicTypeMultipoint ImagingSelection3DGraphicType = "multipoint"
+	// ImagingSelection3DGraphicTypePolyline - POLYLINE
+	ImagingSelection3DGraphicTypePolyline ImagingSelection3DGraphicType = "polyline"
+	// ImagingSelection3DGraphicTypePolygon - POLYGON
+	ImagingSelection3DGraphicTypePolygon ImagingSelection3DGraphicType = "polygon"
+	// ImagingSelection3DGraphicTypeEllipse - ELLIPSE
+	ImagingSelection3DGraphicTypeEllipse ImagingSelection3DGraphicType = "ellipse"
+	// ImagingSelection3DGraphicTypeEllipsoid - ELLIPSOID
+	ImagingSelection3DGraphicTypeEllipsoid ImagingSelection3DGraphicType = "ellipsoid"
 )
 
 // ImagingSelectionStatus represents Imaging Selection Status.
@@ -1288,6 +2210,29 @@ const (
 	ImmunizationStatusCodesCompleted      ImmunizationStatusCodes = "completed"
 	ImmunizationStatusCodesEnteredInError ImmunizationStatusCodes = "entered-in-error"
 	ImmunizationStatusCodesNotDone        ImmunizationStatusCodes = "not-done"
+)
+
+// IngredientManufacturerRole represents Ingredient Manufacturer Role.
+type IngredientManufacturerRole string
+
+// IngredientManufacturerRole values.
+const (
+	// IngredientManufacturerRoleAllowed - Manufacturer is specifically allowed for this ingredient
+	IngredientManufacturerRoleAllowed IngredientManufacturerRole = "allowed"
+	// IngredientManufacturerRolePossible - Manufacturer is known to make this ingredient in general
+	IngredientManufacturerRolePossible IngredientManufacturerRole = "possible"
+	// IngredientManufacturerRoleActual - Manufacturer actually makes this particular ingredient
+	IngredientManufacturerRoleActual IngredientManufacturerRole = "actual"
+)
+
+// InteractionTrigger represents Interaction Trigger.
+type InteractionTrigger string
+
+// InteractionTrigger values.
+const (
+	InteractionTriggerCreate InteractionTrigger = "create"
+	InteractionTriggerUpdate InteractionTrigger = "update"
+	InteractionTriggerDelete InteractionTrigger = "delete"
 )
 
 // InventoryItemStatusCodes represents InventoryItem Status Codes.
@@ -1348,6 +2293,334 @@ const (
 	InvoiceStatusEnteredInError InvoiceStatus = "entered-in-error"
 )
 
+// IssueSeverity represents Issue Severity.
+type IssueSeverity string
+
+// IssueSeverity values.
+const (
+	// IssueSeverityFatal - Fatal
+	IssueSeverityFatal IssueSeverity = "fatal"
+	// IssueSeverityError - Error
+	IssueSeverityError IssueSeverity = "error"
+	// IssueSeverityWarning - Warning
+	IssueSeverityWarning IssueSeverity = "warning"
+	// IssueSeverityInformation - Information
+	IssueSeverityInformation IssueSeverity = "information"
+	// IssueSeveritySuccess - Operation Successful
+	IssueSeveritySuccess IssueSeverity = "success"
+)
+
+// IssueType represents Issue Type.
+type IssueType string
+
+// IssueType values.
+const (
+	// IssueTypeInvalid - Invalid Content
+	IssueTypeInvalid IssueType = "invalid"
+	// IssueTypeStructure - Structural Issue
+	IssueTypeStructure IssueType = "structure"
+	// IssueTypeRequired - Required element missing
+	IssueTypeRequired IssueType = "required"
+	// IssueTypeValue - Element value invalid
+	IssueTypeValue IssueType = "value"
+	// IssueTypeInvariant - Validation rule failed
+	IssueTypeInvariant IssueType = "invariant"
+	// IssueTypeSecurity - Security Problem
+	IssueTypeSecurity IssueType = "security"
+	// IssueTypeLogin - Login Required
+	IssueTypeLogin IssueType = "login"
+	// IssueTypeUnknown - Unknown User
+	IssueTypeUnknown IssueType = "unknown"
+	// IssueTypeExpired - Session Expired
+	IssueTypeExpired IssueType = "expired"
+	// IssueTypeForbidden - Forbidden
+	IssueTypeForbidden IssueType = "forbidden"
+	// IssueTypeSuppressed - Information  Suppressed
+	IssueTypeSuppressed IssueType = "suppressed"
+	// IssueTypeProcessing - Processing Failure
+	IssueTypeProcessing IssueType = "processing"
+	// IssueTypeNotSupported - Content not supported
+	IssueTypeNotSupported IssueType = "not-supported"
+	// IssueTypeDuplicate - Duplicate
+	IssueTypeDuplicate IssueType = "duplicate"
+	// IssueTypeMultipleMatches - Multiple Matches
+	IssueTypeMultipleMatches IssueType = "multiple-matches"
+	// IssueTypeNotFound - Not Found
+	IssueTypeNotFound IssueType = "not-found"
+	// IssueTypeDeleted - Deleted
+	IssueTypeDeleted IssueType = "deleted"
+	// IssueTypeTooLong - Content Too Long
+	IssueTypeTooLong IssueType = "too-long"
+	// IssueTypeCodeInvalid - Invalid Code
+	IssueTypeCodeInvalid IssueType = "code-invalid"
+	// IssueTypeExtension - Unacceptable Extension
+	IssueTypeExtension IssueType = "extension"
+	// IssueTypeTooCostly - Operation Too Costly
+	IssueTypeTooCostly IssueType = "too-costly"
+	// IssueTypeBusinessRule - Business Rule Violation
+	IssueTypeBusinessRule IssueType = "business-rule"
+	// IssueTypeConflict - Edit Version Conflict
+	IssueTypeConflict IssueType = "conflict"
+	// IssueTypeLimitedFilter - Limited Filter Application
+	IssueTypeLimitedFilter IssueType = "limited-filter"
+	// IssueTypeTransient - Transient Issue
+	IssueTypeTransient IssueType = "transient"
+	// IssueTypeLockError - Lock Error
+	IssueTypeLockError IssueType = "lock-error"
+	// IssueTypeNoStore - No Store Available
+	IssueTypeNoStore IssueType = "no-store"
+	// IssueTypeException - Exception
+	IssueTypeException IssueType = "exception"
+	// IssueTypeTimeout - Timeout
+	IssueTypeTimeout IssueType = "timeout"
+	// IssueTypeIncomplete - Incomplete Results
+	IssueTypeIncomplete IssueType = "incomplete"
+	// IssueTypeThrottled - Throttled
+	IssueTypeThrottled IssueType = "throttled"
+	// IssueTypeInformational - Informational Note
+	IssueTypeInformational IssueType = "informational"
+	// IssueTypeSuccess - Operation Successful
+	IssueTypeSuccess IssueType = "success"
+)
+
+// QuestionnaireItemType represents Questionnaire Item Type.
+type QuestionnaireItemType string
+
+// QuestionnaireItemType values.
+const (
+	// QuestionnaireItemTypeGroup - Group
+	QuestionnaireItemTypeGroup QuestionnaireItemType = "group"
+	// QuestionnaireItemTypeDisplay - Display
+	QuestionnaireItemTypeDisplay QuestionnaireItemType = "display"
+	// QuestionnaireItemTypeQuestion - Question
+	QuestionnaireItemTypeQuestion QuestionnaireItemType = "question"
+	// QuestionnaireItemTypeBoolean - Boolean
+	QuestionnaireItemTypeBoolean QuestionnaireItemType = "boolean"
+	// QuestionnaireItemTypeDecimal - Decimal
+	QuestionnaireItemTypeDecimal QuestionnaireItemType = "decimal"
+	// QuestionnaireItemTypeInteger - Integer
+	QuestionnaireItemTypeInteger QuestionnaireItemType = "integer"
+	// QuestionnaireItemTypeDate - Date
+	QuestionnaireItemTypeDate QuestionnaireItemType = "date"
+	// QuestionnaireItemTypeDatetime - Date Time
+	QuestionnaireItemTypeDatetime QuestionnaireItemType = "dateTime"
+	// QuestionnaireItemTypeTime - Time
+	QuestionnaireItemTypeTime QuestionnaireItemType = "time"
+	// QuestionnaireItemTypeString - String
+	QuestionnaireItemTypeString QuestionnaireItemType = "string"
+	// QuestionnaireItemTypeText - Text
+	QuestionnaireItemTypeText QuestionnaireItemType = "text"
+	// QuestionnaireItemTypeUrl - Url
+	QuestionnaireItemTypeUrl QuestionnaireItemType = "url"
+	// QuestionnaireItemTypeCoding - Coding
+	QuestionnaireItemTypeCoding QuestionnaireItemType = "coding"
+	// QuestionnaireItemTypeAttachment - Attachment
+	QuestionnaireItemTypeAttachment QuestionnaireItemType = "attachment"
+	// QuestionnaireItemTypeReference - Reference
+	QuestionnaireItemTypeReference QuestionnaireItemType = "reference"
+	// QuestionnaireItemTypeQuantity - Quantity
+	QuestionnaireItemTypeQuantity QuestionnaireItemType = "quantity"
+)
+
+// CommonLanguages represents Common Languages.
+type CommonLanguages string
+
+// CommonLanguages values.
+const (
+	// CommonLanguagesAr - Arabic
+	CommonLanguagesAr CommonLanguages = "ar"
+	// CommonLanguagesBg - Bulgarian
+	CommonLanguagesBg CommonLanguages = "bg"
+	// CommonLanguagesBgBg - Bulgarian (Bulgaria)
+	CommonLanguagesBgBg CommonLanguages = "bg-BG"
+	// CommonLanguagesBn - Bengali
+	CommonLanguagesBn CommonLanguages = "bn"
+	// CommonLanguagesCs - Czech
+	CommonLanguagesCs CommonLanguages = "cs"
+	// CommonLanguagesCsCz - Czech (Czechia)
+	CommonLanguagesCsCz CommonLanguages = "cs-CZ"
+	// CommonLanguagesBs - Bosnian
+	CommonLanguagesBs CommonLanguages = "bs"
+	// CommonLanguagesBsBa - Bosnian (Bosnia and Herzegovina)
+	CommonLanguagesBsBa CommonLanguages = "bs-BA"
+	// CommonLanguagesDa - Danish
+	CommonLanguagesDa CommonLanguages = "da"
+	// CommonLanguagesDaDk - Danish (Denmark)
+	CommonLanguagesDaDk CommonLanguages = "da-DK"
+	// CommonLanguagesDe - German
+	CommonLanguagesDe CommonLanguages = "de"
+	// CommonLanguagesDeAt - German (Austria)
+	CommonLanguagesDeAt CommonLanguages = "de-AT"
+	// CommonLanguagesDeCh - German (Switzerland)
+	CommonLanguagesDeCh CommonLanguages = "de-CH"
+	// CommonLanguagesDeDe - German (Germany)
+	CommonLanguagesDeDe CommonLanguages = "de-DE"
+	// CommonLanguagesEl - Greek
+	CommonLanguagesEl CommonLanguages = "el"
+	// CommonLanguagesElGr - Greek (Greece)
+	CommonLanguagesElGr CommonLanguages = "el-GR"
+	// CommonLanguagesEn - English
+	CommonLanguagesEn CommonLanguages = "en"
+	// CommonLanguagesEnAu - English (Australia)
+	CommonLanguagesEnAu CommonLanguages = "en-AU"
+	// CommonLanguagesEnCa - English (Canada)
+	CommonLanguagesEnCa CommonLanguages = "en-CA"
+	// CommonLanguagesEnGb - English (Great Britain)
+	CommonLanguagesEnGb CommonLanguages = "en-GB"
+	// CommonLanguagesEnIn - English (India)
+	CommonLanguagesEnIn CommonLanguages = "en-IN"
+	// CommonLanguagesEnNz - English (New Zealand)
+	CommonLanguagesEnNz CommonLanguages = "en-NZ"
+	// CommonLanguagesEnSg - English (Singapore)
+	CommonLanguagesEnSg CommonLanguages = "en-SG"
+	// CommonLanguagesEnUs - English (United States)
+	CommonLanguagesEnUs CommonLanguages = "en-US"
+	// CommonLanguagesEs - Spanish
+	CommonLanguagesEs CommonLanguages = "es"
+	// CommonLanguagesEsAr - Spanish (Argentina)
+	CommonLanguagesEsAr CommonLanguages = "es-AR"
+	// CommonLanguagesEsEs - Spanish (Spain)
+	CommonLanguagesEsEs CommonLanguages = "es-ES"
+	// CommonLanguagesEsUy - Spanish (Uruguay)
+	CommonLanguagesEsUy CommonLanguages = "es-UY"
+	// CommonLanguagesEt - Estonian
+	CommonLanguagesEt CommonLanguages = "et"
+	// CommonLanguagesEtEe - Estonian (Estonia)
+	CommonLanguagesEtEe CommonLanguages = "et-EE"
+	// CommonLanguagesFi - Finnish
+	CommonLanguagesFi CommonLanguages = "fi"
+	// CommonLanguagesFr - French
+	CommonLanguagesFr CommonLanguages = "fr"
+	// CommonLanguagesFrBe - French (Belgium)
+	CommonLanguagesFrBe CommonLanguages = "fr-BE"
+	// CommonLanguagesFrCh - French (Switzerland)
+	CommonLanguagesFrCh CommonLanguages = "fr-CH"
+	// CommonLanguagesFrFr - French (France)
+	CommonLanguagesFrFr CommonLanguages = "fr-FR"
+	// CommonLanguagesFiFi - Finnish (Finland)
+	CommonLanguagesFiFi CommonLanguages = "fi-FI"
+	// CommonLanguagesFrCa - French (Canada)
+	CommonLanguagesFrCa CommonLanguages = "fr-CA"
+	// CommonLanguagesFy - Frisian
+	CommonLanguagesFy CommonLanguages = "fy"
+	// CommonLanguagesFyNl - Frisian (Netherlands)
+	CommonLanguagesFyNl CommonLanguages = "fy-NL"
+	// CommonLanguagesHi - Hindi
+	CommonLanguagesHi CommonLanguages = "hi"
+	// CommonLanguagesHr - Croatian
+	CommonLanguagesHr CommonLanguages = "hr"
+	// CommonLanguagesHrHr - Croatian (Croatia)
+	CommonLanguagesHrHr CommonLanguages = "hr-HR"
+	// CommonLanguagesIs - Icelandic
+	CommonLanguagesIs CommonLanguages = "is"
+	// CommonLanguagesIsIs - Icelandic (Iceland)
+	CommonLanguagesIsIs CommonLanguages = "is-IS"
+	// CommonLanguagesIt - Italian
+	CommonLanguagesIt CommonLanguages = "it"
+	// CommonLanguagesItCh - Italian (Switzerland)
+	CommonLanguagesItCh CommonLanguages = "it-CH"
+	// CommonLanguagesItIt - Italian (Italy)
+	CommonLanguagesItIt CommonLanguages = "it-IT"
+	// CommonLanguagesJa - Japanese
+	CommonLanguagesJa CommonLanguages = "ja"
+	// CommonLanguagesKo - Korean
+	CommonLanguagesKo CommonLanguages = "ko"
+	// CommonLanguagesLt - Lithuanian
+	CommonLanguagesLt CommonLanguages = "lt"
+	// CommonLanguagesLtLt - Lithuanian (Lithuania)
+	CommonLanguagesLtLt CommonLanguages = "lt-LT"
+	// CommonLanguagesLv - Latvian
+	CommonLanguagesLv CommonLanguages = "lv"
+	// CommonLanguagesLvLv - Latvian (Latvia)
+	CommonLanguagesLvLv CommonLanguages = "lv-LV"
+	// CommonLanguagesNl - Dutch
+	CommonLanguagesNl CommonLanguages = "nl"
+	// CommonLanguagesNlBe - Dutch (Belgium)
+	CommonLanguagesNlBe CommonLanguages = "nl-BE"
+	// CommonLanguagesNlNl - Dutch (Netherlands)
+	CommonLanguagesNlNl CommonLanguages = "nl-NL"
+	// CommonLanguagesNo - Norwegian
+	CommonLanguagesNo CommonLanguages = "no"
+	// CommonLanguagesNoNo - Norwegian (Norway)
+	CommonLanguagesNoNo CommonLanguages = "no-NO"
+	// CommonLanguagesPa - Punjabi
+	CommonLanguagesPa CommonLanguages = "pa"
+	// CommonLanguagesPl - Polish
+	CommonLanguagesPl CommonLanguages = "pl"
+	// CommonLanguagesPlPl - Polish (Poland)
+	CommonLanguagesPlPl CommonLanguages = "pl-PL"
+	// CommonLanguagesPt - Portuguese
+	CommonLanguagesPt CommonLanguages = "pt"
+	// CommonLanguagesPtPt - Portuguese (Portugal)
+	CommonLanguagesPtPt CommonLanguages = "pt-PT"
+	// CommonLanguagesPtBr - Portuguese (Brazil)
+	CommonLanguagesPtBr CommonLanguages = "pt-BR"
+	// CommonLanguagesRo - Romanian
+	CommonLanguagesRo CommonLanguages = "ro"
+	// CommonLanguagesRoRo - Romanian (Romania)
+	CommonLanguagesRoRo CommonLanguages = "ro-RO"
+	// CommonLanguagesRu - Russian
+	CommonLanguagesRu CommonLanguages = "ru"
+	// CommonLanguagesRuRu - Russian (Russia)
+	CommonLanguagesRuRu CommonLanguages = "ru-RU"
+	// CommonLanguagesSk - Slovakian
+	CommonLanguagesSk CommonLanguages = "sk"
+	// CommonLanguagesSkSk - Slovakian (Slovakia)
+	CommonLanguagesSkSk CommonLanguages = "sk-SK"
+	// CommonLanguagesSl - Slovenian
+	CommonLanguagesSl CommonLanguages = "sl"
+	// CommonLanguagesSlSi - Slovenian (Slovenia)
+	CommonLanguagesSlSi CommonLanguages = "sl-SI"
+	// CommonLanguagesSr - Serbian
+	CommonLanguagesSr CommonLanguages = "sr"
+	// CommonLanguagesSrRs - Serbian (Serbia)
+	CommonLanguagesSrRs CommonLanguages = "sr-RS"
+	// CommonLanguagesSv - Swedish
+	CommonLanguagesSv CommonLanguages = "sv"
+	// CommonLanguagesSvSe - Swedish (Sweden)
+	CommonLanguagesSvSe CommonLanguages = "sv-SE"
+	// CommonLanguagesTe - Telugu
+	CommonLanguagesTe CommonLanguages = "te"
+	// CommonLanguagesZh - Chinese
+	CommonLanguagesZh CommonLanguages = "zh"
+	// CommonLanguagesZhCn - Chinese (China)
+	CommonLanguagesZhCn CommonLanguages = "zh-CN"
+	// CommonLanguagesZhHk - Chinese (Hong Kong)
+	CommonLanguagesZhHk CommonLanguages = "zh-HK"
+	// CommonLanguagesZhSg - Chinese (Singapore)
+	CommonLanguagesZhSg CommonLanguages = "zh-SG"
+	// CommonLanguagesZhTw - Chinese (Taiwan)
+	CommonLanguagesZhTw CommonLanguages = "zh-TW"
+)
+
+// LinkType represents Link Type.
+type LinkType string
+
+// LinkType values.
+const (
+	// LinkTypeReplacedBy - Replaced-by
+	LinkTypeReplacedBy LinkType = "replaced-by"
+	// LinkTypeReplaces - Replaces
+	LinkTypeReplaces LinkType = "replaces"
+	// LinkTypeRefer - Refer
+	LinkTypeRefer LinkType = "refer"
+	// LinkTypeSeealso - See also
+	LinkTypeSeealso LinkType = "seealso"
+)
+
+// LinkageType represents Linkage Type.
+type LinkageType string
+
+// LinkageType values.
+const (
+	// LinkageTypeSource - Source of Truth
+	LinkageTypeSource LinkageType = "source"
+	// LinkageTypeAlternate - Alternate Record
+	LinkageTypeAlternate LinkageType = "alternate"
+	// LinkageTypeHistorical - Historical/Obsolete Record
+	LinkageTypeHistorical LinkageType = "historical"
+)
+
 // ListMode represents List Mode.
 type ListMode string
 
@@ -1396,6 +2669,116 @@ const (
 	LocationStatusSuspended LocationStatus = "suspended"
 	// LocationStatusInactive - Inactive
 	LocationStatusInactive LocationStatus = "inactive"
+)
+
+// StructureMapGroupTypeMode represents Structure Map Group Type Mode.
+type StructureMapGroupTypeMode string
+
+// StructureMapGroupTypeMode values.
+const (
+	// StructureMapGroupTypeModeTypes - Default for Type Combination
+	StructureMapGroupTypeModeTypes StructureMapGroupTypeMode = "types"
+	// StructureMapGroupTypeModeTypeAndTypes - Default for type + combination
+	StructureMapGroupTypeModeTypeAndTypes StructureMapGroupTypeMode = "type-and-types"
+)
+
+// StructureMapInputMode represents Structure Map Input Mode.
+type StructureMapInputMode string
+
+// StructureMapInputMode values.
+const (
+	// StructureMapInputModeSource - Source Instance
+	StructureMapInputModeSource StructureMapInputMode = "source"
+	// StructureMapInputModeTarget - Target Instance
+	StructureMapInputModeTarget StructureMapInputMode = "target"
+)
+
+// StructureMapModelMode represents Structure Map Model Mode.
+type StructureMapModelMode string
+
+// StructureMapModelMode values.
+const (
+	// StructureMapModelModeSource - Source Structure Definition
+	StructureMapModelModeSource StructureMapModelMode = "source"
+	// StructureMapModelModeQueried - Queried Structure Definition
+	StructureMapModelModeQueried StructureMapModelMode = "queried"
+	// StructureMapModelModeTarget - Target Structure Definition
+	StructureMapModelModeTarget StructureMapModelMode = "target"
+	// StructureMapModelModeProduced - Produced Structure Definition
+	StructureMapModelModeProduced StructureMapModelMode = "produced"
+)
+
+// StructureMapSourceListMode represents Structure Map Source List Mode.
+type StructureMapSourceListMode string
+
+// StructureMapSourceListMode values.
+const (
+	// StructureMapSourceListModeFirst - First
+	StructureMapSourceListModeFirst StructureMapSourceListMode = "first"
+	// StructureMapSourceListModeNotFirst - All but the first
+	StructureMapSourceListModeNotFirst StructureMapSourceListMode = "not_first"
+	// StructureMapSourceListModeLast - Last
+	StructureMapSourceListModeLast StructureMapSourceListMode = "last"
+	// StructureMapSourceListModeNotLast - All but the last
+	StructureMapSourceListModeNotLast StructureMapSourceListMode = "not_last"
+	// StructureMapSourceListModeOnlyOne - Enforce only one
+	StructureMapSourceListModeOnlyOne StructureMapSourceListMode = "only_one"
+)
+
+// StructureMapTargetListMode represents Structure Map Target List Mode.
+type StructureMapTargetListMode string
+
+// StructureMapTargetListMode values.
+const (
+	// StructureMapTargetListModeFirst - First
+	StructureMapTargetListModeFirst StructureMapTargetListMode = "first"
+	// StructureMapTargetListModeShare - Share
+	StructureMapTargetListModeShare StructureMapTargetListMode = "share"
+	// StructureMapTargetListModeLast - Last
+	StructureMapTargetListModeLast StructureMapTargetListMode = "last"
+	// StructureMapTargetListModeSingle - single
+	StructureMapTargetListModeSingle StructureMapTargetListMode = "single"
+)
+
+// StructureMapTransform represents Structure Map Transform.
+type StructureMapTransform string
+
+// StructureMapTransform values.
+const (
+	// StructureMapTransformCreate - create
+	StructureMapTransformCreate StructureMapTransform = "create"
+	// StructureMapTransformCopy - copy
+	StructureMapTransformCopy StructureMapTransform = "copy"
+	// StructureMapTransformTruncate - truncate
+	StructureMapTransformTruncate StructureMapTransform = "truncate"
+	// StructureMapTransformEscape - escape
+	StructureMapTransformEscape StructureMapTransform = "escape"
+	// StructureMapTransformCast - cast
+	StructureMapTransformCast StructureMapTransform = "cast"
+	// StructureMapTransformAppend - append
+	StructureMapTransformAppend StructureMapTransform = "append"
+	// StructureMapTransformTranslate - translate
+	StructureMapTransformTranslate StructureMapTransform = "translate"
+	// StructureMapTransformReference - reference
+	StructureMapTransformReference StructureMapTransform = "reference"
+	// StructureMapTransformDateop - dateOp
+	StructureMapTransformDateop StructureMapTransform = "dateOp"
+	// StructureMapTransformUuid - uuid
+	StructureMapTransformUuid StructureMapTransform = "uuid"
+	// StructureMapTransformPointer - pointer
+	StructureMapTransformPointer StructureMapTransform = "pointer"
+	// StructureMapTransformEvaluate - evaluate
+	StructureMapTransformEvaluate StructureMapTransform = "evaluate"
+	// StructureMapTransformCc - cc
+	StructureMapTransformCc StructureMapTransform = "cc"
+	// StructureMapTransformC - c
+	StructureMapTransformC StructureMapTransform = "c"
+	// StructureMapTransformQty - qty
+	StructureMapTransformQty StructureMapTransform = "qty"
+	// StructureMapTransformId - id
+	StructureMapTransformId StructureMapTransform = "id"
+	// StructureMapTransformCp - cp
+	StructureMapTransformCp StructureMapTransform = "cp"
 )
 
 // MeasureReportStatus represents Measure Report Status.
@@ -1587,6 +2970,36 @@ const (
 	MessageheaderResponseRequestOnSuccess MessageheaderResponseRequest = "on-success"
 )
 
+// DeviceMetricCalibrationState represents Device Metric Calibration State.
+type DeviceMetricCalibrationState string
+
+// DeviceMetricCalibrationState values.
+const (
+	// DeviceMetricCalibrationStateNotCalibrated - Not Calibrated
+	DeviceMetricCalibrationStateNotCalibrated DeviceMetricCalibrationState = "not-calibrated"
+	// DeviceMetricCalibrationStateCalibrationRequired - Calibration Required
+	DeviceMetricCalibrationStateCalibrationRequired DeviceMetricCalibrationState = "calibration-required"
+	// DeviceMetricCalibrationStateCalibrated - Calibrated
+	DeviceMetricCalibrationStateCalibrated DeviceMetricCalibrationState = "calibrated"
+	// DeviceMetricCalibrationStateUnspecified - Unspecified
+	DeviceMetricCalibrationStateUnspecified DeviceMetricCalibrationState = "unspecified"
+)
+
+// DeviceMetricCalibrationType represents Device Metric Calibration Type.
+type DeviceMetricCalibrationType string
+
+// DeviceMetricCalibrationType values.
+const (
+	// DeviceMetricCalibrationTypeUnspecified - Unspecified
+	DeviceMetricCalibrationTypeUnspecified DeviceMetricCalibrationType = "unspecified"
+	// DeviceMetricCalibrationTypeOffset - Offset
+	DeviceMetricCalibrationTypeOffset DeviceMetricCalibrationType = "offset"
+	// DeviceMetricCalibrationTypeGain - Gain
+	DeviceMetricCalibrationTypeGain DeviceMetricCalibrationType = "gain"
+	// DeviceMetricCalibrationTypeTwoPoint - Two Point
+	DeviceMetricCalibrationTypeTwoPoint DeviceMetricCalibrationType = "two-point"
+)
+
 // DeviceMetricCategory represents Device Metric Category.
 type DeviceMetricCategory string
 
@@ -1638,6 +3051,25 @@ const (
 	NameUseMaiden NameUse = "maiden"
 )
 
+// NamingSystemIdentifierType represents Naming System Identifier Type.
+type NamingSystemIdentifierType string
+
+// NamingSystemIdentifierType values.
+const (
+	// NamingSystemIdentifierTypeOid - OID
+	NamingSystemIdentifierTypeOid NamingSystemIdentifierType = "oid"
+	// NamingSystemIdentifierTypeUuid - UUID
+	NamingSystemIdentifierTypeUuid NamingSystemIdentifierType = "uuid"
+	// NamingSystemIdentifierTypeUri - URI
+	NamingSystemIdentifierTypeUri NamingSystemIdentifierType = "uri"
+	// NamingSystemIdentifierTypeIriStem - IRI stem
+	NamingSystemIdentifierTypeIriStem NamingSystemIdentifierType = "iri-stem"
+	// NamingSystemIdentifierTypeV2csmnemonic - V2CSMNemonic
+	NamingSystemIdentifierTypeV2csmnemonic NamingSystemIdentifierType = "v2csmnemonic"
+	// NamingSystemIdentifierTypeOther - Other
+	NamingSystemIdentifierTypeOther NamingSystemIdentifierType = "other"
+)
+
 // NamingSystemType represents Naming System Type.
 type NamingSystemType string
 
@@ -1666,6 +3098,19 @@ const (
 	NarrativeStatusEmpty NarrativeStatus = "empty"
 )
 
+// NoteType represents NoteType.
+type NoteType string
+
+// NoteType values.
+const (
+	// NoteTypeDisplay - Display
+	NoteTypeDisplay NoteType = "display"
+	// NoteTypePrint - Print (Form)
+	NoteTypePrint NoteType = "print"
+	// NoteTypePrintoper - Print (Operator)
+	NoteTypePrintoper NoteType = "printoper"
+)
+
 // NutritionProductStatus represents Nutrition Product Status.
 type NutritionProductStatus string
 
@@ -1677,6 +3122,19 @@ const (
 	NutritionProductStatusInactive NutritionProductStatus = "inactive"
 	// NutritionProductStatusEnteredInError - Entered in Error
 	NutritionProductStatusEnteredInError NutritionProductStatus = "entered-in-error"
+)
+
+// ObservationRangeCategory represents Observation Range Category.
+type ObservationRangeCategory string
+
+// ObservationRangeCategory values.
+const (
+	// ObservationRangeCategoryReference - reference range
+	ObservationRangeCategoryReference ObservationRangeCategory = "reference"
+	// ObservationRangeCategoryCritical - critical range
+	ObservationRangeCategoryCritical ObservationRangeCategory = "critical"
+	// ObservationRangeCategoryAbsolute - absolute range
+	ObservationRangeCategoryAbsolute ObservationRangeCategory = "absolute"
 )
 
 // ObservationStatus represents Observation Status.
@@ -1702,6 +3160,19 @@ const (
 	ObservationStatusUnknown ObservationStatus = "unknown"
 )
 
+// TriggeredBytype represents triggered Bytype.
+type TriggeredBytype string
+
+// TriggeredBytype values.
+const (
+	// TriggeredBytypeReflex - Reflex
+	TriggeredBytypeReflex TriggeredBytype = "reflex"
+	// TriggeredBytypeRepeat - Repeat (per policy)
+	TriggeredBytypeRepeat TriggeredBytype = "repeat"
+	// TriggeredBytypeReRun - Re-run (per policy)
+	TriggeredBytypeReRun TriggeredBytype = "re-run"
+)
+
 // OperationKind represents Operation Kind.
 type OperationKind string
 
@@ -1713,6 +3184,19 @@ const (
 	OperationKindQuery OperationKind = "query"
 )
 
+// OperationParameterScope represents Operation Parameter Scope.
+type OperationParameterScope string
+
+// OperationParameterScope values.
+const (
+	// OperationParameterScopeInstance - Instance
+	OperationParameterScopeInstance OperationParameterScope = "instance"
+	// OperationParameterScopeType - Type
+	OperationParameterScopeType OperationParameterScope = "type"
+	// OperationParameterScopeSystem - System
+	OperationParameterScopeSystem OperationParameterScope = "system"
+)
+
 // OperationParameterUse represents Operation Parameter Use.
 type OperationParameterUse string
 
@@ -1722,6 +3206,32 @@ const (
 	OperationParameterUseIn OperationParameterUse = "in"
 	// OperationParameterUseOut - Out
 	OperationParameterUseOut OperationParameterUse = "out"
+)
+
+// OrientationType represents orientation Type.
+type OrientationType string
+
+// OrientationType values.
+const (
+	// OrientationTypeSense - Sense orientation of referenceSeq
+	OrientationTypeSense OrientationType = "sense"
+	// OrientationTypeAntisense - Antisense orientation of referenceSeq
+	OrientationTypeAntisense OrientationType = "antisense"
+)
+
+// ParticipationStatus represents Participation Status.
+type ParticipationStatus string
+
+// ParticipationStatus values.
+const (
+	// ParticipationStatusAccepted - Accepted
+	ParticipationStatusAccepted ParticipationStatus = "accepted"
+	// ParticipationStatusDeclined - Declined
+	ParticipationStatusDeclined ParticipationStatus = "declined"
+	// ParticipationStatusTentative - Tentative
+	ParticipationStatusTentative ParticipationStatus = "tentative"
+	// ParticipationStatusNeedsAction - Needs Action
+	ParticipationStatusNeedsAction ParticipationStatus = "needs-action"
 )
 
 // PaymentOutcome represents Payment Outcome.
@@ -1838,6 +3348,23 @@ const (
 	PropertyRepresentationXhtml PropertyRepresentation = "xhtml"
 )
 
+// ProvenanceEntityRole represents Provenance Entity Role.
+type ProvenanceEntityRole string
+
+// ProvenanceEntityRole values.
+const (
+	// ProvenanceEntityRoleRevision - Revision
+	ProvenanceEntityRoleRevision ProvenanceEntityRole = "revision"
+	// ProvenanceEntityRoleQuotation - Quotation
+	ProvenanceEntityRoleQuotation ProvenanceEntityRole = "quotation"
+	// ProvenanceEntityRoleSource - Source
+	ProvenanceEntityRoleSource ProvenanceEntityRole = "source"
+	// ProvenanceEntityRoleInstantiates - Instantiates
+	ProvenanceEntityRoleInstantiates ProvenanceEntityRole = "instantiates"
+	// ProvenanceEntityRoleRemoval - Removal
+	ProvenanceEntityRoleRemoval ProvenanceEntityRole = "removal"
+)
+
 // PublicationStatus represents PublicationStatus.
 type PublicationStatus string
 
@@ -1870,6 +3397,19 @@ const (
 	QuantityComparatorAd QuantityComparator = "ad"
 )
 
+// QuestionnaireAnswerConstraint represents Questionnaire answer constraints value set.
+type QuestionnaireAnswerConstraint string
+
+// QuestionnaireAnswerConstraint values.
+const (
+	// QuestionnaireAnswerConstraintOptionsonly - Options only
+	QuestionnaireAnswerConstraintOptionsonly QuestionnaireAnswerConstraint = "optionsOnly"
+	// QuestionnaireAnswerConstraintOptionsortype - Options or 'type'
+	QuestionnaireAnswerConstraintOptionsortype QuestionnaireAnswerConstraint = "optionsOrType"
+	// QuestionnaireAnswerConstraintOptionsorstring - Options or string
+	QuestionnaireAnswerConstraintOptionsorstring QuestionnaireAnswerConstraint = "optionsOrString"
+)
+
 // QuestionnaireResponseStatus represents Questionnaire Response Status.
 type QuestionnaireResponseStatus string
 
@@ -1885,6 +3425,175 @@ const (
 	QuestionnaireResponseStatusEnteredInError QuestionnaireResponseStatus = "entered-in-error"
 	// QuestionnaireResponseStatusStopped - Stopped
 	QuestionnaireResponseStatusStopped QuestionnaireResponseStatus = "stopped"
+)
+
+// QuestionnaireItemDisabledDisplay represents Questionnaire Item Disabled Display.
+type QuestionnaireItemDisabledDisplay string
+
+// QuestionnaireItemDisabledDisplay values.
+const (
+	// QuestionnaireItemDisabledDisplayHidden - Hidden
+	QuestionnaireItemDisabledDisplayHidden QuestionnaireItemDisabledDisplay = "hidden"
+	// QuestionnaireItemDisabledDisplayProtected - Protected
+	QuestionnaireItemDisabledDisplayProtected QuestionnaireItemDisabledDisplay = "protected"
+)
+
+// EnableWhenBehavior represents Enable When Behavior.
+type EnableWhenBehavior string
+
+// EnableWhenBehavior values.
+const (
+	// EnableWhenBehaviorAll - All
+	EnableWhenBehaviorAll EnableWhenBehavior = "all"
+	// EnableWhenBehaviorAny - Any
+	EnableWhenBehaviorAny EnableWhenBehavior = "any"
+)
+
+// QuestionnaireItemOperator represents Questionnaire Item Operator.
+type QuestionnaireItemOperator string
+
+// QuestionnaireItemOperator values.
+const (
+	// QuestionnaireItemOperatorExists - Exists
+	QuestionnaireItemOperatorExists QuestionnaireItemOperator = "exists"
+	// QuestionnaireItemOperatorEqual - Equals
+	QuestionnaireItemOperatorEqual QuestionnaireItemOperator = "="
+	// QuestionnaireItemOperatorNotEqual - Not Equals
+	QuestionnaireItemOperatorNotEqual QuestionnaireItemOperator = "!="
+	// QuestionnaireItemOperatorGreaterThan - Greater Than
+	QuestionnaireItemOperatorGreaterThan QuestionnaireItemOperator = ">"
+	// QuestionnaireItemOperatorLessThan - Less Than
+	QuestionnaireItemOperatorLessThan QuestionnaireItemOperator = "<"
+	// QuestionnaireItemOperatorGreaterOrEqual - Greater or Equals
+	QuestionnaireItemOperatorGreaterOrEqual QuestionnaireItemOperator = ">="
+	// QuestionnaireItemOperatorLessOrEqual - Less or Equals
+	QuestionnaireItemOperatorLessOrEqual QuestionnaireItemOperator = "<="
+)
+
+// AllergyIntoleranceSeverity represents Allergy Intolerance Severity.
+type AllergyIntoleranceSeverity string
+
+// AllergyIntoleranceSeverity values.
+const (
+	// AllergyIntoleranceSeverityMild - Mild
+	AllergyIntoleranceSeverityMild AllergyIntoleranceSeverity = "mild"
+	// AllergyIntoleranceSeverityModerate - Moderate
+	AllergyIntoleranceSeverityModerate AllergyIntoleranceSeverity = "moderate"
+	// AllergyIntoleranceSeveritySevere - Severe
+	AllergyIntoleranceSeveritySevere AllergyIntoleranceSeverity = "severe"
+)
+
+// ReferenceHandlingPolicy represents Reference Handling Policy.
+type ReferenceHandlingPolicy string
+
+// ReferenceHandlingPolicy values.
+const (
+	// ReferenceHandlingPolicyLiteral - Literal References
+	ReferenceHandlingPolicyLiteral ReferenceHandlingPolicy = "literal"
+	// ReferenceHandlingPolicyLogical - Logical References
+	ReferenceHandlingPolicyLogical ReferenceHandlingPolicy = "logical"
+	// ReferenceHandlingPolicyResolves - Resolves References
+	ReferenceHandlingPolicyResolves ReferenceHandlingPolicy = "resolves"
+	// ReferenceHandlingPolicyEnforced - Reference Integrity Enforced
+	ReferenceHandlingPolicyEnforced ReferenceHandlingPolicy = "enforced"
+	// ReferenceHandlingPolicyLocal - Local References Only
+	ReferenceHandlingPolicyLocal ReferenceHandlingPolicy = "local"
+)
+
+// ReferenceVersionRules represents ReferenceVersionRules.
+type ReferenceVersionRules string
+
+// ReferenceVersionRules values.
+const (
+	// ReferenceVersionRulesEither - Either Specific or independent
+	ReferenceVersionRulesEither ReferenceVersionRules = "either"
+	// ReferenceVersionRulesIndependent - Version independent
+	ReferenceVersionRulesIndependent ReferenceVersionRules = "independent"
+	// ReferenceVersionRulesSpecific - Version Specific
+	ReferenceVersionRulesSpecific ReferenceVersionRules = "specific"
+)
+
+// RelatedArtifactTypeExpanded represents Related Artifact Type All.
+type RelatedArtifactTypeExpanded string
+
+// RelatedArtifactTypeExpanded values.
+const (
+	// RelatedArtifactTypeExpandedDocumentation - Documentation
+	RelatedArtifactTypeExpandedDocumentation RelatedArtifactTypeExpanded = "documentation"
+	// RelatedArtifactTypeExpandedJustification - Justification
+	RelatedArtifactTypeExpandedJustification RelatedArtifactTypeExpanded = "justification"
+	// RelatedArtifactTypeExpandedCitation - Citation
+	RelatedArtifactTypeExpandedCitation RelatedArtifactTypeExpanded = "citation"
+	// RelatedArtifactTypeExpandedPredecessor - Predecessor
+	RelatedArtifactTypeExpandedPredecessor RelatedArtifactTypeExpanded = "predecessor"
+	// RelatedArtifactTypeExpandedSuccessor - Successor
+	RelatedArtifactTypeExpandedSuccessor RelatedArtifactTypeExpanded = "successor"
+	// RelatedArtifactTypeExpandedDerivedFrom - Derived From
+	RelatedArtifactTypeExpandedDerivedFrom RelatedArtifactTypeExpanded = "derived-from"
+	// RelatedArtifactTypeExpandedDependsOn - Depends On
+	RelatedArtifactTypeExpandedDependsOn RelatedArtifactTypeExpanded = "depends-on"
+	// RelatedArtifactTypeExpandedComposedOf - Composed Of
+	RelatedArtifactTypeExpandedComposedOf RelatedArtifactTypeExpanded = "composed-of"
+	// RelatedArtifactTypeExpandedPartOf - Part Of
+	RelatedArtifactTypeExpandedPartOf RelatedArtifactTypeExpanded = "part-of"
+	// RelatedArtifactTypeExpandedAmends - Amends
+	RelatedArtifactTypeExpandedAmends RelatedArtifactTypeExpanded = "amends"
+	// RelatedArtifactTypeExpandedAmendedWith - Amended With
+	RelatedArtifactTypeExpandedAmendedWith RelatedArtifactTypeExpanded = "amended-with"
+	// RelatedArtifactTypeExpandedAppends - Appends
+	RelatedArtifactTypeExpandedAppends RelatedArtifactTypeExpanded = "appends"
+	// RelatedArtifactTypeExpandedAppendedWith - Appended With
+	RelatedArtifactTypeExpandedAppendedWith RelatedArtifactTypeExpanded = "appended-with"
+	// RelatedArtifactTypeExpandedCites - Cites
+	RelatedArtifactTypeExpandedCites RelatedArtifactTypeExpanded = "cites"
+	// RelatedArtifactTypeExpandedCitedBy - Cited By
+	RelatedArtifactTypeExpandedCitedBy RelatedArtifactTypeExpanded = "cited-by"
+	// RelatedArtifactTypeExpandedCommentsOn - Is Comment On
+	RelatedArtifactTypeExpandedCommentsOn RelatedArtifactTypeExpanded = "comments-on"
+	// RelatedArtifactTypeExpandedCommentIn - Has Comment In
+	RelatedArtifactTypeExpandedCommentIn RelatedArtifactTypeExpanded = "comment-in"
+	// RelatedArtifactTypeExpandedContains - Contains
+	RelatedArtifactTypeExpandedContains RelatedArtifactTypeExpanded = "contains"
+	// RelatedArtifactTypeExpandedContainedIn - Contained In
+	RelatedArtifactTypeExpandedContainedIn RelatedArtifactTypeExpanded = "contained-in"
+	// RelatedArtifactTypeExpandedCorrects - Corrects
+	RelatedArtifactTypeExpandedCorrects RelatedArtifactTypeExpanded = "corrects"
+	// RelatedArtifactTypeExpandedCorrectionIn - Correction In
+	RelatedArtifactTypeExpandedCorrectionIn RelatedArtifactTypeExpanded = "correction-in"
+	// RelatedArtifactTypeExpandedReplaces - Replaces
+	RelatedArtifactTypeExpandedReplaces RelatedArtifactTypeExpanded = "replaces"
+	// RelatedArtifactTypeExpandedReplacedWith - Replaced With
+	RelatedArtifactTypeExpandedReplacedWith RelatedArtifactTypeExpanded = "replaced-with"
+	// RelatedArtifactTypeExpandedRetracts - Retracts
+	RelatedArtifactTypeExpandedRetracts RelatedArtifactTypeExpanded = "retracts"
+	// RelatedArtifactTypeExpandedRetractedBy - Retracted By
+	RelatedArtifactTypeExpandedRetractedBy RelatedArtifactTypeExpanded = "retracted-by"
+	// RelatedArtifactTypeExpandedSigns - Signs
+	RelatedArtifactTypeExpandedSigns RelatedArtifactTypeExpanded = "signs"
+	// RelatedArtifactTypeExpandedSimilarTo - Similar To
+	RelatedArtifactTypeExpandedSimilarTo RelatedArtifactTypeExpanded = "similar-to"
+	// RelatedArtifactTypeExpandedSupports - Supports
+	RelatedArtifactTypeExpandedSupports RelatedArtifactTypeExpanded = "supports"
+	// RelatedArtifactTypeExpandedSupportedWith - Supported With
+	RelatedArtifactTypeExpandedSupportedWith RelatedArtifactTypeExpanded = "supported-with"
+	// RelatedArtifactTypeExpandedTransforms - Transforms
+	RelatedArtifactTypeExpandedTransforms RelatedArtifactTypeExpanded = "transforms"
+	// RelatedArtifactTypeExpandedTransformedInto - Transformed Into
+	RelatedArtifactTypeExpandedTransformedInto RelatedArtifactTypeExpanded = "transformed-into"
+	// RelatedArtifactTypeExpandedTransformedWith - Transformed With
+	RelatedArtifactTypeExpandedTransformedWith RelatedArtifactTypeExpanded = "transformed-with"
+	// RelatedArtifactTypeExpandedDocuments - Documents
+	RelatedArtifactTypeExpandedDocuments RelatedArtifactTypeExpanded = "documents"
+	// RelatedArtifactTypeExpandedSpecificationOf - Specification Of
+	RelatedArtifactTypeExpandedSpecificationOf RelatedArtifactTypeExpanded = "specification-of"
+	// RelatedArtifactTypeExpandedCreatedWith - Created With
+	RelatedArtifactTypeExpandedCreatedWith RelatedArtifactTypeExpanded = "created-with"
+	// RelatedArtifactTypeExpandedCiteAs - Cite As
+	RelatedArtifactTypeExpandedCiteAs RelatedArtifactTypeExpanded = "cite-as"
+	// RelatedArtifactTypeExpandedReprint - Reprint
+	RelatedArtifactTypeExpandedReprint RelatedArtifactTypeExpanded = "reprint"
+	// RelatedArtifactTypeExpandedReprintOf - Reprint Of
+	RelatedArtifactTypeExpandedReprintOf RelatedArtifactTypeExpanded = "reprint-of"
 )
 
 // RelatedArtifactType represents RelatedArtifactType.
@@ -1964,6 +3673,59 @@ const (
 	RelatedArtifactTypeCreatedWith RelatedArtifactType = "created-with"
 	// RelatedArtifactTypeCiteAs - Cite As
 	RelatedArtifactTypeCiteAs RelatedArtifactType = "cite-as"
+)
+
+// TestReportActionResult represents Test Report Action Result.
+type TestReportActionResult string
+
+// TestReportActionResult values.
+const (
+	// TestReportActionResultPass - Pass
+	TestReportActionResultPass TestReportActionResult = "pass"
+	// TestReportActionResultSkip - Skip
+	TestReportActionResultSkip TestReportActionResult = "skip"
+	// TestReportActionResultFail - Fail
+	TestReportActionResultFail TestReportActionResult = "fail"
+	// TestReportActionResultWarning - Warning
+	TestReportActionResultWarning TestReportActionResult = "warning"
+	// TestReportActionResultError - Error
+	TestReportActionResultError TestReportActionResult = "error"
+)
+
+// TestReportParticipantType represents Test Report Participant Type.
+type TestReportParticipantType string
+
+// TestReportParticipantType values.
+const (
+	// TestReportParticipantTypeTestEngine - Test Engine
+	TestReportParticipantTypeTestEngine TestReportParticipantType = "test-engine"
+	// TestReportParticipantTypeClient - Client
+	TestReportParticipantTypeClient TestReportParticipantType = "client"
+	// TestReportParticipantTypeServer - Server
+	TestReportParticipantTypeServer TestReportParticipantType = "server"
+)
+
+// ReportRelationshipType represents Report Relationship Type.
+type ReportRelationshipType string
+
+// ReportRelationshipType values.
+const (
+	// ReportRelationshipTypeReplaces - Replaces
+	ReportRelationshipTypeReplaces ReportRelationshipType = "replaces"
+	// ReportRelationshipTypeAmends - Amends
+	ReportRelationshipTypeAmends ReportRelationshipType = "amends"
+	// ReportRelationshipTypeAppends - Appends
+	ReportRelationshipTypeAppends ReportRelationshipType = "appends"
+	// ReportRelationshipTypeTransforms - Transforms
+	ReportRelationshipTypeTransforms ReportRelationshipType = "transforms"
+	// ReportRelationshipTypeReplacedwith - Replaced With
+	ReportRelationshipTypeReplacedwith ReportRelationshipType = "replacedWith"
+	// ReportRelationshipTypeAmendedwith - Amended With
+	ReportRelationshipTypeAmendedwith ReportRelationshipType = "amendedWith"
+	// ReportRelationshipTypeAppendedwith - Appended With
+	ReportRelationshipTypeAppendedwith ReportRelationshipType = "appendedWith"
+	// ReportRelationshipTypeTransformedwith - Transformed With
+	ReportRelationshipTypeTransformedwith ReportRelationshipType = "transformedWith"
 )
 
 // TestReportResult represents Test Report Result.
@@ -2081,6 +3843,56 @@ const (
 	RequestStatusUnknown RequestStatus = "unknown"
 )
 
+// AggregationMode represents AggregationMode.
+type AggregationMode string
+
+// AggregationMode values.
+const (
+	// AggregationModeContained - Contained
+	AggregationModeContained AggregationMode = "contained"
+	// AggregationModeReferenced - Referenced
+	AggregationModeReferenced AggregationMode = "referenced"
+	// AggregationModeBundled - Bundled
+	AggregationModeBundled AggregationMode = "bundled"
+)
+
+// SlicingRules represents SlicingRules.
+type SlicingRules string
+
+// SlicingRules values.
+const (
+	// SlicingRulesClosed - Closed
+	SlicingRulesClosed SlicingRules = "closed"
+	// SlicingRulesOpen - Open
+	SlicingRulesOpen SlicingRules = "open"
+	// SlicingRulesOpenatend - Open at End
+	SlicingRulesOpenatend SlicingRules = "openAtEnd"
+)
+
+// ResponseType represents Response Type.
+type ResponseType string
+
+// ResponseType values.
+const (
+	// ResponseTypeOk - OK
+	ResponseTypeOk ResponseType = "ok"
+	// ResponseTypeTransientError - Transient Error
+	ResponseTypeTransientError ResponseType = "transient-error"
+	// ResponseTypeFatalError - Fatal Error
+	ResponseTypeFatalError ResponseType = "fatal-error"
+)
+
+// RestfulCapabilityMode represents Restful Capability Mode.
+type RestfulCapabilityMode string
+
+// RestfulCapabilityMode values.
+const (
+	// RestfulCapabilityModeClient - Client
+	RestfulCapabilityModeClient RestfulCapabilityMode = "client"
+	// RestfulCapabilityModeServer - Server
+	RestfulCapabilityModeServer RestfulCapabilityMode = "server"
+)
+
 // SearchComparator represents Search Comparator.
 type SearchComparator string
 
@@ -2104,6 +3916,19 @@ const (
 	SearchComparatorEb SearchComparator = "eb"
 	// SearchComparatorAp - Approximately
 	SearchComparatorAp SearchComparator = "ap"
+)
+
+// SearchEntryMode represents Search Entry Mode.
+type SearchEntryMode string
+
+// SearchEntryMode values.
+const (
+	// SearchEntryModeMatch - Match
+	SearchEntryModeMatch SearchEntryMode = "match"
+	// SearchEntryModeInclude - Include
+	SearchEntryModeInclude SearchEntryMode = "include"
+	// SearchEntryModeOutcome - Outcome
+	SearchEntryModeOutcome SearchEntryMode = "outcome"
 )
 
 // SearchModifierCode represents Search Modifier Code.
@@ -2211,6 +4036,17 @@ const (
 	SlotStatusEnteredInError SlotStatus = "entered-in-error"
 )
 
+// SortDirection represents SortDirection.
+type SortDirection string
+
+// SortDirection values.
+const (
+	// SortDirectionAscending - Ascending
+	SortDirectionAscending SortDirection = "ascending"
+	// SortDirectionDescending - Descending
+	SortDirectionDescending SortDirection = "descending"
+)
+
 // SpecimenCombined represents Specimen Combined.
 type SpecimenCombined string
 
@@ -2220,6 +4056,17 @@ const (
 	SpecimenCombinedGrouped SpecimenCombined = "grouped"
 	// SpecimenCombinedPooled - Pooled
 	SpecimenCombinedPooled SpecimenCombined = "pooled"
+)
+
+// SpecimenContainedPreference represents Specimen Contained Preference.
+type SpecimenContainedPreference string
+
+// SpecimenContainedPreference values.
+const (
+	// SpecimenContainedPreferencePreferred - Preferred
+	SpecimenContainedPreferencePreferred SpecimenContainedPreference = "preferred"
+	// SpecimenContainedPreferenceAlternate - Alternate
+	SpecimenContainedPreferenceAlternate SpecimenContainedPreference = "alternate"
 )
 
 // SpecimenStatus represents Specimen Status.
@@ -2235,6 +4082,17 @@ const (
 	SpecimenStatusUnsatisfactory SpecimenStatus = "unsatisfactory"
 	// SpecimenStatusEnteredInError - Entered in Error
 	SpecimenStatusEnteredInError SpecimenStatus = "entered-in-error"
+)
+
+// StrandType represents strand Type.
+type StrandType string
+
+// StrandType values.
+const (
+	// StrandTypeWatson - Watson strand of starting sequence
+	StrandTypeWatson StrandType = "watson"
+	// StrandTypeCrick - Crick strand of starting sequence
+	StrandTypeCrick StrandType = "crick"
 )
 
 // StructureDefinitionKind represents Structure Definition Kind.
@@ -2310,6 +4168,17 @@ const (
 	SubscriptionStatusCodesEnteredInError SubscriptionStatusCodes = "entered-in-error"
 )
 
+// CriteriaNotExistsBehavior represents Criteria Not Exists Behavior.
+type CriteriaNotExistsBehavior string
+
+// CriteriaNotExistsBehavior values.
+const (
+	// CriteriaNotExistsBehaviorTestPasses - Test passes
+	CriteriaNotExistsBehaviorTestPasses CriteriaNotExistsBehavior = "test-passes"
+	// CriteriaNotExistsBehaviorTestFails - Test fails
+	CriteriaNotExistsBehaviorTestFails CriteriaNotExistsBehavior = "test-fails"
+)
+
 // FHIRSubstanceStatus represents FHIRSubstanceStatus.
 type FHIRSubstanceStatus string
 
@@ -2357,6 +4226,17 @@ const (
 	SupplyRequestStatusEnteredInError SupplyRequestStatus = "entered-in-error"
 	// SupplyRequestStatusUnknown - Unknown
 	SupplyRequestStatusUnknown SupplyRequestStatus = "unknown"
+)
+
+// SystemRestfulInteraction represents System Restful Interaction.
+type SystemRestfulInteraction string
+
+// SystemRestfulInteraction values.
+const (
+	SystemRestfulInteractionTransaction   SystemRestfulInteraction = "transaction"
+	SystemRestfulInteractionBatch         SystemRestfulInteraction = "batch"
+	SystemRestfulInteractionSearchSystem  SystemRestfulInteraction = "search-system"
+	SystemRestfulInteractionHistorySystem SystemRestfulInteraction = "history-system"
 )
 
 // TaskIntent represents Task Intent.
@@ -2475,6 +4355,85 @@ const (
 	TypeDerivationRuleSpecialization TypeDerivationRule = "specialization"
 	// TypeDerivationRuleConstraint - Constraint
 	TypeDerivationRuleConstraint TypeDerivationRule = "constraint"
+)
+
+// TypeRestfulInteraction represents Type Restful Interaction.
+type TypeRestfulInteraction string
+
+// TypeRestfulInteraction values.
+const (
+	TypeRestfulInteractionRead            TypeRestfulInteraction = "read"
+	TypeRestfulInteractionVread           TypeRestfulInteraction = "vread"
+	TypeRestfulInteractionUpdate          TypeRestfulInteraction = "update"
+	TypeRestfulInteractionPatch           TypeRestfulInteraction = "patch"
+	TypeRestfulInteractionDelete          TypeRestfulInteraction = "delete"
+	TypeRestfulInteractionHistoryInstance TypeRestfulInteraction = "history-instance"
+	TypeRestfulInteractionHistoryType     TypeRestfulInteraction = "history-type"
+	TypeRestfulInteractionCreate          TypeRestfulInteraction = "create"
+	TypeRestfulInteractionSearchType      TypeRestfulInteraction = "search-type"
+)
+
+// UDIEntryType represents UDI Entry Type.
+type UDIEntryType string
+
+// UDIEntryType values.
+const (
+	// UDIEntryTypeBarcode - Barcode
+	UDIEntryTypeBarcode UDIEntryType = "barcode"
+	// UDIEntryTypeRfid - RFID
+	UDIEntryTypeRfid UDIEntryType = "rfid"
+	// UDIEntryTypeManual - Manual
+	UDIEntryTypeManual UDIEntryType = "manual"
+	// UDIEntryTypeCard - Card
+	UDIEntryTypeCard UDIEntryType = "card"
+	// UDIEntryTypeSelfReported - Self Reported
+	UDIEntryTypeSelfReported UDIEntryType = "self-reported"
+	// UDIEntryTypeElectronicTransmission - Electronic Transmission
+	UDIEntryTypeElectronicTransmission UDIEntryType = "electronic-transmission"
+	// UDIEntryTypeUnknown - Unknown
+	UDIEntryTypeUnknown UDIEntryType = "unknown"
+)
+
+// UnitsOfTime represents UnitsOfTime.
+type UnitsOfTime string
+
+// UnitsOfTime values.
+const (
+	// UnitsOfTimeS - second
+	UnitsOfTimeS UnitsOfTime = "s"
+	// UnitsOfTimeMin - minute
+	UnitsOfTimeMin UnitsOfTime = "min"
+	// UnitsOfTimeH - hour
+	UnitsOfTimeH UnitsOfTime = "h"
+	// UnitsOfTimeD - day
+	UnitsOfTimeD UnitsOfTime = "d"
+	// UnitsOfTimeWk - week
+	UnitsOfTimeWk UnitsOfTime = "wk"
+	// UnitsOfTimeMo - month
+	UnitsOfTimeMo UnitsOfTime = "mo"
+	// UnitsOfTimeA - year
+	UnitsOfTimeA UnitsOfTime = "a"
+)
+
+// ValueFilterComparator represents Value Filter Comparator.
+type ValueFilterComparator string
+
+// ValueFilterComparator values.
+const (
+	// ValueFilterComparatorEq - Equals
+	ValueFilterComparatorEq ValueFilterComparator = "eq"
+	// ValueFilterComparatorGt - Greater Than
+	ValueFilterComparatorGt ValueFilterComparator = "gt"
+	// ValueFilterComparatorLt - Less Than
+	ValueFilterComparatorLt ValueFilterComparator = "lt"
+	// ValueFilterComparatorGe - Greater or Equals
+	ValueFilterComparatorGe ValueFilterComparator = "ge"
+	// ValueFilterComparatorLe - Less of Equal
+	ValueFilterComparatorLe ValueFilterComparator = "le"
+	// ValueFilterComparatorSa - Starts After
+	ValueFilterComparatorSa ValueFilterComparator = "sa"
+	// ValueFilterComparatorEb - Ends Before
+	ValueFilterComparatorEb ValueFilterComparator = "eb"
 )
 
 // EvidenceVariableHandling represents Evidence Variable Handling.
@@ -2600,4 +4559,43 @@ const (
 	VersionIndependentResourceTypesAllServicedefinition VersionIndependentResourceTypesAll = "ServiceDefinition"
 	// VersionIndependentResourceTypesAllSubstancespecification - SubstanceSpecification
 	VersionIndependentResourceTypesAllSubstancespecification VersionIndependentResourceTypesAll = "SubstanceSpecification"
+)
+
+// ResourceVersionPolicy represents Resource Version Policy.
+type ResourceVersionPolicy string
+
+// ResourceVersionPolicy values.
+const (
+	// ResourceVersionPolicyNoVersion - No VersionId Support
+	ResourceVersionPolicyNoVersion ResourceVersionPolicy = "no-version"
+	// ResourceVersionPolicyVersioned - Versioned
+	ResourceVersionPolicyVersioned ResourceVersionPolicy = "versioned"
+	// ResourceVersionPolicyVersionedUpdate - VersionId tracked fully
+	ResourceVersionPolicyVersionedUpdate ResourceVersionPolicy = "versioned-update"
+)
+
+// VisionBase represents Vision Base.
+type VisionBase string
+
+// VisionBase values.
+const (
+	// VisionBaseUp - Up
+	VisionBaseUp VisionBase = "up"
+	// VisionBaseDown - Down
+	VisionBaseDown VisionBase = "down"
+	// VisionBaseIn - In
+	VisionBaseIn VisionBase = "in"
+	// VisionBaseOut - Out
+	VisionBaseOut VisionBase = "out"
+)
+
+// VisionEyes represents Vision Eyes.
+type VisionEyes string
+
+// VisionEyes values.
+const (
+	// VisionEyesRight - Right Eye
+	VisionEyesRight VisionEyes = "right"
+	// VisionEyesLeft - Left Eye
+	VisionEyesLeft VisionEyes = "left"
 )
