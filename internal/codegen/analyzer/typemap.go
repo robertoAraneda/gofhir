@@ -98,8 +98,25 @@ var SpecialResourceTypes = map[string]string{
 	"Parameters":     "Parameters",
 }
 
+// FHIRPathSystemTypes maps FHIRPath system type URLs to Go types.
+// These are used in StructureDefinitions for primitive element IDs.
+var FHIRPathSystemTypes = map[string]string{
+	"http://hl7.org/fhirpath/System.String":   "string",
+	"http://hl7.org/fhirpath/System.Boolean":  "bool",
+	"http://hl7.org/fhirpath/System.Integer":  "int",
+	"http://hl7.org/fhirpath/System.Decimal":  "float64",
+	"http://hl7.org/fhirpath/System.Date":     "string",
+	"http://hl7.org/fhirpath/System.DateTime": "string",
+	"http://hl7.org/fhirpath/System.Time":     "string",
+}
+
 // FHIRToGoType converts a FHIR type name to a Go type name.
 func FHIRToGoType(fhirType string) string {
+	// Check FHIRPath system types (URLs)
+	if goType, ok := FHIRPathSystemTypes[fhirType]; ok {
+		return goType
+	}
+
 	// Check primitives first
 	if goType, ok := PrimitiveTypeMap[fhirType]; ok {
 		return goType

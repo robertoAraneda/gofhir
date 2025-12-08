@@ -3,8 +3,12 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
+
+	"github.com/robertoaraneda/gofhir/internal/codegen/generator"
 )
 
 var version = "dev"
@@ -111,18 +115,47 @@ func newGenerateCmd() *cobra.Command {
 				return fmt.Errorf("failed to get version flag: %w", err)
 			}
 
-			fmt.Printf("Generating FHIR types...\n")
-			fmt.Printf("  Specs:   %s\n", specsDir)
-			fmt.Printf("  Output:  %s\n", outputDir)
-			fmt.Printf("  Version: %s\n", fhirVersion)
-			fmt.Println("Code generation not yet implemented")
+			// Normalize version to lowercase
+			fhirVersion = strings.ToLower(fhirVersion)
+
+			versions := []string{fhirVersion}
+			if fhirVersion == "all" {
+				versions = []string{"r4", "r4b", "r5"}
+			}
+
+			for _, v := range versions {
+				fmt.Printf("Generating FHIR %s types...\n", strings.ToUpper(v))
+
+				config := generator.Config{
+					SpecsDir:    specsDir,
+					OutputDir:   filepath.Join(outputDir, v),
+					PackageName: v,
+					Version:     v,
+				}
+
+				gen := generator.New(config)
+
+				fmt.Printf("  Loading StructureDefinitions from %s/%s...\n", specsDir, v)
+				if err := gen.LoadTypes(); err != nil {
+					return fmt.Errorf("failed to load types for %s: %w", v, err)
+				}
+
+				fmt.Printf("  Generating code to %s...\n", config.OutputDir)
+				if err := gen.Generate(); err != nil {
+					return fmt.Errorf("failed to generate code for %s: %w", v, err)
+				}
+
+				fmt.Printf("  Done with %s\n\n", strings.ToUpper(v))
+			}
+
+			fmt.Println("Code generation complete!")
 			return nil
 		},
 	}
 
 	cmd.Flags().String("specs", "./specs", "Path to FHIR specifications")
 	cmd.Flags().String("output", "./pkg/fhir", "Output directory")
-	cmd.Flags().String("version", "R4", "FHIR version to generate (R4, R4B, R5, all)")
+	cmd.Flags().String("version", "r4", "FHIR version to generate (r4, r4b, r5, all)")
 
 	return cmd
 }
