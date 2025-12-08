@@ -164,6 +164,11 @@ func (c *CodeGen) Generate() error {
 		return fmt.Errorf("failed to generate interfaces: %w", err)
 	}
 
+	// Generate builders.go (Functional Options + Fluent Builders)
+	if err := c.generateBuilders(); err != nil {
+		return fmt.Errorf("failed to generate builders: %w", err)
+	}
+
 	return nil
 }
 

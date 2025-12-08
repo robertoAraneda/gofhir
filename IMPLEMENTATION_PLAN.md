@@ -748,7 +748,7 @@ func (r *{{$.Name}}) Set{{.FieldName}}(v {{.GoType}}) {
 {{end}}
 ```
 
-- [ ] Detectar choice types en analyzer
+- [x] Detectar choice types en analyzer
 - [ ] Generar GetValue/GetEffective/GetDeceased etc
 - [ ] Generar HasValue/HasEffective etc
 - [ ] Generar SetValueQuantity/SetValueString etc
