@@ -39,7 +39,7 @@ func WrapPath(path string, err error) error {
 }
 
 // WrapPathf wraps an error with path context and a formatted message.
-func WrapPathf(path string, format string, args ...any) error {
+func WrapPathf(path, format string, args ...any) error {
 	return &PathError{Path: path, Err: fmt.Errorf(format, args...)}
 }
 
@@ -51,8 +51,8 @@ var (
 	ErrUnknownType = errors.New("unknown resource type")
 
 	// JSON/Serialization
-	ErrInvalidJSON    = errors.New("invalid JSON")
-	ErrMarshalFailed  = errors.New("marshal failed")
+	ErrInvalidJSON     = errors.New("invalid JSON")
+	ErrMarshalFailed   = errors.New("marshal failed")
 	ErrUnmarshalFailed = errors.New("unmarshal failed")
 
 	// Code generation

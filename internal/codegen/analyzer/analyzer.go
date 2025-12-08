@@ -186,8 +186,8 @@ func (a *Analyzer) analyzeElement(elem *parser.ElementDefinition, rootType strin
 
 // analyzeChoiceType handles choice type elements like value[x].
 func (a *Analyzer) analyzeChoiceType(elem *parser.ElementDefinition, baseName string) ([]AnalyzedProperty, error) {
-	var props []AnalyzedProperty
-	var choiceTypes []string
+	props := make([]AnalyzedProperty, 0, len(elem.Type)*2) // *2 for extension fields
+	choiceTypes := make([]string, 0, len(elem.Type))
 
 	for _, typeRef := range elem.Type {
 		choiceTypes = append(choiceTypes, typeRef.Code)
@@ -338,11 +338,6 @@ func toGoFieldName(name string) string {
 	}
 
 	// Convert to PascalCase
-	return toPascalCase(name)
-}
-
-// toGoTypeName converts a FHIR type name to a Go type name for choice types.
-func toGoTypeName(name string) string {
 	return toPascalCase(name)
 }
 

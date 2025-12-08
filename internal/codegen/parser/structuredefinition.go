@@ -40,30 +40,30 @@ type Differential struct {
 
 // ElementDefinition defines a single element within a StructureDefinition.
 type ElementDefinition struct {
-	ID             string            `json:"id"`
-	Path           string            `json:"path"`
-	SliceName      string            `json:"sliceName,omitempty"`
-	Short          string            `json:"short"`
-	Definition     string            `json:"definition"`
-	Comment        string            `json:"comment,omitempty"`
-	Min            int               `json:"min"`
-	Max            string            `json:"max"` // "0", "1", "*", or a number
-	Base           *Base             `json:"base,omitempty"`
-	Type           []TypeRef         `json:"type,omitempty"`
-	ContentReference string          `json:"contentReference,omitempty"`
-	Binding        *Binding          `json:"binding,omitempty"`
-	Constraint     []Constraint      `json:"constraint,omitempty"`
-	MustSupport    bool              `json:"mustSupport,omitempty"`
-	IsModifier     bool              `json:"isModifier,omitempty"`
-	IsSummary      bool              `json:"isSummary,omitempty"`
-	Fixed          json.RawMessage   `json:"fixed,omitempty"`   // fixed[x]
-	Pattern        json.RawMessage   `json:"pattern,omitempty"` // pattern[x]
-	Example        []Example         `json:"example,omitempty"`
-	MinValue       json.RawMessage   `json:"minValue,omitempty"`
-	MaxValue       json.RawMessage   `json:"maxValue,omitempty"`
-	MaxLength      *int              `json:"maxLength,omitempty"`
-	Condition      []string          `json:"condition,omitempty"`
-	Mapping        []ElementMapping  `json:"mapping,omitempty"`
+	ID               string           `json:"id"`
+	Path             string           `json:"path"`
+	SliceName        string           `json:"sliceName,omitempty"`
+	Short            string           `json:"short"`
+	Definition       string           `json:"definition"`
+	Comment          string           `json:"comment,omitempty"`
+	Min              int              `json:"min"`
+	Max              string           `json:"max"` // "0", "1", "*", or a number
+	Base             *Base            `json:"base,omitempty"`
+	Type             []TypeRef        `json:"type,omitempty"`
+	ContentReference string           `json:"contentReference,omitempty"`
+	Binding          *Binding         `json:"binding,omitempty"`
+	Constraint       []Constraint     `json:"constraint,omitempty"`
+	MustSupport      bool             `json:"mustSupport,omitempty"`
+	IsModifier       bool             `json:"isModifier,omitempty"`
+	IsSummary        bool             `json:"isSummary,omitempty"`
+	Fixed            json.RawMessage  `json:"fixed,omitempty"`   // fixed[x]
+	Pattern          json.RawMessage  `json:"pattern,omitempty"` // pattern[x]
+	Example          []Example        `json:"example,omitempty"`
+	MinValue         json.RawMessage  `json:"minValue,omitempty"`
+	MaxValue         json.RawMessage  `json:"maxValue,omitempty"`
+	MaxLength        *int             `json:"maxLength,omitempty"`
+	Condition        []string         `json:"condition,omitempty"`
+	Mapping          []ElementMapping `json:"mapping,omitempty"`
 }
 
 // Base contains information about the base element this is derived from.
@@ -134,8 +134,8 @@ func ParseStructureDefinition(data []byte) (*StructureDefinition, error) {
 	if err := json.Unmarshal(data, &sd); err != nil {
 		return nil, fmt.Errorf("failed to parse StructureDefinition: %w", err)
 	}
-	if sd.ResourceType != "StructureDefinition" {
-		return nil, fmt.Errorf("expected resourceType 'StructureDefinition', got '%s'", sd.ResourceType)
+	if sd.ResourceType != ResourceTypeStructureDefinition {
+		return nil, fmt.Errorf("expected resourceType '%s', got '%s'", ResourceTypeStructureDefinition, sd.ResourceType)
 	}
 	return &sd, nil
 }
@@ -155,15 +155,15 @@ func ParseBundle(data []byte) (*Bundle, error) {
 	if err := json.Unmarshal(data, &b); err != nil {
 		return nil, fmt.Errorf("failed to parse Bundle: %w", err)
 	}
-	if b.ResourceType != "Bundle" {
-		return nil, fmt.Errorf("expected resourceType 'Bundle', got '%s'", b.ResourceType)
+	if b.ResourceType != ResourceTypeBundle {
+		return nil, fmt.Errorf("expected resourceType '%s', got '%s'", ResourceTypeBundle, b.ResourceType)
 	}
 	return &b, nil
 }
 
 // ExtractStructureDefinitions extracts all StructureDefinitions from a Bundle.
 func ExtractStructureDefinitions(bundle *Bundle) ([]*StructureDefinition, error) {
-	var results []*StructureDefinition
+	results := make([]*StructureDefinition, 0, len(bundle.Entry))
 
 	for i, entry := range bundle.Entry {
 		if len(entry.Resource) == 0 {
@@ -178,7 +178,7 @@ func ExtractStructureDefinitions(bundle *Bundle) ([]*StructureDefinition, error)
 			continue
 		}
 
-		if peek.ResourceType != "StructureDefinition" {
+		if peek.ResourceType != ResourceTypeStructureDefinition {
 			continue
 		}
 
@@ -224,7 +224,7 @@ func LoadStructureDefinitionsFromDir(dir string) ([]*StructureDefinition, error)
 		}
 
 		switch peek.ResourceType {
-		case "StructureDefinition":
+		case ResourceTypeStructureDefinition:
 			sd, err := ParseStructureDefinition(data)
 			if err != nil {
 				return fmt.Errorf("failed to parse %s: %w", path, err)
@@ -234,7 +234,7 @@ func LoadStructureDefinitionsFromDir(dir string) ([]*StructureDefinition, error)
 				results = append(results, sd)
 			}
 
-		case "Bundle":
+		case ResourceTypeBundle:
 			bundle, err := ParseBundle(data)
 			if err != nil {
 				return fmt.Errorf("failed to parse bundle %s: %w", path, err)
@@ -287,6 +287,12 @@ func FilterNonAbstract(sds []*StructureDefinition) []*StructureDefinition {
 	}
 	return results
 }
+
+// Resource type constants.
+const (
+	ResourceTypeStructureDefinition = "StructureDefinition"
+	ResourceTypeBundle              = "Bundle"
+)
 
 // Kind constants for StructureDefinition.
 const (

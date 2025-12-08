@@ -272,8 +272,10 @@ func TestElementDefinitionMethods(t *testing.T) {
 }
 
 func TestFilterByKind(t *testing.T) {
-	patientSD, _ := ParseStructureDefinition(samplePatientSD)
-	codingSD, _ := ParseStructureDefinition(sampleCodingSD)
+	patientSD, err := ParseStructureDefinition(samplePatientSD)
+	require.NoError(t, err)
+	codingSD, err := ParseStructureDefinition(sampleCodingSD)
+	require.NoError(t, err)
 
 	sds := []*StructureDefinition{patientSD, codingSD}
 

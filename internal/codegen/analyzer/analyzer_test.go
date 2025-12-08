@@ -3,9 +3,10 @@ package analyzer
 import (
 	"testing"
 
-	"github.com/robertoaraneda/gofhir/internal/codegen/parser"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/robertoaraneda/gofhir/internal/codegen/parser"
 )
 
 var samplePatientSD = []byte(`{

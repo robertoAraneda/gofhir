@@ -15,7 +15,7 @@ linters:
     - bodyclose
     - dogsled
     - dupl
-    - exportloopref
+    - copyloopvar  # Replaces deprecated exportloopref
     - gochecknoinits
     - goconst
     - gocritic
