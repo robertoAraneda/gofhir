@@ -70,22 +70,22 @@ coding := &r4.Coding{}
 ### Tareas
 
 #### 0.1 Inicializacion del Proyecto
-- [ ] Crear `go.mod` con `github.com/robertoaraneda/gofhir`
-- [ ] Configurar estructura de directorios segun arquitectura
-- [ ] Crear `Makefile` con targets: `build`, `test`, `generate`, `lint`
-- [ ] Configurar `.golangci.yml` para linting
+- [x] Crear `go.mod` con `github.com/robertoaraneda/gofhir`
+- [x] Configurar estructura de directorios segun arquitectura
+- [x] Crear `Makefile` con targets: `build`, `test`, `generate`, `lint`
+- [x] Configurar `.golangci.yml` para linting
 
 #### 0.2 Descarga de Especificaciones FHIR
-- [ ] Crear script para descargar specs de hl7.org/fhir
-- [ ] Descargar R4 (4.0.1): StructureDefinitions, ValueSets, CodeSystems
+- [x] Crear script para descargar specs de hl7.org/fhir
+- [x] Descargar R4 (4.0.1): StructureDefinitions, ValueSets, CodeSystems
 - [ ] Descargar R4B (4.3.0)
 - [ ] Descargar R5 (5.0.0)
-- [ ] Almacenar en `specs/r4/`, `specs/r4b/`, `specs/r5/`
+- [x] Almacenar en `specs/r4/`, `specs/r4b/`, `specs/r5/`
 
 #### 0.3 Configuracion CI/CD
-- [ ] GitHub Actions workflow para tests
-- [ ] GitHub Actions workflow para linting
-- [ ] Configurar codecov para cobertura
+- [x] GitHub Actions workflow para tests
+- [x] GitHub Actions workflow para linting
+- [x] Configurar codecov para cobertura
 
 ### Entregables
 - Repositorio inicializado con estructura base
@@ -286,10 +286,10 @@ func WrapPath(path string, err error) error {
 }
 ```
 
-- [ ] Implementar `errors.go` - tipos de error FHIR con wrapping
-- [ ] Implementar `ptr.go` - helpers para punteros
-- [ ] Implementar `json.go` - utilidades JSON (ordenamiento, omitempty)
-- [ ] Implementar `clone.go` - funcion generica Clone[T]
+- [x] Implementar `errors.go` - tipos de error FHIR con wrapping
+- [x] Implementar `ptr.go` - helpers para punteros
+- [x] Implementar `json.go` - utilidades JSON (ordenamiento, omitempty)
+- [x] Implementar `clone.go` - funcion generica Clone[T]
 
 #### 1.2 Parser de StructureDefinitions
 ```go
@@ -349,10 +349,10 @@ func ParseStructureDefinition(data []byte) (*StructureDefinition, error)
 func LoadAllStructureDefinitions(specsDir string) ([]*StructureDefinition, error)
 ```
 
-- [ ] Implementar structs para StructureDefinition completa
-- [ ] Implementar parser JSON
-- [ ] Implementar carga de todos los specs de un directorio
-- [ ] Implementar filtrado por Kind (primitive, complex-type, resource)
+- [x] Implementar structs para StructureDefinition completa
+- [x] Implementar parser JSON
+- [x] Implementar carga de todos los specs de un directorio
+- [x] Implementar filtrado por Kind (primitive, complex-type, resource)
 
 #### 1.3 Analizador de Elementos
 ```go
@@ -393,11 +393,11 @@ func (a *Analyzer) IsChoiceType(element *ElementDefinition) bool
 func (a *Analyzer) GetChoiceTypes(element *ElementDefinition) []string
 ```
 
-- [ ] Implementar conversion FHIR type -> Go type
-- [ ] Implementar deteccion de choice types (value[x])
-- [ ] Implementar expansion de choice types a propiedades individuales
-- [ ] Implementar calculo de cardinalidad (pointer vs array)
-- [ ] Implementar generacion de nombres Go validos
+- [x] Implementar conversion FHIR type -> Go type
+- [x] Implementar deteccion de choice types (value[x])
+- [x] Implementar expansion de choice types a propiedades individuales
+- [x] Implementar calculo de cardinalidad (pointer vs array)
+- [x] Implementar generacion de nombres Go validos
 
 #### 1.4 Mapa de Tipos FHIR -> Go
 ```go
@@ -433,15 +433,15 @@ var PrimitiveTypeMap = map[string]string{
 func RequiresPointer(goType string, isArray bool, min int) bool
 ```
 
-- [ ] Definir mapeo completo de primitivos
-- [ ] Implementar logica de punteros
-- [ ] Implementar logica para arrays
+- [x] Definir mapeo completo de primitivos
+- [x] Implementar logica de punteros
+- [x] Implementar logica para arrays
 
 ### Tests Sprint 1
-- [ ] Tests de parsing de StructureDefinitions
-- [ ] Tests de analisis de elementos
-- [ ] Tests de conversion de tipos
-- [ ] Tests de deteccion de choice types
+- [x] Tests de parsing de StructureDefinitions
+- [x] Tests de analisis de elementos
+- [x] Tests de conversion de tipos
+- [x] Tests de deteccion de choice types
 
 ### Entregables
 - Package `pkg/common` con helpers
@@ -515,10 +515,10 @@ func (r *{{.Name}}) GetResourceType() string {
 }
 ```
 
-- [ ] Template para datatypes (sin herencia, struct plano)
-- [ ] Template para resources (con ResourceType field)
-- [ ] Template para backbone elements (inline o separado)
-- [ ] Template para ValueSets como constantes tipadas
+- [x] Template para datatypes (sin herencia, struct plano)
+- [x] Template para resources (con ResourceType field)
+- [x] Template para backbone elements (inline o separado)
+- [x] Template para ValueSets como constantes tipadas
 
 #### 2.2 Generador Principal
 
@@ -550,10 +550,10 @@ func (g *Generator) GenerateBackbones() error
 func (g *Generator) GenerateValueSets() error
 ```
 
-- [ ] Implementar carga de templates
-- [ ] Implementar orquestacion de generacion
-- [ ] Implementar resolucion de dependencias (datatypes antes que resources)
-- [ ] Implementar formateo automatico con gofmt/goimports
+- [x] Implementar carga de templates
+- [x] Implementar orquestacion de generacion
+- [x] Implementar resolucion de dependencias (datatypes antes que resources)
+- [x] Implementar formateo automatico con gofmt/goimports
 
 #### 2.3 Manejo de Casos Especiales
 
@@ -577,10 +577,10 @@ func (g *Generator) handleRecursiveTypes(sd *StructureDefinition) error
 func (g *Generator) handleReferences(element *ElementDefinition) AnalyzedProperty
 ```
 
-- [ ] Implementar extraccion de backbone elements
-- [ ] Implementar expansion de choice types
-- [ ] Implementar manejo de tipos recursivos
-- [ ] Implementar manejo de contained resources
+- [x] Implementar extraccion de backbone elements
+- [x] Implementar expansion de choice types
+- [x] Implementar manejo de tipos recursivos
+- [x] Implementar manejo de contained resources
 
 #### 2.4 Generacion de ValueSets
 
@@ -606,28 +606,28 @@ func (g *ValueSetGenerator) Generate(vs *ValueSet) error
 func (g *ValueSetGenerator) GenerateCodeSystem(cs *CodeSystem) error
 ```
 
-- [ ] Parsear ValueSets y CodeSystems
-- [ ] Generar tipos string tipados
-- [ ] Generar constantes para cada codigo
+- [x] Parsear ValueSets y CodeSystems
+- [x] Generar tipos string tipados
+- [x] Generar constantes para cada codigo
 - [ ] Generar metodo IsValid() opcional
 
 #### 2.5 Ejecutar Generacion R4 Completa
 
-- [ ] Generar todos los datatypes (~50 tipos)
-- [ ] Generar todos los resources (~150 tipos)
-- [ ] Generar todos los backbone elements (~300 tipos)
-- [ ] Generar ValueSets principales (~100 tipos)
-- [ ] Verificar que compila sin errores
-- [ ] Verificar imports correctos
+- [x] Generar todos los datatypes (~50 tipos)
+- [x] Generar todos los resources (~150 tipos)
+- [x] Generar todos los backbone elements (~300 tipos)
+- [x] Generar ValueSets principales (~100 tipos)
+- [x] Verificar que compila sin errores
+- [x] Verificar imports correctos
 
 ### Tests Sprint 2
 
-- [ ] Tests de templates individuales
-- [ ] Tests de generacion de un datatype completo (Coding, CodeableConcept)
-- [ ] Tests de generacion de un resource completo (Patient, Observation)
-- [ ] Tests de choice types (Observation.value[x])
-- [ ] Test de compilacion de todo el codigo generado
-- [ ] Tests de serializacion JSON round-trip
+- [x] Tests de templates individuales
+- [x] Tests de generacion de un datatype completo (Coding, CodeableConcept)
+- [x] Tests de generacion de un resource completo (Patient, Observation)
+- [x] Tests de choice types (Observation.value[x])
+- [x] Test de compilacion de todo el codigo generado
+- [x] Tests de serializacion JSON round-trip
 
 ### Entregables
 
@@ -676,8 +676,8 @@ type Resource interface {
 
 Tareas:
 
-- [ ] Definir interface Resource (solo GetResourceType)
-- [ ] Verificar que common.Clone[T] funciona con todos los tipos
+- [x] Definir interface Resource (solo GetResourceType)
+- [x] Verificar que common.Clone[T] funciona con todos los tipos
 
 #### 3.2 Extender Templates con Metodos (Solo los Utiles)
 
@@ -706,8 +706,8 @@ func (r *{{.Name}}) GetResourceType() string {
 
 Tareas:
 
-- [ ] Agregar GetResourceType() a template de resources
-- [ ] Regenerar todos los recursos con GetResourceType()
+- [x] Agregar GetResourceType() a template de resources
+- [x] Regenerar todos los recursos con GetResourceType()
 
 #### 3.3 Helpers de Choice Types (Generados)
 
