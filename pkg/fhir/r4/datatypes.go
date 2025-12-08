@@ -11,23 +11,41 @@ type Address struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// home | work | temp | old | billing - purpose of this address
-	Use *string `json:"use,omitempty"`
+	Use *AddressUse `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// postal | physical | both
-	Type *string `json:"type,omitempty"`
+	Type *AddressType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Text representation of the address
 	Text *string `json:"text,omitempty"`
+	// Extension for Text
+	TextExt *Element `json:"_text,omitempty"`
 	// Street name, number, direction & P.O. Box etc.
 	Line []string `json:"line,omitempty"`
+	// Extension for Line
+	LineExt []Element `json:"_line,omitempty"`
 	// Name of city, town etc.
 	City *string `json:"city,omitempty"`
+	// Extension for City
+	CityExt *Element `json:"_city,omitempty"`
 	// District name (aka county)
 	District *string `json:"district,omitempty"`
+	// Extension for District
+	DistrictExt *Element `json:"_district,omitempty"`
 	// Sub-unit of country (abbreviations ok)
 	State *string `json:"state,omitempty"`
+	// Extension for State
+	StateExt *Element `json:"_state,omitempty"`
 	// Postal code for area
 	PostalCode *string `json:"postalCode,omitempty"`
+	// Extension for PostalCode
+	PostalCodeExt *Element `json:"_postalCode,omitempty"`
 	// Country (e.g. can be ISO 3166 2 or 3 letter code)
 	Country *string `json:"country,omitempty"`
+	// Extension for Country
+	CountryExt *Element `json:"_country,omitempty"`
 	// Time period when address was/is in use
 	Period *Period `json:"period,omitempty"`
 }
@@ -40,14 +58,24 @@ type Age struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// < | <= | >= | > - how to understand the value
-	Comparator *string `json:"comparator,omitempty"`
+	Comparator *QuantityComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt *Element `json:"_comparator,omitempty"`
 	// Unit representation
 	Unit *string `json:"unit,omitempty"`
+	// Extension for Unit
+	UnitExt *Element `json:"_unit,omitempty"`
 	// System that defines coded unit form
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Coded form of the unit
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 }
 
 // Annotation represents FHIR Annotation.
@@ -64,8 +92,12 @@ type Annotation struct {
 	AuthorStringExt *Element `json:"_authorString,omitempty"`
 	// When the annotation was made
 	Time *string `json:"time,omitempty"`
+	// Extension for Time
+	TimeExt *Element `json:"_time,omitempty"`
 	// The annotation  - text content (as markdown)
 	Text *string `json:"text,omitempty"`
+	// Extension for Text
+	TextExt *Element `json:"_text,omitempty"`
 }
 
 // Attachment represents FHIR Attachment.
@@ -76,20 +108,36 @@ type Attachment struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Mime type of the content, with charset etc.
 	ContentType *string `json:"contentType,omitempty"`
+	// Extension for ContentType
+	ContentTypeExt *Element `json:"_contentType,omitempty"`
 	// Human language of the content (BCP-47)
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Data inline, base64ed
 	Data *string `json:"data,omitempty"`
+	// Extension for Data
+	DataExt *Element `json:"_data,omitempty"`
 	// Uri where the data can be found
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Number of bytes of content (if url provided)
 	Size *uint32 `json:"size,omitempty"`
+	// Extension for Size
+	SizeExt *Element `json:"_size,omitempty"`
 	// Hash of the data (sha-1, base64ed)
 	Hash *string `json:"hash,omitempty"`
+	// Extension for Hash
+	HashExt *Element `json:"_hash,omitempty"`
 	// Label to display in place of the data
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Date attachment was first created
 	Creation *string `json:"creation,omitempty"`
+	// Extension for Creation
+	CreationExt *Element `json:"_creation,omitempty"`
 }
 
 // BackboneElement represents FHIR BackboneElement.
@@ -112,6 +160,8 @@ type CodeableConcept struct {
 	Coding []Coding `json:"coding,omitempty"`
 	// Plain text representation of the concept
 	Text *string `json:"text,omitempty"`
+	// Extension for Text
+	TextExt *Element `json:"_text,omitempty"`
 }
 
 // Coding represents FHIR Coding.
@@ -122,14 +172,24 @@ type Coding struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Identity of the terminology system
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Version of the system - if relevant
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Symbol in syntax defined by the system
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 	// Representation defined by the system
 	Display *string `json:"display,omitempty"`
+	// Extension for Display
+	DisplayExt *Element `json:"_display,omitempty"`
 	// If this coding was chosen directly by the user
 	UserSelected *bool `json:"userSelected,omitempty"`
+	// Extension for UserSelected
+	UserSelectedExt *Element `json:"_userSelected,omitempty"`
 }
 
 // ContactDetail represents FHIR ContactDetail.
@@ -140,6 +200,8 @@ type ContactDetail struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Name of an individual to contact
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Contact details for individual or organization
 	Telecom []ContactPoint `json:"telecom,omitempty"`
 }
@@ -151,13 +213,21 @@ type ContactPoint struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// phone | fax | email | pager | url | sms | other
-	System *string `json:"system,omitempty"`
+	System *ContactPointSystem `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// The actual contact point details
 	Value *string `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// home | work | temp | old | mobile - purpose of this contact point
-	Use *string `json:"use,omitempty"`
+	Use *ContactPointUse `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// Specify preferred order of use (1 = highest)
 	Rank *uint32 `json:"rank,omitempty"`
+	// Extension for Rank
+	RankExt *Element `json:"_rank,omitempty"`
 	// Time period when the contact point was/is in use
 	Period *Period `json:"period,omitempty"`
 }
@@ -169,9 +239,13 @@ type Contributor struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// author | editor | reviewer | endorser
-	Type *string `json:"type,omitempty"`
+	Type *ContributorType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Who contributed the content
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Contact details of the contributor
 	Contact []ContactDetail `json:"contact,omitempty"`
 }
@@ -184,14 +258,24 @@ type Count struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// < | <= | >= | > - how to understand the value
-	Comparator *string `json:"comparator,omitempty"`
+	Comparator *QuantityComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt *Element `json:"_comparator,omitempty"`
 	// Unit representation
 	Unit *string `json:"unit,omitempty"`
+	// Extension for Unit
+	UnitExt *Element `json:"_unit,omitempty"`
 	// System that defines coded unit form
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Coded form of the unit
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 }
 
 // DataRequirement represents FHIR DataRequirement.
@@ -202,20 +286,28 @@ type DataRequirement struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// The type of the required data
 	Type *string `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// The profile of the required data
 	Profile []string `json:"profile,omitempty"`
+	// Extension for Profile
+	ProfileExt []Element `json:"_profile,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectCodeableConcept *CodeableConcept `json:"subjectCodeableConcept,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Indicates specific structure elements that are referenced by the knowledge module
 	MustSupport []string `json:"mustSupport,omitempty"`
+	// Extension for MustSupport
+	MustSupportExt []Element `json:"_mustSupport,omitempty"`
 	// What codes are expected
 	CodeFilter []Element `json:"codeFilter,omitempty"`
 	// What dates/date ranges are expected
 	DateFilter []Element `json:"dateFilter,omitempty"`
 	// Number of results
 	Limit *uint32 `json:"limit,omitempty"`
+	// Extension for Limit
+	LimitExt *Element `json:"_limit,omitempty"`
 	// Order of the results
 	Sort []Element `json:"sort,omitempty"`
 }
@@ -228,14 +320,24 @@ type Distance struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// < | <= | >= | > - how to understand the value
-	Comparator *string `json:"comparator,omitempty"`
+	Comparator *QuantityComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt *Element `json:"_comparator,omitempty"`
 	// Unit representation
 	Unit *string `json:"unit,omitempty"`
+	// Extension for Unit
+	UnitExt *Element `json:"_unit,omitempty"`
 	// System that defines coded unit form
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Coded form of the unit
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 }
 
 // Dosage represents FHIR Dosage.
@@ -248,12 +350,18 @@ type Dosage struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// The order of the dosage instructions
 	Sequence *int `json:"sequence,omitempty"`
+	// Extension for Sequence
+	SequenceExt *Element `json:"_sequence,omitempty"`
 	// Free text dosage instructions e.g. SIG
 	Text *string `json:"text,omitempty"`
+	// Extension for Text
+	TextExt *Element `json:"_text,omitempty"`
 	// Supplemental instruction or warnings to the patient - e.g. "with meals", "may cause drowsiness"
 	AdditionalInstruction []CodeableConcept `json:"additionalInstruction,omitempty"`
 	// Patient or consumer oriented instructions
 	PatientInstruction *string `json:"patientInstruction,omitempty"`
+	// Extension for PatientInstruction
+	PatientInstructionExt *Element `json:"_patientInstruction,omitempty"`
 	// When medication should be administered
 	Timing *Timing `json:"timing,omitempty"`
 	// Take "as needed" (for x)
@@ -286,14 +394,24 @@ type Duration struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// < | <= | >= | > - how to understand the value
-	Comparator *string `json:"comparator,omitempty"`
+	Comparator *QuantityComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt *Element `json:"_comparator,omitempty"`
 	// Unit representation
 	Unit *string `json:"unit,omitempty"`
+	// Extension for Unit
+	UnitExt *Element `json:"_unit,omitempty"`
 	// System that defines coded unit form
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Coded form of the unit
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 }
 
 // Element represents FHIR Element.
@@ -314,36 +432,62 @@ type ElementDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Path of the element in the hierarchy of elements
 	Path *string `json:"path,omitempty"`
+	// Extension for Path
+	PathExt *Element `json:"_path,omitempty"`
 	// xmlAttr | xmlText | typeAttr | cdaText | xhtml
-	Representation []string `json:"representation,omitempty"`
+	Representation []PropertyRepresentation `json:"representation,omitempty"`
+	// Extension for Representation
+	RepresentationExt []Element `json:"_representation,omitempty"`
 	// Name for this particular element (in a set of slices)
 	SliceName *string `json:"sliceName,omitempty"`
+	// Extension for SliceName
+	SliceNameExt *Element `json:"_sliceName,omitempty"`
 	// If this slice definition constrains an inherited slice definition (or not)
 	SliceIsConstraining *bool `json:"sliceIsConstraining,omitempty"`
+	// Extension for SliceIsConstraining
+	SliceIsConstrainingExt *Element `json:"_sliceIsConstraining,omitempty"`
 	// Name for element to display with or prompt for element
 	Label *string `json:"label,omitempty"`
+	// Extension for Label
+	LabelExt *Element `json:"_label,omitempty"`
 	// Corresponding codes in terminologies
 	Code []Coding `json:"code,omitempty"`
 	// This element is sliced - slices follow
 	Slicing *Element `json:"slicing,omitempty"`
 	// Concise definition for space-constrained presentation
 	Short *string `json:"short,omitempty"`
+	// Extension for Short
+	ShortExt *Element `json:"_short,omitempty"`
 	// Full formal definition as narrative text
 	Definition *string `json:"definition,omitempty"`
+	// Extension for Definition
+	DefinitionExt *Element `json:"_definition,omitempty"`
 	// Comments about the use of this element
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 	// Why this resource has been created
 	Requirements *string `json:"requirements,omitempty"`
+	// Extension for Requirements
+	RequirementsExt *Element `json:"_requirements,omitempty"`
 	// Other names
 	Alias []string `json:"alias,omitempty"`
+	// Extension for Alias
+	AliasExt []Element `json:"_alias,omitempty"`
 	// Minimum Cardinality
 	Min *uint32 `json:"min,omitempty"`
+	// Extension for Min
+	MinExt *Element `json:"_min,omitempty"`
 	// Maximum Cardinality (a number or *)
 	Max *string `json:"max,omitempty"`
+	// Extension for Max
+	MaxExt *Element `json:"_max,omitempty"`
 	// Base definition information for tools
 	Base *Element `json:"base,omitempty"`
 	// Reference to definition of content for the element
 	ContentReference *string `json:"contentReference,omitempty"`
+	// Extension for ContentReference
+	ContentReferenceExt *Element `json:"_contentReference,omitempty"`
 	// Data type and Profile for this element
 	Type []Element `json:"type,omitempty"`
 	// Specified value if missing from instance
@@ -486,8 +630,12 @@ type ElementDefinition struct {
 	DefaultValueMeta *Meta `json:"defaultValueMeta,omitempty"`
 	// Implicit meaning when this element is missing
 	MeaningWhenMissing *string `json:"meaningWhenMissing,omitempty"`
+	// Extension for MeaningWhenMissing
+	MeaningWhenMissingExt *Element `json:"_meaningWhenMissing,omitempty"`
 	// What the order of the elements means
 	OrderMeaning *string `json:"orderMeaning,omitempty"`
+	// Extension for OrderMeaning
+	OrderMeaningExt *Element `json:"_orderMeaning,omitempty"`
 	// Value must be exactly this
 	FixedBase64Binary *string `json:"fixedBase64Binary,omitempty"`
 	// Extension for FixedBase64Binary
@@ -836,18 +984,30 @@ type ElementDefinition struct {
 	MaxValueQuantity *Quantity `json:"maxValueQuantity,omitempty"`
 	// Max length for strings
 	MaxLength *int `json:"maxLength,omitempty"`
+	// Extension for MaxLength
+	MaxLengthExt *Element `json:"_maxLength,omitempty"`
 	// Reference to invariant about presence
 	Condition []string `json:"condition,omitempty"`
+	// Extension for Condition
+	ConditionExt []Element `json:"_condition,omitempty"`
 	// Condition that must evaluate to true
 	Constraint []Element `json:"constraint,omitempty"`
 	// If the element must be supported
 	MustSupport *bool `json:"mustSupport,omitempty"`
+	// Extension for MustSupport
+	MustSupportExt *Element `json:"_mustSupport,omitempty"`
 	// If this modifies the meaning of other elements
 	IsModifier *bool `json:"isModifier,omitempty"`
+	// Extension for IsModifier
+	IsModifierExt *Element `json:"_isModifier,omitempty"`
 	// Reason that this element is marked as a modifier
 	IsModifierReason *string `json:"isModifierReason,omitempty"`
+	// Extension for IsModifierReason
+	IsModifierReasonExt *Element `json:"_isModifierReason,omitempty"`
 	// Include when _summary = true?
 	IsSummary *bool `json:"isSummary,omitempty"`
+	// Extension for IsSummary
+	IsSummaryExt *Element `json:"_isSummary,omitempty"`
 	// ValueSet details if this is coded
 	Binding *Element `json:"binding,omitempty"`
 	// Map element to another set of definitions
@@ -862,14 +1022,24 @@ type Expression struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Natural language description of the condition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Short name assigned to expression for reuse
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// text/cql | text/fhirpath | application/x-fhir-query | etc.
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Expression in specified language
 	Expression *string `json:"expression,omitempty"`
+	// Extension for Expression
+	ExpressionExt *Element `json:"_expression,omitempty"`
 	// Where the expression is found
 	Reference *string `json:"reference,omitempty"`
+	// Extension for Reference
+	ReferenceExt *Element `json:"_reference,omitempty"`
 }
 
 // Extension represents FHIR Extension.
@@ -1027,17 +1197,29 @@ type HumanName struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// usual | official | temp | nickname | anonymous | old | maiden
-	Use *string `json:"use,omitempty"`
+	Use *NameUse `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// Text representation of the full name
 	Text *string `json:"text,omitempty"`
+	// Extension for Text
+	TextExt *Element `json:"_text,omitempty"`
 	// Family name (often called 'Surname')
 	Family *string `json:"family,omitempty"`
+	// Extension for Family
+	FamilyExt *Element `json:"_family,omitempty"`
 	// Given names (not always 'first'). Includes middle names
 	Given []string `json:"given,omitempty"`
+	// Extension for Given
+	GivenExt []Element `json:"_given,omitempty"`
 	// Parts that come before the name
 	Prefix []string `json:"prefix,omitempty"`
+	// Extension for Prefix
+	PrefixExt []Element `json:"_prefix,omitempty"`
 	// Parts that come after the name
 	Suffix []string `json:"suffix,omitempty"`
+	// Extension for Suffix
+	SuffixExt []Element `json:"_suffix,omitempty"`
 	// Time period when name was/is in use
 	Period *Period `json:"period,omitempty"`
 }
@@ -1049,13 +1231,19 @@ type Identifier struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// usual | official | temp | secondary | old (If known)
-	Use *string `json:"use,omitempty"`
+	Use *IdentifierUse `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// Description of identifier
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The namespace for the identifier value
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// The value that is unique
 	Value *string `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// Time period when id is/was valid for use
 	Period *Period `json:"period,omitempty"`
 	// Organization that issued id (may be just text)
@@ -1080,6 +1268,8 @@ type MarketingStatus struct {
 	DateRange Period `json:"dateRange"`
 	// The date when the Medicinal Product is placed on the market by the Marketing Authorisation Holder (or where applicable, the manufacturer/distributor) in a country and/or jurisdiction shall be provided A complete date consisting of day, month and year shall be specified using the ISO 8601 date format NOTE “Placed on the market” refers to the release of the Medicinal Product into the distribution chain
 	RestoreDate *string `json:"restoreDate,omitempty"`
+	// Extension for RestoreDate
+	RestoreDateExt *Element `json:"_restoreDate,omitempty"`
 }
 
 // Meta represents FHIR Meta.
@@ -1090,12 +1280,20 @@ type Meta struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Version specific identifier
 	VersionId *string `json:"versionId,omitempty"`
+	// Extension for VersionId
+	VersionIdExt *Element `json:"_versionId,omitempty"`
 	// When the resource version last changed
 	LastUpdated *string `json:"lastUpdated,omitempty"`
+	// Extension for LastUpdated
+	LastUpdatedExt *Element `json:"_lastUpdated,omitempty"`
 	// Identifies where the resource comes from
 	Source *string `json:"source,omitempty"`
+	// Extension for Source
+	SourceExt *Element `json:"_source,omitempty"`
 	// Profiles this resource claims to conform to
 	Profile []string `json:"profile,omitempty"`
+	// Extension for Profile
+	ProfileExt []Element `json:"_profile,omitempty"`
 	// Security Labels applied to this resource
 	Security []Coding `json:"security,omitempty"`
 	// Tags applied to this resource
@@ -1110,8 +1308,12 @@ type MetadataResource struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1122,24 +1324,42 @@ type MetadataResource struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this metadata resource, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the metadata resource
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this metadata resource (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this metadata resource (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the metadata resource
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for metadata resource (if applicable)
@@ -1154,8 +1374,12 @@ type Money struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// ISO 4217 Currency Code
 	Currency *string `json:"currency,omitempty"`
+	// Extension for Currency
+	CurrencyExt *Element `json:"_currency,omitempty"`
 }
 
 // MoneyQuantity represents FHIR MoneyQuantity.
@@ -1166,14 +1390,24 @@ type MoneyQuantity struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// < | <= | >= | > - how to understand the value
-	Comparator *string `json:"comparator,omitempty"`
+	Comparator *QuantityComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt *Element `json:"_comparator,omitempty"`
 	// Unit representation
 	Unit *string `json:"unit,omitempty"`
+	// Extension for Unit
+	UnitExt *Element `json:"_unit,omitempty"`
 	// System that defines coded unit form
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Coded form of the unit
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 }
 
 // Narrative represents FHIR Narrative.
@@ -1183,9 +1417,13 @@ type Narrative struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// generated | extensions | additional | empty
-	Status *string `json:"status,omitempty"`
+	Status *NarrativeStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Limited xhtml content
 	Div *string `json:"div,omitempty"`
+	// Extension for Div
+	DivExt *Element `json:"_div,omitempty"`
 }
 
 // ParameterDefinition represents FHIR ParameterDefinition.
@@ -1196,18 +1434,32 @@ type ParameterDefinition struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Name used to access the parameter value
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// in | out
-	Use *string `json:"use,omitempty"`
+	Use *OperationParameterUse `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// Minimum cardinality
 	Min *int `json:"min,omitempty"`
+	// Extension for Min
+	MinExt *Element `json:"_min,omitempty"`
 	// Maximum cardinality (a number of *)
 	Max *string `json:"max,omitempty"`
+	// Extension for Max
+	MaxExt *Element `json:"_max,omitempty"`
 	// A brief description of the parameter
 	Documentation *string `json:"documentation,omitempty"`
+	// Extension for Documentation
+	DocumentationExt *Element `json:"_documentation,omitempty"`
 	// What type of value
 	Type *string `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// What profile the value is expected to be
 	Profile *string `json:"profile,omitempty"`
+	// Extension for Profile
+	ProfileExt *Element `json:"_profile,omitempty"`
 }
 
 // Period represents FHIR Period.
@@ -1218,8 +1470,12 @@ type Period struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Starting time with inclusive boundary
 	Start *string `json:"start,omitempty"`
+	// Extension for Start
+	StartExt *Element `json:"_start,omitempty"`
 	// End time with inclusive boundary, if not ongoing
 	End *string `json:"end,omitempty"`
+	// Extension for End
+	EndExt *Element `json:"_end,omitempty"`
 }
 
 // Population represents FHIR Population.
@@ -1264,10 +1520,16 @@ type ProdCharacteristic struct {
 	ExternalDiameter *Quantity `json:"externalDiameter,omitempty"`
 	// Where applicable, the shape can be specified An appropriate controlled vocabulary shall be used The term and the term identifier shall be used
 	Shape *string `json:"shape,omitempty"`
+	// Extension for Shape
+	ShapeExt *Element `json:"_shape,omitempty"`
 	// Where applicable, the color can be specified An appropriate controlled vocabulary shall be used The term and the term identifier shall be used
 	Color []string `json:"color,omitempty"`
+	// Extension for Color
+	ColorExt []Element `json:"_color,omitempty"`
 	// Where applicable, the imprint can be specified as text
 	Imprint []string `json:"imprint,omitempty"`
+	// Extension for Imprint
+	ImprintExt []Element `json:"_imprint,omitempty"`
 	// Where applicable, the image can be provided The format of the image attachment shall be specified by regional implementations
 	Image []Attachment `json:"image,omitempty"`
 	// Where applicable, the scoring can be specified An appropriate controlled vocabulary shall be used The term and the term identifier shall be used
@@ -1300,14 +1562,24 @@ type Quantity struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// < | <= | >= | > - how to understand the value
-	Comparator *string `json:"comparator,omitempty"`
+	Comparator *QuantityComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt *Element `json:"_comparator,omitempty"`
 	// Unit representation
 	Unit *string `json:"unit,omitempty"`
+	// Extension for Unit
+	UnitExt *Element `json:"_unit,omitempty"`
 	// System that defines coded unit form
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Coded form of the unit
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 }
 
 // Range represents FHIR Range.
@@ -1342,12 +1614,18 @@ type Reference struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Literal reference, Relative, internal or absolute URL
 	Reference *string `json:"reference,omitempty"`
+	// Extension for Reference
+	ReferenceExt *Element `json:"_reference,omitempty"`
 	// Type the reference refers to (e.g. "Patient")
 	Type *string `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Logical reference, when literal reference is not known
 	Identifier *Identifier `json:"identifier,omitempty"`
 	// Text alternative for the resource
 	Display *string `json:"display,omitempty"`
+	// Extension for Display
+	DisplayExt *Element `json:"_display,omitempty"`
 }
 
 // RelatedArtifact represents FHIR RelatedArtifact.
@@ -1357,19 +1635,31 @@ type RelatedArtifact struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of
-	Type *string `json:"type,omitempty"`
+	Type *RelatedArtifactType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Short label
 	Label *string `json:"label,omitempty"`
+	// Extension for Label
+	LabelExt *Element `json:"_label,omitempty"`
 	// Brief description of the related artifact
 	Display *string `json:"display,omitempty"`
+	// Extension for Display
+	DisplayExt *Element `json:"_display,omitempty"`
 	// Bibliographic citation for the artifact
 	Citation *string `json:"citation,omitempty"`
+	// Extension for Citation
+	CitationExt *Element `json:"_citation,omitempty"`
 	// Where the artifact can be accessed
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// What document is being referenced
 	Document *Attachment `json:"document,omitempty"`
 	// What resource is being referenced
 	Resource *string `json:"resource,omitempty"`
+	// Extension for Resource
+	ResourceExt *Element `json:"_resource,omitempty"`
 }
 
 // SampledData represents FHIR SampledData.
@@ -1382,16 +1672,28 @@ type SampledData struct {
 	Origin Quantity `json:"origin"`
 	// Number of milliseconds between samples
 	Period *float64 `json:"period,omitempty"`
+	// Extension for Period
+	PeriodExt *Element `json:"_period,omitempty"`
 	// Multiply data by this before adding to origin
 	Factor *float64 `json:"factor,omitempty"`
+	// Extension for Factor
+	FactorExt *Element `json:"_factor,omitempty"`
 	// Lower limit of detection
 	LowerLimit *float64 `json:"lowerLimit,omitempty"`
+	// Extension for LowerLimit
+	LowerLimitExt *Element `json:"_lowerLimit,omitempty"`
 	// Upper limit of detection
 	UpperLimit *float64 `json:"upperLimit,omitempty"`
+	// Extension for UpperLimit
+	UpperLimitExt *Element `json:"_upperLimit,omitempty"`
 	// Number of sample points at each time point
 	Dimensions *uint32 `json:"dimensions,omitempty"`
+	// Extension for Dimensions
+	DimensionsExt *Element `json:"_dimensions,omitempty"`
 	// Decimal values with spaces, or "E" | "U" | "L"
 	Data *string `json:"data,omitempty"`
+	// Extension for Data
+	DataExt *Element `json:"_data,omitempty"`
 }
 
 // Signature represents FHIR Signature.
@@ -1404,16 +1706,24 @@ type Signature struct {
 	Type []Coding `json:"type,omitempty"`
 	// When the signature was created
 	When *string `json:"when,omitempty"`
+	// Extension for When
+	WhenExt *Element `json:"_when,omitempty"`
 	// Who signed
 	Who Reference `json:"who"`
 	// The party represented
 	OnBehalfOf *Reference `json:"onBehalfOf,omitempty"`
 	// The technical format of the signed resources
 	TargetFormat *string `json:"targetFormat,omitempty"`
+	// Extension for TargetFormat
+	TargetFormatExt *Element `json:"_targetFormat,omitempty"`
 	// The technical format of the signature
 	SigFormat *string `json:"sigFormat,omitempty"`
+	// Extension for SigFormat
+	SigFormatExt *Element `json:"_sigFormat,omitempty"`
 	// The actual signature content (XML DigSig. JWS, picture, etc.)
 	Data *string `json:"data,omitempty"`
+	// Extension for Data
+	DataExt *Element `json:"_data,omitempty"`
 }
 
 // SimpleQuantity represents FHIR SimpleQuantity.
@@ -1424,14 +1734,24 @@ type SimpleQuantity struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Numerical value (with implicit precision)
 	Value *float64 `json:"value,omitempty"`
+	// Extension for Value
+	ValueExt *Element `json:"_value,omitempty"`
 	// < | <= | >= | > - how to understand the value
-	Comparator *string `json:"comparator,omitempty"`
+	Comparator *QuantityComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt *Element `json:"_comparator,omitempty"`
 	// Unit representation
 	Unit *string `json:"unit,omitempty"`
+	// Extension for Unit
+	UnitExt *Element `json:"_unit,omitempty"`
 	// System that defines coded unit form
 	System *string `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Coded form of the unit
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 }
 
 // SubstanceAmount represents FHIR SubstanceAmount.
@@ -1454,6 +1774,8 @@ type SubstanceAmount struct {
 	AmountType *CodeableConcept `json:"amountType,omitempty"`
 	// A textual comment on a numeric value
 	AmountText *string `json:"amountText,omitempty"`
+	// Extension for AmountText
+	AmountTextExt *Element `json:"_amountText,omitempty"`
 	// Reference range of possible or expected values
 	ReferenceRange *Element `json:"referenceRange,omitempty"`
 }
@@ -1468,6 +1790,8 @@ type Timing struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// When the event occurs
 	Event []string `json:"event,omitempty"`
+	// Extension for Event
+	EventExt []Element `json:"_event,omitempty"`
 	// When the event is to occur
 	Repeat *Element `json:"repeat,omitempty"`
 	// BID | TID | QID | AM | PM | QD | QOD | +
@@ -1481,9 +1805,13 @@ type TriggerDefinition struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// named-event | periodic | data-changed | data-added | data-modified | data-removed | data-accessed | data-access-ended
-	Type *string `json:"type,omitempty"`
+	Type *TriggerType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Name or URI that identifies the event
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Timing of the event
 	TimingTiming *Timing `json:"timingTiming,omitempty"`
 	// Timing of the event

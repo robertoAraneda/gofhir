@@ -100,7 +100,7 @@ func TestAnalyzer_Analyze(t *testing.T) {
 	sd, err := parser.ParseStructureDefinition(samplePatientSD)
 	require.NoError(t, err)
 
-	analyzer := NewAnalyzer([]*parser.StructureDefinition{sd})
+	analyzer := NewAnalyzer([]*parser.StructureDefinition{sd}, nil)
 
 	t.Run("analyze patient", func(t *testing.T) {
 		result, err := analyzer.Analyze(sd)
@@ -208,7 +208,7 @@ func TestAnalyzer_Analyze(t *testing.T) {
 }
 
 func TestAnalyzer_NilInput(t *testing.T) {
-	analyzer := NewAnalyzer(nil)
+	analyzer := NewAnalyzer(nil, nil)
 	result, err := analyzer.Analyze(nil)
 	assert.Error(t, err)
 	assert.Nil(t, result)

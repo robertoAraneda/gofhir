@@ -12,8 +12,12 @@ type Account struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -25,11 +29,15 @@ type Account struct {
 	// Account number
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | inactive | entered-in-error | on-hold | unknown
-	Status *string `json:"status,omitempty"`
+	Status *AccountStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// E.g. patient, expense, depreciation
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Human-readable label
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// The entity that caused the expenses
 	Subject []Reference `json:"subject,omitempty"`
 	// Transaction window
@@ -40,6 +48,8 @@ type Account struct {
 	Owner *Reference `json:"owner,omitempty"`
 	// Explanation of purpose/use
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The parties ultimately responsible for balancing the Account
 	Guarantor []BackboneElement `json:"guarantor,omitempty"`
 	// Reference to a parent Account
@@ -59,8 +69,12 @@ type ActivityDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -71,46 +85,76 @@ type ActivityDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this activity definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the activity definition
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the activity definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this activity definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this activity definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Subordinate title of the activity definition
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Type of individual the activity definition is intended for
 	SubjectCodeableConcept *CodeableConcept `json:"subjectCodeableConcept,omitempty"`
 	// Type of individual the activity definition is intended for
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the activity definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for activity definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this activity definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Describes the clinical usage of the activity definition
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the activity definition was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the activity definition was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the activity definition is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// E.g. Education, Treatment, Assessment, etc.
@@ -127,18 +171,30 @@ type ActivityDefinition struct {
 	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
 	// Logic used by the activity definition
 	Library []string `json:"library,omitempty"`
+	// Extension for Library
+	LibraryExt []Element `json:"_library,omitempty"`
 	// Kind of resource
-	Kind *string `json:"kind,omitempty"`
+	Kind *RequestResourceType `json:"kind,omitempty"`
+	// Extension for Kind
+	KindExt *Element `json:"_kind,omitempty"`
 	// What profile the resource needs to conform to
 	Profile *string `json:"profile,omitempty"`
+	// Extension for Profile
+	ProfileExt *Element `json:"_profile,omitempty"`
 	// Detail type of activity
 	Code *CodeableConcept `json:"code,omitempty"`
 	// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *RequestIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// True if the activity should not be performed
 	DoNotPerform *bool `json:"doNotPerform,omitempty"`
+	// Extension for DoNotPerform
+	DoNotPerformExt *Element `json:"_doNotPerform,omitempty"`
 	// When activity is to occur
 	TimingTiming *Timing `json:"timingTiming,omitempty"`
 	// When activity is to occur
@@ -175,6 +231,8 @@ type ActivityDefinition struct {
 	ObservationResultRequirement []Reference `json:"observationResultRequirement,omitempty"`
 	// Transform to apply the template
 	Transform *string `json:"transform,omitempty"`
+	// Extension for Transform
+	TransformExt *Element `json:"_transform,omitempty"`
 	// Dynamic aspects of the definition
 	DynamicValue []BackboneElement `json:"dynamicValue,omitempty"`
 }
@@ -192,8 +250,12 @@ type AdverseEvent struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -205,7 +267,9 @@ type AdverseEvent struct {
 	// Business identifier for the event
 	Identifier *Identifier `json:"identifier,omitempty"`
 	// actual | potential
-	Actuality *string `json:"actuality,omitempty"`
+	Actuality *AdverseEventActuality `json:"actuality,omitempty"`
+	// Extension for Actuality
+	ActualityExt *Element `json:"_actuality,omitempty"`
 	// product-problem | product-quality | product-use-error | wrong-dose | incorrect-prescribing-information | wrong-technique | wrong-route-of-administration | wrong-rate | wrong-duration | wrong-time | expired-drug | medical-device-use-error | problem-different-manufacturer | unsafe-physical-environment
 	Category []CodeableConcept `json:"category,omitempty"`
 	// Type of the event itself in relation to the subject
@@ -216,10 +280,16 @@ type AdverseEvent struct {
 	Encounter *Reference `json:"encounter,omitempty"`
 	// When the event occurred
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// When the event was detected
 	Detected *string `json:"detected,omitempty"`
+	// Extension for Detected
+	DetectedExt *Element `json:"_detected,omitempty"`
 	// When the event was recorded
 	RecordedDate *string `json:"recordedDate,omitempty"`
+	// Extension for RecordedDate
+	RecordedDateExt *Element `json:"_recordedDate,omitempty"`
 	// Effect on the subject due to this event
 	ResultingCondition []Reference `json:"resultingCondition,omitempty"`
 	// Location where adverse event occurred
@@ -257,8 +327,12 @@ type AllergyIntolerance struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -274,11 +348,17 @@ type AllergyIntolerance struct {
 	// unconfirmed | confirmed | refuted | entered-in-error
 	VerificationStatus *CodeableConcept `json:"verificationStatus,omitempty"`
 	// allergy | intolerance - Underlying mechanism (if known)
-	Type *string `json:"type,omitempty"`
+	Type *AllergyIntoleranceType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// food | medication | environment | biologic
-	Category []string `json:"category,omitempty"`
+	Category []AllergyIntoleranceCategory `json:"category,omitempty"`
+	// Extension for Category
+	CategoryExt []Element `json:"_category,omitempty"`
 	// low | high | unable-to-assess
-	Criticality *string `json:"criticality,omitempty"`
+	Criticality *AllergyIntoleranceCriticality `json:"criticality,omitempty"`
+	// Extension for Criticality
+	CriticalityExt *Element `json:"_criticality,omitempty"`
 	// Code that identifies the allergy or intolerance
 	Code *CodeableConcept `json:"code,omitempty"`
 	// Who the sensitivity is for
@@ -301,12 +381,16 @@ type AllergyIntolerance struct {
 	OnsetStringExt *Element `json:"_onsetString,omitempty"`
 	// Date first version of the resource instance was recorded
 	RecordedDate *string `json:"recordedDate,omitempty"`
+	// Extension for RecordedDate
+	RecordedDateExt *Element `json:"_recordedDate,omitempty"`
 	// Who recorded the sensitivity
 	Recorder *Reference `json:"recorder,omitempty"`
 	// Source of the information about the allergy
 	Asserter *Reference `json:"asserter,omitempty"`
 	// Date(/time) of last known occurrence of a reaction
 	LastOccurrence *string `json:"lastOccurrence,omitempty"`
+	// Extension for LastOccurrence
+	LastOccurrenceExt *Element `json:"_lastOccurrence,omitempty"`
 	// Additional text not captured in other fields
 	Note []Annotation `json:"note,omitempty"`
 	// Adverse Reaction Events linked to exposure to substance
@@ -326,8 +410,12 @@ type Appointment struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -339,7 +427,9 @@ type Appointment struct {
 	// External Ids for this item
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// proposed | pending | booked | arrived | fulfilled | cancelled | noshow | entered-in-error | checked-in | waitlist
-	Status *string `json:"status,omitempty"`
+	Status *AppointmentStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// The coded reason for the appointment being cancelled
 	CancelationReason *CodeableConcept `json:"cancelationReason,omitempty"`
 	// A broad categorization of the service that is to be performed during this appointment
@@ -356,24 +446,40 @@ type Appointment struct {
 	ReasonReference []Reference `json:"reasonReference,omitempty"`
 	// Used to make informed decisions if needing to re-prioritize
 	Priority *uint32 `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// Shown on a subject line in a meeting request, or appointment list
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Additional information to support the appointment
 	SupportingInformation []Reference `json:"supportingInformation,omitempty"`
 	// When appointment is to take place
 	Start *string `json:"start,omitempty"`
+	// Extension for Start
+	StartExt *Element `json:"_start,omitempty"`
 	// When appointment is to conclude
 	End *string `json:"end,omitempty"`
+	// Extension for End
+	EndExt *Element `json:"_end,omitempty"`
 	// Can be less than start/end (e.g. estimate)
 	MinutesDuration *uint32 `json:"minutesDuration,omitempty"`
+	// Extension for MinutesDuration
+	MinutesDurationExt *Element `json:"_minutesDuration,omitempty"`
 	// The slots that this appointment is filling
 	Slot []Reference `json:"slot,omitempty"`
 	// The date that this appointment was initially created
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Additional comments
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 	// Detailed information and instructions for the patient
 	PatientInstruction *string `json:"patientInstruction,omitempty"`
+	// Extension for PatientInstruction
+	PatientInstructionExt *Element `json:"_patientInstruction,omitempty"`
 	// The service request this appointment is allocated to assess
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Participants involved in appointment
@@ -395,8 +501,12 @@ type AppointmentResponse struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -411,16 +521,24 @@ type AppointmentResponse struct {
 	Appointment Reference `json:"appointment"`
 	// Time from appointment, or requested new start time
 	Start *string `json:"start,omitempty"`
+	// Extension for Start
+	StartExt *Element `json:"_start,omitempty"`
 	// Time from appointment, or requested new end time
 	End *string `json:"end,omitempty"`
+	// Extension for End
+	EndExt *Element `json:"_end,omitempty"`
 	// Role of participant in the appointment
 	ParticipantType []CodeableConcept `json:"participantType,omitempty"`
 	// Person, Location, HealthcareService, or Device
 	Actor *Reference `json:"actor,omitempty"`
 	// accepted | declined | tentative | needs-action
-	ParticipantStatus *string `json:"participantStatus,omitempty"`
+	ParticipantStatus *ParticipationStatus `json:"participantStatus,omitempty"`
+	// Extension for ParticipantStatus
+	ParticipantStatusExt *Element `json:"_participantStatus,omitempty"`
 	// Additional comments
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -436,8 +554,12 @@ type AuditEvent struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -451,15 +573,23 @@ type AuditEvent struct {
 	// More specific type/id for the event
 	Subtype []Coding `json:"subtype,omitempty"`
 	// Type of action performed during the event
-	Action *string `json:"action,omitempty"`
+	Action *AuditEventAction `json:"action,omitempty"`
+	// Extension for Action
+	ActionExt *Element `json:"_action,omitempty"`
 	// When the activity occurred
 	Period *Period `json:"period,omitempty"`
 	// Time when the event was recorded
 	Recorded *string `json:"recorded,omitempty"`
+	// Extension for Recorded
+	RecordedExt *Element `json:"_recorded,omitempty"`
 	// Whether the event succeeded or failed
-	Outcome *string `json:"outcome,omitempty"`
+	Outcome *AuditEventOutcome `json:"outcome,omitempty"`
+	// Extension for Outcome
+	OutcomeExt *Element `json:"_outcome,omitempty"`
 	// Description of the event outcome
 	OutcomeDesc *string `json:"outcomeDesc,omitempty"`
+	// Extension for OutcomeDesc
+	OutcomeDescExt *Element `json:"_outcomeDesc,omitempty"`
 	// The purposeOfUse of the event
 	PurposeOfEvent []CodeableConcept `json:"purposeOfEvent,omitempty"`
 	// Actor involved in the event
@@ -483,8 +613,12 @@ type Basic struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -501,6 +635,8 @@ type Basic struct {
 	Subject *Reference `json:"subject,omitempty"`
 	// When created
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Who created
 	Author *Reference `json:"author,omitempty"`
 }
@@ -518,14 +654,22 @@ type Binary struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// MimeType of the binary content
 	ContentType *string `json:"contentType,omitempty"`
+	// Extension for ContentType
+	ContentTypeExt *Element `json:"_contentType,omitempty"`
 	// Identifies another resource to use as proxy when enforcing access control
 	SecurityContext *Reference `json:"securityContext,omitempty"`
 	// The actual content
 	Data *string `json:"data,omitempty"`
+	// Extension for Data
+	DataExt *Element `json:"_data,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -541,8 +685,12 @@ type BiologicallyDerivedProduct struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -554,15 +702,21 @@ type BiologicallyDerivedProduct struct {
 	// External ids for this item
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// organ | tissue | fluid | cells | biologicalAgent
-	ProductCategory *string `json:"productCategory,omitempty"`
+	ProductCategory *BiologicallyDerivedProductCategory `json:"productCategory,omitempty"`
+	// Extension for ProductCategory
+	ProductCategoryExt *Element `json:"_productCategory,omitempty"`
 	// What this biologically derived product is
 	ProductCode *CodeableConcept `json:"productCode,omitempty"`
 	// available | unavailable
-	Status *string `json:"status,omitempty"`
+	Status *BiologicallyDerivedProductStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Procedure request
 	Request []Reference `json:"request,omitempty"`
 	// The amount of this biologically derived product
 	Quantity *int `json:"quantity,omitempty"`
+	// Extension for Quantity
+	QuantityExt *Element `json:"_quantity,omitempty"`
 	// BiologicallyDerivedProduct parent
 	Parent []Reference `json:"parent,omitempty"`
 	// How this product was collected
@@ -588,8 +742,12 @@ type BodyStructure struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -602,6 +760,8 @@ type BodyStructure struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// Kind of Structure
 	Morphology *CodeableConcept `json:"morphology,omitempty"`
 	// Body site
@@ -610,6 +770,8 @@ type BodyStructure struct {
 	LocationQualifier []CodeableConcept `json:"locationQualifier,omitempty"`
 	// Text description
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Attached images
 	Image []Attachment `json:"image,omitempty"`
 	// Who this is about
@@ -629,16 +791,26 @@ type Bundle struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Persistent identifier for the bundle
 	Identifier *Identifier `json:"identifier,omitempty"`
 	// document | message | transaction | transaction-response | batch | batch-response | history | searchset | collection
-	Type *string `json:"type,omitempty"`
+	Type *BundleType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// When the bundle was assembled
 	Timestamp *string `json:"timestamp,omitempty"`
+	// Extension for Timestamp
+	TimestampExt *Element `json:"_timestamp,omitempty"`
 	// If search, the total number of matches
 	Total *uint32 `json:"total,omitempty"`
+	// Extension for Total
+	TotalExt *Element `json:"_total,omitempty"`
 	// Links related to this Bundle
 	Link []BackboneElement `json:"link,omitempty"`
 	// Entry in the bundle - will have a resource or information
@@ -660,8 +832,12 @@ type CapabilityStatement struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -672,50 +848,86 @@ type CapabilityStatement struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this capability statement, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the capability statement
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this capability statement (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this capability statement (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the capability statement
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for capability statement (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this capability statement is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// instance | capability | requirements
-	Kind *string `json:"kind,omitempty"`
+	Kind *CapabilityStatementKind `json:"kind,omitempty"`
+	// Extension for Kind
+	KindExt *Element `json:"_kind,omitempty"`
 	// Canonical URL of another capability statement this implements
 	Instantiates []string `json:"instantiates,omitempty"`
+	// Extension for Instantiates
+	InstantiatesExt []Element `json:"_instantiates,omitempty"`
 	// Canonical URL of another capability statement this adds to
 	Imports []string `json:"imports,omitempty"`
+	// Extension for Imports
+	ImportsExt []Element `json:"_imports,omitempty"`
 	// Software that is covered by this capability statement
 	Software *BackboneElement `json:"software,omitempty"`
 	// If this describes a specific instance
 	Implementation *BackboneElement `json:"implementation,omitempty"`
 	// FHIR Version the system supports
-	FhirVersion *string `json:"fhirVersion,omitempty"`
+	FhirVersion *FHIRVersion `json:"fhirVersion,omitempty"`
+	// Extension for FhirVersion
+	FhirVersionExt *Element `json:"_fhirVersion,omitempty"`
 	// formats supported (xml | json | ttl | mime type)
 	Format []string `json:"format,omitempty"`
+	// Extension for Format
+	FormatExt []Element `json:"_format,omitempty"`
 	// Patch formats supported
 	PatchFormat []string `json:"patchFormat,omitempty"`
+	// Extension for PatchFormat
+	PatchFormatExt []Element `json:"_patchFormat,omitempty"`
 	// Implementation guides supported
 	ImplementationGuide []string `json:"implementationGuide,omitempty"`
+	// Extension for ImplementationGuide
+	ImplementationGuideExt []Element `json:"_implementationGuide,omitempty"`
 	// If the endpoint is a RESTful one
 	Rest []BackboneElement `json:"rest,omitempty"`
 	// If messaging is supported
@@ -737,8 +949,12 @@ type CarePlan struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -751,8 +967,12 @@ type CarePlan struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// Fulfills CarePlan
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// CarePlan replaced by this CarePlan
@@ -760,15 +980,23 @@ type CarePlan struct {
 	// Part of referenced CarePlan
 	PartOf []Reference `json:"partOf,omitempty"`
 	// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *RequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// proposal | plan | order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *CarePlanIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// Type of plan
 	Category []CodeableConcept `json:"category,omitempty"`
 	// Human-friendly name for the care plan
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Summary of nature of plan
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Who the care plan is for
 	Subject Reference `json:"subject"`
 	// Encounter created as part of
@@ -777,6 +1005,8 @@ type CarePlan struct {
 	Period *Period `json:"period,omitempty"`
 	// Date record was first recorded
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Who is the designated responsible party
 	Author *Reference `json:"author,omitempty"`
 	// Who provided the content of the care plan
@@ -808,8 +1038,12 @@ type CareTeam struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -821,11 +1055,15 @@ type CareTeam struct {
 	// External Ids for this team
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// proposed | active | suspended | inactive | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *CareTeamStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Type of team
 	Category []CodeableConcept `json:"category,omitempty"`
 	// Name of the team, such as crisis assessment team
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Who care team is for
 	Subject *Reference `json:"subject,omitempty"`
 	// Encounter created as part of
@@ -859,8 +1097,12 @@ type CatalogEntry struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -875,6 +1117,8 @@ type CatalogEntry struct {
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Whether the entry represents an orderable item
 	Orderable *bool `json:"orderable,omitempty"`
+	// Extension for Orderable
+	OrderableExt *Element `json:"_orderable,omitempty"`
 	// The item that is being defined
 	ReferencedItem Reference `json:"referencedItem"`
 	// Any additional identifier(s) for the catalog item, in the same granularity or concept
@@ -882,13 +1126,19 @@ type CatalogEntry struct {
 	// Classification (category or class) of the item entry
 	Classification []CodeableConcept `json:"classification,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// The time period in which this catalog entry is expected to be active
 	ValidityPeriod *Period `json:"validityPeriod,omitempty"`
 	// The date until which this catalog entry is expected to be active
 	ValidTo *string `json:"validTo,omitempty"`
+	// Extension for ValidTo
+	ValidToExt *Element `json:"_validTo,omitempty"`
 	// When was this catalog last updated
 	LastUpdated *string `json:"lastUpdated,omitempty"`
+	// Extension for LastUpdated
+	LastUpdatedExt *Element `json:"_lastUpdated,omitempty"`
 	// Additional characteristics of the catalog entry
 	AdditionalCharacteristic []CodeableConcept `json:"additionalCharacteristic,omitempty"`
 	// Additional classification of the catalog entry
@@ -910,8 +1160,12 @@ type ChargeItem struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -924,10 +1178,16 @@ type ChargeItem struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Defining information about the code of this charge item
 	DefinitionUri []string `json:"definitionUri,omitempty"`
+	// Extension for DefinitionUri
+	DefinitionUriExt []Element `json:"_definitionUri,omitempty"`
 	// Resource defining the code of this ChargeItem
 	DefinitionCanonical []string `json:"definitionCanonical,omitempty"`
+	// Extension for DefinitionCanonical
+	DefinitionCanonicalExt []Element `json:"_definitionCanonical,omitempty"`
 	// planned | billable | not-billable | aborted | billed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *ChargeItemStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Part of referenced ChargeItem
 	PartOf []Reference `json:"partOf,omitempty"`
 	// A code that identifies the charge, like a billing code
@@ -958,14 +1218,20 @@ type ChargeItem struct {
 	Bodysite []CodeableConcept `json:"bodysite,omitempty"`
 	// Factor overriding the associated rules
 	FactorOverride *float64 `json:"factorOverride,omitempty"`
+	// Extension for FactorOverride
+	FactorOverrideExt *Element `json:"_factorOverride,omitempty"`
 	// Price overriding the associated rules
 	PriceOverride *Money `json:"priceOverride,omitempty"`
 	// Reason for overriding the list price/factor
 	OverrideReason *string `json:"overrideReason,omitempty"`
+	// Extension for OverrideReason
+	OverrideReasonExt *Element `json:"_overrideReason,omitempty"`
 	// Individual who was entering
 	Enterer *Reference `json:"enterer,omitempty"`
 	// Date the charge item was entered
 	EnteredDate *string `json:"enteredDate,omitempty"`
+	// Extension for EnteredDate
+	EnteredDateExt *Element `json:"_enteredDate,omitempty"`
 	// Why was the charged  service rendered?
 	Reason []CodeableConcept `json:"reason,omitempty"`
 	// Which rendered service is being charged?
@@ -995,8 +1261,12 @@ type ChargeItemDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1007,40 +1277,68 @@ type ChargeItemDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this charge item definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the charge item definition
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the charge item definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this charge item definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Underlying externally-defined charge item definition
 	DerivedFromUri []string `json:"derivedFromUri,omitempty"`
+	// Extension for DerivedFromUri
+	DerivedFromUriExt []Element `json:"_derivedFromUri,omitempty"`
 	// A larger definition of which this particular definition is a component or step
 	PartOf []string `json:"partOf,omitempty"`
+	// Extension for PartOf
+	PartOfExt []Element `json:"_partOf,omitempty"`
 	// Completed or terminated request(s) whose function is taken by this new request
 	Replaces []string `json:"replaces,omitempty"`
+	// Extension for Replaces
+	ReplacesExt []Element `json:"_replaces,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the charge item definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for charge item definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the charge item definition was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the charge item definition was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the charge item definition is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// Billing codes or product types this definition applies to
@@ -1066,8 +1364,12 @@ type Claim struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1079,19 +1381,25 @@ type Claim struct {
 	// Business Identifier for claim
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Category or discipline
 	Type CodeableConcept `json:"type"`
 	// More granular claim type
 	SubType *CodeableConcept `json:"subType,omitempty"`
 	// claim | preauthorization | predetermination
-	Use *string `json:"use,omitempty"`
+	Use *Use `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// The recipient of the products and services
 	Patient Reference `json:"patient"`
 	// Relevant time frame for the claim
 	BillablePeriod *Period `json:"billablePeriod,omitempty"`
 	// Resource creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Author of the claim
 	Enterer *Reference `json:"enterer,omitempty"`
 	// Target
@@ -1145,8 +1453,12 @@ type ClaimResponse struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1158,17 +1470,23 @@ type ClaimResponse struct {
 	// Business Identifier for a claim response
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// More granular claim type
 	Type CodeableConcept `json:"type"`
 	// More granular claim type
 	SubType *CodeableConcept `json:"subType,omitempty"`
 	// claim | preauthorization | predetermination
-	Use *string `json:"use,omitempty"`
+	Use *Use `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// The recipient of the products and services
 	Patient Reference `json:"patient"`
 	// Response creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Party responsible for reimbursement
 	Insurer Reference `json:"insurer"`
 	// Party responsible for the claim
@@ -1176,11 +1494,17 @@ type ClaimResponse struct {
 	// Id of resource triggering adjudication
 	Request *Reference `json:"request,omitempty"`
 	// queued | complete | error | partial
-	Outcome *string `json:"outcome,omitempty"`
+	Outcome *ClaimProcessingCodes `json:"outcome,omitempty"`
+	// Extension for Outcome
+	OutcomeExt *Element `json:"_outcome,omitempty"`
 	// Disposition Message
 	Disposition *string `json:"disposition,omitempty"`
+	// Extension for Disposition
+	DispositionExt *Element `json:"_disposition,omitempty"`
 	// Preauthorization reference
 	PreAuthRef *string `json:"preAuthRef,omitempty"`
+	// Extension for PreAuthRef
+	PreAuthRefExt *Element `json:"_preAuthRef,omitempty"`
 	// Preauthorization reference effective period
 	PreAuthPeriod *Period `json:"preAuthPeriod,omitempty"`
 	// Party to be paid any benefits payable
@@ -1224,8 +1548,12 @@ type ClinicalImpression struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1237,13 +1565,17 @@ type ClinicalImpression struct {
 	// Business identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// in-progress | completed | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *ClinicalImpressionStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for current status
 	StatusReason *CodeableConcept `json:"statusReason,omitempty"`
 	// Kind of assessment performed
 	Code *CodeableConcept `json:"code,omitempty"`
 	// Why/how the assessment was performed
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Patient or group assessed
 	Subject Reference `json:"subject"`
 	// Encounter created as part of
@@ -1256,6 +1588,8 @@ type ClinicalImpression struct {
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// When the assessment was documented
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// The clinician performing the assessment
 	Assessor *Reference `json:"assessor,omitempty"`
 	// Reference to last assessment
@@ -1266,8 +1600,12 @@ type ClinicalImpression struct {
 	Investigation []BackboneElement `json:"investigation,omitempty"`
 	// Clinical Protocol followed
 	Protocol []string `json:"protocol,omitempty"`
+	// Extension for Protocol
+	ProtocolExt []Element `json:"_protocol,omitempty"`
 	// Summary of the assessment
 	Summary *string `json:"summary,omitempty"`
+	// Extension for Summary
+	SummaryExt *Element `json:"_summary,omitempty"`
 	// Possible or likely findings and diagnoses
 	Finding []BackboneElement `json:"finding,omitempty"`
 	// Estimate of likely outcome
@@ -1293,8 +1631,12 @@ type CodeSystem struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1305,50 +1647,88 @@ type CodeSystem struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this code system, represented as a URI (globally unique) (Coding.system)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the code system (business identifier)
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the code system (Coding.version)
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this code system (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this code system (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the code system
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for code system (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this code system is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// If code comparison is case sensitive
 	CaseSensitive *bool `json:"caseSensitive,omitempty"`
+	// Extension for CaseSensitive
+	CaseSensitiveExt *Element `json:"_caseSensitive,omitempty"`
 	// Canonical reference to the value set with entire code system
 	ValueSet *string `json:"valueSet,omitempty"`
+	// Extension for ValueSet
+	ValueSetExt *Element `json:"_valueSet,omitempty"`
 	// grouped-by | is-a | part-of | classified-with
-	HierarchyMeaning *string `json:"hierarchyMeaning,omitempty"`
+	HierarchyMeaning *CodeSystemHierarchyMeaning `json:"hierarchyMeaning,omitempty"`
+	// Extension for HierarchyMeaning
+	HierarchyMeaningExt *Element `json:"_hierarchyMeaning,omitempty"`
 	// If code system defines a compositional grammar
 	Compositional *bool `json:"compositional,omitempty"`
+	// Extension for Compositional
+	CompositionalExt *Element `json:"_compositional,omitempty"`
 	// If definitions are not stable
 	VersionNeeded *bool `json:"versionNeeded,omitempty"`
+	// Extension for VersionNeeded
+	VersionNeededExt *Element `json:"_versionNeeded,omitempty"`
 	// not-present | example | fragment | complete | supplement
-	Content *string `json:"content,omitempty"`
+	Content *CodeSystemContentMode `json:"content,omitempty"`
+	// Extension for Content
+	ContentExt *Element `json:"_content,omitempty"`
 	// Canonical URL of Code System this adds designations and properties to
 	Supplements *string `json:"supplements,omitempty"`
+	// Extension for Supplements
+	SupplementsExt *Element `json:"_supplements,omitempty"`
 	// Total concepts in the code system
 	Count *uint32 `json:"count,omitempty"`
+	// Extension for Count
+	CountExt *Element `json:"_count,omitempty"`
 	// Filter that can be used in a value set
 	Filter []BackboneElement `json:"filter,omitempty"`
 	// Additional information supplied about each concept
@@ -1370,8 +1750,12 @@ type Communication struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1384,8 +1768,12 @@ type Communication struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// Request fulfilled by this communication
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Part of this action
@@ -1393,13 +1781,17 @@ type Communication struct {
 	// Reply to
 	InResponseTo []Reference `json:"inResponseTo,omitempty"`
 	// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *EventStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for current status
 	StatusReason *CodeableConcept `json:"statusReason,omitempty"`
 	// Message category
 	Category []CodeableConcept `json:"category,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// A channel of communication
 	Medium []CodeableConcept `json:"medium,omitempty"`
 	// Focus of message
@@ -1412,8 +1804,12 @@ type Communication struct {
 	Encounter *Reference `json:"encounter,omitempty"`
 	// When sent
 	Sent *string `json:"sent,omitempty"`
+	// Extension for Sent
+	SentExt *Element `json:"_sent,omitempty"`
 	// When received
 	Received *string `json:"received,omitempty"`
+	// Extension for Received
+	ReceivedExt *Element `json:"_received,omitempty"`
 	// Message recipient
 	Recipient []Reference `json:"recipient,omitempty"`
 	// Message sender
@@ -1441,8 +1837,12 @@ type CommunicationRequest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1460,15 +1860,21 @@ type CommunicationRequest struct {
 	// Composite request this is part of
 	GroupIdentifier *Identifier `json:"groupIdentifier,omitempty"`
 	// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *RequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for current status
 	StatusReason *CodeableConcept `json:"statusReason,omitempty"`
 	// Message category
 	Category []CodeableConcept `json:"category,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// True if request is prohibiting action
 	DoNotPerform *bool `json:"doNotPerform,omitempty"`
+	// Extension for DoNotPerform
+	DoNotPerformExt *Element `json:"_doNotPerform,omitempty"`
 	// A channel of communication
 	Medium []CodeableConcept `json:"medium,omitempty"`
 	// Focus of message
@@ -1487,6 +1893,8 @@ type CommunicationRequest struct {
 	OccurrencePeriod *Period `json:"occurrencePeriod,omitempty"`
 	// When request transitioned to being actionable
 	AuthoredOn *string `json:"authoredOn,omitempty"`
+	// Extension for AuthoredOn
+	AuthoredOnExt *Element `json:"_authoredOn,omitempty"`
 	// Who/what is requesting service
 	Requester *Reference `json:"requester,omitempty"`
 	// Message recipient
@@ -1514,8 +1922,12 @@ type CompartmentDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1526,30 +1938,52 @@ type CompartmentDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this compartment definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the compartment definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this compartment definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the compartment definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Why this compartment definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Patient | Encounter | RelatedPerson | Practitioner | Device
-	Code *string `json:"code,omitempty"`
+	Code *CompartmentType `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 	// Whether the search syntax is supported
 	Search *bool `json:"search,omitempty"`
+	// Extension for Search
+	SearchExt *Element `json:"_search,omitempty"`
 	// How a resource is related to the compartment
 	Resource []BackboneElement `json:"resource,omitempty"`
 }
@@ -1567,8 +2001,12 @@ type Composition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1580,7 +2018,9 @@ type Composition struct {
 	// Version-independent identifier for the Composition
 	Identifier *Identifier `json:"identifier,omitempty"`
 	// preliminary | final | amended | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *CompositionStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Kind of composition (LOINC if possible)
 	Type CodeableConcept `json:"type"`
 	// Categorization of Composition
@@ -1591,12 +2031,18 @@ type Composition struct {
 	Encounter *Reference `json:"encounter,omitempty"`
 	// Composition editing time
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Who and/or what authored the composition
 	Author []Reference `json:"author,omitempty"`
 	// Human Readable name/title
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// As defined by affinity domain
 	Confidentiality *string `json:"confidentiality,omitempty"`
+	// Extension for Confidentiality
+	ConfidentialityExt *Element `json:"_confidentiality,omitempty"`
 	// Attests to accuracy of composition
 	Attester []BackboneElement `json:"attester,omitempty"`
 	// Organization which maintains the composition
@@ -1622,8 +2068,12 @@ type ConceptMap struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1634,34 +2084,56 @@ type ConceptMap struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this concept map, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the concept map
 	Identifier *Identifier `json:"identifier,omitempty"`
 	// Business version of the concept map
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this concept map (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this concept map (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the concept map
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for concept map (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this concept map is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// The source value set that contains the concepts that are being mapped
 	SourceUri *string `json:"sourceUri,omitempty"`
 	// Extension for SourceUri
@@ -1695,8 +2167,12 @@ type Condition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1753,6 +2229,8 @@ type Condition struct {
 	AbatementStringExt *Element `json:"_abatementString,omitempty"`
 	// Date record was first recorded
 	RecordedDate *string `json:"recordedDate,omitempty"`
+	// Extension for RecordedDate
+	RecordedDateExt *Element `json:"_recordedDate,omitempty"`
 	// Who recorded the condition
 	Recorder *Reference `json:"recorder,omitempty"`
 	// Person who asserts this condition
@@ -1778,8 +2256,12 @@ type Consent struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1791,7 +2273,9 @@ type Consent struct {
 	// Identifier for this record (external references)
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// draft | proposed | active | rejected | inactive | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *ConsentState `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Which of the four areas this resource covers (extensible)
 	Scope CodeableConcept `json:"scope"`
 	// Classification of the consent statement - for indexing/retrieval
@@ -1800,6 +2284,8 @@ type Consent struct {
 	Patient *Reference `json:"patient,omitempty"`
 	// When this Consent was created or indexed
 	DateTime *string `json:"dateTime,omitempty"`
+	// Extension for DateTime
+	DateTimeExt *Element `json:"_dateTime,omitempty"`
 	// Who is agreeing to the policy and rules
 	Performer []Reference `json:"performer,omitempty"`
 	// Custodian of the consent
@@ -1831,8 +2317,12 @@ type Contract struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1845,20 +2335,30 @@ type Contract struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Basal definition
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business edition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// amended | appended | cancelled | disputed | entered-in-error | executable | executed | negotiable | offered | policy | rejected | renewed | revoked | resolved | terminated
-	Status *string `json:"status,omitempty"`
+	Status *ContractResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Negotiation status
 	LegalState *CodeableConcept `json:"legalState,omitempty"`
 	// Source Contract Definition
 	InstantiatesCanonical *Reference `json:"instantiatesCanonical,omitempty"`
 	// External Contract Definition
 	InstantiatesUri *string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt *Element `json:"_instantiatesUri,omitempty"`
 	// Content derived from the basal information
 	ContentDerivative *CodeableConcept `json:"contentDerivative,omitempty"`
 	// When this Contract was issued
 	Issued *string `json:"issued,omitempty"`
+	// Extension for Issued
+	IssuedExt *Element `json:"_issued,omitempty"`
 	// Effective time
 	Applies *Period `json:"applies,omitempty"`
 	// Contract cessation cause
@@ -1873,12 +2373,20 @@ type Contract struct {
 	Site []Reference `json:"site,omitempty"`
 	// Computer friendly designation
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Human Friendly name
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Subordinate Friendly name
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// Acronym or short name
 	Alias []string `json:"alias,omitempty"`
+	// Extension for Alias
+	AliasExt []Element `json:"_alias,omitempty"`
 	// Source of Contract
 	Author *Reference `json:"author,omitempty"`
 	// Range of Legal Concerns
@@ -1926,8 +2434,12 @@ type Coverage struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1939,7 +2451,9 @@ type Coverage struct {
 	// Business Identifier for the coverage
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Coverage category such as medical or accident
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Owner of the policy
@@ -1948,10 +2462,14 @@ type Coverage struct {
 	Subscriber *Reference `json:"subscriber,omitempty"`
 	// ID assigned to the subscriber
 	SubscriberId *string `json:"subscriberId,omitempty"`
+	// Extension for SubscriberId
+	SubscriberIdExt *Element `json:"_subscriberId,omitempty"`
 	// Plan beneficiary
 	Beneficiary Reference `json:"beneficiary"`
 	// Dependent number
 	Dependent *string `json:"dependent,omitempty"`
+	// Extension for Dependent
+	DependentExt *Element `json:"_dependent,omitempty"`
 	// Beneficiary relationship to the subscriber
 	Relationship *CodeableConcept `json:"relationship,omitempty"`
 	// Coverage start and end dates
@@ -1962,12 +2480,18 @@ type Coverage struct {
 	Class []BackboneElement `json:"class,omitempty"`
 	// Relative order of the coverage
 	Order *uint32 `json:"order,omitempty"`
+	// Extension for Order
+	OrderExt *Element `json:"_order,omitempty"`
 	// Insurer network
 	Network *string `json:"network,omitempty"`
+	// Extension for Network
+	NetworkExt *Element `json:"_network,omitempty"`
 	// Patient payments for services/products
 	CostToBeneficiary []BackboneElement `json:"costToBeneficiary,omitempty"`
 	// Reimbursement to insurer
 	Subrogation *bool `json:"subrogation,omitempty"`
+	// Extension for Subrogation
+	SubrogationExt *Element `json:"_subrogation,omitempty"`
 	// Contract details
 	Contract []Reference `json:"contract,omitempty"`
 }
@@ -1985,8 +2509,12 @@ type CoverageEligibilityRequest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -1998,11 +2526,15 @@ type CoverageEligibilityRequest struct {
 	// Business Identifier for coverage eligiblity request
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Desired processing priority
 	Priority *CodeableConcept `json:"priority,omitempty"`
 	// auth-requirements | benefits | discovery | validation
-	Purpose []string `json:"purpose,omitempty"`
+	Purpose []EligibilityRequestPurpose `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt []Element `json:"_purpose,omitempty"`
 	// Intended recipient of products and services
 	Patient Reference `json:"patient"`
 	// Estimated date or dates of service
@@ -2013,6 +2545,8 @@ type CoverageEligibilityRequest struct {
 	ServicedPeriod *Period `json:"servicedPeriod,omitempty"`
 	// Creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Author
 	Enterer *Reference `json:"enterer,omitempty"`
 	// Party responsible for the request
@@ -2042,8 +2576,12 @@ type CoverageEligibilityResponse struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2055,9 +2593,13 @@ type CoverageEligibilityResponse struct {
 	// Business Identifier for coverage eligiblity request
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// auth-requirements | benefits | discovery | validation
-	Purpose []string `json:"purpose,omitempty"`
+	Purpose []EligibilityResponsePurpose `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt []Element `json:"_purpose,omitempty"`
 	// Intended recipient of products and services
 	Patient Reference `json:"patient"`
 	// Estimated date or dates of service
@@ -2068,20 +2610,28 @@ type CoverageEligibilityResponse struct {
 	ServicedPeriod *Period `json:"servicedPeriod,omitempty"`
 	// Response creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Party responsible for the request
 	Requestor *Reference `json:"requestor,omitempty"`
 	// Eligibility request reference
 	Request Reference `json:"request"`
 	// queued | complete | error | partial
-	Outcome *string `json:"outcome,omitempty"`
+	Outcome *ClaimProcessingCodes `json:"outcome,omitempty"`
+	// Extension for Outcome
+	OutcomeExt *Element `json:"_outcome,omitempty"`
 	// Disposition Message
 	Disposition *string `json:"disposition,omitempty"`
+	// Extension for Disposition
+	DispositionExt *Element `json:"_disposition,omitempty"`
 	// Coverage issuer
 	Insurer Reference `json:"insurer"`
 	// Patient insurance information
 	Insurance []BackboneElement `json:"insurance,omitempty"`
 	// Preauthorization reference
 	PreAuthRef *string `json:"preAuthRef,omitempty"`
+	// Extension for PreAuthRef
+	PreAuthRefExt *Element `json:"_preAuthRef,omitempty"`
 	// Printed form identifier
 	Form *CodeableConcept `json:"form,omitempty"`
 	// Processing errors
@@ -2101,8 +2651,12 @@ type DetectedIssue struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2114,11 +2668,15 @@ type DetectedIssue struct {
 	// Unique id for the detected issue
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// registered | preliminary | final | amended +
-	Status *string `json:"status,omitempty"`
+	Status *ObservationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Issue Category, e.g. drug-drug, duplicate therapy, etc.
 	Code *CodeableConcept `json:"code,omitempty"`
 	// high | moderate | low
-	Severity *string `json:"severity,omitempty"`
+	Severity *DetectedIssueSeverity `json:"severity,omitempty"`
+	// Extension for Severity
+	SeverityExt *Element `json:"_severity,omitempty"`
 	// Associated patient
 	Patient *Reference `json:"patient,omitempty"`
 	// When identified
@@ -2135,8 +2693,12 @@ type DetectedIssue struct {
 	Evidence []BackboneElement `json:"evidence,omitempty"`
 	// Description and context
 	Detail *string `json:"detail,omitempty"`
+	// Extension for Detail
+	DetailExt *Element `json:"_detail,omitempty"`
 	// Authority for issue
 	Reference *string `json:"reference,omitempty"`
+	// Extension for Reference
+	ReferenceExt *Element `json:"_reference,omitempty"`
 	// Step taken to address
 	Mitigation []BackboneElement `json:"mitigation,omitempty"`
 }
@@ -2154,8 +2716,12 @@ type Device struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2171,27 +2737,45 @@ type Device struct {
 	// Unique Device Identifier (UDI) Barcode string
 	UdiCarrier []BackboneElement `json:"udiCarrier,omitempty"`
 	// active | inactive | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *FHIRDeviceStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// online | paused | standby | offline | not-ready | transduc-discon | hw-discon | off
 	StatusReason []CodeableConcept `json:"statusReason,omitempty"`
 	// The distinct identification string
 	DistinctIdentifier *string `json:"distinctIdentifier,omitempty"`
+	// Extension for DistinctIdentifier
+	DistinctIdentifierExt *Element `json:"_distinctIdentifier,omitempty"`
 	// Name of device manufacturer
 	Manufacturer *string `json:"manufacturer,omitempty"`
+	// Extension for Manufacturer
+	ManufacturerExt *Element `json:"_manufacturer,omitempty"`
 	// Date when the device was made
 	ManufactureDate *string `json:"manufactureDate,omitempty"`
+	// Extension for ManufactureDate
+	ManufactureDateExt *Element `json:"_manufactureDate,omitempty"`
 	// Date and time of expiry of this device (if applicable)
 	ExpirationDate *string `json:"expirationDate,omitempty"`
+	// Extension for ExpirationDate
+	ExpirationDateExt *Element `json:"_expirationDate,omitempty"`
 	// Lot number of manufacture
 	LotNumber *string `json:"lotNumber,omitempty"`
+	// Extension for LotNumber
+	LotNumberExt *Element `json:"_lotNumber,omitempty"`
 	// Serial number assigned by the manufacturer
 	SerialNumber *string `json:"serialNumber,omitempty"`
+	// Extension for SerialNumber
+	SerialNumberExt *Element `json:"_serialNumber,omitempty"`
 	// The name of the device as given by the manufacturer
 	DeviceName []BackboneElement `json:"deviceName,omitempty"`
 	// The model number for the device
 	ModelNumber *string `json:"modelNumber,omitempty"`
+	// Extension for ModelNumber
+	ModelNumberExt *Element `json:"_modelNumber,omitempty"`
 	// The part number of the device
 	PartNumber *string `json:"partNumber,omitempty"`
+	// Extension for PartNumber
+	PartNumberExt *Element `json:"_partNumber,omitempty"`
 	// The kind or type of device
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used for the communication
@@ -2210,6 +2794,8 @@ type Device struct {
 	Location *Reference `json:"location,omitempty"`
 	// Network address to contact device
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Device notes and comments
 	Note []Annotation `json:"note,omitempty"`
 	// Safety Characteristics of Device
@@ -2231,8 +2817,12 @@ type DeviceDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2255,12 +2845,16 @@ type DeviceDefinition struct {
 	DeviceName []BackboneElement `json:"deviceName,omitempty"`
 	// The model number for the device
 	ModelNumber *string `json:"modelNumber,omitempty"`
+	// Extension for ModelNumber
+	ModelNumberExt *Element `json:"_modelNumber,omitempty"`
 	// What kind of device or device system this is
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used for the communication
 	Specialization []BackboneElement `json:"specialization,omitempty"`
 	// Available versions
 	Version []string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt []Element `json:"_version,omitempty"`
 	// Safety characteristics of the device
 	Safety []CodeableConcept `json:"safety,omitempty"`
 	// Shelf Life and storage information
@@ -2279,8 +2873,12 @@ type DeviceDefinition struct {
 	Contact []ContactPoint `json:"contact,omitempty"`
 	// Network address to contact device
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Access to on-line information
 	OnlineInformation *string `json:"onlineInformation,omitempty"`
+	// Extension for OnlineInformation
+	OnlineInformationExt *Element `json:"_onlineInformation,omitempty"`
 	// Device notes and comments
 	Note []Annotation `json:"note,omitempty"`
 	// The quantity of the device present in the packaging (e.g. the number of devices present in a pack, or the number of devices in the same package of the medicinal product)
@@ -2304,8 +2902,12 @@ type DeviceMetric struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2325,11 +2927,17 @@ type DeviceMetric struct {
 	// Describes the link to the parent Device
 	Parent *Reference `json:"parent,omitempty"`
 	// on | off | standby | entered-in-error
-	OperationalStatus *string `json:"operationalStatus,omitempty"`
+	OperationalStatus *DeviceMetricOperationalStatus `json:"operationalStatus,omitempty"`
+	// Extension for OperationalStatus
+	OperationalStatusExt *Element `json:"_operationalStatus,omitempty"`
 	// black | red | green | yellow | blue | magenta | cyan | white
-	Color *string `json:"color,omitempty"`
+	Color *DeviceMetricColor `json:"color,omitempty"`
+	// Extension for Color
+	ColorExt *Element `json:"_color,omitempty"`
 	// measurement | setting | calculation | unspecified
-	Category *string `json:"category,omitempty"`
+	Category *DeviceMetricCategory `json:"category,omitempty"`
+	// Extension for Category
+	CategoryExt *Element `json:"_category,omitempty"`
 	// Describes the measurement repetition time
 	MeasurementPeriod *Timing `json:"measurementPeriod,omitempty"`
 	// Describes the calibrations that have been performed or that are required to be performed
@@ -2349,8 +2957,12 @@ type DeviceRequest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2363,8 +2975,12 @@ type DeviceRequest struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// What request fulfills
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// What request replaces
@@ -2372,11 +2988,17 @@ type DeviceRequest struct {
 	// Identifier of composite request
 	GroupIdentifier *Identifier `json:"groupIdentifier,omitempty"`
 	// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *RequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *RequestIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// Device requested
 	CodeReference *Reference `json:"codeReference,omitempty"`
 	// Device requested
@@ -2397,6 +3019,8 @@ type DeviceRequest struct {
 	OccurrenceTiming *Timing `json:"occurrenceTiming,omitempty"`
 	// When recorded
 	AuthoredOn *string `json:"authoredOn,omitempty"`
+	// Extension for AuthoredOn
+	AuthoredOnExt *Element `json:"_authoredOn,omitempty"`
 	// Who/what is requesting diagnostics
 	Requester *Reference `json:"requester,omitempty"`
 	// Filler role
@@ -2430,8 +3054,12 @@ type DeviceUseStatement struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2445,7 +3073,9 @@ type DeviceUseStatement struct {
 	// Fulfills plan, proposal or order
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// active | completed | entered-in-error +
-	Status *string `json:"status,omitempty"`
+	Status *DeviceUseStatementStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Patient using device
 	Subject Reference `json:"subject"`
 	// Supporting information
@@ -2460,6 +3090,8 @@ type DeviceUseStatement struct {
 	TimingDateTimeExt *Element `json:"_timingDateTime,omitempty"`
 	// When statement was recorded
 	RecordedOn *string `json:"recordedOn,omitempty"`
+	// Extension for RecordedOn
+	RecordedOnExt *Element `json:"_recordedOn,omitempty"`
 	// Who made the statement
 	Source *Reference `json:"source,omitempty"`
 	// Reference to device used
@@ -2487,8 +3119,12 @@ type DiagnosticReport struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2502,7 +3138,9 @@ type DiagnosticReport struct {
 	// What was requested
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// registered | partial | preliminary | final +
-	Status *string `json:"status,omitempty"`
+	Status *DiagnosticReportStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Service category
 	Category []CodeableConcept `json:"category,omitempty"`
 	// Name/Code for this diagnostic report
@@ -2519,6 +3157,8 @@ type DiagnosticReport struct {
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// DateTime this version was made
 	Issued *string `json:"issued,omitempty"`
+	// Extension for Issued
+	IssuedExt *Element `json:"_issued,omitempty"`
 	// Responsible Diagnostic Service
 	Performer []Reference `json:"performer,omitempty"`
 	// Primary result interpreter
@@ -2533,6 +3173,8 @@ type DiagnosticReport struct {
 	Media []BackboneElement `json:"media,omitempty"`
 	// Clinical conclusion (interpretation) of test results
 	Conclusion *string `json:"conclusion,omitempty"`
+	// Extension for Conclusion
+	ConclusionExt *Element `json:"_conclusion,omitempty"`
 	// Codes for the clinical conclusion of test results
 	ConclusionCode []CodeableConcept `json:"conclusionCode,omitempty"`
 	// Entire report as issued
@@ -2552,8 +3194,12 @@ type DocumentManifest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2567,21 +3213,29 @@ type DocumentManifest struct {
 	// Other identifiers for the manifest
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// current | superseded | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *DocumentReferenceStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Kind of document set
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The subject of the set of documents
 	Subject *Reference `json:"subject,omitempty"`
 	// When this document manifest created
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Who and/or what authored the DocumentManifest
 	Author []Reference `json:"author,omitempty"`
 	// Intended to get notified about this set of documents
 	Recipient []Reference `json:"recipient,omitempty"`
 	// The source system/application/software
 	Source *string `json:"source,omitempty"`
+	// Extension for Source
+	SourceExt *Element `json:"_source,omitempty"`
 	// Human-readable description (title)
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Items in manifest
 	Content []Reference `json:"content,omitempty"`
 	// Related things
@@ -2601,8 +3255,12 @@ type DocumentReference struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2616,9 +3274,13 @@ type DocumentReference struct {
 	// Other identifiers for the document
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// current | superseded | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *DocumentReferenceStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// preliminary | final | amended | entered-in-error
-	DocStatus *string `json:"docStatus,omitempty"`
+	DocStatus *CompositionStatus `json:"docStatus,omitempty"`
+	// Extension for DocStatus
+	DocStatusExt *Element `json:"_docStatus,omitempty"`
 	// Kind of document (LOINC if possible)
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Categorization of document
@@ -2627,6 +3289,8 @@ type DocumentReference struct {
 	Subject *Reference `json:"subject,omitempty"`
 	// When this document reference was created
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Who and/or what authored the document
 	Author []Reference `json:"author,omitempty"`
 	// Who/what authenticated the document
@@ -2637,6 +3301,8 @@ type DocumentReference struct {
 	RelatesTo []BackboneElement `json:"relatesTo,omitempty"`
 	// Human-readable description
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Document security-tags
 	SecurityLabel []CodeableConcept `json:"securityLabel,omitempty"`
 	// Document referenced
@@ -2658,8 +3324,12 @@ type EffectEvidenceSynthesis struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2670,24 +3340,40 @@ type EffectEvidenceSynthesis struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this effect evidence synthesis, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the effect evidence synthesis
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the effect evidence synthesis
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this effect evidence synthesis (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this effect evidence synthesis (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the effect evidence synthesis
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Used for footnotes or explanatory notes
 	Note []Annotation `json:"note,omitempty"`
 	// The context that the content is intended to support
@@ -2696,10 +3382,16 @@ type EffectEvidenceSynthesis struct {
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the effect evidence synthesis was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the effect evidence synthesis was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the effect evidence synthesis is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// The category of the EffectEvidenceSynthesis, such as Education, Treatment, Assessment, etc.
@@ -2749,8 +3441,12 @@ type Encounter struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2762,7 +3458,9 @@ type Encounter struct {
 	// Identifier(s) by which this encounter is known
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// planned | arrived | triaged | in-progress | onleave | finished | cancelled +
-	Status *string `json:"status,omitempty"`
+	Status *EncounterStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// List of past encounter statuses
 	StatusHistory []BackboneElement `json:"statusHistory,omitempty"`
 	// Classification of patient encounter
@@ -2820,8 +3518,12 @@ type Endpoint struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2833,11 +3535,15 @@ type Endpoint struct {
 	// Identifies this endpoint across multiple systems
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | suspended | error | off | entered-in-error | test
-	Status *string `json:"status,omitempty"`
+	Status *EndpointStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Protocol/Profile/Standard to be used with this endpoint connection
 	ConnectionType Coding `json:"connectionType"`
 	// A name that this endpoint can be identified by
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Organization that manages this endpoint (might not be the organization that exposes the endpoint)
 	ManagingOrganization *Reference `json:"managingOrganization,omitempty"`
 	// Contact details for source (e.g. troubleshooting)
@@ -2848,10 +3554,16 @@ type Endpoint struct {
 	PayloadType []CodeableConcept `json:"payloadType,omitempty"`
 	// Mimetype to send. If not specified, the content could be anything (including no payload, if the connectionType defined this)
 	PayloadMimeType []string `json:"payloadMimeType,omitempty"`
+	// Extension for PayloadMimeType
+	PayloadMimeTypeExt []Element `json:"_payloadMimeType,omitempty"`
 	// The technical base address for connecting to this endpoint
 	Address *string `json:"address,omitempty"`
+	// Extension for Address
+	AddressExt *Element `json:"_address,omitempty"`
 	// Usage depends on the channel type
 	Header []string `json:"header,omitempty"`
+	// Extension for Header
+	HeaderExt []Element `json:"_header,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -2867,8 +3579,12 @@ type EnrollmentRequest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2880,9 +3596,13 @@ type EnrollmentRequest struct {
 	// Business Identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Target
 	Insurer *Reference `json:"insurer,omitempty"`
 	// Responsible practitioner
@@ -2906,8 +3626,12 @@ type EnrollmentResponse struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2919,15 +3643,23 @@ type EnrollmentResponse struct {
 	// Business Identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Claim reference
 	Request *Reference `json:"request,omitempty"`
 	// queued | complete | error | partial
-	Outcome *string `json:"outcome,omitempty"`
+	Outcome *ClaimProcessingCodes `json:"outcome,omitempty"`
+	// Extension for Outcome
+	OutcomeExt *Element `json:"_outcome,omitempty"`
 	// Disposition Message
 	Disposition *string `json:"disposition,omitempty"`
+	// Extension for Disposition
+	DispositionExt *Element `json:"_disposition,omitempty"`
 	// Creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Insurer
 	Organization *Reference `json:"organization,omitempty"`
 	// Responsible practitioner
@@ -2947,8 +3679,12 @@ type EpisodeOfCare struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -2960,7 +3696,9 @@ type EpisodeOfCare struct {
 	// Business Identifier(s) relevant for this EpisodeOfCare
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// planned | waitlist | active | onhold | finished | cancelled | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *EpisodeOfCareStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Past list of status codes (the current status may be included to cover the start date of the status)
 	StatusHistory []BackboneElement `json:"statusHistory,omitempty"`
 	// Type/class  - e.g. specialist referral, disease management
@@ -2996,8 +3734,12 @@ type EventDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3008,46 +3750,76 @@ type EventDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this event definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the event definition
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the event definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this event definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this event definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Subordinate title of the event definition
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Type of individual the event definition is focused on
 	SubjectCodeableConcept *CodeableConcept `json:"subjectCodeableConcept,omitempty"`
 	// Type of individual the event definition is focused on
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the event definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for event definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this event definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Describes the clinical usage of the event definition
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the event definition was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the event definition was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the event definition is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// E.g. Education, Treatment, Assessment, etc.
@@ -3079,8 +3851,12 @@ type Evidence struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3091,28 +3867,48 @@ type Evidence struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this evidence, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the evidence
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the evidence
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this evidence (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this evidence (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Title for use in informal contexts
 	ShortTitle *string `json:"shortTitle,omitempty"`
+	// Extension for ShortTitle
+	ShortTitleExt *Element `json:"_shortTitle,omitempty"`
 	// Subordinate title of the Evidence
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the evidence
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Used for footnotes or explanatory notes
 	Note []Annotation `json:"note,omitempty"`
 	// The context that the content is intended to support
@@ -3121,10 +3917,16 @@ type Evidence struct {
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the evidence was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the evidence was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the evidence is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// The category of the Evidence, such as Education, Treatment, Assessment, etc.
@@ -3160,8 +3962,12 @@ type EvidenceVariable struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3172,28 +3978,48 @@ type EvidenceVariable struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this evidence variable, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the evidence variable
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the evidence variable
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this evidence variable (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this evidence variable (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Title for use in informal contexts
 	ShortTitle *string `json:"shortTitle,omitempty"`
+	// Extension for ShortTitle
+	ShortTitleExt *Element `json:"_shortTitle,omitempty"`
 	// Subordinate title of the EvidenceVariable
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the evidence variable
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Used for footnotes or explanatory notes
 	Note []Annotation `json:"note,omitempty"`
 	// The context that the content is intended to support
@@ -3202,10 +4028,16 @@ type EvidenceVariable struct {
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the evidence variable was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the evidence variable was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the evidence variable is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// The category of the EvidenceVariable, such as Education, Treatment, Assessment, etc.
@@ -3221,7 +4053,9 @@ type EvidenceVariable struct {
 	// Additional documentation, citations, etc.
 	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
 	// dichotomous | continuous | descriptive
-	Type *string `json:"type,omitempty"`
+	Type *EvidenceVariableType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// What defines the members of the evidence element
 	Characteristic []BackboneElement `json:"characteristic,omitempty"`
 }
@@ -3239,8 +4073,12 @@ type ExampleScenario struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3251,20 +4089,34 @@ type ExampleScenario struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this example scenario, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the example scenario
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the example scenario
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this example scenario (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// The context that the content is intended to support
@@ -3273,8 +4125,12 @@ type ExampleScenario struct {
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// The purpose of the example, e.g. to illustrate a scenario
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Actor participating in the resource
 	Actor []BackboneElement `json:"actor,omitempty"`
 	// Each resource and each version that is present in the workflow
@@ -3283,6 +4139,8 @@ type ExampleScenario struct {
 	Process []BackboneElement `json:"process,omitempty"`
 	// Another nested workflow
 	Workflow []string `json:"workflow,omitempty"`
+	// Extension for Workflow
+	WorkflowExt []Element `json:"_workflow,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -3298,8 +4156,12 @@ type ExplanationOfBenefit struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3311,19 +4173,25 @@ type ExplanationOfBenefit struct {
 	// Business Identifier for the resource
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *ExplanationOfBenefitStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Category or discipline
 	Type CodeableConcept `json:"type"`
 	// More granular claim type
 	SubType *CodeableConcept `json:"subType,omitempty"`
 	// claim | preauthorization | predetermination
-	Use *string `json:"use,omitempty"`
+	Use *Use `json:"use,omitempty"`
+	// Extension for Use
+	UseExt *Element `json:"_use,omitempty"`
 	// The recipient of the products and services
 	Patient Reference `json:"patient"`
 	// Relevant time frame for the claim
 	BillablePeriod *Period `json:"billablePeriod,omitempty"`
 	// Response creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Author of the claim
 	Enterer *Reference `json:"enterer,omitempty"`
 	// Party responsible for reimbursement
@@ -3353,11 +4221,17 @@ type ExplanationOfBenefit struct {
 	// Claim response reference
 	ClaimResponse *Reference `json:"claimResponse,omitempty"`
 	// queued | complete | error | partial
-	Outcome *string `json:"outcome,omitempty"`
+	Outcome *ClaimProcessingCodes `json:"outcome,omitempty"`
+	// Extension for Outcome
+	OutcomeExt *Element `json:"_outcome,omitempty"`
 	// Disposition Message
 	Disposition *string `json:"disposition,omitempty"`
+	// Extension for Disposition
+	DispositionExt *Element `json:"_disposition,omitempty"`
 	// Preauthorization reference
 	PreAuthRef []string `json:"preAuthRef,omitempty"`
+	// Extension for PreAuthRef
+	PreAuthRefExt []Element `json:"_preAuthRef,omitempty"`
 	// Preauthorization in-effect period
 	PreAuthRefPeriod []Period `json:"preAuthRefPeriod,omitempty"`
 	// Care Team members
@@ -3370,6 +4244,8 @@ type ExplanationOfBenefit struct {
 	Procedure []BackboneElement `json:"procedure,omitempty"`
 	// Precedence (primary, secondary, etc.)
 	Precedence *uint32 `json:"precedence,omitempty"`
+	// Extension for Precedence
+	PrecedenceExt *Element `json:"_precedence,omitempty"`
 	// Patient insurance information
 	Insurance []BackboneElement `json:"insurance,omitempty"`
 	// Details of the event
@@ -3409,8 +4285,12 @@ type FamilyMemberHistory struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3423,18 +4303,28 @@ type FamilyMemberHistory struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// partial | completed | entered-in-error | health-unknown
-	Status *string `json:"status,omitempty"`
+	Status *FamilyHistoryStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// subject-unknown | withheld | unable-to-obtain | deferred
 	DataAbsentReason *CodeableConcept `json:"dataAbsentReason,omitempty"`
 	// Patient history is about
 	Patient Reference `json:"patient"`
 	// When history was recorded or last updated
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// The family member described
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Relationship to the subject
 	Relationship CodeableConcept `json:"relationship"`
 	// male | female | other | unknown
@@ -3459,6 +4349,8 @@ type FamilyMemberHistory struct {
 	AgeStringExt *Element `json:"_ageString,omitempty"`
 	// Age is estimated?
 	EstimatedAge *bool `json:"estimatedAge,omitempty"`
+	// Extension for EstimatedAge
+	EstimatedAgeExt *Element `json:"_estimatedAge,omitempty"`
 	// Dead? How old/when?
 	DeceasedBoolean *bool `json:"deceasedBoolean,omitempty"`
 	// Extension for DeceasedBoolean
@@ -3498,8 +4390,12 @@ type Flag struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3511,7 +4407,9 @@ type Flag struct {
 	// Business identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | inactive | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FlagStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Clinical, administrative, etc.
 	Category []CodeableConcept `json:"category,omitempty"`
 	// Coded or textual message to display to user
@@ -3539,8 +4437,12 @@ type Goal struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3552,7 +4454,9 @@ type Goal struct {
 	// External Ids for this goal
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// proposed | planned | accepted | active | on-hold | completed | cancelled | entered-in-error | rejected
-	LifecycleStatus *string `json:"lifecycleStatus,omitempty"`
+	LifecycleStatus *GoalLifecycleStatus `json:"lifecycleStatus,omitempty"`
+	// Extension for LifecycleStatus
+	LifecycleStatusExt *Element `json:"_lifecycleStatus,omitempty"`
 	// in-progress | improving | worsening | no-change | achieved | sustaining | not-achieved | no-progress | not-attainable
 	AchievementStatus *CodeableConcept `json:"achievementStatus,omitempty"`
 	// E.g. Treatment, dietary, behavioral, etc.
@@ -3573,8 +4477,12 @@ type Goal struct {
 	Target []BackboneElement `json:"target,omitempty"`
 	// When goal status took effect
 	StatusDate *string `json:"statusDate,omitempty"`
+	// Extension for StatusDate
+	StatusDateExt *Element `json:"_statusDate,omitempty"`
 	// Reason for current status
 	StatusReason *string `json:"statusReason,omitempty"`
+	// Extension for StatusReason
+	StatusReasonExt *Element `json:"_statusReason,omitempty"`
 	// Who's responsible for creating Goal?
 	ExpressedBy *Reference `json:"expressedBy,omitempty"`
 	// Issues addressed by this goal
@@ -3600,8 +4508,12 @@ type GraphDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3612,32 +4524,54 @@ type GraphDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this graph definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the graph definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this graph definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the graph definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for graph definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this graph definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Type of resource at which the graph starts
 	Start *string `json:"start,omitempty"`
+	// Extension for Start
+	StartExt *Element `json:"_start,omitempty"`
 	// Profile on base resource
 	Profile *string `json:"profile,omitempty"`
+	// Extension for Profile
+	ProfileExt *Element `json:"_profile,omitempty"`
 	// Links this graph makes rules about
 	Link []BackboneElement `json:"link,omitempty"`
 }
@@ -3655,8 +4589,12 @@ type Group struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3669,16 +4607,26 @@ type Group struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this group's record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// person | animal | practitioner | device | medication | substance
-	Type *string `json:"type,omitempty"`
+	Type *GroupType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Descriptive or actual
 	Actual *bool `json:"actual,omitempty"`
+	// Extension for Actual
+	ActualExt *Element `json:"_actual,omitempty"`
 	// Kind of Group members
 	Code *CodeableConcept `json:"code,omitempty"`
 	// Label for Group
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Number of members
 	Quantity *uint32 `json:"quantity,omitempty"`
+	// Extension for Quantity
+	QuantityExt *Element `json:"_quantity,omitempty"`
 	// Entity that is the custodian of the Group's definition
 	ManagingEntity *Reference `json:"managingEntity,omitempty"`
 	// Include / Exclude group members by Trait
@@ -3700,8 +4648,12 @@ type GuidanceResponse struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3725,13 +4677,17 @@ type GuidanceResponse struct {
 	// What guidance was requested
 	ModuleCodeableConcept *CodeableConcept `json:"moduleCodeableConcept,omitempty"`
 	// success | data-requested | data-required | in-progress | failure | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *GuidanceResponseStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Patient the request was performed for
 	Subject *Reference `json:"subject,omitempty"`
 	// Encounter during which the response was returned
 	Encounter *Reference `json:"encounter,omitempty"`
 	// When the guidance response was processed
 	OccurrenceDateTime *string `json:"occurrenceDateTime,omitempty"`
+	// Extension for OccurrenceDateTime
+	OccurrenceDateTimeExt *Element `json:"_occurrenceDateTime,omitempty"`
 	// Device returning the guidance
 	Performer *Reference `json:"performer,omitempty"`
 	// Why guidance is needed
@@ -3763,8 +4719,12 @@ type HealthcareService struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3777,6 +4737,8 @@ type HealthcareService struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this HealthcareService record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// Organization that provides this service
 	ProvidedBy *Reference `json:"providedBy,omitempty"`
 	// Broad category of service being performed or delivered
@@ -3789,10 +4751,16 @@ type HealthcareService struct {
 	Location []Reference `json:"location,omitempty"`
 	// Description of service as presented to a consumer while searching
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Additional description and/or any specific issues not covered elsewhere
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 	// Extra details about the service that can't be placed in the other fields
 	ExtraDetails *string `json:"extraDetails,omitempty"`
+	// Extension for ExtraDetails
+	ExtraDetailsExt *Element `json:"_extraDetails,omitempty"`
 	// Facilitates quick identification of the service
 	Photo *Attachment `json:"photo,omitempty"`
 	// Contacts related to the healthcare service
@@ -3813,12 +4781,16 @@ type HealthcareService struct {
 	ReferralMethod []CodeableConcept `json:"referralMethod,omitempty"`
 	// If an appointment is required for access to this service
 	AppointmentRequired *bool `json:"appointmentRequired,omitempty"`
+	// Extension for AppointmentRequired
+	AppointmentRequiredExt *Element `json:"_appointmentRequired,omitempty"`
 	// Times the Service Site is available
 	AvailableTime []BackboneElement `json:"availableTime,omitempty"`
 	// Not available during this time due to provided reason
 	NotAvailable []BackboneElement `json:"notAvailable,omitempty"`
 	// Description of availability exceptions
 	AvailabilityExceptions *string `json:"availabilityExceptions,omitempty"`
+	// Extension for AvailabilityExceptions
+	AvailabilityExceptionsExt *Element `json:"_availabilityExceptions,omitempty"`
 	// Technical endpoints providing access to electronic services operated for the healthcare service
 	Endpoint []Reference `json:"endpoint,omitempty"`
 }
@@ -3836,8 +4808,12 @@ type ImagingStudy struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3849,7 +4825,9 @@ type ImagingStudy struct {
 	// Identifiers for the whole study
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// registered | available | cancelled | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *ImagingStudyStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// All series modality if actual acquisition modalities
 	Modality []Coding `json:"modality,omitempty"`
 	// Who or what is the subject of the study
@@ -3858,6 +4836,8 @@ type ImagingStudy struct {
 	Encounter *Reference `json:"encounter,omitempty"`
 	// When the study was started
 	Started *string `json:"started,omitempty"`
+	// Extension for Started
+	StartedExt *Element `json:"_started,omitempty"`
 	// Request fulfilled
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Referring physician
@@ -3868,8 +4848,12 @@ type ImagingStudy struct {
 	Endpoint []Reference `json:"endpoint,omitempty"`
 	// Number of Study Related Series
 	NumberOfSeries *uint32 `json:"numberOfSeries,omitempty"`
+	// Extension for NumberOfSeries
+	NumberOfSeriesExt *Element `json:"_numberOfSeries,omitempty"`
 	// Number of Study Related Instances
 	NumberOfInstances *uint32 `json:"numberOfInstances,omitempty"`
+	// Extension for NumberOfInstances
+	NumberOfInstancesExt *Element `json:"_numberOfInstances,omitempty"`
 	// The performed Procedure reference
 	ProcedureReference *Reference `json:"procedureReference,omitempty"`
 	// The performed procedure code
@@ -3884,6 +4868,8 @@ type ImagingStudy struct {
 	Note []Annotation `json:"note,omitempty"`
 	// Institution-generated description
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Each study has one or more series of instances
 	Series []BackboneElement `json:"series,omitempty"`
 }
@@ -3901,8 +4887,12 @@ type Immunization struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -3914,7 +4904,9 @@ type Immunization struct {
 	// Business identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// completed | entered-in-error | not-done
-	Status *string `json:"status,omitempty"`
+	Status *ImmunizationStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason not done
 	StatusReason *CodeableConcept `json:"statusReason,omitempty"`
 	// Vaccine product administered
@@ -3933,8 +4925,12 @@ type Immunization struct {
 	OccurrenceStringExt *Element `json:"_occurrenceString,omitempty"`
 	// When the immunization was first captured in the subject's record
 	Recorded *string `json:"recorded,omitempty"`
+	// Extension for Recorded
+	RecordedExt *Element `json:"_recorded,omitempty"`
 	// Indicates context the data was recorded in
 	PrimarySource *bool `json:"primarySource,omitempty"`
+	// Extension for PrimarySource
+	PrimarySourceExt *Element `json:"_primarySource,omitempty"`
 	// Indicates the source of a secondarily reported record
 	ReportOrigin *CodeableConcept `json:"reportOrigin,omitempty"`
 	// Where immunization occurred
@@ -3943,8 +4939,12 @@ type Immunization struct {
 	Manufacturer *Reference `json:"manufacturer,omitempty"`
 	// Vaccine lot number
 	LotNumber *string `json:"lotNumber,omitempty"`
+	// Extension for LotNumber
+	LotNumberExt *Element `json:"_lotNumber,omitempty"`
 	// Vaccine expiration date
 	ExpirationDate *string `json:"expirationDate,omitempty"`
+	// Extension for ExpirationDate
+	ExpirationDateExt *Element `json:"_expirationDate,omitempty"`
 	// Body site vaccine  was administered
 	Site *CodeableConcept `json:"site,omitempty"`
 	// How vaccine entered body
@@ -3961,6 +4961,8 @@ type Immunization struct {
 	ReasonReference []Reference `json:"reasonReference,omitempty"`
 	// Dose potency
 	IsSubpotent *bool `json:"isSubpotent,omitempty"`
+	// Extension for IsSubpotent
+	IsSubpotentExt *Element `json:"_isSubpotent,omitempty"`
 	// Reason for being subpotent
 	SubpotentReason []CodeableConcept `json:"subpotentReason,omitempty"`
 	// Educational material presented to patient
@@ -3988,8 +4990,12 @@ type ImmunizationEvaluation struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4001,11 +5007,15 @@ type ImmunizationEvaluation struct {
 	// Business identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// completed | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *ImmunizationEvaluationStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Who this evaluation is for
 	Patient Reference `json:"patient"`
 	// Date evaluation was performed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Who is responsible for publishing the recommendations
 	Authority *Reference `json:"authority,omitempty"`
 	// Evaluation target disease
@@ -4018,8 +5028,12 @@ type ImmunizationEvaluation struct {
 	DoseStatusReason []CodeableConcept `json:"doseStatusReason,omitempty"`
 	// Evaluation notes
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Name of vaccine series
 	Series *string `json:"series,omitempty"`
+	// Extension for Series
+	SeriesExt *Element `json:"_series,omitempty"`
 	// Dose number within series
 	DoseNumberPositiveInt *uint32 `json:"doseNumberPositiveInt,omitempty"`
 	// Extension for DoseNumberPositiveInt
@@ -4051,8 +5065,12 @@ type ImmunizationRecommendation struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4067,6 +5085,8 @@ type ImmunizationRecommendation struct {
 	Patient Reference `json:"patient"`
 	// Date recommendation(s) created
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Who is responsible for protocol
 	Authority *Reference `json:"authority,omitempty"`
 	// Vaccine administration recommendations
@@ -4086,8 +5106,12 @@ type ImplementationGuide struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4098,36 +5122,62 @@ type ImplementationGuide struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this implementation guide, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the implementation guide
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this implementation guide (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this implementation guide (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the implementation guide
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for implementation guide (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// NPM Package name for IG
 	PackageId *string `json:"packageId,omitempty"`
+	// Extension for PackageId
+	PackageIdExt *Element `json:"_packageId,omitempty"`
 	// SPDX license code for this IG (or not-open-source)
 	License *string `json:"license,omitempty"`
+	// Extension for License
+	LicenseExt *Element `json:"_license,omitempty"`
 	// FHIR Version(s) this Implementation Guide targets
-	FhirVersion []string `json:"fhirVersion,omitempty"`
+	FhirVersion []FHIRVersion `json:"fhirVersion,omitempty"`
+	// Extension for FhirVersion
+	FhirVersionExt []Element `json:"_fhirVersion,omitempty"`
 	// Another Implementation guide this depends on
 	DependsOn []BackboneElement `json:"dependsOn,omitempty"`
 	// Profiles that apply globally
@@ -4151,8 +5201,12 @@ type InsurancePlan struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4164,13 +5218,19 @@ type InsurancePlan struct {
 	// Business Identifier for Product
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Kind of product
 	Type []CodeableConcept `json:"type,omitempty"`
 	// Official name
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Alternate names
 	Alias []string `json:"alias,omitempty"`
+	// Extension for Alias
+	AliasExt []Element `json:"_alias,omitempty"`
 	// When the product is available
 	Period *Period `json:"period,omitempty"`
 	// Plan issuer
@@ -4204,8 +5264,12 @@ type Invoice struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4217,9 +5281,13 @@ type Invoice struct {
 	// Business Identifier for item
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// draft | issued | balanced | cancelled | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *InvoiceStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for cancellation of this Invoice
 	CancelledReason *string `json:"cancelledReason,omitempty"`
+	// Extension for CancelledReason
+	CancelledReasonExt *Element `json:"_cancelledReason,omitempty"`
 	// Type of Invoice
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Recipient(s) of goods and services
@@ -4228,6 +5296,8 @@ type Invoice struct {
 	Recipient *Reference `json:"recipient,omitempty"`
 	// Invoice date / posting date
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Participant in creation of this Invoice
 	Participant []BackboneElement `json:"participant,omitempty"`
 	// Issuing Organization of Invoice
@@ -4244,6 +5314,8 @@ type Invoice struct {
 	TotalGross *Money `json:"totalGross,omitempty"`
 	// Payment details
 	PaymentTerms *string `json:"paymentTerms,omitempty"`
+	// Extension for PaymentTerms
+	PaymentTermsExt *Element `json:"_paymentTerms,omitempty"`
 	// Comments made about the invoice
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -4261,8 +5333,12 @@ type Library struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4273,20 +5349,34 @@ type Library struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this library, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the library
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the library
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this library (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this library (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Subordinate title of the library
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// logic-library | model-definition | asset-collection | module-definition
 	Type CodeableConcept `json:"type"`
 	// Type of individual the library content is focused on
@@ -4295,26 +5385,42 @@ type Library struct {
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the library
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for library (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this library is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Describes the clinical usage of the library
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the library was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the library was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the library is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// E.g. Education, Treatment, Assessment, etc.
@@ -4350,8 +5456,12 @@ type Linkage struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4362,6 +5472,8 @@ type Linkage struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Whether this linkage assertion is active or not
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// Who is responsible for linkages
 	Author *Reference `json:"author,omitempty"`
 	// Item to be linked
@@ -4381,8 +5493,12 @@ type List struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4394,11 +5510,17 @@ type List struct {
 	// Business identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// current | retired | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *ListStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// working | snapshot | changes
-	Mode *string `json:"mode,omitempty"`
+	Mode *ListMode `json:"mode,omitempty"`
+	// Extension for Mode
+	ModeExt *Element `json:"_mode,omitempty"`
 	// Descriptive name for the list
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// What the purpose of this list is
 	Code *CodeableConcept `json:"code,omitempty"`
 	// If all resources have the same subject
@@ -4407,6 +5529,8 @@ type List struct {
 	Encounter *Reference `json:"encounter,omitempty"`
 	// When the list was prepared
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Who and/or what defined the list contents (aka Author)
 	Source *Reference `json:"source,omitempty"`
 	// What order the list has
@@ -4432,8 +5556,12 @@ type Location struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4445,17 +5573,27 @@ type Location struct {
 	// Unique code or number identifying the location to its users
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | suspended | inactive
-	Status *string `json:"status,omitempty"`
+	Status *LocationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// The operational status of the location (typically only for a bed/room)
 	OperationalStatus *Coding `json:"operationalStatus,omitempty"`
 	// Name of the location as used by humans
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// A list of alternate names that the location is known as, or was known as, in the past
 	Alias []string `json:"alias,omitempty"`
+	// Extension for Alias
+	AliasExt []Element `json:"_alias,omitempty"`
 	// Additional details about the location that could be displayed as further information to identify the location beyond its name
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// instance | kind
-	Mode *string `json:"mode,omitempty"`
+	Mode *LocationMode `json:"mode,omitempty"`
+	// Extension for Mode
+	ModeExt *Element `json:"_mode,omitempty"`
 	// Type of function performed
 	Type []CodeableConcept `json:"type,omitempty"`
 	// Contact details of the location
@@ -4474,6 +5612,8 @@ type Location struct {
 	HoursOfOperation []BackboneElement `json:"hoursOfOperation,omitempty"`
 	// Description of availability exceptions
 	AvailabilityExceptions *string `json:"availabilityExceptions,omitempty"`
+	// Extension for AvailabilityExceptions
+	AvailabilityExceptionsExt *Element `json:"_availabilityExceptions,omitempty"`
 	// Technical endpoints providing access to services operated for the location
 	Endpoint []Reference `json:"endpoint,omitempty"`
 }
@@ -4491,8 +5631,12 @@ type Measure struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4503,46 +5647,76 @@ type Measure struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this measure, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the measure
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the measure
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this measure (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this measure (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Subordinate title of the measure
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectCodeableConcept *CodeableConcept `json:"subjectCodeableConcept,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the measure
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for measure (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this measure is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Describes the clinical usage of the measure
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the measure was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the measure was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the measure is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// The category of the measure, such as Education, Treatment, Assessment, etc.
@@ -4559,8 +5733,12 @@ type Measure struct {
 	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
 	// Logic used by the measure
 	Library []string `json:"library,omitempty"`
+	// Extension for Library
+	LibraryExt []Element `json:"_library,omitempty"`
 	// Disclaimer for use of the measure or its referenced content
 	Disclaimer *string `json:"disclaimer,omitempty"`
+	// Extension for Disclaimer
+	DisclaimerExt *Element `json:"_disclaimer,omitempty"`
 	// proportion | ratio | continuous-variable | cohort
 	Scoring *CodeableConcept `json:"scoring,omitempty"`
 	// opportunity | all-or-nothing | linear | weighted
@@ -4569,18 +5747,30 @@ type Measure struct {
 	Type []CodeableConcept `json:"type,omitempty"`
 	// How risk adjustment is applied for this measure
 	RiskAdjustment *string `json:"riskAdjustment,omitempty"`
+	// Extension for RiskAdjustment
+	RiskAdjustmentExt *Element `json:"_riskAdjustment,omitempty"`
 	// How is rate aggregation performed for this measure
 	RateAggregation *string `json:"rateAggregation,omitempty"`
+	// Extension for RateAggregation
+	RateAggregationExt *Element `json:"_rateAggregation,omitempty"`
 	// Detailed description of why the measure exists
 	Rationale *string `json:"rationale,omitempty"`
+	// Extension for Rationale
+	RationaleExt *Element `json:"_rationale,omitempty"`
 	// Summary of clinical guidelines
 	ClinicalRecommendationStatement *string `json:"clinicalRecommendationStatement,omitempty"`
+	// Extension for ClinicalRecommendationStatement
+	ClinicalRecommendationStatementExt *Element `json:"_clinicalRecommendationStatement,omitempty"`
 	// increase | decrease
 	ImprovementNotation *CodeableConcept `json:"improvementNotation,omitempty"`
 	// Defined terms used in the measure documentation
 	Definition []string `json:"definition,omitempty"`
+	// Extension for Definition
+	DefinitionExt []Element `json:"_definition,omitempty"`
 	// Additional guidance for implementers
 	Guidance *string `json:"guidance,omitempty"`
+	// Extension for Guidance
+	GuidanceExt *Element `json:"_guidance,omitempty"`
 	// Population criteria group
 	Group []BackboneElement `json:"group,omitempty"`
 	// What other data should be reported with the measure
@@ -4600,8 +5790,12 @@ type MeasureReport struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4613,15 +5807,23 @@ type MeasureReport struct {
 	// Additional identifier for the MeasureReport
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// complete | pending | error
-	Status *string `json:"status,omitempty"`
+	Status *MeasureReportStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// individual | subject-list | summary | data-collection
-	Type *string `json:"type,omitempty"`
+	Type *MeasureReportType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// What measure was calculated
 	Measure *string `json:"measure,omitempty"`
+	// Extension for Measure
+	MeasureExt *Element `json:"_measure,omitempty"`
 	// What individual(s) the report is for
 	Subject *Reference `json:"subject,omitempty"`
 	// When the report was generated
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Who is reporting the data
 	Reporter *Reference `json:"reporter,omitempty"`
 	// What period the report covers
@@ -4647,8 +5849,12 @@ type Media struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4664,7 +5870,9 @@ type Media struct {
 	// Part of referenced event
 	PartOf []Reference `json:"partOf,omitempty"`
 	// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *EventStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Classification of media as image, video, or audio
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The type of acquisition equipment/process
@@ -4683,6 +5891,8 @@ type Media struct {
 	CreatedPeriod *Period `json:"createdPeriod,omitempty"`
 	// Date/Time this version was made available
 	Issued *string `json:"issued,omitempty"`
+	// Extension for Issued
+	IssuedExt *Element `json:"_issued,omitempty"`
 	// The person who generated the image
 	Operator *Reference `json:"operator,omitempty"`
 	// Why was event performed?
@@ -4691,16 +5901,26 @@ type Media struct {
 	BodySite *CodeableConcept `json:"bodySite,omitempty"`
 	// Name of the device/manufacturer
 	DeviceName *string `json:"deviceName,omitempty"`
+	// Extension for DeviceName
+	DeviceNameExt *Element `json:"_deviceName,omitempty"`
 	// Observing Device
 	Device *Reference `json:"device,omitempty"`
 	// Height of the image in pixels (photo/video)
 	Height *uint32 `json:"height,omitempty"`
+	// Extension for Height
+	HeightExt *Element `json:"_height,omitempty"`
 	// Width of the image in pixels (photo/video)
 	Width *uint32 `json:"width,omitempty"`
+	// Extension for Width
+	WidthExt *Element `json:"_width,omitempty"`
 	// Number of frames if > 1 (photo)
 	Frames *uint32 `json:"frames,omitempty"`
+	// Extension for Frames
+	FramesExt *Element `json:"_frames,omitempty"`
 	// Length in seconds (audio / video)
 	Duration *float64 `json:"duration,omitempty"`
+	// Extension for Duration
+	DurationExt *Element `json:"_duration,omitempty"`
 	// Actual Media - reference or data
 	Content Attachment `json:"content"`
 	// Comments made about the media
@@ -4720,8 +5940,12 @@ type Medication struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4735,7 +5959,9 @@ type Medication struct {
 	// Codes that identify this medication
 	Code *CodeableConcept `json:"code,omitempty"`
 	// active | inactive | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *MedicationStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Manufacturer of the item
 	Manufacturer *Reference `json:"manufacturer,omitempty"`
 	// powder | tablets | capsule +
@@ -4761,8 +5987,12 @@ type MedicationAdministration struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4775,10 +6005,14 @@ type MedicationAdministration struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates protocol or definition
 	Instantiates []string `json:"instantiates,omitempty"`
+	// Extension for Instantiates
+	InstantiatesExt []Element `json:"_instantiates,omitempty"`
 	// Part of referenced event
 	PartOf []Reference `json:"partOf,omitempty"`
 	// in-progress | not-done | on-hold | completed | entered-in-error | stopped | unknown
-	Status *string `json:"status,omitempty"`
+	Status *MedicationAdministrationStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason administration not performed
 	StatusReason []CodeableConcept `json:"statusReason,omitempty"`
 	// Type of medication usage
@@ -4830,8 +6064,12 @@ type MedicationDispense struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4845,7 +6083,9 @@ type MedicationDispense struct {
 	// Event that dispense is part of
 	PartOf []Reference `json:"partOf,omitempty"`
 	// preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown
-	Status *string `json:"status,omitempty"`
+	Status *MedicationDispenseStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Why a dispense was not performed
 	StatusReasonCodeableConcept *CodeableConcept `json:"statusReasonCodeableConcept,omitempty"`
 	// Why a dispense was not performed
@@ -4876,8 +6116,12 @@ type MedicationDispense struct {
 	DaysSupply *Quantity `json:"daysSupply,omitempty"`
 	// When product was packaged and reviewed
 	WhenPrepared *string `json:"whenPrepared,omitempty"`
+	// Extension for WhenPrepared
+	WhenPreparedExt *Element `json:"_whenPrepared,omitempty"`
 	// When product was given out
 	WhenHandedOver *string `json:"whenHandedOver,omitempty"`
+	// Extension for WhenHandedOver
+	WhenHandedOverExt *Element `json:"_whenHandedOver,omitempty"`
 	// Where the medication was sent
 	Destination *Reference `json:"destination,omitempty"`
 	// Who collected the medication
@@ -4907,8 +6151,12 @@ type MedicationKnowledge struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4920,7 +6168,9 @@ type MedicationKnowledge struct {
 	// Code that identifies this medication
 	Code *CodeableConcept `json:"code,omitempty"`
 	// active | inactive | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *MedicationKnowledgeStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Manufacturer of the item
 	Manufacturer *Reference `json:"manufacturer,omitempty"`
 	// powder | tablets | capsule +
@@ -4929,6 +6179,8 @@ type MedicationKnowledge struct {
 	Amount *Quantity `json:"amount,omitempty"`
 	// Additional names for a medication
 	Synonym []string `json:"synonym,omitempty"`
+	// Extension for Synonym
+	SynonymExt []Element `json:"_synonym,omitempty"`
 	// Associated or related medication information
 	RelatedMedicationKnowledge []BackboneElement `json:"relatedMedicationKnowledge,omitempty"`
 	// A medication resource that is associated with this medication
@@ -4941,6 +6193,8 @@ type MedicationKnowledge struct {
 	Ingredient []BackboneElement `json:"ingredient,omitempty"`
 	// The instructions for preparing the medication
 	PreparationInstruction *string `json:"preparationInstruction,omitempty"`
+	// Extension for PreparationInstruction
+	PreparationInstructionExt *Element `json:"_preparationInstruction,omitempty"`
 	// The intended or approved route of administration
 	IntendedRoute []CodeableConcept `json:"intendedRoute,omitempty"`
 	// The pricing of the medication
@@ -4976,8 +6230,12 @@ type MedicationRequest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -4989,17 +6247,25 @@ type MedicationRequest struct {
 	// External ids for this request
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | on-hold | cancelled | completed | entered-in-error | stopped | draft | unknown
-	Status *string `json:"status,omitempty"`
+	Status *MedicationrequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for current status
 	StatusReason *CodeableConcept `json:"statusReason,omitempty"`
 	// proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *MedicationRequestIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// Type of medication usage
 	Category []CodeableConcept `json:"category,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// True if request is prohibiting action
 	DoNotPerform *bool `json:"doNotPerform,omitempty"`
+	// Extension for DoNotPerform
+	DoNotPerformExt *Element `json:"_doNotPerform,omitempty"`
 	// Reported rather than primary record
 	ReportedBoolean *bool `json:"reportedBoolean,omitempty"`
 	// Extension for ReportedBoolean
@@ -5018,6 +6284,8 @@ type MedicationRequest struct {
 	SupportingInformation []Reference `json:"supportingInformation,omitempty"`
 	// When request was initially authored
 	AuthoredOn *string `json:"authoredOn,omitempty"`
+	// Extension for AuthoredOn
+	AuthoredOnExt *Element `json:"_authoredOn,omitempty"`
 	// Who/What requested the Request
 	Requester *Reference `json:"requester,omitempty"`
 	// Intended performer of administration
@@ -5032,8 +6300,12 @@ type MedicationRequest struct {
 	ReasonReference []Reference `json:"reasonReference,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// What request fulfills
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Composite request this is part of
@@ -5071,8 +6343,12 @@ type MedicationStatement struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5088,7 +6364,9 @@ type MedicationStatement struct {
 	// Part of referenced event
 	PartOf []Reference `json:"partOf,omitempty"`
 	// active | completed | entered-in-error | intended | stopped | on-hold | unknown | not-taken
-	Status *string `json:"status,omitempty"`
+	Status *MedicationStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for current status
 	StatusReason []CodeableConcept `json:"statusReason,omitempty"`
 	// Type of medication usage
@@ -5109,6 +6387,8 @@ type MedicationStatement struct {
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// When the statement was asserted?
 	DateAsserted *string `json:"dateAsserted,omitempty"`
+	// Extension for DateAsserted
+	DateAssertedExt *Element `json:"_dateAsserted,omitempty"`
 	// Person or organization that provided the information about the taking of this medication
 	InformationSource *Reference `json:"informationSource,omitempty"`
 	// Additional supporting information
@@ -5136,8 +6416,12 @@ type MedicinalProduct struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5160,6 +6444,8 @@ type MedicinalProduct struct {
 	AdditionalMonitoringIndicator *CodeableConcept `json:"additionalMonitoringIndicator,omitempty"`
 	// Whether the Medicinal Product is subject to special measures for regulatory reasons
 	SpecialMeasures []string `json:"specialMeasures,omitempty"`
+	// Extension for SpecialMeasures
+	SpecialMeasuresExt []Element `json:"_specialMeasures,omitempty"`
 	// If authorised for use in children
 	PaediatricUseIndicator *CodeableConcept `json:"paediatricUseIndicator,omitempty"`
 	// Allows the product to be classified by various systems
@@ -5201,8 +6487,12 @@ type MedicinalProductAuthorization struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5223,16 +6513,24 @@ type MedicinalProductAuthorization struct {
 	Status *CodeableConcept `json:"status,omitempty"`
 	// The date at which the given status has become applicable
 	StatusDate *string `json:"statusDate,omitempty"`
+	// Extension for StatusDate
+	StatusDateExt *Element `json:"_statusDate,omitempty"`
 	// The date when a suspended the marketing or the marketing authorization of the product is anticipated to be restored
 	RestoreDate *string `json:"restoreDate,omitempty"`
+	// Extension for RestoreDate
+	RestoreDateExt *Element `json:"_restoreDate,omitempty"`
 	// The beginning of the time period in which the marketing authorization is in the specific status shall be specified A complete date consisting of day, month and year shall be specified using the ISO 8601 date format
 	ValidityPeriod *Period `json:"validityPeriod,omitempty"`
 	// A period of time after authorization before generic product applicatiosn can be submitted
 	DataExclusivityPeriod *Period `json:"dataExclusivityPeriod,omitempty"`
 	// The date when the first authorization was granted by a Medicines Regulatory Agency
 	DateOfFirstAuthorization *string `json:"dateOfFirstAuthorization,omitempty"`
+	// Extension for DateOfFirstAuthorization
+	DateOfFirstAuthorizationExt *Element `json:"_dateOfFirstAuthorization,omitempty"`
 	// Date of first marketing authorization for a company's new medicinal product in any country in the World
 	InternationalBirthDate *string `json:"internationalBirthDate,omitempty"`
+	// Extension for InternationalBirthDate
+	InternationalBirthDateExt *Element `json:"_internationalBirthDate,omitempty"`
 	// The legal framework against which this authorization is granted
 	LegalBasis *CodeableConcept `json:"legalBasis,omitempty"`
 	// Authorization in areas within a country
@@ -5258,8 +6556,12 @@ type MedicinalProductContraindication struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5297,8 +6599,12 @@ type MedicinalProductIndication struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5340,8 +6646,12 @@ type MedicinalProductIngredient struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5356,6 +6666,8 @@ type MedicinalProductIngredient struct {
 	Role CodeableConcept `json:"role"`
 	// If the ingredient is a known or suspected allergen
 	AllergenicIndicator *bool `json:"allergenicIndicator,omitempty"`
+	// Extension for AllergenicIndicator
+	AllergenicIndicatorExt *Element `json:"_allergenicIndicator,omitempty"`
 	// Manufacturer of this Ingredient
 	Manufacturer []Reference `json:"manufacturer,omitempty"`
 	// A specified substance that comprises this ingredient
@@ -5377,8 +6689,12 @@ type MedicinalProductInteraction struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5391,6 +6707,8 @@ type MedicinalProductInteraction struct {
 	Subject []Reference `json:"subject,omitempty"`
 	// The interaction described
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The specific medication, food or laboratory test that interacts
 	Interactant []BackboneElement `json:"interactant,omitempty"`
 	// The type of the interaction e.g. drug-drug interaction, drug-food interaction, drug-lab test interaction
@@ -5416,8 +6734,12 @@ type MedicinalProductManufactured struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5455,8 +6777,12 @@ type MedicinalProductPackaged struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5471,6 +6797,8 @@ type MedicinalProductPackaged struct {
 	Subject []Reference `json:"subject,omitempty"`
 	// Textual description
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The legal status of supply of the medicinal product as classified by the regulator
 	LegalStatusOfSupply *CodeableConcept `json:"legalStatusOfSupply,omitempty"`
 	// Marketing information
@@ -5498,8 +6826,12 @@ type MedicinalProductPharmaceutical struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5537,8 +6869,12 @@ type MedicinalProductUndesirableEffect struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5572,8 +6908,12 @@ type MessageDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5584,40 +6924,68 @@ type MessageDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Business Identifier for a given MessageDefinition
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Primary key for the message definition on a given server
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the message definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this message definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this message definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Takes the place of
 	Replaces []string `json:"replaces,omitempty"`
+	// Extension for Replaces
+	ReplacesExt []Element `json:"_replaces,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the message definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for message definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this message definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// Definition this one is based on
 	Base *string `json:"base,omitempty"`
+	// Extension for Base
+	BaseExt *Element `json:"_base,omitempty"`
 	// Protocol/workflow this is part of
 	Parent []string `json:"parent,omitempty"`
+	// Extension for Parent
+	ParentExt []Element `json:"_parent,omitempty"`
 	// Event code  or link to the EventDefinition
 	EventCoding *Coding `json:"eventCoding,omitempty"`
 	// Event code  or link to the EventDefinition
@@ -5625,15 +6993,21 @@ type MessageDefinition struct {
 	// Extension for EventUri
 	EventUriExt *Element `json:"_eventUri,omitempty"`
 	// consequence | currency | notification
-	Category *string `json:"category,omitempty"`
+	Category *MessageSignificanceCategory `json:"category,omitempty"`
+	// Extension for Category
+	CategoryExt *Element `json:"_category,omitempty"`
 	// Resource(s) that are the subject of the event
 	Focus []BackboneElement `json:"focus,omitempty"`
 	// always | on-error | never | on-success
-	ResponseRequired *string `json:"responseRequired,omitempty"`
+	ResponseRequired *Messageheaderresponserequest `json:"responseRequired,omitempty"`
+	// Extension for ResponseRequired
+	ResponseRequiredExt *Element `json:"_responseRequired,omitempty"`
 	// Responses to this message
 	AllowedResponse []BackboneElement `json:"allowedResponse,omitempty"`
 	// Canonical reference to a GraphDefinition
 	Graph []string `json:"graph,omitempty"`
+	// Extension for Graph
+	GraphExt []Element `json:"_graph,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5649,8 +7023,12 @@ type MessageHeader struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5685,6 +7063,8 @@ type MessageHeader struct {
 	Focus []Reference `json:"focus,omitempty"`
 	// Link to the definition for this message
 	Definition *string `json:"definition,omitempty"`
+	// Extension for Definition
+	DefinitionExt *Element `json:"_definition,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -5700,8 +7080,12 @@ type MolecularSequence struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5713,9 +7097,13 @@ type MolecularSequence struct {
 	// Unique ID for this particular sequence. This is a FHIR-defined id
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// aa | dna | rna
-	Type *string `json:"type,omitempty"`
+	Type *SequenceType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Base number of coordinate system (0 for 0-based numbering or coordinates, inclusive start, exclusive end, 1 for 1-based numbering, inclusive start, inclusive end)
 	CoordinateSystem *int `json:"coordinateSystem,omitempty"`
+	// Extension for CoordinateSystem
+	CoordinateSystemExt *Element `json:"_coordinateSystem,omitempty"`
 	// Who and/or what this is about
 	Patient *Reference `json:"patient,omitempty"`
 	// Specimen used for sequencing
@@ -5732,10 +7120,14 @@ type MolecularSequence struct {
 	Variant []BackboneElement `json:"variant,omitempty"`
 	// Sequence that was observed
 	ObservedSeq *string `json:"observedSeq,omitempty"`
+	// Extension for ObservedSeq
+	ObservedSeqExt *Element `json:"_observedSeq,omitempty"`
 	// An set of value as quality of sequence
 	Quality []BackboneElement `json:"quality,omitempty"`
 	// Average number of reads representing a given nucleotide in the reconstructed sequence
 	ReadCoverage *int `json:"readCoverage,omitempty"`
+	// Extension for ReadCoverage
+	ReadCoverageExt *Element `json:"_readCoverage,omitempty"`
 	// External repository which contains detailed report related with observedSeq in this resource
 	Repository []BackboneElement `json:"repository,omitempty"`
 	// Pointer to next atomic sequence
@@ -5757,8 +7149,12 @@ type NamingSystem struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5769,28 +7165,44 @@ type NamingSystem struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Name for this naming system (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// codesystem | identifier | root
-	Kind *string `json:"kind,omitempty"`
+	Kind *NamingSystemType `json:"kind,omitempty"`
+	// Extension for Kind
+	KindExt *Element `json:"_kind,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Who maintains system namespace?
 	Responsible *string `json:"responsible,omitempty"`
+	// Extension for Responsible
+	ResponsibleExt *Element `json:"_responsible,omitempty"`
 	// e.g. driver,  provider,  patient, bank etc.
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Natural language description of the naming system
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for naming system (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// How/where is it used
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Unique identifiers used for system
 	UniqueId []BackboneElement `json:"uniqueId,omitempty"`
 }
@@ -5808,8 +7220,12 @@ type NutritionOrder struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5822,20 +7238,32 @@ type NutritionOrder struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// Instantiates protocol or definition
 	Instantiates []string `json:"instantiates,omitempty"`
+	// Extension for Instantiates
+	InstantiatesExt []Element `json:"_instantiates,omitempty"`
 	// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *RequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *RequestIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// The person who requires the diet, formula or nutritional supplement
 	Patient Reference `json:"patient"`
 	// The encounter associated with this nutrition order
 	Encounter *Reference `json:"encounter,omitempty"`
 	// Date and time the nutrition order was requested
 	DateTime *string `json:"dateTime,omitempty"`
+	// Extension for DateTime
+	DateTimeExt *Element `json:"_dateTime,omitempty"`
 	// Who ordered the diet, formula or nutritional supplement
 	Orderer *Reference `json:"orderer,omitempty"`
 	// List of the patient's food and nutrition-related allergies and intolerances
@@ -5867,8 +7295,12 @@ type Observation struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5884,7 +7316,9 @@ type Observation struct {
 	// Part of referenced event
 	PartOf []Reference `json:"partOf,omitempty"`
 	// registered | preliminary | final | amended +
-	Status *string `json:"status,omitempty"`
+	Status *ObservationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Classification of  type of observation
 	Category []CodeableConcept `json:"category,omitempty"`
 	// Type of observation (code / type)
@@ -5909,6 +7343,8 @@ type Observation struct {
 	EffectiveInstantExt *Element `json:"_effectiveInstant,omitempty"`
 	// Date/Time this version was made available
 	Issued *string `json:"issued,omitempty"`
+	// Extension for Issued
+	IssuedExt *Element `json:"_issued,omitempty"`
 	// Who is responsible for the observation
 	Performer []Reference `json:"performer,omitempty"`
 	// Actual result
@@ -5980,8 +7416,12 @@ type ObservationDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -5997,13 +7437,19 @@ type ObservationDefinition struct {
 	// Business identifier for this ObservationDefinition instance
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Quantity | CodeableConcept | string | boolean | integer | Range | Ratio | SampledData | time | dateTime | Period
-	PermittedDataType []string `json:"permittedDataType,omitempty"`
+	PermittedDataType []ObservationDataType `json:"permittedDataType,omitempty"`
+	// Extension for PermittedDataType
+	PermittedDataTypeExt []Element `json:"_permittedDataType,omitempty"`
 	// Multiple results allowed
 	MultipleResultsAllowed *bool `json:"multipleResultsAllowed,omitempty"`
+	// Extension for MultipleResultsAllowed
+	MultipleResultsAllowedExt *Element `json:"_multipleResultsAllowed,omitempty"`
 	// Method used to produce the observation
 	Method *CodeableConcept `json:"method,omitempty"`
 	// Preferred report name
 	PreferredReportName *string `json:"preferredReportName,omitempty"`
+	// Extension for PreferredReportName
+	PreferredReportNameExt *Element `json:"_preferredReportName,omitempty"`
 	// Characteristics of quantitative results
 	QuantitativeDetails *BackboneElement `json:"quantitativeDetails,omitempty"`
 	// Qualified range for continuous and ordinal observation results
@@ -6031,8 +7477,12 @@ type OperationDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6043,52 +7493,94 @@ type OperationDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this operation definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the operation definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this operation definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this operation definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// operation | query
-	Kind *string `json:"kind,omitempty"`
+	Kind *OperationKind `json:"kind,omitempty"`
+	// Extension for Kind
+	KindExt *Element `json:"_kind,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the operation definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for operation definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this operation definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Whether content is changed by the operation
 	AffectsState *bool `json:"affectsState,omitempty"`
+	// Extension for AffectsState
+	AffectsStateExt *Element `json:"_affectsState,omitempty"`
 	// Name used to invoke the operation
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 	// Additional information about use
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 	// Marks this as a profile of the base
 	Base *string `json:"base,omitempty"`
+	// Extension for Base
+	BaseExt *Element `json:"_base,omitempty"`
 	// Types this operation applies to
 	Resource []string `json:"resource,omitempty"`
+	// Extension for Resource
+	ResourceExt []Element `json:"_resource,omitempty"`
 	// Invoke at the system level?
 	System *bool `json:"system,omitempty"`
+	// Extension for System
+	SystemExt *Element `json:"_system,omitempty"`
 	// Invoke at the type level?
 	Type *bool `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Invoke on an instance?
 	Instance *bool `json:"instance,omitempty"`
+	// Extension for Instance
+	InstanceExt *Element `json:"_instance,omitempty"`
 	// Validation information for in parameters
 	InputProfile *string `json:"inputProfile,omitempty"`
+	// Extension for InputProfile
+	InputProfileExt *Element `json:"_inputProfile,omitempty"`
 	// Validation information for out parameters
 	OutputProfile *string `json:"outputProfile,omitempty"`
+	// Extension for OutputProfile
+	OutputProfileExt *Element `json:"_outputProfile,omitempty"`
 	// Parameters for the operation/query
 	Parameter []BackboneElement `json:"parameter,omitempty"`
 	// Define overloaded variants for when  generating code
@@ -6108,8 +7600,12 @@ type OperationOutcome struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6135,8 +7631,12 @@ type Organization struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6149,12 +7649,18 @@ type Organization struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether the organization's record is still in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// Kind of organization
 	Type []CodeableConcept `json:"type,omitempty"`
 	// Name used for the organization
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// A list of alternate names that the organization is known as, or was known as in the past
 	Alias []string `json:"alias,omitempty"`
+	// Extension for Alias
+	AliasExt []Element `json:"_alias,omitempty"`
 	// A contact detail for the organization
 	Telecom []ContactPoint `json:"telecom,omitempty"`
 	// An address for the organization
@@ -6180,8 +7686,12 @@ type OrganizationAffiliation struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6194,6 +7704,8 @@ type OrganizationAffiliation struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this organization affiliation record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// The period during which the participatingOrganization is affiliated with the primary organization
 	Period *Period `json:"period,omitempty"`
 	// Organization where the role is available
@@ -6229,8 +7741,12 @@ type Parameters struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Operation Parameter
 	Parameter []BackboneElement `json:"parameter,omitempty"`
 }
@@ -6248,8 +7764,12 @@ type Patient struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6262,14 +7782,20 @@ type Patient struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this patient's record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// A name associated with the patient
 	Name []HumanName `json:"name,omitempty"`
 	// A contact detail for the individual
 	Telecom []ContactPoint `json:"telecom,omitempty"`
 	// male | female | other | unknown
-	Gender *string `json:"gender,omitempty"`
+	Gender *AdministrativeGender `json:"gender,omitempty"`
+	// Extension for Gender
+	GenderExt *Element `json:"_gender,omitempty"`
 	// The date of birth for the individual
 	BirthDate *string `json:"birthDate,omitempty"`
+	// Extension for BirthDate
+	BirthDateExt *Element `json:"_birthDate,omitempty"`
 	// Indicates if the individual is deceased or not
 	DeceasedBoolean *bool `json:"deceasedBoolean,omitempty"`
 	// Extension for DeceasedBoolean
@@ -6317,8 +7843,12 @@ type PaymentNotice struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6330,19 +7860,25 @@ type PaymentNotice struct {
 	// Business Identifier for the payment noctice
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Request reference
 	Request *Reference `json:"request,omitempty"`
 	// Response reference
 	Response *Reference `json:"response,omitempty"`
 	// Creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Responsible practitioner
 	Provider *Reference `json:"provider,omitempty"`
 	// Payment reference
 	Payment Reference `json:"payment"`
 	// Payment or clearing date
 	PaymentDate *string `json:"paymentDate,omitempty"`
+	// Extension for PaymentDate
+	PaymentDateExt *Element `json:"_paymentDate,omitempty"`
 	// Party being paid
 	Payee *Reference `json:"payee,omitempty"`
 	// Party being notified
@@ -6366,8 +7902,12 @@ type PaymentReconciliation struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6379,11 +7919,15 @@ type PaymentReconciliation struct {
 	// Business Identifier for a payment reconciliation
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Period covered
 	Period *Period `json:"period,omitempty"`
 	// Creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Party generating payment
 	PaymentIssuer *Reference `json:"paymentIssuer,omitempty"`
 	// Reference to requesting resource
@@ -6391,11 +7935,17 @@ type PaymentReconciliation struct {
 	// Responsible practitioner
 	Requestor *Reference `json:"requestor,omitempty"`
 	// queued | complete | error | partial
-	Outcome *string `json:"outcome,omitempty"`
+	Outcome *ClaimProcessingCodes `json:"outcome,omitempty"`
+	// Extension for Outcome
+	OutcomeExt *Element `json:"_outcome,omitempty"`
 	// Disposition message
 	Disposition *string `json:"disposition,omitempty"`
+	// Extension for Disposition
+	DispositionExt *Element `json:"_disposition,omitempty"`
 	// When payment issued
 	PaymentDate *string `json:"paymentDate,omitempty"`
+	// Extension for PaymentDate
+	PaymentDateExt *Element `json:"_paymentDate,omitempty"`
 	// Total amount of Payment
 	PaymentAmount Money `json:"paymentAmount"`
 	// Business identifier for the payment
@@ -6421,8 +7971,12 @@ type Person struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6438,9 +7992,13 @@ type Person struct {
 	// A contact detail for the person
 	Telecom []ContactPoint `json:"telecom,omitempty"`
 	// male | female | other | unknown
-	Gender *string `json:"gender,omitempty"`
+	Gender *AdministrativeGender `json:"gender,omitempty"`
+	// Extension for Gender
+	GenderExt *Element `json:"_gender,omitempty"`
 	// The date on which the person was born
 	BirthDate *string `json:"birthDate,omitempty"`
+	// Extension for BirthDate
+	BirthDateExt *Element `json:"_birthDate,omitempty"`
 	// One or more addresses for the person
 	Address []Address `json:"address,omitempty"`
 	// Image of the person
@@ -6449,6 +8007,8 @@ type Person struct {
 	ManagingOrganization *Reference `json:"managingOrganization,omitempty"`
 	// This person's record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// Link to a resource that concerns the same actual person
 	Link []BackboneElement `json:"link,omitempty"`
 }
@@ -6466,8 +8026,12 @@ type PlanDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6478,48 +8042,78 @@ type PlanDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this plan definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the plan definition
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the plan definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this plan definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this plan definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Subordinate title of the plan definition
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// order-set | clinical-protocol | eca-rule | workflow-definition
 	Type *CodeableConcept `json:"type,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Type of individual the plan definition is focused on
 	SubjectCodeableConcept *CodeableConcept `json:"subjectCodeableConcept,omitempty"`
 	// Type of individual the plan definition is focused on
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the plan definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for plan definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this plan definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Describes the clinical usage of the plan
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the plan definition was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the plan definition was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the plan definition is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// E.g. Education, Treatment, Assessment
@@ -6536,6 +8130,8 @@ type PlanDefinition struct {
 	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
 	// Logic used by the plan definition
 	Library []string `json:"library,omitempty"`
+	// Extension for Library
+	LibraryExt []Element `json:"_library,omitempty"`
 	// What the plan is trying to accomplish
 	Goal []BackboneElement `json:"goal,omitempty"`
 	// Action defined by the plan
@@ -6555,8 +8151,12 @@ type Practitioner struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6569,6 +8169,8 @@ type Practitioner struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this practitioner's record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// The name(s) associated with the practitioner
 	Name []HumanName `json:"name,omitempty"`
 	// A contact detail for the practitioner (that apply to all roles)
@@ -6576,9 +8178,13 @@ type Practitioner struct {
 	// Address(es) of the practitioner that are not role specific (typically home address)
 	Address []Address `json:"address,omitempty"`
 	// male | female | other | unknown
-	Gender *string `json:"gender,omitempty"`
+	Gender *AdministrativeGender `json:"gender,omitempty"`
+	// Extension for Gender
+	GenderExt *Element `json:"_gender,omitempty"`
 	// The date  on which the practitioner was born
 	BirthDate *string `json:"birthDate,omitempty"`
+	// Extension for BirthDate
+	BirthDateExt *Element `json:"_birthDate,omitempty"`
 	// Image of the person
 	Photo []Attachment `json:"photo,omitempty"`
 	// Certification, licenses, or training pertaining to the provision of care
@@ -6600,8 +8206,12 @@ type PractitionerRole struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6614,6 +8224,8 @@ type PractitionerRole struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this practitioner role record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// The period during which the practitioner is authorized to perform in these role(s)
 	Period *Period `json:"period,omitempty"`
 	// Practitioner that is able to provide the defined services for the organization
@@ -6636,6 +8248,8 @@ type PractitionerRole struct {
 	NotAvailable []BackboneElement `json:"notAvailable,omitempty"`
 	// Description of availability exceptions
 	AvailabilityExceptions *string `json:"availabilityExceptions,omitempty"`
+	// Extension for AvailabilityExceptions
+	AvailabilityExceptionsExt *Element `json:"_availabilityExceptions,omitempty"`
 	// Technical endpoints providing access to services operated for the practitioner with this role
 	Endpoint []Reference `json:"endpoint,omitempty"`
 }
@@ -6653,8 +8267,12 @@ type Procedure struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6667,14 +8285,20 @@ type Procedure struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// A request for this procedure
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Part of referenced event
 	PartOf []Reference `json:"partOf,omitempty"`
 	// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *EventStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for current status
 	StatusReason *CodeableConcept `json:"statusReason,omitempty"`
 	// Classification of the procedure
@@ -6746,8 +8370,12 @@ type Provenance struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6766,8 +8394,12 @@ type Provenance struct {
 	OccurredDateTimeExt *Element `json:"_occurredDateTime,omitempty"`
 	// When the activity was recorded / updated
 	Recorded *string `json:"recorded,omitempty"`
+	// Extension for Recorded
+	RecordedExt *Element `json:"_recorded,omitempty"`
 	// Policy or plan the activity was defined by
 	Policy []string `json:"policy,omitempty"`
+	// Extension for Policy
+	PolicyExt []Element `json:"_policy,omitempty"`
 	// Where the activity occurred, if relevant
 	Location *Reference `json:"location,omitempty"`
 	// Reason the activity is occurring
@@ -6795,8 +8427,12 @@ type Questionnaire struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6807,42 +8443,72 @@ type Questionnaire struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this questionnaire, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the questionnaire
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the questionnaire
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this questionnaire (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this questionnaire (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Instantiates protocol or definition
 	DerivedFrom []string `json:"derivedFrom,omitempty"`
+	// Extension for DerivedFrom
+	DerivedFromExt []Element `json:"_derivedFrom,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Resource that can be subject of QuestionnaireResponse
 	SubjectType []string `json:"subjectType,omitempty"`
+	// Extension for SubjectType
+	SubjectTypeExt []Element `json:"_subjectType,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the questionnaire
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for questionnaire (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this questionnaire is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the questionnaire was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the questionnaire was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the questionnaire is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// Concept that represents the overall questionnaire
@@ -6864,8 +8530,12 @@ type QuestionnaireResponse struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6882,14 +8552,20 @@ type QuestionnaireResponse struct {
 	PartOf []Reference `json:"partOf,omitempty"`
 	// Form being answered
 	Questionnaire *string `json:"questionnaire,omitempty"`
+	// Extension for Questionnaire
+	QuestionnaireExt *Element `json:"_questionnaire,omitempty"`
 	// in-progress | completed | amended | entered-in-error | stopped
-	Status *string `json:"status,omitempty"`
+	Status *QuestionnaireResponseStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// The subject of the questions
 	Subject *Reference `json:"subject,omitempty"`
 	// Encounter created as part of
 	Encounter *Reference `json:"encounter,omitempty"`
 	// Date the answers were gathered
 	Authored *string `json:"authored,omitempty"`
+	// Extension for Authored
+	AuthoredExt *Element `json:"_authored,omitempty"`
 	// Person who received and recorded the answers
 	Author *Reference `json:"author,omitempty"`
 	// The person who answered the questions
@@ -6911,8 +8587,12 @@ type RelatedPerson struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6925,6 +8605,8 @@ type RelatedPerson struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this related person's record is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// The patient this person is related to
 	Patient Reference `json:"patient"`
 	// The nature of the relationship
@@ -6934,9 +8616,13 @@ type RelatedPerson struct {
 	// A contact detail for the person
 	Telecom []ContactPoint `json:"telecom,omitempty"`
 	// male | female | other | unknown
-	Gender *string `json:"gender,omitempty"`
+	Gender *AdministrativeGender `json:"gender,omitempty"`
+	// Extension for Gender
+	GenderExt *Element `json:"_gender,omitempty"`
 	// The date on which the related person was born
 	BirthDate *string `json:"birthDate,omitempty"`
+	// Extension for BirthDate
+	BirthDateExt *Element `json:"_birthDate,omitempty"`
 	// Address where the related person can be contacted or visited
 	Address []Address `json:"address,omitempty"`
 	// Image of the person
@@ -6960,8 +8646,12 @@ type RequestGroup struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -6974,8 +8664,12 @@ type RequestGroup struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// Fulfills plan, proposal, or order
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Request(s) replaced by this request
@@ -6983,11 +8677,17 @@ type RequestGroup struct {
 	// Composite request this is part of
 	GroupIdentifier *Identifier `json:"groupIdentifier,omitempty"`
 	// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *RequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *RequestIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// What's being requested/ordered
 	Code *CodeableConcept `json:"code,omitempty"`
 	// Who the request group is about
@@ -6996,6 +8696,8 @@ type RequestGroup struct {
 	Encounter *Reference `json:"encounter,omitempty"`
 	// When the request group was authored
 	AuthoredOn *string `json:"authoredOn,omitempty"`
+	// Extension for AuthoredOn
+	AuthoredOnExt *Element `json:"_authoredOn,omitempty"`
 	// Device or practitioner that authored the request group
 	Author *Reference `json:"author,omitempty"`
 	// Why the request group is needed
@@ -7021,8 +8723,12 @@ type ResearchDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7033,50 +8739,84 @@ type ResearchDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this research definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the research definition
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the research definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this research definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this research definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Title for use in informal contexts
 	ShortTitle *string `json:"shortTitle,omitempty"`
+	// Extension for ShortTitle
+	ShortTitleExt *Element `json:"_shortTitle,omitempty"`
 	// Subordinate title of the ResearchDefinition
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectCodeableConcept *CodeableConcept `json:"subjectCodeableConcept,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the research definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Used for footnotes or explanatory notes
 	Comment []string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt []Element `json:"_comment,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for research definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this research definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Describes the clinical usage of the ResearchDefinition
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the research definition was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the research definition was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the research definition is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// The category of the ResearchDefinition, such as Education, Treatment, Assessment, etc.
@@ -7093,6 +8833,8 @@ type ResearchDefinition struct {
 	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
 	// Logic used by the ResearchDefinition
 	Library []string `json:"library,omitempty"`
+	// Extension for Library
+	LibraryExt []Element `json:"_library,omitempty"`
 	// What population?
 	Population Reference `json:"population"`
 	// What exposure?
@@ -7116,8 +8858,12 @@ type ResearchElementDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7128,50 +8874,84 @@ type ResearchElementDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this research element definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the research element definition
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the research element definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this research element definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this research element definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Title for use in informal contexts
 	ShortTitle *string `json:"shortTitle,omitempty"`
+	// Extension for ShortTitle
+	ShortTitleExt *Element `json:"_shortTitle,omitempty"`
 	// Subordinate title of the ResearchElementDefinition
 	Subtitle *string `json:"subtitle,omitempty"`
+	// Extension for Subtitle
+	SubtitleExt *Element `json:"_subtitle,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectCodeableConcept *CodeableConcept `json:"subjectCodeableConcept,omitempty"`
 	// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	SubjectReference *Reference `json:"subjectReference,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the research element definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Used for footnotes or explanatory notes
 	Comment []string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt []Element `json:"_comment,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for research element definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this research element definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Describes the clinical usage of the ResearchElementDefinition
 	Usage *string `json:"usage,omitempty"`
+	// Extension for Usage
+	UsageExt *Element `json:"_usage,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the research element definition was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the research element definition was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the research element definition is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// The category of the ResearchElementDefinition, such as Education, Treatment, Assessment, etc.
@@ -7188,10 +8968,16 @@ type ResearchElementDefinition struct {
 	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
 	// Logic used by the ResearchElementDefinition
 	Library []string `json:"library,omitempty"`
+	// Extension for Library
+	LibraryExt []Element `json:"_library,omitempty"`
 	// population | exposure | outcome
-	Type *string `json:"type,omitempty"`
+	Type *ResearchElementType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// dichotomous | continuous | descriptive
-	VariableType *string `json:"variableType,omitempty"`
+	VariableType *EvidenceVariableType `json:"variableType,omitempty"`
+	// Extension for VariableType
+	VariableTypeExt *Element `json:"_variableType,omitempty"`
 	// What defines the members of the research element
 	Characteristic []BackboneElement `json:"characteristic,omitempty"`
 }
@@ -7209,8 +8995,12 @@ type ResearchStudy struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7223,12 +9013,16 @@ type ResearchStudy struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Name for this study
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// Steps followed in executing study
 	Protocol []Reference `json:"protocol,omitempty"`
 	// Part of larger study
 	PartOf []Reference `json:"partOf,omitempty"`
 	// active | administratively-completed | approved | closed-to-accrual | closed-to-accrual-and-intervention | completed | disapproved | in-review | temporarily-closed-to-accrual | temporarily-closed-to-accrual-and-intervention | withdrawn
-	Status *string `json:"status,omitempty"`
+	Status *ResearchStudyStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// treatment | prevention | diagnostic | supportive-care | screening | health-services-research | basic-science | device-feasibility
 	PrimaryPurposeType *CodeableConcept `json:"primaryPurposeType,omitempty"`
 	// n-a | early-phase-1 | phase-1 | phase-1-phase-2 | phase-2 | phase-2-phase-3 | phase-3 | phase-4
@@ -7249,6 +9043,8 @@ type ResearchStudy struct {
 	Location []CodeableConcept `json:"location,omitempty"`
 	// What this is study doing
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Inclusion & exclusion criteria
 	Enrollment []Reference `json:"enrollment,omitempty"`
 	// When the study began and ended
@@ -7282,8 +9078,12 @@ type ResearchSubject struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7295,7 +9095,9 @@ type ResearchSubject struct {
 	// Business Identifier for research subject in a study
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// candidate | eligible | follow-up | ineligible | not-registered | off-study | on-study | on-study-intervention | on-study-observation | pending-on-study | potential-candidate | screening | withdrawn
-	Status *string `json:"status,omitempty"`
+	Status *ResearchSubjectStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Start and end of participation
 	Period *Period `json:"period,omitempty"`
 	// Study subject is part of
@@ -7304,8 +9106,12 @@ type ResearchSubject struct {
 	Individual Reference `json:"individual"`
 	// What path should be followed
 	AssignedArm *string `json:"assignedArm,omitempty"`
+	// Extension for AssignedArm
+	AssignedArmExt *Element `json:"_assignedArm,omitempty"`
 	// What path was followed
 	ActualArm *string `json:"actualArm,omitempty"`
+	// Extension for ActualArm
+	ActualArmExt *Element `json:"_actualArm,omitempty"`
 	// Agreement to participate in study
 	Consent *Reference `json:"consent,omitempty"`
 }
@@ -7323,8 +9129,12 @@ type RiskAssessment struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7340,7 +9150,9 @@ type RiskAssessment struct {
 	// Part of this occurrence
 	Parent *Reference `json:"parent,omitempty"`
 	// registered | preliminary | final | amended +
-	Status *string `json:"status,omitempty"`
+	Status *ObservationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Evaluation mechanism
 	Method *CodeableConcept `json:"method,omitempty"`
 	// Type of assessment
@@ -7369,6 +9181,8 @@ type RiskAssessment struct {
 	Prediction []BackboneElement `json:"prediction,omitempty"`
 	// How to reduce risk
 	Mitigation *string `json:"mitigation,omitempty"`
+	// Extension for Mitigation
+	MitigationExt *Element `json:"_mitigation,omitempty"`
 	// Comments on the risk assessment
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -7386,8 +9200,12 @@ type RiskEvidenceSynthesis struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7398,24 +9216,40 @@ type RiskEvidenceSynthesis struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this risk evidence synthesis, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the risk evidence synthesis
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the risk evidence synthesis
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this risk evidence synthesis (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this risk evidence synthesis (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the risk evidence synthesis
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Used for footnotes or explanatory notes
 	Note []Annotation `json:"note,omitempty"`
 	// The context that the content is intended to support
@@ -7424,10 +9258,16 @@ type RiskEvidenceSynthesis struct {
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// When the risk evidence synthesis was approved by publisher
 	ApprovalDate *string `json:"approvalDate,omitempty"`
+	// Extension for ApprovalDate
+	ApprovalDateExt *Element `json:"_approvalDate,omitempty"`
 	// When the risk evidence synthesis was last reviewed
 	LastReviewDate *string `json:"lastReviewDate,omitempty"`
+	// Extension for LastReviewDate
+	LastReviewDateExt *Element `json:"_lastReviewDate,omitempty"`
 	// When the risk evidence synthesis is expected to be used
 	EffectivePeriod *Period `json:"effectivePeriod,omitempty"`
 	// The category of the EffectEvidenceSynthesis, such as Education, Treatment, Assessment, etc.
@@ -7473,8 +9313,12 @@ type Schedule struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7487,6 +9331,8 @@ type Schedule struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Whether this schedule is in active use
 	Active *bool `json:"active,omitempty"`
+	// Extension for Active
+	ActiveExt *Element `json:"_active,omitempty"`
 	// High-level category
 	ServiceCategory []CodeableConcept `json:"serviceCategory,omitempty"`
 	// Specific service
@@ -7499,6 +9345,8 @@ type Schedule struct {
 	PlanningHorizon *Period `json:"planningHorizon,omitempty"`
 	// Comments on availability
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7514,8 +9362,12 @@ type SearchParameter struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7526,54 +9378,98 @@ type SearchParameter struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this search parameter, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the search parameter
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this search parameter (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Original definition for the search parameter
 	DerivedFrom *string `json:"derivedFrom,omitempty"`
+	// Extension for DerivedFrom
+	DerivedFromExt *Element `json:"_derivedFrom,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the search parameter
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for search parameter (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this search parameter is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Code used in URL
 	Code *string `json:"code,omitempty"`
+	// Extension for Code
+	CodeExt *Element `json:"_code,omitempty"`
 	// The resource type(s) this search parameter applies to
 	Base []string `json:"base,omitempty"`
+	// Extension for Base
+	BaseExt []Element `json:"_base,omitempty"`
 	// number | date | string | token | reference | composite | quantity | uri | special
-	Type *string `json:"type,omitempty"`
+	Type *SearchParamType `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// FHIRPath expression that extracts the values
 	Expression *string `json:"expression,omitempty"`
+	// Extension for Expression
+	ExpressionExt *Element `json:"_expression,omitempty"`
 	// XPath that extracts the values
 	Xpath *string `json:"xpath,omitempty"`
+	// Extension for Xpath
+	XpathExt *Element `json:"_xpath,omitempty"`
 	// normal | phonetic | nearby | distance | other
-	XpathUsage *string `json:"xpathUsage,omitempty"`
+	XpathUsage *XPathUsageType `json:"xpathUsage,omitempty"`
+	// Extension for XpathUsage
+	XpathUsageExt *Element `json:"_xpathUsage,omitempty"`
 	// Types of resource (if a resource reference)
 	Target []string `json:"target,omitempty"`
+	// Extension for Target
+	TargetExt []Element `json:"_target,omitempty"`
 	// Allow multiple values per parameter (or)
 	MultipleOr *bool `json:"multipleOr,omitempty"`
+	// Extension for MultipleOr
+	MultipleOrExt *Element `json:"_multipleOr,omitempty"`
 	// Allow multiple parameters (and)
 	MultipleAnd *bool `json:"multipleAnd,omitempty"`
+	// Extension for MultipleAnd
+	MultipleAndExt *Element `json:"_multipleAnd,omitempty"`
 	// eq | ne | gt | lt | ge | le | sa | eb | ap
-	Comparator []string `json:"comparator,omitempty"`
+	Comparator []SearchComparator `json:"comparator,omitempty"`
+	// Extension for Comparator
+	ComparatorExt []Element `json:"_comparator,omitempty"`
 	// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | ofType
-	Modifier []string `json:"modifier,omitempty"`
+	Modifier []SearchModifierCode `json:"modifier,omitempty"`
+	// Extension for Modifier
+	ModifierExt []Element `json:"_modifier,omitempty"`
 	// Chained names supported
 	Chain []string `json:"chain,omitempty"`
+	// Extension for Chain
+	ChainExt []Element `json:"_chain,omitempty"`
 	// For Composite resources to define the parts
 	Component []BackboneElement `json:"component,omitempty"`
 }
@@ -7591,8 +9487,12 @@ type ServiceRequest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7605,8 +9505,12 @@ type ServiceRequest struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Instantiates FHIR protocol or definition
 	InstantiatesCanonical []string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt []Element `json:"_instantiatesCanonical,omitempty"`
 	// Instantiates external protocol or definition
 	InstantiatesUri []string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt []Element `json:"_instantiatesUri,omitempty"`
 	// What request fulfills
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// What request replaces
@@ -7614,15 +9518,23 @@ type ServiceRequest struct {
 	// Composite Request ID
 	Requisition *Identifier `json:"requisition,omitempty"`
 	// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	Status *string `json:"status,omitempty"`
+	Status *RequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *RequestIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// Classification of service
 	Category []CodeableConcept `json:"category,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// True if service/procedure should not be performed
 	DoNotPerform *bool `json:"doNotPerform,omitempty"`
+	// Extension for DoNotPerform
+	DoNotPerformExt *Element `json:"_doNotPerform,omitempty"`
 	// What is being requested/ordered
 	Code *CodeableConcept `json:"code,omitempty"`
 	// Additional order information
@@ -7653,6 +9565,8 @@ type ServiceRequest struct {
 	AsNeededCodeableConcept *CodeableConcept `json:"asNeededCodeableConcept,omitempty"`
 	// Date request signed
 	AuthoredOn *string `json:"authoredOn,omitempty"`
+	// Extension for AuthoredOn
+	AuthoredOnExt *Element `json:"_authoredOn,omitempty"`
 	// Who/what is requesting service
 	Requester *Reference `json:"requester,omitempty"`
 	// Performer role
@@ -7679,6 +9593,8 @@ type ServiceRequest struct {
 	Note []Annotation `json:"note,omitempty"`
 	// Patient or consumer-oriented instructions
 	PatientInstruction *string `json:"patientInstruction,omitempty"`
+	// Extension for PatientInstruction
+	PatientInstructionExt *Element `json:"_patientInstruction,omitempty"`
 	// Request provenance
 	RelevantHistory []Reference `json:"relevantHistory,omitempty"`
 }
@@ -7696,8 +9612,12 @@ type Slot struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7719,15 +9639,25 @@ type Slot struct {
 	// The schedule resource that this slot defines an interval of status information
 	Schedule Reference `json:"schedule"`
 	// busy | free | busy-unavailable | busy-tentative | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *SlotStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Date/Time that the slot is to begin
 	Start *string `json:"start,omitempty"`
+	// Extension for Start
+	StartExt *Element `json:"_start,omitempty"`
 	// Date/Time that the slot is to conclude
 	End *string `json:"end,omitempty"`
+	// Extension for End
+	EndExt *Element `json:"_end,omitempty"`
 	// This slot has already been overbooked, appointments are unlikely to be accepted for this time
 	Overbooked *bool `json:"overbooked,omitempty"`
+	// Extension for Overbooked
+	OverbookedExt *Element `json:"_overbooked,omitempty"`
 	// Comments on the slot to describe any extended information. Such as custom constraints on the slot
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
@@ -7743,8 +9673,12 @@ type Specimen struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7758,13 +9692,17 @@ type Specimen struct {
 	// Identifier assigned by the lab
 	AccessionIdentifier *Identifier `json:"accessionIdentifier,omitempty"`
 	// available | unavailable | unsatisfactory | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *SpecimenStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Kind of material that forms the specimen
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Where the specimen came from. This may be from patient(s), from a location (e.g., the source of an environmental sample), or a sampling of a substance or a device
 	Subject *Reference `json:"subject,omitempty"`
 	// The time when specimen was received for processing
 	ReceivedTime *string `json:"receivedTime,omitempty"`
+	// Extension for ReceivedTime
+	ReceivedTimeExt *Element `json:"_receivedTime,omitempty"`
 	// Specimen from which this specimen originated
 	Parent []Reference `json:"parent,omitempty"`
 	// Why the specimen was collected
@@ -7794,8 +9732,12 @@ type SpecimenDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7812,6 +9754,8 @@ type SpecimenDefinition struct {
 	PatientPreparation []CodeableConcept `json:"patientPreparation,omitempty"`
 	// Time aspect for collection
 	TimeAspect *string `json:"timeAspect,omitempty"`
+	// Extension for TimeAspect
+	TimeAspectExt *Element `json:"_timeAspect,omitempty"`
 	// Specimen collection procedure
 	Collection []CodeableConcept `json:"collection,omitempty"`
 	// Specimen in container intended for testing by lab
@@ -7831,8 +9775,12 @@ type StructureDefinition struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7843,54 +9791,90 @@ type StructureDefinition struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this structure definition, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the structure definition
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the structure definition
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this structure definition (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this structure definition (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the structure definition
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for structure definition (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this structure definition is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// Assist with indexing and finding
 	Keyword []Coding `json:"keyword,omitempty"`
 	// FHIR Version this StructureDefinition targets
-	FhirVersion *string `json:"fhirVersion,omitempty"`
+	FhirVersion *FHIRVersion `json:"fhirVersion,omitempty"`
+	// Extension for FhirVersion
+	FhirVersionExt *Element `json:"_fhirVersion,omitempty"`
 	// External specification that the content is mapped to
 	Mapping []BackboneElement `json:"mapping,omitempty"`
 	// primitive-type | complex-type | resource | logical
-	Kind *string `json:"kind,omitempty"`
+	Kind *StructureDefinitionKind `json:"kind,omitempty"`
+	// Extension for Kind
+	KindExt *Element `json:"_kind,omitempty"`
 	// Whether the structure is abstract
 	Abstract *bool `json:"abstract,omitempty"`
+	// Extension for Abstract
+	AbstractExt *Element `json:"_abstract,omitempty"`
 	// If an extension, where it can be used in instances
 	Context []BackboneElement `json:"context,omitempty"`
 	// FHIRPath invariants - when the extension can be used
 	ContextInvariant []string `json:"contextInvariant,omitempty"`
+	// Extension for ContextInvariant
+	ContextInvariantExt []Element `json:"_contextInvariant,omitempty"`
 	// Type defined or constrained by this structure
 	Type *string `json:"type,omitempty"`
+	// Extension for Type
+	TypeExt *Element `json:"_type,omitempty"`
 	// Definition that this type is constrained/specialized from
 	BaseDefinition *string `json:"baseDefinition,omitempty"`
+	// Extension for BaseDefinition
+	BaseDefinitionExt *Element `json:"_baseDefinition,omitempty"`
 	// specialization | constraint - How relates to base definition
-	Derivation *string `json:"derivation,omitempty"`
+	Derivation *TypeDerivationRule `json:"derivation,omitempty"`
+	// Extension for Derivation
+	DerivationExt *Element `json:"_derivation,omitempty"`
 	// Snapshot view of the structure
 	Snapshot *BackboneElement `json:"snapshot,omitempty"`
 	// Differential view of the structure
@@ -7910,8 +9894,12 @@ type StructureMap struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7922,38 +9910,62 @@ type StructureMap struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this structure map, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the structure map
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the structure map
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this structure map (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this structure map (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the structure map
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for structure map (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this structure map is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// Structure Definition used by this map
 	Structure []BackboneElement `json:"structure,omitempty"`
 	// Other maps used by this map (canonical URLs)
 	Import []string `json:"import,omitempty"`
+	// Extension for Import
+	ImportExt []Element `json:"_import,omitempty"`
 	// Named sections for reader convenience
 	Group []BackboneElement `json:"group,omitempty"`
 }
@@ -7971,8 +9983,12 @@ type Subscription struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -7982,17 +9998,27 @@ type Subscription struct {
 	// Extensions that cannot be ignored
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// requested | active | error | off
-	Status *string `json:"status,omitempty"`
+	Status *SubscriptionStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Contact details for source (e.g. troubleshooting)
 	Contact []ContactPoint `json:"contact,omitempty"`
 	// When to automatically delete the subscription
 	End *string `json:"end,omitempty"`
+	// Extension for End
+	EndExt *Element `json:"_end,omitempty"`
 	// Description of why this subscription was created
 	Reason *string `json:"reason,omitempty"`
+	// Extension for Reason
+	ReasonExt *Element `json:"_reason,omitempty"`
 	// Rule for server push
 	Criteria *string `json:"criteria,omitempty"`
+	// Extension for Criteria
+	CriteriaExt *Element `json:"_criteria,omitempty"`
 	// Latest error note
 	Error *string `json:"error,omitempty"`
+	// Extension for Error
+	ErrorExt *Element `json:"_error,omitempty"`
 	// The channel on which to report matches to the criteria
 	Channel BackboneElement `json:"channel"`
 }
@@ -8010,8 +10036,12 @@ type Substance struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8023,13 +10053,17 @@ type Substance struct {
 	// Unique identifier
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | inactive | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FHIRSubstanceStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// What class/type of substance this is
 	Category []CodeableConcept `json:"category,omitempty"`
 	// What substance this is
 	Code CodeableConcept `json:"code"`
 	// Textual description of the substance, comments
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// If this describes a specific package/container of the substance
 	Instance []BackboneElement `json:"instance,omitempty"`
 	// Composition information about the substance
@@ -8049,8 +10083,12 @@ type SubstanceNucleicAcid struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8063,8 +10101,12 @@ type SubstanceNucleicAcid struct {
 	SequenceType *CodeableConcept `json:"sequenceType,omitempty"`
 	// The number of linear sequences of nucleotides linked through phosphodiester bonds shall be described. Subunits would be strands of nucleic acids that are tightly associated typically through Watson-Crick base pairing. NOTE: If not specified in the reference source, the assumption is that there is 1 subunit
 	NumberOfSubunits *int `json:"numberOfSubunits,omitempty"`
+	// Extension for NumberOfSubunits
+	NumberOfSubunitsExt *Element `json:"_numberOfSubunits,omitempty"`
 	// The area of hybridisation shall be described if applicable for double stranded RNA or DNA. The number associated with the subunit followed by the number associated to the residue shall be specified in increasing order. The underscore “” shall be used as separator as follows: “Subunitnumber Residue”
 	AreaOfHybridisation *string `json:"areaOfHybridisation,omitempty"`
+	// Extension for AreaOfHybridisation
+	AreaOfHybridisationExt *Element `json:"_areaOfHybridisation,omitempty"`
 	// (TBC)
 	OligoNucleotideType *CodeableConcept `json:"oligoNucleotideType,omitempty"`
 	// Subunits are listed in order of decreasing length; sequences of the same length will be ordered by molecular weight; subunits that have identical sequences will be repeated multiple times
@@ -8084,8 +10126,12 @@ type SubstancePolymer struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8102,6 +10148,8 @@ type SubstancePolymer struct {
 	CopolymerConnectivity []CodeableConcept `json:"copolymerConnectivity,omitempty"`
 	// Todo
 	Modification []string `json:"modification,omitempty"`
+	// Extension for Modification
+	ModificationExt []Element `json:"_modification,omitempty"`
 	// Todo
 	MonomerSet []BackboneElement `json:"monomerSet,omitempty"`
 	// Todo
@@ -8121,8 +10169,12 @@ type SubstanceProtein struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8135,8 +10187,12 @@ type SubstanceProtein struct {
 	SequenceType *CodeableConcept `json:"sequenceType,omitempty"`
 	// Number of linear sequences of amino acids linked through peptide bonds. The number of subunits constituting the SubstanceProtein shall be described. It is possible that the number of subunits can be variable
 	NumberOfSubunits *int `json:"numberOfSubunits,omitempty"`
+	// Extension for NumberOfSubunits
+	NumberOfSubunitsExt *Element `json:"_numberOfSubunits,omitempty"`
 	// The disulphide bond between two cysteine residues either on the same subunit or on two different subunits shall be described. The position of the disulfide bonds in the SubstanceProtein shall be listed in increasing order of subunit number and position within subunit followed by the abbreviation of the amino acids involved. The disulfide linkage positions shall actually contain the amino acid Cysteine at the respective positions
 	DisulfideLinkage []string `json:"disulfideLinkage,omitempty"`
+	// Extension for DisulfideLinkage
+	DisulfideLinkageExt []Element `json:"_disulfideLinkage,omitempty"`
 	// This subclause refers to the description of each subunit constituting the SubstanceProtein. A subunit is a linear sequence of amino acids linked through peptide bonds. The Subunit information shall be provided when the finished SubstanceProtein is a complex of multiple sequences; subunits are not used to delineate domains within a single sequence. Subunits are listed in order of decreasing length; sequences of the same length will be ordered by decreasing molecular weight; subunits that have identical sequences will be repeated multiple times
 	Subunit []BackboneElement `json:"subunit,omitempty"`
 }
@@ -8154,8 +10210,12 @@ type SubstanceReferenceInformation struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8166,6 +10226,8 @@ type SubstanceReferenceInformation struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Todo
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 	// Todo
 	Gene []BackboneElement `json:"gene,omitempty"`
 	// Todo
@@ -8189,8 +10251,12 @@ type SubstanceSourceMaterial struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8209,14 +10275,20 @@ type SubstanceSourceMaterial struct {
 	OrganismId *Identifier `json:"organismId,omitempty"`
 	// The organism accepted Scientific name shall be provided based on the organism taxonomy
 	OrganismName *string `json:"organismName,omitempty"`
+	// Extension for OrganismName
+	OrganismNameExt *Element `json:"_organismName,omitempty"`
 	// The parent of the herbal drug Ginkgo biloba, Leaf is the substance ID of the substance (fresh) of Ginkgo biloba L. or Ginkgo biloba L. (Whole plant)
 	ParentSubstanceId []Identifier `json:"parentSubstanceId,omitempty"`
 	// The parent substance of the Herbal Drug, or Herbal preparation
 	ParentSubstanceName []string `json:"parentSubstanceName,omitempty"`
+	// Extension for ParentSubstanceName
+	ParentSubstanceNameExt []Element `json:"_parentSubstanceName,omitempty"`
 	// The country where the plant material is harvested or the countries where the plasma is sourced from as laid down in accordance with the Plasma Master File. For “Plasma-derived substances” the attribute country of origin provides information about the countries used for the manufacturing of the Cryopoor plama or Crioprecipitate
 	CountryOfOrigin []CodeableConcept `json:"countryOfOrigin,omitempty"`
 	// The place/region where the plant is harvested or the places/regions where the animal source material has its habitat
 	GeographicalLocation []string `json:"geographicalLocation,omitempty"`
+	// Extension for GeographicalLocation
+	GeographicalLocationExt []Element `json:"_geographicalLocation,omitempty"`
 	// Stage of life for animals, plants, insects and microorganisms. This information shall be provided only when the substance is significantly different in these stages (e.g. foetal bovine serum)
 	DevelopmentStage *CodeableConcept `json:"developmentStage,omitempty"`
 	// Many complex materials are fractions of parts of plants, animals, or minerals. Fraction elements are often necessary to define both Substances and Specified Group 1 Substances. For substances derived from Plants, fraction information will be captured at the Substance information level ( . Oils, Juices and Exudates). Additional information for Extracts, such as extraction solvent composition, will be captured at the Specified Substance Group 1 information level. For plasma-derived products fraction information will be captured at the Substance and the Specified Substance Group 1 levels
@@ -8240,8 +10312,12 @@ type SubstanceSpecification struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8260,10 +10336,14 @@ type SubstanceSpecification struct {
 	Domain *CodeableConcept `json:"domain,omitempty"`
 	// Textual description of the substance
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// Supporting literature
 	Source []Reference `json:"source,omitempty"`
 	// Textual comment about this record of a substance
 	Comment *string `json:"comment,omitempty"`
+	// Extension for Comment
+	CommentExt *Element `json:"_comment,omitempty"`
 	// Moiety, for structural modifications
 	Moiety []BackboneElement `json:"moiety,omitempty"`
 	// General specifications for this substance, including how it is related to other substances
@@ -8303,8 +10383,12 @@ type SupplyDelivery struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8320,7 +10404,9 @@ type SupplyDelivery struct {
 	// Part of referenced event
 	PartOf []Reference `json:"partOf,omitempty"`
 	// in-progress | completed | abandoned | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *SupplyDeliveryStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Patient for whom the item is supplied
 	Patient *Reference `json:"patient,omitempty"`
 	// Category of dispense event
@@ -8356,8 +10442,12 @@ type SupplyRequest struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8369,11 +10459,15 @@ type SupplyRequest struct {
 	// Business Identifier for SupplyRequest
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// draft | active | suspended +
-	Status *string `json:"status,omitempty"`
+	Status *SupplyRequestStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// The kind of supply (central, non-stock, etc.)
 	Category *CodeableConcept `json:"category,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// Medication, Substance, or Device requested to be supplied
 	ItemCodeableConcept *CodeableConcept `json:"itemCodeableConcept,omitempty"`
 	// Medication, Substance, or Device requested to be supplied
@@ -8392,6 +10486,8 @@ type SupplyRequest struct {
 	OccurrenceTiming *Timing `json:"occurrenceTiming,omitempty"`
 	// When the request was made
 	AuthoredOn *string `json:"authoredOn,omitempty"`
+	// Extension for AuthoredOn
+	AuthoredOnExt *Element `json:"_authoredOn,omitempty"`
 	// Individual making the request
 	Requester *Reference `json:"requester,omitempty"`
 	// Who is intended to fulfill the request
@@ -8419,8 +10515,12 @@ type Task struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8433,8 +10533,12 @@ type Task struct {
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Formal definition of task
 	InstantiatesCanonical *string `json:"instantiatesCanonical,omitempty"`
+	// Extension for InstantiatesCanonical
+	InstantiatesCanonicalExt *Element `json:"_instantiatesCanonical,omitempty"`
 	// Formal definition of task
 	InstantiatesUri *string `json:"instantiatesUri,omitempty"`
+	// Extension for InstantiatesUri
+	InstantiatesUriExt *Element `json:"_instantiatesUri,omitempty"`
 	// Request fulfilled by this task
 	BasedOn []Reference `json:"basedOn,omitempty"`
 	// Requisition or grouper id
@@ -8442,19 +10546,27 @@ type Task struct {
 	// Composite task
 	PartOf []Reference `json:"partOf,omitempty"`
 	// draft | requested | received | accepted | +
-	Status *string `json:"status,omitempty"`
+	Status *TaskStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reason for current status
 	StatusReason *CodeableConcept `json:"statusReason,omitempty"`
 	// E.g. "Specimen collected", "IV prepped"
 	BusinessStatus *CodeableConcept `json:"businessStatus,omitempty"`
 	// unknown | proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
-	Intent *string `json:"intent,omitempty"`
+	Intent *TaskIntent `json:"intent,omitempty"`
+	// Extension for Intent
+	IntentExt *Element `json:"_intent,omitempty"`
 	// routine | urgent | asap | stat
-	Priority *string `json:"priority,omitempty"`
+	Priority *RequestPriority `json:"priority,omitempty"`
+	// Extension for Priority
+	PriorityExt *Element `json:"_priority,omitempty"`
 	// Task Type
 	Code *CodeableConcept `json:"code,omitempty"`
 	// Human-readable explanation of task
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// What task is acting on
 	Focus *Reference `json:"focus,omitempty"`
 	// Beneficiary of the Task
@@ -8465,8 +10577,12 @@ type Task struct {
 	ExecutionPeriod *Period `json:"executionPeriod,omitempty"`
 	// Task Creation Date
 	AuthoredOn *string `json:"authoredOn,omitempty"`
+	// Extension for AuthoredOn
+	AuthoredOnExt *Element `json:"_authoredOn,omitempty"`
 	// Task Last Modified Date
 	LastModified *string `json:"lastModified,omitempty"`
+	// Extension for LastModified
+	LastModifiedExt *Element `json:"_lastModified,omitempty"`
 	// Who is asking for task to be done
 	Requester *Reference `json:"requester,omitempty"`
 	// Requested performer
@@ -8506,8 +10622,12 @@ type TerminologyCapabilities struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8518,46 +10638,74 @@ type TerminologyCapabilities struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this terminology capabilities, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Business version of the terminology capabilities
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this terminology capabilities (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this terminology capabilities (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the terminology capabilities
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for terminology capabilities (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this terminology capabilities is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// instance | capability | requirements
-	Kind *string `json:"kind,omitempty"`
+	Kind *CapabilityStatementKind `json:"kind,omitempty"`
+	// Extension for Kind
+	KindExt *Element `json:"_kind,omitempty"`
 	// Software that is covered by this terminology capability statement
 	Software *BackboneElement `json:"software,omitempty"`
 	// If this describes a specific instance
 	Implementation *BackboneElement `json:"implementation,omitempty"`
 	// Whether lockedDate is supported
 	LockedDate *bool `json:"lockedDate,omitempty"`
+	// Extension for LockedDate
+	LockedDateExt *Element `json:"_lockedDate,omitempty"`
 	// A code system supported by the server
 	CodeSystem []BackboneElement `json:"codeSystem,omitempty"`
 	// Information about the [ValueSet/$expand](valueset-operation-expand.html) operation
 	Expansion *BackboneElement `json:"expansion,omitempty"`
 	// explicit | all
-	CodeSearch *string `json:"codeSearch,omitempty"`
+	CodeSearch *CodeSearchSupport `json:"codeSearch,omitempty"`
+	// Extension for CodeSearch
+	CodeSearchExt *Element `json:"_codeSearch,omitempty"`
 	// Information about the [ValueSet/$validate-code](valueset-operation-validate-code.html) operation
 	ValidateCode *BackboneElement `json:"validateCode,omitempty"`
 	// Information about the [ConceptMap/$translate](conceptmap-operation-translate.html) operation
@@ -8579,8 +10727,12 @@ type TestReport struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8593,18 +10745,30 @@ type TestReport struct {
 	Identifier *Identifier `json:"identifier,omitempty"`
 	// Informal name of the executed TestScript
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// completed | in-progress | waiting | stopped | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *TestReportStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Reference to the  version-specific TestScript that was executed to produce this TestReport
 	TestScript Reference `json:"testScript"`
 	// pass | fail | pending
-	Result *string `json:"result,omitempty"`
+	Result *TestReportResult `json:"result,omitempty"`
+	// Extension for Result
+	ResultExt *Element `json:"_result,omitempty"`
 	// The final score (percentage of tests passed) resulting from the execution of the TestScript
 	Score *float64 `json:"score,omitempty"`
+	// Extension for Score
+	ScoreExt *Element `json:"_score,omitempty"`
 	// Name of the tester producing this report (Organization or individual)
 	Tester *string `json:"tester,omitempty"`
+	// Extension for Tester
+	TesterExt *Element `json:"_tester,omitempty"`
 	// When the TestScript was executed and this TestReport was generated
 	Issued *string `json:"issued,omitempty"`
+	// Extension for Issued
+	IssuedExt *Element `json:"_issued,omitempty"`
 	// A participant in the test execution, either the execution engine, a client, or a server
 	Participant []BackboneElement `json:"participant,omitempty"`
 	// The results of the series of required setup operations before the tests were executed
@@ -8628,8 +10792,12 @@ type TestScript struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8640,34 +10808,56 @@ type TestScript struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this test script, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the test script
 	Identifier *Identifier `json:"identifier,omitempty"`
 	// Business version of the test script
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this test script (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this test script (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the test script
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for test script (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Why this test script is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// An abstract server representing a client or sender in a message exchange
 	Origin []BackboneElement `json:"origin,omitempty"`
 	// An abstract server representing a destination or receiver in a message exchange
@@ -8701,8 +10891,12 @@ type ValueSet struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8713,36 +10907,60 @@ type ValueSet struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Canonical identifier for this value set, represented as a URI (globally unique)
 	Url *string `json:"url,omitempty"`
+	// Extension for Url
+	UrlExt *Element `json:"_url,omitempty"`
 	// Additional identifier for the value set (business identifier)
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Business version of the value set
 	Version *string `json:"version,omitempty"`
+	// Extension for Version
+	VersionExt *Element `json:"_version,omitempty"`
 	// Name for this value set (computer friendly)
 	Name *string `json:"name,omitempty"`
+	// Extension for Name
+	NameExt *Element `json:"_name,omitempty"`
 	// Name for this value set (human friendly)
 	Title *string `json:"title,omitempty"`
+	// Extension for Title
+	TitleExt *Element `json:"_title,omitempty"`
 	// draft | active | retired | unknown
-	Status *string `json:"status,omitempty"`
+	Status *PublicationStatus `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// For testing purposes, not real usage
 	Experimental *bool `json:"experimental,omitempty"`
+	// Extension for Experimental
+	ExperimentalExt *Element `json:"_experimental,omitempty"`
 	// Date last changed
 	Date *string `json:"date,omitempty"`
+	// Extension for Date
+	DateExt *Element `json:"_date,omitempty"`
 	// Name of the publisher (organization or individual)
 	Publisher *string `json:"publisher,omitempty"`
+	// Extension for Publisher
+	PublisherExt *Element `json:"_publisher,omitempty"`
 	// Contact details for the publisher
 	Contact []ContactDetail `json:"contact,omitempty"`
 	// Natural language description of the value set
 	Description *string `json:"description,omitempty"`
+	// Extension for Description
+	DescriptionExt *Element `json:"_description,omitempty"`
 	// The context that the content is intended to support
 	UseContext []UsageContext `json:"useContext,omitempty"`
 	// Intended jurisdiction for value set (if applicable)
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Indicates whether or not any change to the content logical definition may occur
 	Immutable *bool `json:"immutable,omitempty"`
+	// Extension for Immutable
+	ImmutableExt *Element `json:"_immutable,omitempty"`
 	// Why this value set is defined
 	Purpose *string `json:"purpose,omitempty"`
+	// Extension for Purpose
+	PurposeExt *Element `json:"_purpose,omitempty"`
 	// Use and/or publishing restrictions
 	Copyright *string `json:"copyright,omitempty"`
+	// Extension for Copyright
+	CopyrightExt *Element `json:"_copyright,omitempty"`
 	// Content logical definition of the value set (CLD)
 	Compose *BackboneElement `json:"compose,omitempty"`
 	// Used when the value set is "expanded"
@@ -8762,8 +10980,12 @@ type VerificationResult struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8776,12 +10998,18 @@ type VerificationResult struct {
 	Target []Reference `json:"target,omitempty"`
 	// The fhirpath location(s) within the resource that was validated
 	TargetLocation []string `json:"targetLocation,omitempty"`
+	// Extension for TargetLocation
+	TargetLocationExt []Element `json:"_targetLocation,omitempty"`
 	// none | initial | periodic
 	Need *CodeableConcept `json:"need,omitempty"`
 	// attested | validated | in-process | req-revalid | val-fail | reval-fail
-	Status *string `json:"status,omitempty"`
+	Status *Status `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// When the validation status was updated
 	StatusDate *string `json:"statusDate,omitempty"`
+	// Extension for StatusDate
+	StatusDateExt *Element `json:"_statusDate,omitempty"`
 	// nothing | primary | multiple
 	ValidationType *CodeableConcept `json:"validationType,omitempty"`
 	// The primary process by which the target is validated (edit check; value set; primary source; multiple sources; standalone; in context)
@@ -8790,8 +11018,12 @@ type VerificationResult struct {
 	Frequency *Timing `json:"frequency,omitempty"`
 	// The date/time validation was last completed (including failed validations)
 	LastPerformed *string `json:"lastPerformed,omitempty"`
+	// Extension for LastPerformed
+	LastPerformedExt *Element `json:"_lastPerformed,omitempty"`
 	// The date when target is next validated, if appropriate
 	NextScheduled *string `json:"nextScheduled,omitempty"`
+	// Extension for NextScheduled
+	NextScheduledExt *Element `json:"_nextScheduled,omitempty"`
 	// fatal | warn | rec-only | none
 	FailureAction *CodeableConcept `json:"failureAction,omitempty"`
 	// Information about the primary source(s) involved in validation
@@ -8815,8 +11047,12 @@ type VisionPrescription struct {
 	Meta *Meta `json:"meta,omitempty"`
 	// A set of rules under which this content was created
 	ImplicitRules *string `json:"implicitRules,omitempty"`
+	// Extension for ImplicitRules
+	ImplicitRulesExt *Element `json:"_implicitRules,omitempty"`
 	// Language of the resource content
 	Language *string `json:"language,omitempty"`
+	// Extension for Language
+	LanguageExt *Element `json:"_language,omitempty"`
 	// Text summary of the resource, for human interpretation
 	Text *Narrative `json:"text,omitempty"`
 	// Contained, inline Resources
@@ -8828,15 +11064,21 @@ type VisionPrescription struct {
 	// Business Identifier for vision prescription
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// active | cancelled | draft | entered-in-error
-	Status *string `json:"status,omitempty"`
+	Status *FinancialResourceStatusCodes `json:"status,omitempty"`
+	// Extension for Status
+	StatusExt *Element `json:"_status,omitempty"`
 	// Response creation date
 	Created *string `json:"created,omitempty"`
+	// Extension for Created
+	CreatedExt *Element `json:"_created,omitempty"`
 	// Who prescription is for
 	Patient Reference `json:"patient"`
 	// Created during encounter / admission / stay
 	Encounter *Reference `json:"encounter,omitempty"`
 	// When prescription was authorized
 	DateWritten *string `json:"dateWritten,omitempty"`
+	// Extension for DateWritten
+	DateWrittenExt *Element `json:"_dateWritten,omitempty"`
 	// Who authorized the vision prescription
 	Prescriber Reference `json:"prescriber"`
 	// Vision lens authorization

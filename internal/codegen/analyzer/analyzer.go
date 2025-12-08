@@ -11,18 +11,24 @@ import (
 
 // Analyzer processes StructureDefinitions and produces analyzed types for code generation.
 type Analyzer struct {
-	definitions map[string]*parser.StructureDefinition
+	definitions  map[string]*parser.StructureDefinition
+	valueSets    *parser.ValueSetRegistry
+	UsedBindings map[string]bool // Track which bindings are used (exported for generator)
 }
 
-// NewAnalyzer creates a new Analyzer with the given StructureDefinitions.
-func NewAnalyzer(definitions []*parser.StructureDefinition) *Analyzer {
+// NewAnalyzer creates a new Analyzer with the given StructureDefinitions and ValueSets.
+func NewAnalyzer(definitions []*parser.StructureDefinition, valueSets *parser.ValueSetRegistry) *Analyzer {
 	defMap := make(map[string]*parser.StructureDefinition)
 	for _, sd := range definitions {
 		defMap[sd.URL] = sd
 		defMap[sd.Name] = sd
 		defMap[sd.Type] = sd
 	}
-	return &Analyzer{definitions: defMap}
+	return &Analyzer{
+		definitions:  defMap,
+		valueSets:    valueSets,
+		UsedBindings: make(map[string]bool),
+	}
 }
 
 // AnalyzedType represents a fully analyzed type ready for code generation.
@@ -271,7 +277,8 @@ func (a *Analyzer) createProperty(elem *parser.ElementDefinition, fieldName stri
 	// - Complex types are always pointers when optional
 	isPointer := !isArray && (elem.Min == 0 || isPrimitive)
 
-	goType := a.resolveGoType(typeName, isPointer, isArray)
+	// Check for required binding with code type - use custom type
+	goType := a.resolveGoTypeWithBinding(typeName, isPointer, isArray, elem.Binding)
 
 	prop := AnalyzedProperty{
 		Name:         toGoFieldName(fieldName),
@@ -295,6 +302,69 @@ func (a *Analyzer) createProperty(elem *parser.ElementDefinition, fieldName stri
 	}
 
 	return prop
+}
+
+// resolveGoTypeWithBinding resolves Go type, using custom types for required bindings.
+func (a *Analyzer) resolveGoTypeWithBinding(fhirType string, isPointer, isArray bool, binding *parser.Binding) string {
+	// Only apply custom types for code fields with required binding
+	if fhirType == "code" && binding != nil && binding.Strength == "required" {
+		if vs := a.getValueSetForBinding(binding.ValueSet); vs != nil {
+			// Track that this binding is used
+			a.UsedBindings[binding.ValueSet] = true
+
+			// Sanitize the type name to match what generator produces
+			customType := sanitizeTypeName(vs.Name)
+			if isArray {
+				return "[]" + customType
+			}
+			if isPointer {
+				return "*" + customType
+			}
+			return customType
+		}
+	}
+
+	return a.resolveGoType(fhirType, isPointer, isArray)
+}
+
+// sanitizeTypeName converts a ValueSet name to a valid Go type name.
+func sanitizeTypeName(name string) string {
+	// Remove/replace invalid characters
+	name = strings.ReplaceAll(name, " ", "")
+	name = strings.ReplaceAll(name, "-", "")
+	name = strings.ReplaceAll(name, "_", "")
+	name = strings.ReplaceAll(name, ".", "")
+	name = strings.ReplaceAll(name, "(", "")
+	name = strings.ReplaceAll(name, ")", "")
+	name = strings.ReplaceAll(name, "/", "")
+
+	// Ensure first character is uppercase
+	if len(name) > 0 {
+		runes := []rune(name)
+		runes[0] = unicode.ToUpper(runes[0])
+		name = string(runes)
+	}
+
+	return name
+}
+
+// getValueSetForBinding retrieves and validates a ValueSet for use as a Go type.
+func (a *Analyzer) getValueSetForBinding(url string) *parser.ParsedValueSet {
+	if a.valueSets == nil {
+		return nil
+	}
+
+	vs := a.valueSets.Get(url)
+	if vs == nil || len(vs.Codes) == 0 {
+		return nil
+	}
+
+	// Skip very large value sets (like all-types, mimetypes)
+	if len(vs.Codes) > 100 {
+		return nil
+	}
+
+	return vs
 }
 
 // resolveGoType converts a FHIR type to a Go type string.
