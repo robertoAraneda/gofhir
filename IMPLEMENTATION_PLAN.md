@@ -86,11 +86,13 @@ coding := &r4.Coding{}
 - [x] GitHub Actions workflow para tests
 - [x] GitHub Actions workflow para linting
 - [x] Configurar codecov para cobertura
+- [x] golangci-lint compliance (zero issues) ✅
 
 ### Entregables
 - Repositorio inicializado con estructura base
 - Specs FHIR descargadas
 - CI/CD funcionando
+- Linting compliance verificado
 
 ---
 
@@ -852,7 +854,7 @@ func GetResourceType(data []byte) (string, error) {
 
 ---
 
-## Sprint 4: Builders Generados (2 semanas)
+## Sprint 4: Builders Generados (2 semanas) - ✅ COMPLETADO
 
 ### Objetivos
 - Generar Builders automaticamente para todos los tipos
@@ -1064,6 +1066,7 @@ var (
 - [x] Crear helpers para categorias de Observation - COMPLETADO
 - [x] Crear helpers para IPS section codes - COMPLETADO
 - [x] Crear helpers para document types (IPS, CCD, Discharge, etc.) - COMPLETADO
+- [x] Crear clinical helpers para R4B y R5 - COMPLETADO
 - [ ] Crear helpers para identifier types comunes - OPTIONAL (para futuro)
 
 ### Tests Sprint 4
@@ -1086,6 +1089,8 @@ var (
   - `ucum.go` - Funciones para Quantity con UCUM
   - `categories.go` - Categorías (Observation, Condition, Allergy, Document types)
   - `helpers_test.go` - Tests completos
+- [x] `pkg/fhir/r4b/helpers/` - helpers clínicos para R4B
+- [x] `pkg/fhir/r5/helpers/` - helpers clínicos para R5
 
 ---
 
@@ -1285,7 +1290,7 @@ gofhir fhirpath "Observation.value.ofType(Quantity).value" --json obs.json
 
 ---
 
-## Sprint 6: Sistema de Validacion (3 semanas)
+## Sprint 6: Sistema de Validacion (3 semanas) - 🚧 EN PROGRESO
 
 ### Objetivos
 - Implementar validador estructural
@@ -1293,344 +1298,252 @@ gofhir fhirpath "Observation.value.ofType(Quantity).value" --json obs.json
 - Implementar validacion de primitivos
 - **Definir interfaces para testing/mocking**
 
-### Tareas
+### Implementación Realizada
 
-#### 6.0 Interfaces para Testing y Extensibilidad
+Se implementó un sistema de validación dinámico basado en StructureDefinitions que:
+- Carga specs desde archivos JSON oficiales de FHIR
+- Usa modelos version-agnósticos (funciona con R4, R4B, R5)
+- Evalúa constraints FHIRPath dinámicamente a cualquier nivel
+- Soporta carga de Implementation Guides personalizados
+
+#### 6.0 Interfaces para Testing y Extensibilidad - ✅ COMPLETADO
 
 ```go
-// pkg/validator/interfaces.go - MANUAL
-package validator
-
-import "context"
-
-// ReferenceResolver permite mockear resolucion de referencias externas
-// Util para tests y para implementaciones de servidor FHIR
+// pkg/validator/interfaces.go
 type ReferenceResolver interface {
     Resolve(ctx context.Context, reference string) (interface{}, error)
 }
 
-// TerminologyService permite mockear validacion de terminologia
-// Implementaciones: LocalTerminology, RemoteTerminology (tx.fhir.org)
 type TerminologyService interface {
     ValidateCode(ctx context.Context, system, code string, valueSetURL string) (bool, error)
-    ExpandValueSet(ctx context.Context, valueSetURL string) ([]string, error)
+    ExpandValueSet(ctx context.Context, valueSetURL string) ([]CodeInfo, error)
     LookupCode(ctx context.Context, system, code string) (*CodeInfo, error)
 }
 
-// CodeInfo contiene informacion de un codigo
-type CodeInfo struct {
-    System  string
-    Code    string
-    Display string
-    Active  bool
-}
-
-// StructureDefinitionProvider permite cargar SDs desde diferentes fuentes
 type StructureDefinitionProvider interface {
-    Get(ctx context.Context, url string) (*StructureDefinition, error)
+    Get(ctx context.Context, url string) (*StructureDef, error)
+    GetByType(ctx context.Context, resourceType string) (*StructureDef, error)
     List(ctx context.Context) ([]string, error)
 }
-
-// NoopReferenceResolver no resuelve nada (para validacion local)
-type NoopReferenceResolver struct{}
-
-func (n *NoopReferenceResolver) Resolve(ctx context.Context, ref string) (interface{}, error) {
-    return nil, nil // No error, simplemente no resuelve
-}
-
-// LocalTerminologyService valida contra ValueSets embebidos
-type LocalTerminologyService struct {
-    valueSets map[string]*ValueSet
-}
-
-func NewLocalTerminologyService() *LocalTerminologyService
-func (l *LocalTerminologyService) LoadValueSet(vs *ValueSet) error
 ```
 
-- [ ] Definir interface ReferenceResolver
-- [ ] Definir interface TerminologyService
-- [ ] Definir interface StructureDefinitionProvider
-- [ ] Implementar NoopReferenceResolver
-- [ ] Implementar LocalTerminologyService
+- [x] Definir interface ReferenceResolver
+- [x] Definir interface TerminologyService
+- [x] Definir interface StructureDefinitionProvider
+- [x] Definir CodeInfo struct
+- [ ] Implementar NoopReferenceResolver - DEFERRED
+- [ ] Implementar LocalTerminologyService - DEFERRED
 
-#### 6.1 Registry de Especificaciones
+#### 6.1 Registry de Especificaciones - ✅ COMPLETADO
+
 ```go
 // pkg/validator/registry.go
-package validator
-
-type SpecRegistry struct {
-    structureDefinitions map[string]*StructureDefinition
-    valueSets           map[string]*ValueSet
-    codeSystems         map[string]*CodeSystem
-    version             string
-    mu                  sync.RWMutex
+type Registry struct {
+    version     FHIRVersion
+    definitions map[string]*StructureDef  // by URL
+    byType      map[string]*StructureDef  // by resource type
+    mu          sync.RWMutex
 }
 
-func NewSpecRegistry(version string) (*SpecRegistry, error)
-func (r *SpecRegistry) GetStructureDefinition(name string) (*StructureDefinition, error)
-func (r *SpecRegistry) GetValueSet(url string) (*ValueSet, error)
-func (r *SpecRegistry) GetCodeSystem(url string) (*CodeSystem, error)
-func (r *SpecRegistry) LoadImplementationGuide(path string) error
+func NewRegistry(version FHIRVersion) *Registry
+func (r *Registry) LoadFromFile(path string) (int, error)
+func (r *Registry) Get(url string) (*StructureDef, bool)
+func (r *Registry) GetByType(resourceType string) (*StructureDef, bool)
+func (r *Registry) List() []string
+func (r *Registry) Count() int
 ```
 
-- [ ] Implementar carga lazy de specs
-- [ ] Implementar cache de specs cargadas
-- [ ] Implementar resolucion de URLs canonicas
-- [ ] Implementar carga de IGs personalizados
+- [x] Implementar carga desde Bundle JSON (profiles-resources.json, profiles-types.json)
+- [x] Implementar cache thread-safe con sync.RWMutex
+- [x] Implementar lookup por URL y por resourceType
+- [x] Implementar soporte para IGs personalizados (via LoadFromFile)
+- [x] Parseo de StructureDefinition a modelo version-agnóstico
 
-#### 6.2 Validador Principal
+**Resultados de tests:**
+- R4: 149 resources + 63 types cargados exitosamente
+
+#### 6.2 Modelos Version-Agnósticos - ✅ COMPLETADO
+
+```go
+// pkg/validator/models.go
+type StructureDef struct {
+    URL, Name, Type, Kind string
+    Abstract bool
+    BaseDefinition, FHIRVersion string
+    Snapshot, Differential []ElementDef
+}
+
+type ElementDef struct {
+    ID, Path, SliceName string
+    Min int
+    Max string
+    Types []TypeRef
+    Binding *ElementBinding
+    Constraints []ElementConstraint
+    Fixed, Pattern interface{}
+    // ...
+}
+
+type ValidationResult struct {
+    Valid  bool
+    Issues []ValidationIssue
+}
+```
+
+- [x] Modelo StructureDef (compatible R4/R4B/R5)
+- [x] Modelo ElementDef con todos los campos necesarios
+- [x] Modelo ValidationResult con Issues
+- [x] Severities y IssueCodes según FHIR spec
+
+#### 6.3 Validador Principal - ✅ COMPLETADO
+
 ```go
 // pkg/validator/validator.go
-package validator
-
 type ValidatorOptions struct {
-    FHIRVersion          string
-    ValidateConstraints  bool
-    ValidateTerminology  bool
-    ValidateReferences   bool
-    ErrorOnWarning       bool
-    TerminologyServer    string
-    MaxErrors            int
+    ValidateConstraints bool
+    StrictMode         bool
+    MaxErrors          int
+    Profile            string
 }
 
-type FHIRValidator struct {
-    options      *ValidatorOptions
-    specRegistry *SpecRegistry
-    validators   []SubValidator
-    fhirpath     *fhirpath.Compiler
+type Validator struct {
+    registry *Registry
+    options  ValidatorOptions
 }
 
-type SubValidator interface {
-    Validate(ctx context.Context, vctx *ValidationContext) ([]Issue, error)
-}
-
-type ValidationContext struct {
-    Resource        interface{}
-    ResourceType    string
-    StructureDef    *StructureDefinition
-    Path            string
-    SpecRegistry    *SpecRegistry
-    FHIRVersion     string
-}
-
-func NewValidator(options *ValidatorOptions) (*FHIRValidator, error)
-func (v *FHIRValidator) Validate(ctx context.Context, resource interface{}) (*OperationOutcome, error)
-func (v *FHIRValidator) ValidateBundle(ctx context.Context, bundle interface{}) (*OperationOutcome, error)
+func NewValidator(registry *Registry, options ValidatorOptions) *Validator
+func (v *Validator) Validate(ctx context.Context, resource []byte) (*ValidationResult, error)
 ```
 
-- [ ] Implementar orquestador de validacion
-- [ ] Implementar contexto de validacion
-- [ ] Implementar agregacion de issues
+- [x] Implementar orquestador de validación
+- [x] Implementar contexto de validación
+- [x] Implementar agregación de issues
+- [x] Soporte para validación contra profile específico
 
-#### 6.3 OperationOutcome
+#### 6.4 Validador Estructural - ✅ COMPLETADO
+
+- [x] Validación de campos requeridos (min >= 1)
+- [x] Validación de cardinalidad máxima
+- [x] Validación de campos desconocidos
+- [x] Validación de tipos primitivos (boolean, string, integer, etc.)
+- [x] Soporte para choice types (value[x])
+- [x] Soporte para tipos complejos anidados (HumanName, CodeableConcept, Quantity, etc.)
+
+**Implementación clave - findElementDef:**
 ```go
-// pkg/validator/outcome.go
-package validator
-
-type Severity string
-const (
-    SeverityFatal       Severity = "fatal"
-    SeverityError       Severity = "error"
-    SeverityWarning     Severity = "warning"
-    SeverityInformation Severity = "information"
-)
-
-type IssueCode string
-const (
-    CodeInvalid      IssueCode = "invalid"
-    CodeStructure    IssueCode = "structure"
-    CodeRequired     IssueCode = "required"
-    CodeValue        IssueCode = "value"
-    CodeInvariant    IssueCode = "invariant"
-    CodeCodeInvalid  IssueCode = "code-invalid"
-    // ...
-)
-
-type Issue struct {
-    Severity    Severity
-    Code        IssueCode
-    Diagnostics string
-    Location    []string
-    Expression  []string
-}
-
-type OperationOutcome struct {
-    ResourceType string  `json:"resourceType"`
-    Issues       []Issue `json:"issue"`
-}
-
-func NewOperationOutcome() *OperationOutcome
-func (o *OperationOutcome) AddIssue(severity Severity, code IssueCode, msg string, path []string)
-func (o *OperationOutcome) HasErrors() bool
-func (o *OperationOutcome) IsSuccess() bool
-func (o *OperationOutcome) ErrorCount() int
-```
-
-- [ ] Implementar struct OperationOutcome
-- [ ] Implementar todos los severity levels
-- [ ] Implementar todos los issue codes FHIR
-- [ ] Implementar metodos de conveniencia
-
-#### 6.4 Validador Estructural
-```go
-// pkg/validator/validators/structure.go
-package validators
-
-type StructureValidator struct {
-    registry *SpecRegistry
-}
-
-func NewStructureValidator(registry *SpecRegistry) *StructureValidator
-
-func (v *StructureValidator) Validate(ctx context.Context, vctx *ValidationContext) ([]Issue, error) {
-    // Validar:
-    // - Campos requeridos presentes (min >= 1)
-    // - Cardinalidad maxima respetada (max)
-    // - Solo campos definidos presentes
-    // - Tipos correctos
+func (v *Validator) findElementDef(index elementIndex, path, basePath string) *ElementDef {
+    // 1. Búsqueda directa
+    // 2. Manejo de choice types (Patient.deceasedBoolean → Patient.deceased[x])
+    // 3. Manejo de tipos complejos anidados (Patient.name.family → HumanName.family)
 }
 ```
 
-- [ ] Implementar validacion de campos requeridos
-- [ ] Implementar validacion de cardinalidad
-- [ ] Implementar validacion de campos desconocidos
-- [ ] Implementar validacion de tipos
+#### 6.5 Validador de Primitivos - ✅ COMPLETADO
 
-#### 6.5 Validador de Primitivos
+- [x] Validación de tipos JSON (boolean, number, string, array, object)
+- [x] Validación de tipos esperados según StructureDefinition
+- [x] Mensajes de error descriptivos con path
+
+#### 6.6 Validador de Constraints (FHIRPath) - ✅ COMPLETADO
+
 ```go
-// pkg/validator/validators/primitive.go
-package validators
-
-type PrimitiveValidator struct {
-    patterns map[string]*regexp.Regexp
-}
-
-func NewPrimitiveValidator() *PrimitiveValidator
-
-var primitivePatterns = map[string]string{
-    "id":           `^[A-Za-z0-9\-\.]{1,64}$`,
-    "uri":          `^\S*$`,
-    "url":          `^\S*$`,
-    "canonical":    `^\S*$`,
-    "code":         `^[^\s]+(\s[^\s]+)*$`,
-    "oid":          `^urn:oid:[0-2](\.(0|[1-9][0-9]*))+$`,
-    "uuid":         `^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`,
-    "date":         `^([0-9]{4})(-[0-9]{2}(-[0-9]{2})?)?$`,
-    "dateTime":     `...regex complejo...`,
-    "time":         `^([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?$`,
-    "instant":      `...regex complejo...`,
-    "base64Binary": `^[A-Za-z0-9+/]*={0,2}$`,
-    "positiveInt":  `^[1-9][0-9]*$`,
-    "unsignedInt":  `^[0-9]+$`,
-}
-
-func (v *PrimitiveValidator) Validate(ctx context.Context, vctx *ValidationContext) ([]Issue, error)
-```
-
-- [ ] Implementar patrones regex para todos los primitivos
-- [ ] Implementar validacion recursiva
-- [ ] Implementar mensajes de error claros
-
-#### 6.6 Validador de Constraints (FHIRPath)
-```go
-// pkg/validator/validators/constraint.go
-package validators
-
-type ConstraintValidator struct {
-    registry *SpecRegistry
-    compiler *fhirpath.Compiler
-}
-
-type Constraint struct {
-    Key        string
-    Severity   string
-    Human      string
-    Expression string
-    Context    string
-}
-
-func NewConstraintValidator(registry *SpecRegistry) *ConstraintValidator
-
-func (v *ConstraintValidator) Validate(ctx context.Context, vctx *ValidationContext) ([]Issue, error) {
-    constraints := v.extractConstraints(vctx.StructureDef)
-
-    for _, c := range constraints {
-        result, err := v.evaluate(c.Expression, vctx.Resource)
-        if err != nil {
-            // Warning: error evaluando constraint
-        }
-        if !result {
-            // Error o warning segun c.Severity
+func (v *Validator) validateConstraints(resource []byte, sd *StructureDef, result *ValidationResult) {
+    for _, elem := range sd.Snapshot {
+        for _, constraint := range elem.Constraints {
+            // Evaluar constraint con contexto correcto
+            v.evaluateConstraint(resource, elem.Path, sd.Type, constraint)
         }
     }
 }
+
+func (v *Validator) evaluateConstraint(resource []byte, elementPath, resourceType string, constraint ElementConstraint) (bool, error) {
+    // Para constraints a nivel de elemento, wrappear con .all()
+    // Ejemplo: Patient.contact con constraint "name.exists()"
+    // Se evalúa como: contact.all(name.exists())
+    fullExpr := constraint.Expression
+    if elementPath != resourceType {
+        relativePath := strings.TrimPrefix(elementPath, resourceType+".")
+        fullExpr = fmt.Sprintf("%s.all(%s)", relativePath, constraint.Expression)
+    }
+    // Compilar y evaluar FHIRPath
+}
 ```
 
-- [ ] Implementar extraccion de constraints de StructureDefinition
-- [ ] Implementar evaluacion de constraints
-- [ ] Implementar manejo de errores de evaluacion
-- [ ] Implementar contexto correcto ($this, etc)
+- [x] Extracción de constraints de StructureDefinition
+- [x] Evaluación dinámica de expresiones FHIRPath
+- [x] Contexto correcto para constraints a nivel de elemento (wrapping con .all())
+- [x] Manejo de errores de evaluación
+- [x] Soporte para severity (error vs warning)
 
-#### 6.7 Validador de Referencias
+**Test de constraint pat-1:**
 ```go
-// pkg/validator/validators/reference.go
-package validators
-
-type ReferenceValidator struct {
-    registry *SpecRegistry
-}
-
-func NewReferenceValidator(registry *SpecRegistry) *ReferenceValidator
-
-func (v *ReferenceValidator) Validate(ctx context.Context, vctx *ValidationContext) ([]Issue, error) {
-    // Validar:
-    // - Formato de referencia correcto
-    // - Tipo de recurso referenciado permitido
-    // - Referencias internas resolvibles (contained, Bundle)
-}
+// Patient.contact requiere name OR telecom OR address OR organization OR period
+// Constraint: name.exists() or telecom.exists() or address.exists() or organization.exists() or period.exists()
+// ✅ Detecta correctamente violación cuando contact solo tiene relationship
 ```
 
-- [ ] Implementar validacion de formato de referencia
-- [ ] Implementar validacion de tipos permitidos
-- [ ] Implementar validacion de referencias contenidas
+#### 6.7 Validador de Referencias - ✅ COMPLETADO
 
-#### 6.8 Validador de Extensiones
 ```go
-// pkg/validator/validators/extension.go
-package validators
-
-type ExtensionValidator struct {
-    registry *SpecRegistry
+// pkg/validator/reference.go
+func ParseReference(ref string) *ParsedReference {
+    // Soporta: relative (Patient/123), absolute (http://server/Patient/123),
+    // contained (#id), urn:uuid, urn:oid, canonical URLs
 }
 
-func NewExtensionValidator(registry *SpecRegistry) *ExtensionValidator
-
-func (v *ExtensionValidator) Validate(ctx context.Context, vctx *ValidationContext) ([]Issue, error) {
-    // Validar:
-    // - URL de extension valida
-    // - StructureDefinition de extension existe (si conocida)
-    // - Tipo de valor correcto
-    // - Contexto de uso correcto
+func (v *Validator) validateReferences(ctx context.Context, vctx *validationContext, result *ValidationResult) {
+    // 1. Extrae IDs de recursos contenidos
+    // 2. Valida recursivamente todas las referencias
+    // 3. Verifica formato, existencia de contenidos, tipos permitidos
 }
 ```
 
-- [ ] Implementar validacion de URLs de extension
-- [ ] Implementar validacion contra StructureDefinition
-- [ ] Implementar validacion de contexto
+- [x] Implementar ParseReference con soporte para todos los formatos FHIR
+- [x] Implementar validación de formato de referencia (regex patterns)
+- [x] Implementar validación de referencias contenidas (#id)
+- [x] Implementar validación de tipos permitidos (targetProfile)
+- [x] Implementar extracción de ResourceType desde profile URLs
+- [x] Tests completos (TestParseReference, TestValidateReferences_*)
 
-### Tests Sprint 6
-- [ ] Tests de validacion estructural
-- [ ] Tests de validacion de primitivos
-- [ ] Tests de constraints FHIRPath
-- [ ] Tests con recursos validos e invalidos
-- [ ] Tests con recursos FHIR de ejemplo oficiales
-- [ ] Benchmarks de validacion
+#### 6.8 Validador de Extensiones - 🔲 PENDIENTE
 
-### Entregables
-- Package `pkg/validator` completo
-- Validadores: estructura, primitivos, constraints, referencias, extensiones
-- OperationOutcome completo
-- 90%+ cobertura de tests
+- [ ] Implementar validación de URLs de extensión
+- [ ] Implementar validación contra StructureDefinition
+- [ ] Implementar validación de contexto
+
+### Tests Sprint 6 - ✅ COMPLETADO (21 tests)
+- [x] Tests de validación estructural (TestValidateSimplePatient, TestValidateObservation)
+- [x] Tests de validación de primitivos (TestValidateInvalidPrimitiveType)
+- [x] Tests de constraints FHIRPath (TestValidateConstraintViolation, TestValidateConstraintPass)
+- [x] Tests con recursos válidos e inválidos
+- [x] Tests de cardinalidad (TestValidateCardinalityExceeded)
+- [x] Tests de recursos desconocidos (TestValidateUnknownResourceType)
+- [x] Tests de JSON inválido (TestValidateInvalidJSON)
+- [x] Tests con profile específico (TestValidateWithProfile)
+- [x] Benchmark de validación (BenchmarkValidatePatient)
+- [x] Tests de referencias (TestParseReference, TestValidateReferences_ContainedResources, TestValidateReferences_RelativeReferences)
+- [x] Tests de helpers de referencias (TestExtractResourceTypeFromProfile, TestPathWithoutArrayIndices)
+
+**Archivos creados:**
+- `pkg/validator/interfaces.go` - Interfaces para extensibilidad
+- `pkg/validator/models.go` - Modelos version-agnósticos
+- `pkg/validator/registry.go` - Carga de StructureDefinitions
+- `pkg/validator/registry_test.go` - Tests del registry
+- `pkg/validator/validator.go` - Validador principal
+- `pkg/validator/validator_test.go` - Tests del validador
+- `pkg/validator/reference.go` - Validador de referencias FHIR
+- `pkg/validator/reference_test.go` - Tests del validador de referencias
+
+### Entregables Sprint 6
+- [x] Package `pkg/validator` con validación dinámica basada en StructureDefinitions
+- [x] Interfaces para testing/mocking (ReferenceResolver, TerminologyService, StructureDefinitionProvider)
+- [x] Registry para cargar specs de cualquier versión FHIR
+- [x] Validador estructural (cardinality, required fields, unknown elements)
+- [x] Validador de primitivos
+- [x] Validador de constraints FHIRPath (dinámico, cualquier nivel)
+- [x] Validador de referencias (formato, contenidos, tipos permitidos)
+- [ ] Validador de extensiones - PENDIENTE
+- [ ] Validador de terminología - PENDIENTE (Sprint 7)
 
 ---
 
@@ -1862,50 +1775,44 @@ docs/
 - [ ] Documentar Validacion
 - [ ] Crear ejemplos completos
 
-#### 8.5 Examples
-```go
-// examples/basic/main.go
-package main
+#### 8.5 Examples - ✅ COMPLETADO
 
-import (
-    "encoding/json"
-    "fmt"
+Se crearon ejemplos funcionales en el directorio `examples/`:
 
-    "github.com/robertoaraneda/gofhir/pkg/common"
-    "github.com/robertoaraneda/gofhir/pkg/fhir/r4"
-)
-
-func main() {
-    // Crear paciente usando builder (API fluida)
-    patient := r4.NewPatientBuilder().
-        SetID("example-001").
-        SetActive(true).
-        AddName(r4.HumanName{
-            Family: common.String("Garcia"),
-            Given:  []string{"Maria"},
-        }).
-        SetGender(r4.AdministrativeGenderFemale).
-        SetBirthDate("1985-03-15").
-        Build()
-
-    // Serializar a JSON (stdlib, no metodo custom)
-    data, _ := json.MarshalIndent(patient, "", "  ")
-    fmt.Println(string(data))
-
-    // Clonar paciente (funcion generica)
-    patient2 := common.Clone(patient)
-    patient2.ID = common.String("example-002")
-
-    // Acceso directo a campos (no getters)
-    fmt.Printf("Patient ID: %s\n", *patient.ID)
-    fmt.Printf("Patient Active: %v\n", *patient.Active)
-}
+```text
+examples/
+├── fhir_structs/main.go   # Uso de tipos FHIR generados
+├── fhirpath/main.go       # Evaluación de expresiones FHIRPath
+└── validator/main.go      # Validación de recursos FHIR
 ```
 
-- [ ] Crear ejemplo basico
-- [ ] Crear ejemplo de builders
-- [ ] Crear ejemplo de validacion
-- [ ] Crear ejemplo de FHIRPath
+- [x] Crear ejemplo de tipos FHIR (`examples/fhir_structs/`) - Demuestra:
+  - Creación de Patient con builders fluent
+  - Uso de functional options
+  - Creación de Observation con Quantity
+  - Serialización JSON
+  - Deserialización con UnmarshalResource
+  - Uso de helpers clínicos (LOINC, UCUM)
+
+- [x] Crear ejemplo de FHIRPath (`examples/fhirpath/`) - Demuestra:
+  - Evaluación básica de expresiones
+  - Funciones de string, math, existencia
+  - Navegación de estructuras complejas
+  - Uso de cache de expresiones
+  - Evaluación con variables externas
+  - Validación con expresiones FHIRPath
+
+- [x] Crear ejemplo de validación (`examples/validator/`) - Demuestra:
+  - Setup del validador con Registry
+  - Validación de Patient válido
+  - Detección de errores estructurales
+  - Validación de tipos primitivos
+  - Detección de violaciones de constraints FHIRPath
+  - Validación de Observation
+  - Opciones de validación (strict mode, max errors)
+  - Validación en batch
+  - Análisis de resultados de validación
+
 - [ ] Crear ejemplo de Bundle
 
 ### Tests Sprint 8
@@ -1945,6 +1852,7 @@ func main() {
 - Zero panics en uso normal
 - Errores descriptivos con paths
 - API consistente e idiomatica
+- ✅ golangci-lint zero issues (37 linters habilitados)
 
 ---
 

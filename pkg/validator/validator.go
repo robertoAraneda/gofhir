@@ -801,11 +801,7 @@ func (v *Validator) validateTerminology(ctx context.Context, vctx *validationCon
 	// For each element with a binding, validate the code against the ValueSet
 }
 
-// validateReferences validates resource references.
-func (v *Validator) validateReferences(ctx context.Context, vctx *validationContext, result *ValidationResult) {
-	// TODO: Implement reference validation using refResolver
-	// For each Reference element, validate that the reference can be resolved
-}
+// validateReferences is implemented in reference.go
 
 // Helper functions
 
