@@ -178,7 +178,6 @@ func (c *CodeGen) Generate() error {
 	return nil
 }
 
-
 // sanitizeTypeName converts a ValueSet name to a valid Go type name.
 func sanitizeTypeName(name string) string {
 	// Remove/replace invalid characters
@@ -240,4 +239,3 @@ func toPascalCaseCode(code string) string {
 	}
 	return strings.Join(words, "")
 }
-

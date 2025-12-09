@@ -3,9 +3,10 @@ package r4b_test
 import (
 	"testing"
 
-	"github.com/robertoaraneda/gofhir/pkg/fhir/r4b"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/robertoaraneda/gofhir/pkg/fhir/r4b"
 )
 
 func TestPatientFunctionalOptions(t *testing.T) {

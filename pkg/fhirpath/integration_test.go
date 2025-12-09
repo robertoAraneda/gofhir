@@ -27,11 +27,11 @@ func TestEvaluateJSON(t *testing.T) {
 	}`)
 
 	tests := []struct {
-		name       string
-		expr       string
-		wantCount  int
-		wantFirst  string
-		wantBool   *bool
+		name      string
+		expr      string
+		wantCount int
+		wantFirst string
+		wantBool  *bool
 	}{
 		{
 			name:      "simple path",

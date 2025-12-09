@@ -618,7 +618,7 @@ func TestPoolOptimizations(t *testing.T) {
 	t.Run("collection pool", func(t *testing.T) {
 		c := GetCollection()
 		if c == nil {
-			t.Error("GetCollection should return non-nil")
+			t.Fatal("GetCollection should return non-nil")
 		}
 		*c = append(*c, NewInteger(1))
 		PutCollection(c)
@@ -626,7 +626,7 @@ func TestPoolOptimizations(t *testing.T) {
 		// Get again
 		c2 := GetCollection()
 		if c2 == nil {
-			t.Error("GetCollection should return non-nil")
+			t.Fatal("GetCollection should return non-nil")
 		}
 		// Should be empty after put
 		if len(*c2) != 0 {

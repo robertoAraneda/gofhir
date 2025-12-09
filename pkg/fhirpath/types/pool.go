@@ -16,7 +16,8 @@ var collectionPool = sync.Pool{
 // GetCollection returns a Collection from the pool.
 // The returned collection has length 0 but may have capacity > 0.
 func GetCollection() *Collection {
-	return collectionPool.Get().(*Collection)
+	c := collectionPool.Get().(*Collection)
+	return c
 }
 
 // PutCollection returns a Collection to the pool for reuse.
@@ -32,8 +33,8 @@ func PutCollection(c *Collection) {
 
 // NewCollectionWithCap creates a new Collection with the specified capacity.
 // Use this when you know the expected size to avoid reallocations.
-func NewCollectionWithCap(cap int) Collection {
-	return make(Collection, 0, cap)
+func NewCollectionWithCap(capacity int) Collection {
+	return make(Collection, 0, capacity)
 }
 
 // SingletonCollection creates a collection with a single value.

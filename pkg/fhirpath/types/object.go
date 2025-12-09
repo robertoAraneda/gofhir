@@ -1,6 +1,7 @@
 package types
 
 import (
+	"bytes"
 	"encoding/json"
 	"strings"
 
@@ -33,7 +34,7 @@ func (o *ObjectValue) Type() string {
 // Equal returns true if the JSON data is identical.
 func (o *ObjectValue) Equal(other Value) bool {
 	if ov, ok := other.(*ObjectValue); ok {
-		return string(o.data) == string(ov.data)
+		return bytes.Equal(o.data, ov.data)
 	}
 	return false
 }
@@ -101,6 +102,7 @@ func (o *ObjectValue) GetCollection(field string) Collection {
 // Keys returns all field names in the object.
 func (o *ObjectValue) Keys() []string {
 	var keys []string
+	//nolint:errcheck // ObjectEach only returns errors for non-objects; o.data is always a valid object
 	jsonparser.ObjectEach(o.data, func(key []byte, _ []byte, _ jsonparser.ValueType, _ int) error {
 		keys = append(keys, string(key))
 		return nil
@@ -111,6 +113,7 @@ func (o *ObjectValue) Keys() []string {
 // Children returns a collection of all child values.
 func (o *ObjectValue) Children() Collection {
 	var result Collection
+	//nolint:errcheck // ObjectEach only returns errors for non-objects; o.data is always a valid object
 	jsonparser.ObjectEach(o.data, func(_ []byte, value []byte, dataType jsonparser.ValueType, _ int) error {
 		if dataType == jsonparser.Array {
 			result = append(result, jsonArrayToCollection(value)...)
@@ -140,9 +143,7 @@ func jsonValueToFHIRValue(data []byte, dataType jsonparser.ValueType) Value {
 		s := string(data)
 		// Check if it's an integer
 		if !strings.Contains(s, ".") && !strings.Contains(s, "e") && !strings.Contains(s, "E") {
-			var i int64
-			if _, err := jsonparser.ParseInt(data); err == nil {
-				i, _ = jsonparser.ParseInt(data)
+			if i, err := jsonparser.ParseInt(data); err == nil {
 				return NewInteger(i)
 			}
 		}
@@ -154,7 +155,10 @@ func jsonValueToFHIRValue(data []byte, dataType jsonparser.ValueType) Value {
 		return d
 
 	case jsonparser.Boolean:
-		b, _ := jsonparser.ParseBoolean(data)
+		b, err := jsonparser.ParseBoolean(data)
+		if err != nil {
+			return nil
+		}
 		return NewBoolean(b)
 
 	case jsonparser.Object:
@@ -174,6 +178,7 @@ func jsonValueToFHIRValue(data []byte, dataType jsonparser.ValueType) Value {
 // jsonArrayToCollection converts a JSON array to a Collection.
 func jsonArrayToCollection(data []byte) Collection {
 	var result Collection
+	//nolint:errcheck // ArrayEach only returns errors for non-arrays; data is already validated as array
 	jsonparser.ArrayEach(data, func(value []byte, dataType jsonparser.ValueType, _ int, _ error) {
 		v := jsonValueToFHIRValue(value, dataType)
 		if v != nil {

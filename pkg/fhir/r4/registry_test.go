@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/robertoaraneda/gofhir/pkg/fhir/r4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/robertoaraneda/gofhir/pkg/fhir/r4"
 )
 
 func TestNewResource(t *testing.T) {
@@ -59,11 +60,11 @@ func TestNewResource(t *testing.T) {
 
 func TestUnmarshalResource(t *testing.T) {
 	tests := []struct {
-		name         string
-		json         string
-		wantType     string
-		wantErr      bool
-		errContains  string
+		name        string
+		json        string
+		wantType    string
+		wantErr     bool
+		errContains string
 	}{
 		{
 			name: "Valid Patient",

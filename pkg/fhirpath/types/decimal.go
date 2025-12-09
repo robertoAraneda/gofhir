@@ -7,6 +7,9 @@ import (
 	"github.com/shopspring/decimal"
 )
 
+// TypeNameDecimal is the FHIRPath type name for decimal values.
+const TypeNameDecimal = "Decimal"
+
 // Decimal represents a FHIRPath decimal value with arbitrary precision.
 type Decimal struct {
 	value decimal.Decimal
@@ -47,7 +50,7 @@ func (d Decimal) Value() decimal.Decimal {
 
 // Type returns "Decimal".
 func (d Decimal) Type() string {
-	return "Decimal"
+	return TypeNameDecimal
 }
 
 // Equal returns true if other is numerically equal.
@@ -89,7 +92,7 @@ func (d Decimal) Compare(other Value) (int, error) {
 	case Integer:
 		return d.value.Cmp(decimal.NewFromInt(o.value)), nil
 	}
-	return 0, NewTypeError("Decimal", other.Type(), "comparison")
+	return 0, NewTypeError(TypeNameDecimal, other.Type(), "comparison")
 }
 
 // Add returns the sum of two decimals.

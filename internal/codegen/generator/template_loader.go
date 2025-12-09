@@ -13,7 +13,11 @@ import (
 	"unicode"
 
 	"github.com/robertoaraneda/gofhir/internal/codegen/analyzer"
-	"github.com/robertoaraneda/gofhir/internal/codegen/parser"
+)
+
+// Kind constants for type categorization.
+const (
+	kindResource = "resource"
 )
 
 //go:embed templates/*.tmpl
@@ -169,7 +173,7 @@ func (c *CodeGen) generateDatatypesFromTemplate() error {
 func (c *CodeGen) generateResourcesFromTemplate() error {
 	var resources []*analyzer.AnalyzedType
 	for _, t := range c.types {
-		if t.Kind == "resource" {
+		if t.Kind == kindResource {
 			resources = append(resources, t)
 		}
 	}
@@ -195,7 +199,7 @@ func (c *CodeGen) generateResourcesFromTemplate() error {
 func (c *CodeGen) generateRegistryFromTemplate() error {
 	var resourceNames []string
 	for _, t := range c.types {
-		if t.Kind == "resource" {
+		if t.Kind == kindResource {
 			resourceNames = append(resourceNames, t.Name)
 		}
 	}
@@ -242,7 +246,7 @@ func (c *CodeGen) generateCodeSystemsFromTemplate() error {
 
 	// Track generated type names to avoid duplicates
 	generatedTypes := make(map[string]bool)
-	var valueSets []ValueSetData
+	valueSets := make([]ValueSetData, 0, len(valueSetURLs))
 
 	for _, url := range valueSetURLs {
 		vs := c.valueSets.Get(url)
@@ -289,10 +293,10 @@ func (c *CodeGen) generateCodeSystemsFromTemplate() error {
 
 // generateBuildersFromTemplate generates functional_options.go and fluent_builders.go using templates.
 func (c *CodeGen) generateBuildersFromTemplate() error {
-	var resources []ResourceBuilderData
+	resources := make([]ResourceBuilderData, 0, len(c.types))
 
 	for _, t := range c.types {
-		if t.Kind != "resource" {
+		if t.Kind != kindResource {
 			continue
 		}
 
@@ -360,26 +364,6 @@ func toLowerFirstChar(s string) string {
 	runes := []rune(s)
 	runes[0] = unicode.ToLower(runes[0])
 	return string(runes)
-}
-
-// processValueSet converts a ParsedValueSet to ValueSetData.
-func processValueSet(vs *parser.ParsedValueSet) ValueSetData {
-	vsData := ValueSetData{
-		Name:     vs.Name,
-		TypeName: sanitizeTypeName(vs.Name),
-		Title:    vs.Title,
-		Codes:    make([]CodeData, 0, len(vs.Codes)),
-	}
-
-	for _, code := range vs.Codes {
-		vsData.Codes = append(vsData.Codes, CodeData{
-			Code:      code.Code,
-			Display:   code.Display,
-			ConstName: toPascalCaseCode(code.Code),
-		})
-	}
-
-	return vsData
 }
 
 // generateBackbonesFromTemplate generates backbones.go using template.

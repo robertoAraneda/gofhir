@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/antlr4-go/antlr/v4"
+
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/parser/grammar"
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/types"
 )
@@ -52,6 +53,7 @@ type Context struct {
 
 // NewContext creates a new evaluation context.
 func NewContext(resource []byte) *Context {
+	//nolint:errcheck // Empty collection is acceptable for invalid JSON in context creation
 	root, _ := types.JSONToCollection(resource)
 	return &Context{
 		root:      root,
@@ -101,7 +103,7 @@ func (c *Context) GetResolver() Resolver {
 	return c.resolver
 }
 
-// CheckCancellation checks if the context has been cancelled.
+// CheckCancellation checks if the context has been canceled.
 func (c *Context) CheckCancellation() error {
 	if c.goCtx == nil {
 		return nil
@@ -282,7 +284,7 @@ func (e *Evaluator) VisitNumberLiteral(ctx *grammar.NumberLiteralContext) interf
 func (e *Evaluator) VisitDateLiteral(ctx *grammar.DateLiteralContext) interface{} {
 	text := ctx.DATE().GetText()
 	// Remove the @ prefix
-	if len(text) > 0 && text[0] == '@' {
+	if text != "" && text[0] == '@' {
 		text = text[1:]
 	}
 	d, err := types.NewDate(text)
@@ -296,7 +298,7 @@ func (e *Evaluator) VisitDateLiteral(ctx *grammar.DateLiteralContext) interface{
 func (e *Evaluator) VisitDateTimeLiteral(ctx *grammar.DateTimeLiteralContext) interface{} {
 	text := ctx.DATETIME().GetText()
 	// Remove the @ prefix
-	if len(text) > 0 && text[0] == '@' {
+	if text != "" && text[0] == '@' {
 		text = text[1:]
 	}
 	dt, err := types.NewDateTime(text)
@@ -310,7 +312,7 @@ func (e *Evaluator) VisitDateTimeLiteral(ctx *grammar.DateTimeLiteralContext) in
 func (e *Evaluator) VisitTimeLiteral(ctx *grammar.TimeLiteralContext) interface{} {
 	text := ctx.TIME().GetText()
 	// Remove the @ prefix
-	if len(text) > 0 && text[0] == '@' {
+	if text != "" && text[0] == '@' {
 		text = text[1:]
 	}
 	t, err := types.NewTime(text)
@@ -1004,33 +1006,33 @@ func typeMatches(actualType, typeName string) bool {
 
 	// FHIR primitive type mappings (FHIR uses lowercase, FHIRPath uses PascalCase)
 	fhirToFHIRPath := map[string]string{
-		"boolean":       "Boolean",
-		"string":        "String",
-		"integer":       "Integer",
-		"decimal":       "Decimal",
-		"date":          "Date",
-		"datetime":      "DateTime",
-		"time":          "Time",
-		"instant":       "DateTime",
-		"uri":           "String",
-		"url":           "String",
-		"canonical":     "String",
-		"base64binary":  "String",
-		"code":          "String",
-		"id":            "String",
-		"markdown":      "String",
-		"oid":           "String",
-		"uuid":          "String",
-		"positiveint":   "Integer",
-		"unsignedint":   "Integer",
-		"integer64":     "Integer",
-		"quantity":      "Quantity",
+		"boolean":        "Boolean",
+		"string":         "String",
+		"integer":        "Integer",
+		"decimal":        "Decimal",
+		"date":           "Date",
+		"datetime":       "DateTime",
+		"time":           "Time",
+		"instant":        "DateTime",
+		"uri":            "String",
+		"url":            "String",
+		"canonical":      "String",
+		"base64binary":   "String",
+		"code":           "String",
+		"id":             "String",
+		"markdown":       "String",
+		"oid":            "String",
+		"uuid":           "String",
+		"positiveint":    "Integer",
+		"unsignedint":    "Integer",
+		"integer64":      "Integer",
+		"quantity":       "Quantity",
 		"simplequantity": "Quantity",
-		"age":           "Quantity",
-		"count":         "Quantity",
-		"distance":      "Quantity",
-		"duration":      "Quantity",
-		"money":         "Quantity",
+		"age":            "Quantity",
+		"count":          "Quantity",
+		"distance":       "Quantity",
+		"duration":       "Quantity",
+		"money":          "Quantity",
 	}
 
 	// Check if requesting a FHIR type that maps to a FHIRPath type
@@ -1042,7 +1044,7 @@ func typeMatches(actualType, typeName string) bool {
 
 	// Check reverse: if actual type is a FHIR type that maps to the requested FHIRPath type
 	if fhirPathType, ok := fhirToFHIRPath[actualLower]; ok {
-		if fhirPathType == typeName || strings.ToLower(fhirPathType) == typeNameLower {
+		if fhirPathType == typeName || strings.EqualFold(fhirPathType, typeName) {
 			return true
 		}
 	}

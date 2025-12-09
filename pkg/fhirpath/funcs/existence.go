@@ -8,99 +8,87 @@ import (
 func init() {
 	// Register existence functions
 	Register(FuncDef{
-		Name:        "empty",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnEmpty,
-		
+		Name:    "empty",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnEmpty,
 	})
 
 	Register(FuncDef{
-		Name:        "exists",
-		MinArgs:     0,
-		MaxArgs:     1,
-		Fn:          fnExists,
-		
+		Name:    "exists",
+		MinArgs: 0,
+		MaxArgs: 1,
+		Fn:      fnExists,
 	})
 
 	Register(FuncDef{
-		Name:        "all",
-		MinArgs:     1,
-		MaxArgs:     1,
-		Fn:          fnAll,
-		
+		Name:    "all",
+		MinArgs: 1,
+		MaxArgs: 1,
+		Fn:      fnAll,
 	})
 
 	Register(FuncDef{
-		Name:        "allTrue",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnAllTrue,
-		
+		Name:    "allTrue",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnAllTrue,
 	})
 
 	Register(FuncDef{
-		Name:        "anyTrue",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnAnyTrue,
-		
+		Name:    "anyTrue",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnAnyTrue,
 	})
 
 	Register(FuncDef{
-		Name:        "allFalse",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnAllFalse,
-		
+		Name:    "allFalse",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnAllFalse,
 	})
 
 	Register(FuncDef{
-		Name:        "anyFalse",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnAnyFalse,
-		
+		Name:    "anyFalse",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnAnyFalse,
 	})
 
 	Register(FuncDef{
-		Name:        "count",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnCount,
-		
+		Name:    "count",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnCount,
 	})
 
 	Register(FuncDef{
-		Name:        "distinct",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnDistinct,
-		
+		Name:    "distinct",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnDistinct,
 	})
 
 	Register(FuncDef{
-		Name:        "isDistinct",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnIsDistinct,
-		
+		Name:    "isDistinct",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnIsDistinct,
 	})
 
 	Register(FuncDef{
-		Name:        "subsetOf",
-		MinArgs:     1,
-		MaxArgs:     1,
-		Fn:          fnSubsetOf,
-		
+		Name:    "subsetOf",
+		MinArgs: 1,
+		MaxArgs: 1,
+		Fn:      fnSubsetOf,
 	})
 
 	Register(FuncDef{
-		Name:        "supersetOf",
-		MinArgs:     1,
-		MaxArgs:     1,
-		Fn:          fnSupersetOf,
-		
+		Name:    "supersetOf",
+		MinArgs: 1,
+		MaxArgs: 1,
+		Fn:      fnSupersetOf,
 	})
 }
 

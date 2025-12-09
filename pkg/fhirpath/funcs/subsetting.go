@@ -8,67 +8,59 @@ import (
 func init() {
 	// Register subsetting functions
 	Register(FuncDef{
-		Name:        "first",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnFirst,
-		
+		Name:    "first",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnFirst,
 	})
 
 	Register(FuncDef{
-		Name:        "last",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnLast,
-		
+		Name:    "last",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnLast,
 	})
 
 	Register(FuncDef{
-		Name:        "tail",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnTail,
-		
+		Name:    "tail",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnTail,
 	})
 
 	Register(FuncDef{
-		Name:        "skip",
-		MinArgs:     1,
-		MaxArgs:     1,
-		Fn:          fnSkip,
-		
+		Name:    "skip",
+		MinArgs: 1,
+		MaxArgs: 1,
+		Fn:      fnSkip,
 	})
 
 	Register(FuncDef{
-		Name:        "take",
-		MinArgs:     1,
-		MaxArgs:     1,
-		Fn:          fnTake,
-		
+		Name:    "take",
+		MinArgs: 1,
+		MaxArgs: 1,
+		Fn:      fnTake,
 	})
 
 	Register(FuncDef{
-		Name:        "single",
-		MinArgs:     0,
-		MaxArgs:     0,
-		Fn:          fnSingle,
-		
+		Name:    "single",
+		MinArgs: 0,
+		MaxArgs: 0,
+		Fn:      fnSingle,
 	})
 
 	Register(FuncDef{
-		Name:        "intersect",
-		MinArgs:     1,
-		MaxArgs:     1,
-		Fn:          fnIntersect,
-		
+		Name:    "intersect",
+		MinArgs: 1,
+		MaxArgs: 1,
+		Fn:      fnIntersect,
 	})
 
 	Register(FuncDef{
-		Name:        "exclude",
-		MinArgs:     1,
-		MaxArgs:     1,
-		Fn:          fnExclude,
-		
+		Name:    "exclude",
+		MinArgs: 1,
+		MaxArgs: 1,
+		Fn:      fnExclude,
 	})
 }
 

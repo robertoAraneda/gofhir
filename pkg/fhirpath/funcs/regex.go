@@ -12,12 +12,12 @@ import (
 // RegexCache provides thread-safe caching of compiled regular expressions
 // with LRU eviction and complexity limits for ReDoS protection.
 type RegexCache struct {
-	mu       sync.RWMutex
-	cache    map[string]*regexEntry
-	order    []string // LRU order tracking
-	limit    int
-	maxLen   int           // Maximum regex pattern length
-	timeout  time.Duration // Default timeout for regex operations
+	mu      sync.RWMutex
+	cache   map[string]*regexEntry
+	order   []string // LRU order tracking
+	limit   int
+	maxLen  int           // Maximum regex pattern length
+	timeout time.Duration // Default timeout for regex operations
 }
 
 type regexEntry struct {

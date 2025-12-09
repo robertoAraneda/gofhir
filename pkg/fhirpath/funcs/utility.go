@@ -41,6 +41,8 @@ func NewDefaultTraceLogger(writer io.Writer, jsonFormat bool) *DefaultTraceLogge
 }
 
 // Log writes a trace entry to the logger's writer.
+//
+//nolint:errcheck // Trace logging errors are non-critical; best effort output
 func (l *DefaultTraceLogger) Log(entry TraceEntry) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -108,7 +110,10 @@ func formatCollection(input interface{}) string {
 		result += " }"
 		return result
 	default:
-		data, _ := json.Marshal(v)
+		data, err := json.Marshal(v)
+		if err != nil {
+			return "<error>"
+		}
 		return string(data)
 	}
 }

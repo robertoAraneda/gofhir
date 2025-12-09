@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/antlr4-go/antlr/v4"
+
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/parser/grammar"
 )
 

@@ -4,9 +4,10 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/shopspring/decimal"
+
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/eval"
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/types"
-	"github.com/shopspring/decimal"
 )
 
 func init() {
@@ -373,8 +374,11 @@ func fnToDate(_ *eval.Context, input types.Collection, _ []interface{}) (types.C
 	case types.Date:
 		return types.Collection{v}, nil
 	case types.DateTime:
-		// Extract date portion
-		d, _ := types.NewDate(v.String()[:10])
+		// Extract date portion (DateTime.String() always has at least date portion)
+		d, err := types.NewDate(v.String()[:10])
+		if err != nil {
+			return types.Collection{}, nil
+		}
 		return types.Collection{d}, nil
 	case types.String:
 		d, err := types.NewDate(v.Value())

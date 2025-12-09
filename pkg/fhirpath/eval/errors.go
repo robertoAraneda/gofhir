@@ -64,6 +64,8 @@ type Position struct {
 }
 
 // EvalError represents an error that occurred during evaluation.
+//
+//nolint:revive // Keeping EvalError name for API compatibility
 type EvalError struct {
 	Type       ErrorType
 	Message    string

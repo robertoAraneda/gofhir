@@ -9,6 +9,12 @@ import (
 	"github.com/robertoaraneda/gofhir/internal/codegen/parser"
 )
 
+// Kind constants for type categorization.
+const (
+	kindDatatype = "datatype"
+	kindBackbone = "backbone"
+)
+
 // Analyzer processes StructureDefinitions and produces analyzed types for code generation.
 type Analyzer struct {
 	definitions  map[string]*parser.StructureDefinition
@@ -101,7 +107,7 @@ func (a *Analyzer) Analyze(sd *parser.StructureDefinition) (*AnalyzedType, error
 	}
 
 	// For resources, datatypes, and backbone types, extract nested backbone elements
-	if kind == "resource" || kind == "datatype" || kind == "backbone" {
+	if kind == "resource" || kind == kindDatatype || kind == kindBackbone {
 		backbones := a.extractBackboneElements(sd)
 		analyzed.BackboneTypes = backbones
 	}
@@ -192,6 +198,7 @@ func (a *Analyzer) extractBackboneElements(sd *parser.StructureDefinition) []*An
 		// Create the property
 		fieldName := suffix
 		if elem.IsChoiceType() {
+			//nolint:errcheck // Choice type analysis errors are non-fatal; skip on error
 			props, _ := a.analyzeChoiceType(&elem, strings.TrimSuffix(fieldName, "[x]"))
 			backbone.Properties = append(backbone.Properties, props...)
 		} else if len(elem.Type) > 0 {
@@ -244,11 +251,11 @@ func (a *Analyzer) determineKind(sd *parser.StructureDefinition) string {
 	case parser.KindComplexType:
 		// Check if it's a backbone element
 		if strings.Contains(sd.BaseDefinition, "BackboneElement") {
-			return "backbone"
+			return kindBackbone
 		}
-		return "datatype"
+		return kindDatatype
 	default:
-		return "datatype"
+		return kindDatatype
 	}
 }
 
@@ -265,7 +272,7 @@ func (a *Analyzer) isNestedElement(path, rootType string) bool {
 
 // analyzeElement analyzes a single element and returns properties.
 // May return multiple properties for choice types.
-func (a *Analyzer) analyzeElement(elem *parser.ElementDefinition, rootType string, resourceName string) ([]AnalyzedProperty, error) {
+func (a *Analyzer) analyzeElement(elem *parser.ElementDefinition, rootType, _ string) ([]AnalyzedProperty, error) {
 	// Get the field name from the path
 	fieldName := a.extractFieldName(elem.Path, rootType)
 	if fieldName == "" {
@@ -286,7 +293,7 @@ func (a *Analyzer) analyzeElement(elem *parser.ElementDefinition, rootType strin
 	if elem.IsBackboneElement() {
 		backboneTypeName := a.getBackboneTypeName(elem.Path)
 		isArray := elem.IsArray()
-		goType := backboneTypeName
+		var goType string
 		if isArray {
 			goType = "[]" + backboneTypeName
 		} else {

@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/robertoaraneda/gofhir/pkg/fhir/r5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/robertoaraneda/gofhir/pkg/fhir/r5"
 )
 
 func TestNewResource(t *testing.T) {

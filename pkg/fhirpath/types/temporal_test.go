@@ -98,12 +98,13 @@ func TestDate(t *testing.T) {
 		if cmp != 1 {
 			t.Error("expected d2 > d1")
 		}
-		cmp, err = d1.Compare(d1)
+		d1Copy, _ := NewDate("2024-01-15")
+		cmp, err = d1.Compare(d1Copy)
 		if err != nil {
 			t.Fatal(err)
 		}
 		if cmp != 0 {
-			t.Error("expected d1 = d1")
+			t.Error("expected d1 = d1Copy")
 		}
 	})
 
@@ -308,12 +309,13 @@ func TestDateTime(t *testing.T) {
 			t.Error("expected dt2 > dt1")
 		}
 
-		cmp, err = dt1.Compare(dt1)
+		dt1Copy, _ := NewDateTime("2024-01-15T10:30:00Z")
+		cmp, err = dt1.Compare(dt1Copy)
 		if err != nil {
 			t.Fatal(err)
 		}
 		if cmp != 0 {
-			t.Error("expected dt1 = dt1")
+			t.Error("expected dt1 = dt1Copy")
 		}
 	})
 
@@ -517,12 +519,13 @@ func TestTime(t *testing.T) {
 		if cmp != 1 {
 			t.Error("expected t2 > t1")
 		}
-		cmp, err = t1.Compare(t1)
+		t1Copy, _ := NewTime("10:30:00")
+		cmp, err = t1.Compare(t1Copy)
 		if err != nil {
 			t.Fatal(err)
 		}
 		if cmp != 0 {
-			t.Error("expected t1 = t1")
+			t.Error("expected t1 = t1Copy")
 		}
 	})
 

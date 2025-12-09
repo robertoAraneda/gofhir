@@ -9,16 +9,16 @@ import (
 
 // DateTime represents a FHIRPath datetime value.
 type DateTime struct {
-	year       int
-	month      int
-	day        int
-	hour       int
-	minute     int
-	second     int
-	millis     int
-	tzOffset   int  // timezone offset in minutes
-	hasTZ      bool // whether timezone is specified
-	precision  DateTimePrecision
+	year      int
+	month     int
+	day       int
+	hour      int
+	minute    int
+	second    int
+	millis    int
+	tzOffset  int  // timezone offset in minutes
+	hasTZ     bool // whether timezone is specified
+	precision DateTimePrecision
 }
 
 // DateTimePrecision indicates the precision of a datetime.
@@ -50,35 +50,59 @@ func NewDateTime(s string) (DateTime, error) {
 	precision := DTYearPrecision
 
 	// Year (required)
-	dt.year, _ = strconv.Atoi(matches[1])
+	year, err := strconv.Atoi(matches[1])
+	if err != nil {
+		return DateTime{}, fmt.Errorf("invalid year in datetime: %s", s)
+	}
+	dt.year = year
 
 	// Month
 	if matches[2] != "" {
-		dt.month, _ = strconv.Atoi(matches[2])
+		month, err := strconv.Atoi(matches[2])
+		if err != nil {
+			return DateTime{}, fmt.Errorf("invalid month in datetime: %s", s)
+		}
+		dt.month = month
 		precision = DTMonthPrecision
 	}
 
 	// Day
 	if matches[3] != "" {
-		dt.day, _ = strconv.Atoi(matches[3])
+		day, err := strconv.Atoi(matches[3])
+		if err != nil {
+			return DateTime{}, fmt.Errorf("invalid day in datetime: %s", s)
+		}
+		dt.day = day
 		precision = DTDayPrecision
 	}
 
 	// Hour
 	if matches[4] != "" {
-		dt.hour, _ = strconv.Atoi(matches[4])
+		hour, err := strconv.Atoi(matches[4])
+		if err != nil {
+			return DateTime{}, fmt.Errorf("invalid hour in datetime: %s", s)
+		}
+		dt.hour = hour
 		precision = DTHourPrecision
 	}
 
 	// Minute
 	if matches[5] != "" {
-		dt.minute, _ = strconv.Atoi(matches[5])
+		minute, err := strconv.Atoi(matches[5])
+		if err != nil {
+			return DateTime{}, fmt.Errorf("invalid minute in datetime: %s", s)
+		}
+		dt.minute = minute
 		precision = DTMinutePrecision
 	}
 
 	// Second
 	if matches[6] != "" {
-		dt.second, _ = strconv.Atoi(matches[6])
+		second, err := strconv.Atoi(matches[6])
+		if err != nil {
+			return DateTime{}, fmt.Errorf("invalid second in datetime: %s", s)
+		}
+		dt.second = second
 		precision = DTSecondPrecision
 	}
 
@@ -92,7 +116,11 @@ func NewDateTime(s string) (DateTime, error) {
 		if len(ms) > 3 {
 			ms = ms[:3]
 		}
-		dt.millis, _ = strconv.Atoi(ms)
+		millis, err := strconv.Atoi(ms)
+		if err != nil {
+			return DateTime{}, fmt.Errorf("invalid milliseconds in datetime: %s", s)
+		}
+		dt.millis = millis
 		precision = DTMillisPrecision
 	}
 
@@ -107,8 +135,14 @@ func NewDateTime(s string) (DateTime, error) {
 			if matches[8][0] == '-' {
 				sign = -1
 			}
-			hours, _ := strconv.Atoi(matches[8][1:3])
-			mins, _ := strconv.Atoi(matches[8][4:6])
+			hours, err := strconv.Atoi(matches[8][1:3])
+			if err != nil {
+				return DateTime{}, fmt.Errorf("invalid timezone hours in datetime: %s", s)
+			}
+			mins, err := strconv.Atoi(matches[8][4:6])
+			if err != nil {
+				return DateTime{}, fmt.Errorf("invalid timezone minutes in datetime: %s", s)
+			}
 			dt.tzOffset = sign * (hours*60 + mins)
 		}
 	}
@@ -219,12 +253,12 @@ func (dt DateTime) ToTime() time.Time {
 }
 
 // Accessors
-func (dt DateTime) Year() int       { return dt.year }
-func (dt DateTime) Month() int      { return dt.month }
-func (dt DateTime) Day() int        { return dt.day }
-func (dt DateTime) Hour() int       { return dt.hour }
-func (dt DateTime) Minute() int     { return dt.minute }
-func (dt DateTime) Second() int     { return dt.second }
+func (dt DateTime) Year() int        { return dt.year }
+func (dt DateTime) Month() int       { return dt.month }
+func (dt DateTime) Day() int         { return dt.day }
+func (dt DateTime) Hour() int        { return dt.hour }
+func (dt DateTime) Minute() int      { return dt.minute }
+func (dt DateTime) Second() int      { return dt.second }
 func (dt DateTime) Millisecond() int { return dt.millis }
 
 // AddDuration adds a duration (as Quantity with temporal unit) to the datetime.

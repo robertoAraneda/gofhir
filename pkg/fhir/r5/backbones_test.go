@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/robertoaraneda/gofhir/pkg/fhir/r5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/robertoaraneda/gofhir/pkg/fhir/r5"
 )
 
 // TestResourceBackboneElements tests backbone elements that are part of resources

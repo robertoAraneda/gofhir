@@ -130,9 +130,9 @@ func (s String) Substring(start, length int) String {
 	return NewString(string(runes[start:end]))
 }
 
-// Replace returns a new String with all occurrences of old replaced by new.
-func (s String) Replace(old, new string) String {
-	return NewString(strings.ReplaceAll(s.value, old, new))
+// Replace returns a new String with all occurrences of old replaced by replacement.
+func (s String) Replace(old, replacement string) String {
+	return NewString(strings.ReplaceAll(s.value, old, replacement))
 }
 
 // ToChars returns a collection of single-character strings.

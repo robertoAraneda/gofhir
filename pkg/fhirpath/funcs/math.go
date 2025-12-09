@@ -3,9 +3,10 @@ package funcs
 import (
 	"math"
 
+	"github.com/shopspring/decimal"
+
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/eval"
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/types"
-	"github.com/shopspring/decimal"
 )
 
 func init() {
@@ -278,7 +279,13 @@ func fnRound(_ *eval.Context, input types.Collection, args []interface{}) (types
 		if err != nil {
 			return types.Collection{}, nil
 		}
-		precision = int32(p)
+		// Limit precision to reasonable bounds to avoid overflow
+		if p > math.MaxInt32 {
+			p = math.MaxInt32
+		} else if p < math.MinInt32 {
+			p = math.MinInt32
+		}
+		precision = int32(p) //nolint:gosec // bounds checked above
 	}
 
 	switch v := input[0].(type) {
@@ -286,7 +293,10 @@ func fnRound(_ *eval.Context, input types.Collection, args []interface{}) (types
 		return types.Collection{v}, nil
 	case types.Decimal:
 		rounded := v.Value().Round(precision)
-		d, _ := types.NewDecimal(rounded.String())
+		d, err := types.NewDecimal(rounded.String())
+		if err != nil {
+			return types.Collection{}, nil
+		}
 		return types.Collection{d}, nil
 	default:
 		return types.Collection{}, nil
@@ -386,15 +396,18 @@ func fnSum(ctx *eval.Context, input types.Collection, _ []interface{}) (types.Co
 
 	// Return Integer if all inputs were Integer, otherwise Decimal
 	if hasDecimal {
-		d, _ := types.NewDecimal(sum.String())
+		d, err := types.NewDecimal(sum.String())
+		if err != nil {
+			return types.Collection{}, nil
+		}
 		return types.Collection{d}, nil
 	}
 	return types.Collection{types.NewInteger(sum.IntPart())}, nil
 }
 
-// fnMin returns the minimum value in the collection.
-// Returns empty if the collection is empty.
-func fnMin(ctx *eval.Context, input types.Collection, _ []interface{}) (types.Collection, error) {
+// findExtreme finds either the minimum or maximum value in a collection.
+// When findMin is true, finds minimum; otherwise finds maximum.
+func findExtreme(ctx *eval.Context, input types.Collection, findMin bool) (types.Collection, error) {
 	if input.Empty() {
 		return types.Collection{}, nil
 	}
@@ -404,76 +417,96 @@ func fnMin(ctx *eval.Context, input types.Collection, _ []interface{}) (types.Co
 		return nil, err
 	}
 
-	var minVal types.Value
-	var minFloat float64
+	var extremeVal types.Value
+	var extremeFloat float64
 	first := true
 	isNumeric := false
+
+	// compareFn returns true if newVal should replace current extreme
+	compareFn := func(newVal, currentVal float64) bool {
+		if findMin {
+			return newVal < currentVal
+		}
+		return newVal > currentVal
+	}
+
+	// compareStrFn returns true if newStr should replace current extreme
+	compareStrFn := func(newStr, currentStr string) bool {
+		if findMin {
+			return newStr < currentStr
+		}
+		return newStr > currentStr
+	}
+
+	// compareCmpFn returns true if cmp result indicates newVal should replace
+	compareCmpFn := func(cmp int) bool {
+		if findMin {
+			return cmp < 0
+		}
+		return cmp > 0
+	}
 
 	for _, item := range input {
 		switch v := item.(type) {
 		case types.Integer:
 			val := float64(v.Value())
 			if first {
-				minFloat = val
-				minVal = item
+				extremeFloat = val
+				extremeVal = item
 				first = false
 				isNumeric = true
-			} else if isNumeric && val < minFloat {
-				minFloat = val
-				minVal = item
+			} else if isNumeric && compareFn(val, extremeFloat) {
+				extremeFloat = val
+				extremeVal = item
 			}
 		case types.Decimal:
 			val := v.Value().InexactFloat64()
 			if first {
-				minFloat = val
-				minVal = item
+				extremeFloat = val
+				extremeVal = item
 				first = false
 				isNumeric = true
-			} else if isNumeric && val < minFloat {
-				minFloat = val
-				minVal = item
+			} else if isNumeric && compareFn(val, extremeFloat) {
+				extremeFloat = val
+				extremeVal = item
 			}
 		case types.String:
-			// String comparison
 			if first {
-				minVal = v
+				extremeVal = v
 				first = false
-			} else if minStr, ok := minVal.(types.String); ok {
-				if v.Value() < minStr.Value() {
-					minVal = v
+			} else if extremeStr, ok := extremeVal.(types.String); ok {
+				if compareStrFn(v.Value(), extremeStr.Value()) {
+					extremeVal = v
 				}
 			}
 		case types.Date:
-			// Date comparison using Compare method
 			if first {
-				minVal = v
+				extremeVal = v
 				first = false
-			} else if minDate, ok := minVal.(types.Date); ok {
-				cmp, _ := v.Compare(minDate)
-				if cmp < 0 {
-					minVal = v
+			} else if extremeDate, ok := extremeVal.(types.Date); ok {
+				cmp, err := v.Compare(extremeDate)
+				if err == nil && compareCmpFn(cmp) {
+					extremeVal = v
 				}
 			}
 		case types.DateTime:
-			// DateTime comparison using Compare method
 			if first {
-				minVal = v
+				extremeVal = v
 				first = false
-			} else if minDT, ok := minVal.(types.DateTime); ok {
-				cmp, _ := v.Compare(minDT)
-				if cmp < 0 {
-					minVal = v
+			} else if extremeDT, ok := extremeVal.(types.DateTime); ok {
+				cmp, err := v.Compare(extremeDT)
+				if err == nil && compareCmpFn(cmp) {
+					extremeVal = v
 				}
 			}
 		case types.Time:
-			// Time comparison using Compare method
 			if first {
-				minVal = v
+				extremeVal = v
 				first = false
-			} else if minTime, ok := minVal.(types.Time); ok {
-				cmp, _ := v.Compare(minTime)
-				if cmp < 0 {
-					minVal = v
+			} else if extremeTime, ok := extremeVal.(types.Time); ok {
+				cmp, err := v.Compare(extremeTime)
+				if err == nil && compareCmpFn(cmp) {
+					extremeVal = v
 				}
 			}
 		default:
@@ -481,105 +514,22 @@ func fnMin(ctx *eval.Context, input types.Collection, _ []interface{}) (types.Co
 		}
 	}
 
-	if minVal == nil {
+	if extremeVal == nil {
 		return types.Collection{}, nil
 	}
-	return types.Collection{minVal}, nil
+	return types.Collection{extremeVal}, nil
+}
+
+// fnMin returns the minimum value in the collection.
+// Returns empty if the collection is empty.
+func fnMin(ctx *eval.Context, input types.Collection, _ []interface{}) (types.Collection, error) {
+	return findExtreme(ctx, input, true)
 }
 
 // fnMax returns the maximum value in the collection.
 // Returns empty if the collection is empty.
 func fnMax(ctx *eval.Context, input types.Collection, _ []interface{}) (types.Collection, error) {
-	if input.Empty() {
-		return types.Collection{}, nil
-	}
-
-	// Check for cancellation
-	if err := ctx.CheckCancellation(); err != nil {
-		return nil, err
-	}
-
-	var maxVal types.Value
-	var maxFloat float64
-	first := true
-	isNumeric := false
-
-	for _, item := range input {
-		switch v := item.(type) {
-		case types.Integer:
-			val := float64(v.Value())
-			if first {
-				maxFloat = val
-				maxVal = item
-				first = false
-				isNumeric = true
-			} else if isNumeric && val > maxFloat {
-				maxFloat = val
-				maxVal = item
-			}
-		case types.Decimal:
-			val := v.Value().InexactFloat64()
-			if first {
-				maxFloat = val
-				maxVal = item
-				first = false
-				isNumeric = true
-			} else if isNumeric && val > maxFloat {
-				maxFloat = val
-				maxVal = item
-			}
-		case types.String:
-			// String comparison
-			if first {
-				maxVal = v
-				first = false
-			} else if maxStr, ok := maxVal.(types.String); ok {
-				if v.Value() > maxStr.Value() {
-					maxVal = v
-				}
-			}
-		case types.Date:
-			// Date comparison using Compare method
-			if first {
-				maxVal = v
-				first = false
-			} else if maxDate, ok := maxVal.(types.Date); ok {
-				cmp, _ := v.Compare(maxDate)
-				if cmp > 0 {
-					maxVal = v
-				}
-			}
-		case types.DateTime:
-			// DateTime comparison using Compare method
-			if first {
-				maxVal = v
-				first = false
-			} else if maxDT, ok := maxVal.(types.DateTime); ok {
-				cmp, _ := v.Compare(maxDT)
-				if cmp > 0 {
-					maxVal = v
-				}
-			}
-		case types.Time:
-			// Time comparison using Compare method
-			if first {
-				maxVal = v
-				first = false
-			} else if maxTime, ok := maxVal.(types.Time); ok {
-				cmp, _ := v.Compare(maxTime)
-				if cmp > 0 {
-					maxVal = v
-				}
-			}
-		default:
-			return types.Collection{}, nil
-		}
-	}
-
-	if maxVal == nil {
-		return types.Collection{}, nil
-	}
-	return types.Collection{maxVal}, nil
+	return findExtreme(ctx, input, false)
 }
 
 // fnAvg returns the average of all numeric values in the collection.
@@ -616,6 +566,9 @@ func fnAvg(ctx *eval.Context, input types.Collection, _ []interface{}) (types.Co
 	}
 
 	avg := sum.Div(decimal.NewFromInt(int64(count)))
-	d, _ := types.NewDecimal(avg.String())
+	d, err := types.NewDecimal(avg.String())
+	if err != nil {
+		return types.Collection{}, nil
+	}
 	return types.Collection{d}, nil
 }

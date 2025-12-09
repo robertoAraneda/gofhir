@@ -134,22 +134,6 @@ func (i Integer) Power(exp Integer) Decimal {
 	return i.ToDecimal().Power(exp.ToDecimal())
 }
 
-// intPow calculates integer exponentiation.
-func intPow(base, exp int64) int64 {
-	if exp < 0 {
-		return 0 // Integer division of 1/base^|exp|
-	}
-	result := int64(1)
-	for exp > 0 {
-		if exp%2 == 1 {
-			result *= base
-		}
-		exp /= 2
-		base *= base
-	}
-	return result
-}
-
 // Sqrt returns the square root as a Decimal.
 func (i Integer) Sqrt() (Decimal, error) {
 	if i.value < 0 {

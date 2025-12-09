@@ -40,8 +40,7 @@ func Add(left, right types.Value) (types.Value, error) {
 			return l.AddDuration(value, q.Unit()), nil
 		}
 	case types.Quantity:
-		switch r := right.(type) {
-		case types.Quantity:
+		if r, ok := right.(types.Quantity); ok {
 			// Quantity + Quantity
 			return l.Add(r)
 		}
@@ -79,8 +78,7 @@ func Subtract(left, right types.Value) (types.Value, error) {
 			return l.SubtractDuration(value, q.Unit()), nil
 		}
 	case types.Quantity:
-		switch r := right.(type) {
-		case types.Quantity:
+		if r, ok := right.(types.Quantity); ok {
 			// Quantity - Quantity
 			return l.Subtract(r)
 		}

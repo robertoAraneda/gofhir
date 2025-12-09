@@ -42,17 +42,29 @@ func NewTime(s string) (Time, error) {
 	precision := HourPrecision
 
 	// Hour (required)
-	t.hour, _ = strconv.Atoi(matches[1])
+	hour, err := strconv.Atoi(matches[1])
+	if err != nil {
+		return Time{}, fmt.Errorf("invalid hour in time: %s", s)
+	}
+	t.hour = hour
 
 	// Minute
 	if matches[2] != "" {
-		t.minute, _ = strconv.Atoi(matches[2])
+		minute, err := strconv.Atoi(matches[2])
+		if err != nil {
+			return Time{}, fmt.Errorf("invalid minute in time: %s", s)
+		}
+		t.minute = minute
 		precision = MinutePrecision
 	}
 
 	// Second
 	if matches[3] != "" {
-		t.second, _ = strconv.Atoi(matches[3])
+		second, err := strconv.Atoi(matches[3])
+		if err != nil {
+			return Time{}, fmt.Errorf("invalid second in time: %s", s)
+		}
+		t.second = second
 		precision = SecondPrecision
 	}
 
@@ -65,7 +77,11 @@ func NewTime(s string) (Time, error) {
 		if len(ms) > 3 {
 			ms = ms[:3]
 		}
-		t.millis, _ = strconv.Atoi(ms)
+		millis, err := strconv.Atoi(ms)
+		if err != nil {
+			return Time{}, fmt.Errorf("invalid milliseconds in time: %s", s)
+		}
+		t.millis = millis
 		precision = MillisPrecision
 	}
 
