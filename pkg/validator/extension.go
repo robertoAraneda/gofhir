@@ -157,6 +157,8 @@ func (v *Validator) validateExtensionAgainstDefinition(ctx context.Context, vctx
 				Expression:  []string{path},
 			})
 		}
+		// Even without the extension definition, validate the value's primitive/complex type
+		v.validateExtensionValueBasicType(ctx, ext, path, result)
 		return
 	}
 
@@ -195,8 +197,24 @@ func (v *Validator) validateExtensionContext(_ context.Context, _ *validationCon
 	}
 }
 
+// validateExtensionValueBasicType validates extension values without a StructureDefinition.
+// This performs basic type validation for primitive and complex types.
+func (v *Validator) validateExtensionValueBasicType(ctx context.Context, ext map[string]interface{}, path string, result *ValidationResult) {
+	// Get the actual value type from the extension
+	actualValueType := getExtensionValueType(ext)
+	if actualValueType == "" {
+		return // No value present (nested extensions instead)
+	}
+
+	// Validate the internal structure of the value against its type definition
+	valueKey := "value" + actualValueType
+	if value, ok := ext[valueKey]; ok {
+		v.validateExtensionValueContent(ctx, value, actualValueType, path+"."+valueKey, result)
+	}
+}
+
 // validateExtensionValueType validates the extension value against allowed types.
-func (v *Validator) validateExtensionValueType(_ context.Context, ext map[string]interface{}, sd *StructureDef, path string, result *ValidationResult) {
+func (v *Validator) validateExtensionValueType(ctx context.Context, ext map[string]interface{}, sd *StructureDef, path string, result *ValidationResult) {
 	// Find the Extension.value[x] element definition
 	var valueElement *ElementDef
 	for i := range sd.Snapshot {
@@ -237,8 +255,291 @@ func (v *Validator) validateExtensionValueType(_ context.Context, ext map[string
 				Diagnostics: fmt.Sprintf("Extension value type '%s' not allowed; expected one of: %s", actualValueType, strings.Join(allowedTypes, ", ")),
 				Expression:  []string{path},
 			})
+			return // Don't validate content if type is wrong
 		}
 	}
+
+	// Validate the internal structure of the value against its type definition
+	valueKey := "value" + actualValueType
+	if value, ok := ext[valueKey]; ok {
+		v.validateExtensionValueContent(ctx, value, actualValueType, path+"."+valueKey, result)
+	}
+}
+
+// validateExtensionValueContent validates the internal structure of an extension value.
+func (v *Validator) validateExtensionValueContent(ctx context.Context, value interface{}, typeName, path string, result *ValidationResult) {
+	// Get the StructureDefinition for the type
+	typeURL := "http://hl7.org/fhir/StructureDefinition/" + typeName
+	typeDef, err := v.registry.Get(ctx, typeURL)
+	if err != nil || typeDef == nil {
+		// Type definition not found - can't validate deeply
+		// This is expected for primitive types like "String", "Boolean", etc.
+		// For primitives, just validate the value type
+		v.validatePrimitiveExtensionValue(value, typeName, path, result)
+		return
+	}
+
+	// For complex types, validate the structure
+	valueMap, ok := value.(map[string]interface{})
+	if !ok {
+		// Complex type must be an object
+		result.AddIssue(ValidationIssue{
+			Severity:    SeverityError,
+			Code:        IssueCodeStructure,
+			Diagnostics: fmt.Sprintf("Expected object for type '%s', got %T", typeName, value),
+			Expression:  []string{path},
+		})
+		return
+	}
+
+	// Build element index for the type
+	index := make(map[string]*ElementDef)
+	for i := range typeDef.Snapshot {
+		elem := &typeDef.Snapshot[i]
+		index[elem.Path] = elem
+	}
+
+	// Validate each field in the value
+	v.validateExtensionFields(ctx, valueMap, typeName, path, index, result)
+
+	// Check required fields
+	v.validateExtensionRequiredFields(typeDef, valueMap, typeName, path, result)
+}
+
+// validateExtensionFields validates all fields in an extension value.
+func (v *Validator) validateExtensionFields(ctx context.Context, valueMap map[string]interface{}, typeName, path string, index map[string]*ElementDef, result *ValidationResult) {
+	for fieldName, fieldValue := range valueMap {
+		// Skip extension and id fields (they're always allowed)
+		if fieldName == "extension" || fieldName == "id" || fieldName == "_"+fieldName {
+			continue
+		}
+
+		fieldPath := typeName + "." + fieldName
+		elemDef := v.findElementDefForType(index, fieldPath)
+
+		if elemDef == nil {
+			// Unknown field
+			if v.options.StrictMode {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeStructure,
+					Diagnostics: fmt.Sprintf("Unknown element '%s' in type '%s'", fieldName, typeName),
+					Expression:  []string{path + "." + fieldName},
+				})
+			}
+			continue
+		}
+
+		// Validate the field type
+		v.validateExtensionFieldType(ctx, fieldValue, elemDef, path+"."+fieldName, result)
+	}
+}
+
+// validateExtensionRequiredFields checks that all required fields are present.
+func (v *Validator) validateExtensionRequiredFields(typeDef *StructureDef, valueMap map[string]interface{}, typeName, path string, result *ValidationResult) {
+	for i := range typeDef.Snapshot {
+		elem := &typeDef.Snapshot[i]
+		if elem.Min > 0 && elem.Path != typeName {
+			// This is a required field
+			fieldName := strings.TrimPrefix(elem.Path, typeName+".")
+			if !strings.Contains(fieldName, ".") { // Only check direct children
+				if _, ok := valueMap[fieldName]; !ok {
+					result.AddIssue(ValidationIssue{
+						Severity:    SeverityError,
+						Code:        IssueCodeRequired,
+						Diagnostics: fmt.Sprintf("Missing required element '%s' in type '%s'", fieldName, typeName),
+						Expression:  []string{path},
+					})
+				}
+			}
+		}
+	}
+}
+
+// validatePrimitiveExtensionValue validates primitive type values in extensions.
+func (v *Validator) validatePrimitiveExtensionValue(value interface{}, typeName, path string, result *ValidationResult) {
+	switch strings.ToLower(typeName) {
+	case "string", "code", "id", "markdown", "uri", "url", "canonical", "oid", "uuid":
+		if _, ok := value.(string); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected string for type '%s', got %T", typeName, value),
+				Expression:  []string{path},
+			})
+		}
+	case "boolean":
+		if _, ok := value.(bool); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected boolean for type '%s', got %T", typeName, value),
+				Expression:  []string{path},
+			})
+		}
+	case "integer", "positiveint", "unsignedint":
+		switch v := value.(type) {
+		case float64:
+			if v != float64(int(v)) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Expected integer for type '%s', got decimal", typeName),
+					Expression:  []string{path},
+				})
+			}
+		default:
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected integer for type '%s', got %T", typeName, value),
+				Expression:  []string{path},
+			})
+		}
+	case "decimal":
+		if _, ok := value.(float64); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected number for type '%s', got %T", typeName, value),
+				Expression:  []string{path},
+			})
+		}
+	case "date", "datetime", "time", "instant":
+		if _, ok := value.(string); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected string for type '%s', got %T", typeName, value),
+				Expression:  []string{path},
+			})
+		}
+	case "base64binary":
+		if _, ok := value.(string); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected string for type '%s', got %T", typeName, value),
+				Expression:  []string{path},
+			})
+		}
+	}
+	// For other types (complex types), validation is handled by validateExtensionValueContent
+}
+
+// findElementDefForType finds an element definition within a type's snapshot.
+func (v *Validator) findElementDefForType(index map[string]*ElementDef, path string) *ElementDef {
+	// Direct match
+	if elem, ok := index[path]; ok {
+		return elem
+	}
+
+	// Try choice type
+	parts := strings.Split(path, ".")
+	if len(parts) >= 2 {
+		lastPart := parts[len(parts)-1]
+		for _, suffix := range []string{"String", "Boolean", "Integer", "Decimal", "DateTime", "Date", "Time",
+			"Code", "Uri", "Url", "Canonical", "Reference", "CodeableConcept", "Coding", "Quantity",
+			"Period", "Range", "Ratio", "Identifier", "HumanName", "Address", "ContactPoint",
+			"Attachment", "Annotation", "Signature", "Money", "Age", "Duration", "Count", "Distance"} {
+			if strings.HasSuffix(lastPart, suffix) {
+				baseName := strings.TrimSuffix(lastPart, suffix)
+				choicePath := strings.Join(parts[:len(parts)-1], ".") + "." + baseName + "[x]"
+				if elem, ok := index[choicePath]; ok {
+					return elem
+				}
+			}
+		}
+	}
+
+	return nil
+}
+
+// validateExtensionFieldType validates the type of a field within an extension value.
+func (v *Validator) validateExtensionFieldType(ctx context.Context, value interface{}, elemDef *ElementDef, path string, result *ValidationResult) {
+	if len(elemDef.Types) == 0 {
+		return
+	}
+
+	expectedType := elemDef.Types[0].Code
+
+	// Check if value matches expected type
+	switch expectedType {
+	case "string", "code", "id", "markdown", "uri", "url", "canonical", "oid", "uuid":
+		if _, ok := value.(string); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected string for '%s', got %T", path, value),
+				Expression:  []string{path},
+			})
+		}
+	case "boolean":
+		if _, ok := value.(bool); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected boolean for '%s', got %T", path, value),
+				Expression:  []string{path},
+			})
+		}
+	case "integer", "positiveInt", "unsignedInt":
+		if num, ok := value.(float64); ok {
+			if num != float64(int(num)) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Expected integer for '%s', got decimal", path),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected integer for '%s', got %T", path, value),
+				Expression:  []string{path},
+			})
+		}
+	case "decimal":
+		if _, ok := value.(float64); !ok {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Expected number for '%s', got %T", path, value),
+				Expression:  []string{path},
+			})
+		}
+	default:
+		// For complex types, recursively validate
+		switch typedValue := value.(type) {
+		case map[string]interface{}:
+			v.validateExtensionValueContent(ctx, typedValue, expectedType, path, result)
+		case []interface{}:
+			// Arrays are handled at a higher level
+		default:
+			if expectedType != "" && !isPrimitiveType(expectedType) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeStructure,
+					Diagnostics: fmt.Sprintf("Expected object for '%s' of type '%s', got %T", path, expectedType, value),
+					Expression:  []string{path},
+				})
+			}
+		}
+	}
+}
+
+// isPrimitiveType returns true if the type is a FHIR primitive type.
+func isPrimitiveType(typeName string) bool {
+	primitives := map[string]bool{
+		"boolean": true, "integer": true, "string": true, "decimal": true,
+		"uri": true, "url": true, "canonical": true, "base64Binary": true,
+		"instant": true, "date": true, "dateTime": true, "time": true,
+		"code": true, "oid": true, "id": true, "markdown": true,
+		"unsignedInt": true, "positiveInt": true, "uuid": true,
+	}
+	return primitives[typeName]
 }
 
 // isValidExtensionURL checks if an extension URL has valid format.

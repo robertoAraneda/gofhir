@@ -380,6 +380,11 @@ func TestPathWithoutArrayIndices(t *testing.T) {
 func loadTestStructureDefinitions(registry *Registry) error {
 	// Try to load from specs directory
 	_, err := registry.LoadFromFile("../../specs/r4/profiles-resources.json")
+	if err != nil {
+		return err
+	}
+	// Also load types (Address, Identifier, etc.)
+	_, err = registry.LoadFromFile("../../specs/r4/profiles-types.json")
 	return err
 }
 

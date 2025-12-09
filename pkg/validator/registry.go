@@ -394,6 +394,32 @@ func parseBinding(binding map[string]interface{}) *ElementBinding {
 	return eb
 }
 
+// LoadR4Specs loads all standard R4 StructureDefinitions from a specs directory.
+// This includes profiles-resources.json, profiles-types.json, and extension-definitions.json.
+func (r *Registry) LoadR4Specs(specsDir string) (int, error) {
+	total := 0
+
+	// Load resource definitions
+	resourcesPath := filepath.Join(specsDir, "profiles-resources.json")
+	if count, err := r.LoadFromFile(resourcesPath); err == nil {
+		total += count
+	}
+
+	// Load type definitions
+	typesPath := filepath.Join(specsDir, "profiles-types.json")
+	if count, err := r.LoadFromFile(typesPath); err == nil {
+		total += count
+	}
+
+	// Load extension definitions
+	extensionsPath := filepath.Join(specsDir, "extension-definitions.json")
+	if count, err := r.LoadFromFile(extensionsPath); err == nil {
+		total += count
+	}
+
+	return total, nil
+}
+
 // parseConstraints converts raw constraints to ElementConstraint slice.
 func parseConstraints(constraints []interface{}) []ElementConstraint {
 	result := make([]ElementConstraint, 0, len(constraints))

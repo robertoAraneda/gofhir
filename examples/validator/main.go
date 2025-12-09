@@ -1,6 +1,8 @@
 // Package main demonstrates FHIR resource validation using gofhir.
 // This example shows how to validate resources against StructureDefinitions,
 // including structural validation, constraint validation, and custom profiles.
+//
+//nolint:errcheck,unparam // Example code - errors intentionally ignored for clarity
 package main
 
 import (
@@ -74,30 +76,20 @@ func setupValidator() (*validator.Validator, error) {
 	// Try to load from specs directory (adjust path as needed)
 	specsDir := filepath.Join("..", "..", "specs", "r4")
 
-	// Load resource definitions
+	// Check if specs directory exists
 	resourcesPath := filepath.Join(specsDir, "profiles-resources.json")
-	if _, err := os.Stat(resourcesPath); err == nil {
-		count, err := registry.LoadFromFile(resourcesPath)
-		if err != nil {
-			return nil, fmt.Errorf("failed to load resources: %w", err)
-		}
-		fmt.Printf("Loaded %d resource definitions\n", count)
-	} else {
+	if _, err := os.Stat(resourcesPath); err != nil {
 		fmt.Println("Warning: specs/r4/profiles-resources.json not found")
 		fmt.Println("Download FHIR R4 specs from https://hl7.org/fhir/R4/downloads.html")
 		return nil, fmt.Errorf("specs not found")
 	}
 
-	// Load type definitions
-	typesPath := filepath.Join(specsDir, "profiles-types.json")
-	if _, err := os.Stat(typesPath); err == nil {
-		count, err := registry.LoadFromFile(typesPath)
-		if err != nil {
-			fmt.Printf("Warning: failed to load types: %v\n", err)
-		} else {
-			fmt.Printf("Loaded %d type definitions\n", count)
-		}
+	// Load all R4 specs (resources, types, and extensions)
+	count, err := registry.LoadR4Specs(specsDir)
+	if err != nil {
+		return nil, fmt.Errorf("failed to load specs: %w", err)
 	}
+	fmt.Printf("Loaded %d StructureDefinitions (resources, types, extensions)\n", count)
 
 	// Create validator with default options
 	opts := validator.DefaultValidatorOptions()
@@ -606,12 +598,14 @@ func validateReferences(ctx context.Context, v *validator.Validator) {
 func validateExtensions(ctx context.Context, v *validator.Validator) {
 	// Create validator with extension validation enabled
 	registry := validator.NewRegistry(validator.FHIRVersionR4)
-	specsPath := filepath.Join("..", "..", "specs", "r4", "profiles-resources.json")
-	registry.LoadFromFile(specsPath)
+	specsDir := filepath.Join("..", "..", "specs", "r4")
+	// Load all specs including extension definitions
+	registry.LoadR4Specs(specsDir)
 
 	extOpts := validator.ValidatorOptions{
 		ValidateExtensions: true,
 		ValidateReferences: false,
+		StrictMode:         true, // Enable strict mode to see warnings for unknown extensions
 	}
 	extValidator := validator.NewValidator(registry, extOpts)
 
@@ -766,4 +760,45 @@ func validateExtensions(ctx context.Context, v *validator.Validator) {
 	}`)
 	result8, _ := extValidator.Validate(ctx, patient8)
 	printValidationSummary(result8)
+
+	// Example 9: HL7 standard extension (patient-birthPlace) - validated against StructureDefinition
+	fmt.Println("\n  9. HL7 standard extension (patient-birthPlace):")
+	patient9 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat9",
+		"extension": [{
+			"url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+			"valueAddress": {
+				"city": "New York",
+				"state": "NY",
+				"country": "USA"
+			}
+		}],
+		"name": [{"family": "Thompson"}]
+	}`)
+	result9, _ := extValidator.Validate(ctx, patient9)
+	printValidationSummary(result9)
+	// Show if the extension was validated against its StructureDefinition
+	for _, issue := range result9.Issues {
+		fmt.Printf("    [%s] %s: %s\n", issue.Severity, issue.Code, issue.Diagnostics)
+	}
+
+	// Example 10: HL7 extension with wrong value type
+	fmt.Println("\n  10. HL7 extension with wrong value type:")
+	patient10 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat10",
+		"extension": [{
+			"url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+			"valueString": "New York"
+		}],
+		"name": [{"family": "Garcia"}]
+	}`)
+	result10, _ := extValidator.Validate(ctx, patient10)
+	printValidationSummary(result10)
+	for _, issue := range result10.Issues {
+		if issue.Severity == validator.SeverityError {
+			fmt.Printf("    Error: %s\n", issue.Diagnostics)
+		}
+	}
 }

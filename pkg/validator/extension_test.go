@@ -410,6 +410,457 @@ func TestGetExtensionValueType(t *testing.T) {
 	}
 }
 
+func TestValidateExtensions_HL7Extension(t *testing.T) {
+	registry := NewRegistry(FHIRVersionR4)
+
+	// Load extension definitions
+	err := loadTestStructureDefinitions(registry)
+	if err != nil {
+		t.Skipf("Skipping test - could not load specs: %v", err)
+	}
+
+	// Also load extension definitions
+	extensionsPath := "../../specs/r4/extension-definitions.json"
+	_, err = registry.LoadFromFile(extensionsPath)
+	if err != nil {
+		t.Skipf("Skipping test - could not load extension definitions: %v", err)
+	}
+
+	opts := ValidatorOptions{
+		ValidateConstraints: false,
+		ValidateExtensions:  true,
+		StrictMode:          true,
+	}
+	v := NewValidator(registry, opts)
+
+	// Test 1: Valid HL7 extension with correct value type (patient-birthPlace expects Address)
+	t.Run("valid HL7 extension", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+				"valueAddress": {
+					"city": "New York",
+					"state": "NY"
+				}
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		// Should not have extension type errors
+		typeErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && issue.Code == IssueCodeValue {
+				if len(issue.Expression) > 0 && containsString(issue.Expression[0], "extension") {
+					typeErrors++
+				}
+			}
+		}
+		assert.Equal(t, 0, typeErrors, "Should not have extension type errors. Issues: %v", result.Issues)
+	})
+
+	// Test 2: HL7 extension with wrong value type
+	t.Run("HL7 extension wrong type", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+				"valueString": "New York"
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		// Should have error for wrong value type
+		typeErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && issue.Code == IssueCodeValue {
+				if containsString(issue.Diagnostics, "not allowed") {
+					typeErrors++
+				}
+			}
+		}
+		assert.GreaterOrEqual(t, typeErrors, 1, "Should have error for wrong extension value type. Issues: %v", result.Issues)
+	})
+}
+
+func TestValidateExtensions_DeepValueValidation(t *testing.T) {
+	registry := NewRegistry(FHIRVersionR4)
+
+	// Load all specs including types
+	err := loadTestStructureDefinitions(registry)
+	if err != nil {
+		t.Skipf("Skipping test - could not load specs: %v", err)
+	}
+
+	// Also load extension definitions
+	extensionsPath := "../../specs/r4/extension-definitions.json"
+	_, err = registry.LoadFromFile(extensionsPath)
+	if err != nil {
+		t.Skipf("Skipping test - could not load extension definitions: %v", err)
+	}
+
+	opts := ValidatorOptions{
+		ValidateConstraints: false,
+		ValidateExtensions:  true,
+		StrictMode:          true,
+	}
+	v := NewValidator(registry, opts)
+
+	// Test 1: Valid Identifier in extension
+	t.Run("valid Identifier value", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/patient-ssn",
+				"valueIdentifier": {
+					"system": "http://hl7.org/fhir/sid/us-ssn",
+					"value": "123-45-6789"
+				}
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		// Should not have errors for valid Identifier structure
+		identifierErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "Identifier") {
+				identifierErrors++
+			}
+		}
+		assert.Equal(t, 0, identifierErrors, "Should not have Identifier validation errors. Issues: %v", result.Issues)
+	})
+
+	// Test 2: Invalid Identifier - wrong field type
+	t.Run("invalid Identifier field type", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/patient-ssn",
+				"valueIdentifier": {
+					"system": 12345,
+					"value": "123-45-6789"
+				}
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		// Should have error for wrong type (number instead of string)
+		typeErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "Expected string") {
+				typeErrors++
+			}
+		}
+		assert.GreaterOrEqual(t, typeErrors, 1, "Should have error for wrong field type. Issues: %v", result.Issues)
+	})
+
+	// Test 3: Valid primitive valueString
+	t.Run("valid primitive valueString", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/nickname",
+				"valueString": "Johnny"
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		// Count errors related to the string value
+		stringErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "string") {
+				stringErrors++
+			}
+		}
+		assert.Equal(t, 0, stringErrors, "Should not have string validation errors. Issues: %v", result.Issues)
+	})
+
+	// Test 4: Invalid primitive valueString - number instead of string
+	t.Run("invalid primitive valueString type", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/nickname",
+				"valueString": 12345
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		// Should have error for wrong type
+		typeErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "Expected string") {
+				typeErrors++
+			}
+		}
+		assert.GreaterOrEqual(t, typeErrors, 1, "Should have error for wrong primitive type. Issues: %v", result.Issues)
+	})
+
+	// Test 5: Valid valueBoolean
+	t.Run("valid valueBoolean", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/is-vip",
+				"valueBoolean": true
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		boolErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "boolean") {
+				boolErrors++
+			}
+		}
+		assert.Equal(t, 0, boolErrors, "Should not have boolean validation errors. Issues: %v", result.Issues)
+	})
+
+	// Test 6: Invalid valueBoolean - string instead of bool
+	t.Run("invalid valueBoolean type", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/is-vip",
+				"valueBoolean": "true"
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		typeErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "Expected boolean") {
+				typeErrors++
+			}
+		}
+		assert.GreaterOrEqual(t, typeErrors, 1, "Should have error for wrong boolean type. Issues: %v", result.Issues)
+	})
+
+	// Test 7: Valid valueInteger
+	t.Run("valid valueInteger", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/priority",
+				"valueInteger": 5
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		intErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "integer") {
+				intErrors++
+			}
+		}
+		assert.Equal(t, 0, intErrors, "Should not have integer validation errors. Issues: %v", result.Issues)
+	})
+
+	// Test 8: Invalid valueInteger - decimal instead of integer
+	t.Run("invalid valueInteger decimal", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/priority",
+				"valueInteger": 5.5
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		typeErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "Expected integer") {
+				typeErrors++
+			}
+		}
+		assert.GreaterOrEqual(t, typeErrors, 1, "Should have error for decimal in integer field. Issues: %v", result.Issues)
+	})
+
+	// Test 9: Valid valueDecimal
+	t.Run("valid valueDecimal", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/score",
+				"valueDecimal": 98.6
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		decErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "decimal") {
+				decErrors++
+			}
+		}
+		assert.Equal(t, 0, decErrors, "Should not have decimal validation errors. Issues: %v", result.Issues)
+	})
+}
+
+func TestValidateExtensions_ComplexTypeValidation(t *testing.T) {
+	registry := NewRegistry(FHIRVersionR4)
+
+	err := loadTestStructureDefinitions(registry)
+	if err != nil {
+		t.Skipf("Skipping test - could not load specs: %v", err)
+	}
+
+	extensionsPath := "../../specs/r4/extension-definitions.json"
+	_, err = registry.LoadFromFile(extensionsPath)
+	if err != nil {
+		t.Skipf("Skipping test - could not load extension definitions: %v", err)
+	}
+
+	opts := ValidatorOptions{
+		ValidateConstraints: false,
+		ValidateExtensions:  true,
+		StrictMode:          true,
+	}
+	v := NewValidator(registry, opts)
+
+	// Test: Valid Address in patient-birthPlace extension
+	t.Run("valid Address structure", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+				"valueAddress": {
+					"use": "home",
+					"type": "physical",
+					"city": "New York",
+					"state": "NY",
+					"country": "USA",
+					"postalCode": "10001"
+				}
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		addressErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "Address") {
+				addressErrors++
+			}
+		}
+		assert.Equal(t, 0, addressErrors, "Should not have Address validation errors. Issues: %v", result.Issues)
+	})
+
+	// Test: Address with invalid field type
+	t.Run("Address with invalid field type", func(t *testing.T) {
+		resource := []byte(`{
+			"resourceType": "Patient",
+			"id": "test",
+			"extension": [{
+				"url": "http://hl7.org/fhir/StructureDefinition/patient-birthPlace",
+				"valueAddress": {
+					"city": 12345,
+					"state": "NY"
+				}
+			}],
+			"name": [{"family": "Test"}]
+		}`)
+
+		result, err := v.Validate(context.Background(), resource)
+		require.NoError(t, err)
+
+		// Should have error for wrong type in city field
+		typeErrors := 0
+		for _, issue := range result.Issues {
+			if issue.Severity == SeverityError && containsString(issue.Diagnostics, "Expected string") {
+				typeErrors++
+			}
+		}
+		assert.GreaterOrEqual(t, typeErrors, 1, "Should have error for wrong field type in Address. Issues: %v", result.Issues)
+	})
+}
+
+func TestIsPrimitiveType(t *testing.T) {
+	tests := []struct {
+		typeName string
+		expected bool
+	}{
+		{"boolean", true},
+		{"integer", true},
+		{"string", true},
+		{"decimal", true},
+		{"uri", true},
+		{"url", true},
+		{"canonical", true},
+		{"base64Binary", true},
+		{"instant", true},
+		{"date", true},
+		{"dateTime", true},
+		{"time", true},
+		{"code", true},
+		{"oid", true},
+		{"id", true},
+		{"markdown", true},
+		{"unsignedInt", true},
+		{"positiveInt", true},
+		{"uuid", true},
+		{"Address", false},
+		{"Identifier", false},
+		{"Reference", false},
+		{"CodeableConcept", false},
+		{"Patient", false},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.typeName, func(t *testing.T) {
+			result := isPrimitiveType(tt.typeName)
+			assert.Equal(t, tt.expected, result)
+		})
+	}
+}
+
 // countExtensionErrors counts extension-related errors in the result
 func countExtensionErrors(result *ValidationResult) int {
 	count := 0
