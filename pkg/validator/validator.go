@@ -263,6 +263,10 @@ func (v *Validator) Validate(ctx context.Context, resource []byte) (*ValidationR
 	// Validate primitive types
 	v.validatePrimitives(ctx, vctx, result)
 
+	// Validate ele-1 globally (all FHIR elements must have @value or children)
+	// This is a fundamental constraint that applies to ALL elements
+	v.validateEle1(ctx, vctx, result)
+
 	// Validate constraints (FHIRPath)
 	if v.options.ValidateConstraints {
 		v.validateConstraints(ctx, vctx, result)
@@ -838,4 +842,96 @@ func (v *Validator) isChoiceElementSatisfied(path string, present map[string]boo
 		}
 	}
 	return false
+}
+
+// validateEle1 validates the ele-1 constraint globally across all FHIR elements.
+// ele-1: "All FHIR elements must have a @value or children"
+// Expression: hasValue() or (children().count() > id.count())
+//
+// This is implemented as a direct structural check for efficiency,
+// avoiding FHIRPath evaluation overhead on every element.
+func (v *Validator) validateEle1(_ context.Context, vctx *validationContext, result *ValidationResult) {
+	v.checkEle1Recursive(vctx.parsed, vctx.resourceType, result)
+}
+
+// checkEle1Recursive recursively validates ele-1 for each element in the resource tree.
+// It checks that every complex element (map) has meaningful content beyond just "id".
+func (v *Validator) checkEle1Recursive(node interface{}, path string, result *ValidationResult) {
+	switch val := node.(type) {
+	case map[string]interface{}:
+		// Skip root resource - resourceType alone is valid
+		if path == "" || isResourceRoot(val) {
+			// Continue to check children
+			for key, child := range val {
+				if key == "resourceType" {
+					continue
+				}
+				childPath := buildElementPath(path, key)
+				v.checkEle1Recursive(child, childPath, result)
+			}
+			return
+		}
+
+		// Check if this element violates ele-1 (empty or only has "id")
+		if isEmptyFHIRElement(val) {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeInvariant,
+				Diagnostics: "Constraint ele-1 violated: All FHIR elements must have a @value or children",
+				Expression:  []string{path},
+			})
+			return // Don't recurse into invalid element
+		}
+
+		// Recursively check children
+		for key, child := range val {
+			// Skip id field and primitive extensions (_field)
+			if key == "id" {
+				continue
+			}
+			childPath := buildElementPath(path, key)
+			v.checkEle1Recursive(child, childPath, result)
+		}
+
+	case []interface{}:
+		// Check each array element
+		for i, item := range val {
+			itemPath := fmt.Sprintf("%s[%d]", path, i)
+			v.checkEle1Recursive(item, itemPath, result)
+		}
+	}
+	// Primitives (string, number, bool, nil) are valid - they have a value
+}
+
+// isResourceRoot checks if a map is the root resource (has resourceType).
+func isResourceRoot(m map[string]interface{}) bool {
+	_, hasResourceType := m["resourceType"]
+	return hasResourceType
+}
+
+// isEmptyFHIRElement checks if an element violates ele-1.
+// An element violates ele-1 if it has no meaningful content (only "id" or empty).
+// This implements: hasValue() or (children().count() > id.count())
+func isEmptyFHIRElement(m map[string]interface{}) bool {
+	if len(m) == 0 {
+		return true // Empty object
+	}
+
+	// Count meaningful children (excluding "id")
+	meaningfulChildren := 0
+	for key := range m {
+		if key != "id" {
+			meaningfulChildren++
+		}
+	}
+
+	return meaningfulChildren == 0
+}
+
+// buildElementPath constructs a FHIRPath-style element path.
+func buildElementPath(parent, child string) string {
+	if parent == "" {
+		return child
+	}
+	return parent + "." + child
 }

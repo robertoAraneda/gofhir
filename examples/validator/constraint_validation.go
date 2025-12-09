@@ -102,9 +102,8 @@ func validateEle1Constraint(ctx context.Context, v *validator.Validator) {
 	fmt.Println("  ele-1 constraint:")
 	fmt.Println("  'All FHIR elements must have a @value or children'")
 	fmt.Println("  Expression: hasValue() or (children().count() > id.count())")
-	fmt.Println("\n  NOTE: ele-1 is a universal constraint that applies to ALL FHIR elements.")
-	fmt.Println("  Full validation of ele-1 on empty objects {} is not yet implemented.")
-	fmt.Println("  Currently, specific validators (like extension validation) catch these cases.")
+	fmt.Println("\n  ele-1 is validated GLOBALLY for ALL FHIR elements.")
+	fmt.Println("  This validation runs automatically without any special options.")
 
 	// Valid case: Element with value
 	fmt.Println("\n  1. Valid: Element with primitive value")
@@ -145,41 +144,44 @@ func validateEle1Constraint(ctx context.Context, v *validator.Validator) {
 	}
 	printResult("Patient with complex types", complexResult)
 
-	// Invalid case: Extension without value - detected by extension validator
-	fmt.Println("\n  3. Invalid: Extension without value[x]")
-	fmt.Println("     (Detected by extension validator implementing ele-1/ext-1 rules)")
-
-	registry := validator.NewRegistry(validator.FHIRVersionR4)
-	specsDir := filepath.Join("..", "..", "specs", "r4")
-	registry.LoadR4Specs(specsDir)
-
-	extValidatorOpts := validator.ValidatorOptions{
-		ValidateConstraints: true,
-		ValidateExtensions:  true,
-	}
-	extValidator := validator.NewValidator(registry, extValidatorOpts)
-
-	noValueExtPatient := []byte(`{
+	// Invalid case: Empty element (only has "id")
+	fmt.Println("\n  3. Invalid: Empty element (violates ele-1)")
+	emptyElementPatient := []byte(`{
 		"resourceType": "Patient",
-		"id": "invalid-ext",
-		"extension": [{
-			"url": "http://example.org/fhir/StructureDefinition/importance"
-		}],
-		"name": [{"family": "Test"}]
+		"id": "invalid-ele1",
+		"name": [{"id": "name-1"}],
+		"active": true
 	}`)
 
-	noValueExtResult, err := extValidator.Validate(ctx, noValueExtPatient)
+	emptyResult, err := v.Validate(ctx, emptyElementPatient)
 	if err != nil {
 		log.Printf("Validation error: %v", err)
 		return
 	}
-	printResult("Extension without value", noValueExtResult)
+	printResult("Patient with empty name element", emptyResult)
 
-	// Show what ele-1 means conceptually
+	// Invalid case: Completely empty object
+	fmt.Println("\n  4. Invalid: Completely empty object")
+	emptyObjectPatient := []byte(`{
+		"resourceType": "Patient",
+		"id": "invalid-empty",
+		"name": [{}],
+		"active": true
+	}`)
+
+	emptyObjResult, err := v.Validate(ctx, emptyObjectPatient)
+	if err != nil {
+		log.Printf("Validation error: %v", err)
+		return
+	}
+	printResult("Patient with empty name object", emptyObjResult)
+
+	// Show what ele-1 ensures
 	fmt.Println("\n  ele-1 ensures:")
 	fmt.Println("  - Primitive elements have a value (e.g., active: true, gender: 'male')")
 	fmt.Println("  - Complex elements have child elements (e.g., name: {family: 'Doe'})")
 	fmt.Println("  - Empty objects {} are NOT valid FHIR elements")
+	fmt.Println("  - Objects with only 'id' are NOT valid (id alone doesn't count)")
 }
 
 func validatePat1Violation(ctx context.Context, v *validator.Validator) {

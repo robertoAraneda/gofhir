@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -656,5 +657,145 @@ func BenchmarkExpressionCacheHit(b *testing.B) {
 		for _, p := range patients {
 			v.Validate(ctx, p)
 		}
+	}
+}
+
+// TestValidateEle1EmptyObject tests that empty objects violate ele-1
+func TestValidateEle1EmptyObject(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Patient with empty name object - violates ele-1
+	patient := []byte(`{
+		"resourceType": "Patient",
+		"id": "test",
+		"name": [{}],
+		"active": true
+	}`)
+
+	result, err := v.Validate(ctx, patient)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Empty object validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should have ele-1 violation
+	hasEle1Error := false
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeInvariant && strings.Contains(issue.Diagnostics, "ele-1") {
+			hasEle1Error = true
+			break
+		}
+	}
+	if !hasEle1Error {
+		t.Error("Expected ele-1 constraint violation for empty object")
+	}
+}
+
+// TestValidateEle1OnlyId tests that objects with only "id" violate ele-1
+func TestValidateEle1OnlyId(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Patient with name that only has "id" - violates ele-1
+	patient := []byte(`{
+		"resourceType": "Patient",
+		"id": "test",
+		"name": [{"id": "name-1"}],
+		"active": true
+	}`)
+
+	result, err := v.Validate(ctx, patient)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Only-id object validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should have ele-1 violation
+	hasEle1Error := false
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeInvariant && strings.Contains(issue.Diagnostics, "ele-1") {
+			hasEle1Error = true
+			break
+		}
+	}
+	if !hasEle1Error {
+		t.Error("Expected ele-1 constraint violation for object with only 'id'")
+	}
+}
+
+// TestValidateEle1ValidElement tests that valid elements pass ele-1
+func TestValidateEle1ValidElement(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Valid patient - all elements have values or children
+	patient := []byte(`{
+		"resourceType": "Patient",
+		"id": "test",
+		"name": [{
+			"family": "Doe",
+			"given": ["John"]
+		}],
+		"active": true
+	}`)
+
+	result, err := v.Validate(ctx, patient)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	// Should NOT have ele-1 violation
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeInvariant && strings.Contains(issue.Diagnostics, "ele-1") {
+			t.Errorf("Valid element should not have ele-1 error: %s", issue.Diagnostics)
+		}
+	}
+}
+
+// TestValidateEle1NestedEmpty tests nested empty objects
+func TestValidateEle1NestedEmpty(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Patient with nested empty object in address
+	patient := []byte(`{
+		"resourceType": "Patient",
+		"id": "test",
+		"address": [{
+			"city": "Springfield",
+			"period": {}
+		}],
+		"active": true
+	}`)
+
+	result, err := v.Validate(ctx, patient)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Nested empty validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should have ele-1 violation for the empty period
+	hasEle1Error := false
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeInvariant && strings.Contains(issue.Diagnostics, "ele-1") {
+			hasEle1Error = true
+			break
+		}
+	}
+	if !hasEle1Error {
+		t.Error("Expected ele-1 constraint violation for nested empty object")
 	}
 }
