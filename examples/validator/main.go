@@ -56,6 +56,14 @@ func main() {
 	// 8. Show validation result analysis
 	fmt.Println("\n--- 8. Analyzing Validation Results ---")
 	analyzeValidationResults(ctx, v)
+
+	// 9. Validate references
+	fmt.Println("\n--- 9. Reference Validation ---")
+	validateReferences(ctx, v)
+
+	// 10. Validate extensions
+	fmt.Println("\n--- 10. Extension Validation ---")
+	validateExtensions(ctx, v)
 }
 
 // setupValidator creates a validator with R4 StructureDefinitions
@@ -466,4 +474,296 @@ func printValidationSummary(result *validator.ValidationResult) {
 	}
 	fmt.Printf("    Result: %s (errors: %d, warnings: %d)\n",
 		status, result.ErrorCount(), result.WarningCount())
+}
+
+// validateReferences demonstrates reference validation features
+func validateReferences(ctx context.Context, v *validator.Validator) {
+	// Create validator with reference validation enabled
+	registry := validator.NewRegistry(validator.FHIRVersionR4)
+	specsPath := filepath.Join("..", "..", "specs", "r4", "profiles-resources.json")
+	registry.LoadFromFile(specsPath)
+
+	refOpts := validator.ValidatorOptions{
+		ValidateReferences: true,
+		ValidateExtensions: false,
+	}
+	refValidator := validator.NewValidator(registry, refOpts)
+
+	// Example 1: Valid relative reference
+	fmt.Println("\n  1. Valid relative reference:")
+	observation1 := []byte(`{
+		"resourceType": "Observation",
+		"id": "obs1",
+		"status": "final",
+		"code": {"coding": [{"code": "test"}]},
+		"subject": {
+			"reference": "Patient/123"
+		}
+	}`)
+	result1, _ := refValidator.Validate(ctx, observation1)
+	printValidationSummary(result1)
+
+	// Example 2: Valid contained reference
+	fmt.Println("\n  2. Valid contained reference:")
+	observation2 := []byte(`{
+		"resourceType": "Observation",
+		"id": "obs2",
+		"status": "final",
+		"code": {"coding": [{"code": "test"}]},
+		"contained": [{
+			"resourceType": "Patient",
+			"id": "pat1",
+			"name": [{"family": "Smith"}]
+		}],
+		"subject": {
+			"reference": "#pat1"
+		}
+	}`)
+	result2, _ := refValidator.Validate(ctx, observation2)
+	printValidationSummary(result2)
+
+	// Example 3: Invalid contained reference (referenced resource not in contained)
+	fmt.Println("\n  3. Invalid contained reference (missing resource):")
+	observation3 := []byte(`{
+		"resourceType": "Observation",
+		"id": "obs3",
+		"status": "final",
+		"code": {"coding": [{"code": "test"}]},
+		"subject": {
+			"reference": "#nonexistent"
+		}
+	}`)
+	result3, _ := refValidator.Validate(ctx, observation3)
+	printValidationSummary(result3)
+	for _, issue := range result3.Issues {
+		if issue.Severity == validator.SeverityError {
+			fmt.Printf("    Error: %s\n", issue.Diagnostics)
+		}
+	}
+
+	// Example 4: Valid absolute URL reference
+	fmt.Println("\n  4. Valid absolute URL reference:")
+	observation4 := []byte(`{
+		"resourceType": "Observation",
+		"id": "obs4",
+		"status": "final",
+		"code": {"coding": [{"code": "test"}]},
+		"subject": {
+			"reference": "https://example.org/fhir/Patient/456"
+		}
+	}`)
+	result4, _ := refValidator.Validate(ctx, observation4)
+	printValidationSummary(result4)
+
+	// Example 5: Valid URN reference
+	fmt.Println("\n  5. Valid URN reference:")
+	observation5 := []byte(`{
+		"resourceType": "Observation",
+		"id": "obs5",
+		"status": "final",
+		"code": {"coding": [{"code": "test"}]},
+		"subject": {
+			"reference": "urn:uuid:550e8400-e29b-41d4-a716-446655440000"
+		}
+	}`)
+	result5, _ := refValidator.Validate(ctx, observation5)
+	printValidationSummary(result5)
+
+	// Example 6: Reference with display only (logical reference)
+	fmt.Println("\n  6. Logical reference (display only):")
+	observation6 := []byte(`{
+		"resourceType": "Observation",
+		"id": "obs6",
+		"status": "final",
+		"code": {"coding": [{"code": "test"}]},
+		"subject": {
+			"display": "Patient John Doe"
+		}
+	}`)
+	result6, _ := refValidator.Validate(ctx, observation6)
+	printValidationSummary(result6)
+
+	// Example 7: Reference with identifier (logical reference)
+	fmt.Println("\n  7. Logical reference (identifier):")
+	observation7 := []byte(`{
+		"resourceType": "Observation",
+		"id": "obs7",
+		"status": "final",
+		"code": {"coding": [{"code": "test"}]},
+		"subject": {
+			"type": "Patient",
+			"identifier": {
+				"system": "http://hospital.example.org/patients",
+				"value": "12345"
+			}
+		}
+	}`)
+	result7, _ := refValidator.Validate(ctx, observation7)
+	printValidationSummary(result7)
+}
+
+// validateExtensions demonstrates extension validation features
+func validateExtensions(ctx context.Context, v *validator.Validator) {
+	// Create validator with extension validation enabled
+	registry := validator.NewRegistry(validator.FHIRVersionR4)
+	specsPath := filepath.Join("..", "..", "specs", "r4", "profiles-resources.json")
+	registry.LoadFromFile(specsPath)
+
+	extOpts := validator.ValidatorOptions{
+		ValidateExtensions: true,
+		ValidateReferences: false,
+	}
+	extValidator := validator.NewValidator(registry, extOpts)
+
+	// Example 1: Valid simple extension
+	fmt.Println("\n  1. Valid simple extension:")
+	patient1 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat1",
+		"extension": [{
+			"url": "http://example.org/fhir/StructureDefinition/patient-importance",
+			"valueCode": "VIP"
+		}],
+		"name": [{"family": "Smith"}]
+	}`)
+	result1, _ := extValidator.Validate(ctx, patient1)
+	printValidationSummary(result1)
+
+	// Example 2: Valid complex extension with nested extensions
+	fmt.Println("\n  2. Valid complex extension (nested):")
+	patient2 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat2",
+		"extension": [{
+			"url": "http://example.org/fhir/StructureDefinition/patient-geolocation",
+			"extension": [
+				{
+					"url": "latitude",
+					"valueDecimal": 40.7128
+				},
+				{
+					"url": "longitude",
+					"valueDecimal": -74.0060
+				}
+			]
+		}],
+		"name": [{"family": "Johnson"}]
+	}`)
+	result2, _ := extValidator.Validate(ctx, patient2)
+	printValidationSummary(result2)
+
+	// Example 3: Invalid extension - missing URL
+	fmt.Println("\n  3. Invalid extension (missing URL):")
+	patient3 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat3",
+		"extension": [{
+			"valueString": "some value without URL"
+		}],
+		"name": [{"family": "Williams"}]
+	}`)
+	result3, _ := extValidator.Validate(ctx, patient3)
+	printValidationSummary(result3)
+	for _, issue := range result3.Issues {
+		if issue.Severity == validator.SeverityError {
+			fmt.Printf("    Error: %s\n", issue.Diagnostics)
+		}
+	}
+
+	// Example 4: Invalid extension - missing value
+	fmt.Println("\n  4. Invalid extension (missing value):")
+	patient4 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat4",
+		"extension": [{
+			"url": "http://example.org/fhir/StructureDefinition/empty-extension"
+		}],
+		"name": [{"family": "Brown"}]
+	}`)
+	result4, _ := extValidator.Validate(ctx, patient4)
+	printValidationSummary(result4)
+	for _, issue := range result4.Issues {
+		if issue.Severity == validator.SeverityError {
+			fmt.Printf("    Error: %s\n", issue.Diagnostics)
+		}
+	}
+
+	// Example 5: Invalid extension - both value and nested extensions
+	fmt.Println("\n  5. Invalid extension (both value and nested):")
+	patient5 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat5",
+		"extension": [{
+			"url": "http://example.org/fhir/StructureDefinition/invalid-structure",
+			"valueString": "a value",
+			"extension": [{
+				"url": "nested",
+				"valueCode": "should not have both"
+			}]
+		}],
+		"name": [{"family": "Davis"}]
+	}`)
+	result5, _ := extValidator.Validate(ctx, patient5)
+	printValidationSummary(result5)
+	for _, issue := range result5.Issues {
+		if issue.Severity == validator.SeverityError {
+			fmt.Printf("    Error: %s\n", issue.Diagnostics)
+		}
+	}
+
+	// Example 6: Valid modifier extension
+	fmt.Println("\n  6. Valid modifier extension:")
+	patient6 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat6",
+		"modifierExtension": [{
+			"url": "http://example.org/fhir/StructureDefinition/patient-confidential",
+			"valueBoolean": true
+		}],
+		"name": [{"family": "Miller"}]
+	}`)
+	result6, _ := extValidator.Validate(ctx, patient6)
+	printValidationSummary(result6)
+
+	// Example 7: Extension on nested element
+	fmt.Println("\n  7. Extension on nested element (HumanName):")
+	patient7 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat7",
+		"name": [{
+			"family": "Wilson",
+			"extension": [{
+				"url": "http://example.org/fhir/StructureDefinition/name-pronunciation",
+				"valueString": "WIL-son"
+			}]
+		}]
+	}`)
+	result7, _ := extValidator.Validate(ctx, patient7)
+	printValidationSummary(result7)
+
+	// Example 8: Multiple extensions
+	fmt.Println("\n  8. Multiple extensions:")
+	patient8 := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat8",
+		"extension": [
+			{
+				"url": "http://example.org/fhir/StructureDefinition/patient-importance",
+				"valueCode": "VIP"
+			},
+			{
+				"url": "http://example.org/fhir/StructureDefinition/patient-nationality",
+				"valueCodeableConcept": {
+					"coding": [{
+						"system": "urn:iso:std:iso:3166",
+						"code": "US",
+						"display": "United States"
+					}]
+				}
+			}
+		],
+		"name": [{"family": "Anderson"}]
+	}`)
+	result8, _ := extValidator.Validate(ctx, patient8)
+	printValidationSummary(result8)
 }

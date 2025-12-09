@@ -141,6 +141,8 @@ type ValidatorOptions struct {
 	ValidateTerminology bool
 	// ValidateReferences enables reference validation
 	ValidateReferences bool
+	// ValidateExtensions enables extension validation
+	ValidateExtensions bool
 	// StrictMode treats warnings as errors
 	StrictMode bool
 	// MaxErrors stops validation after this many errors (0 = unlimited)
@@ -155,6 +157,7 @@ func DefaultValidatorOptions() ValidatorOptions {
 		ValidateConstraints: true,
 		ValidateTerminology: false, // Requires terminology service
 		ValidateReferences:  false, // Requires reference resolver
+		ValidateExtensions:  true,  // Validate extension structure
 		StrictMode:          false,
 		MaxErrors:           0,
 	}
@@ -273,6 +276,11 @@ func (v *Validator) Validate(ctx context.Context, resource []byte) (*ValidationR
 	// Validate references
 	if v.options.ValidateReferences {
 		v.validateReferences(ctx, vctx, result)
+	}
+
+	// Validate extensions
+	if v.options.ValidateExtensions {
+		v.validateExtensions(ctx, vctx, result)
 	}
 
 	return result, nil
