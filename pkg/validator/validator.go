@@ -328,6 +328,11 @@ func (v *Validator) Validate(ctx context.Context, resource []byte) (*ValidationR
 		v.validateExtensions(ctx, vctx, result)
 	}
 
+	// Bundle-specific validation
+	if resourceType == "Bundle" {
+		v.validateBundle(ctx, vctx, result)
+	}
+
 	return result, nil
 }
 

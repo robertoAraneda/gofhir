@@ -542,6 +542,201 @@ func BenchmarkEvaluateResource(b *testing.B) {
 	}
 }
 
+// Test %resource environment variable
+func TestResourceVariable(t *testing.T) {
+	bundle := []byte(`{
+		"resourceType": "Bundle",
+		"type": "transaction",
+		"entry": [
+			{"resource": {"resourceType": "Patient", "id": "p1"}},
+			{"resource": {"resourceType": "Observation", "id": "o1"}}
+		]
+	}`)
+
+	tests := []struct {
+		name      string
+		expr      string
+		wantCount int
+		wantFirst string
+	}{
+		{
+			name:      "resource variable returns root",
+			expr:      "%resource.resourceType",
+			wantCount: 1,
+			wantFirst: "Bundle",
+		},
+		{
+			name:      "resource type from root",
+			expr:      "%resource.type",
+			wantCount: 1,
+			wantFirst: "transaction",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			expr, err := fhirpath.Compile(tt.expr)
+			if err != nil {
+				t.Fatalf("Compile(%q) error = %v", tt.expr, err)
+			}
+
+			result, err := expr.Evaluate(bundle)
+			if err != nil {
+				t.Fatalf("Evaluate() error = %v", err)
+			}
+
+			if len(result) != tt.wantCount {
+				t.Errorf("got %d results, want %d", len(result), tt.wantCount)
+			}
+
+			if tt.wantFirst != "" && len(result) > 0 {
+				if result[0].String() != tt.wantFirst {
+					t.Errorf("got %q, want %q", result[0].String(), tt.wantFirst)
+				}
+			}
+		})
+	}
+}
+
+// Test is() function
+func TestIsFunctionIntegration(t *testing.T) {
+	bundle := []byte(`{
+		"resourceType": "Bundle",
+		"type": "document",
+		"entry": [
+			{
+				"resource": {
+					"resourceType": "Composition",
+					"id": "comp1",
+					"status": "final"
+				}
+			},
+			{
+				"resource": {
+					"resourceType": "Patient",
+					"id": "pat1"
+				}
+			}
+		]
+	}`)
+
+	tests := []struct {
+		name     string
+		expr     string
+		wantBool bool
+	}{
+		{
+			name:     "first entry is Composition",
+			expr:     "Bundle.entry.first().resource.is(Composition)",
+			wantBool: true,
+		},
+		{
+			name:     "first entry is not Patient",
+			expr:     "Bundle.entry.first().resource.is(Patient)",
+			wantBool: false,
+		},
+		{
+			name:     "second entry is Patient",
+			expr:     "Bundle.entry[1].resource.is(Patient)",
+			wantBool: true,
+		},
+		{
+			name:     "resourceType is Bundle",
+			expr:     "Bundle.is(Bundle)",
+			wantBool: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := fhirpath.EvaluateToBoolean(bundle, tt.expr)
+			if err != nil {
+				t.Fatalf("EvaluateToBoolean(%q) error = %v", tt.expr, err)
+			}
+
+			if result != tt.wantBool {
+				t.Errorf("got %v, want %v", result, tt.wantBool)
+			}
+		})
+	}
+}
+
+// Test as() function
+func TestAsFunctionIntegration(t *testing.T) {
+	patient := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat1",
+		"name": [{"family": "Doe"}]
+	}`)
+
+	t.Run("as matching type returns value", func(t *testing.T) {
+		expr := fhirpath.MustCompile("Patient.as(Patient)")
+		result, err := expr.Evaluate(patient)
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if result.Empty() {
+			t.Error("expected non-empty result")
+		}
+	})
+
+	t.Run("as non-matching type returns empty", func(t *testing.T) {
+		expr := fhirpath.MustCompile("Patient.as(Observation)")
+		result, err := expr.Evaluate(patient)
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if !result.Empty() {
+			t.Error("expected empty result for non-matching type")
+		}
+	})
+}
+
+// Test is operator (not function)
+func TestIsOperatorIntegration(t *testing.T) {
+	patient := []byte(`{
+		"resourceType": "Patient",
+		"id": "pat1",
+		"active": true,
+		"birthDate": "1990-01-15"
+	}`)
+
+	tests := []struct {
+		name     string
+		expr     string
+		wantBool bool
+	}{
+		{
+			name:     "string is String",
+			expr:     "Patient.id is String",
+			wantBool: true,
+		},
+		{
+			name:     "boolean is Boolean",
+			expr:     "Patient.active is Boolean",
+			wantBool: true,
+		},
+		{
+			name:     "Patient is Patient",
+			expr:     "Patient is Patient",
+			wantBool: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := fhirpath.EvaluateToBoolean(patient, tt.expr)
+			if err != nil {
+				t.Fatalf("EvaluateToBoolean(%q) error = %v", tt.expr, err)
+			}
+
+			if result != tt.wantBool {
+				t.Errorf("got %v, want %v", result, tt.wantBool)
+			}
+		})
+	}
+}
+
 // Helper functions
 func strPtr(s string) *string {
 	return &s

@@ -52,13 +52,20 @@ type Context struct {
 }
 
 // NewContext creates a new evaluation context.
+// Automatically sets %resource to the root resource for FHIR constraint evaluation.
 func NewContext(resource []byte) *Context {
 	//nolint:errcheck // Empty collection is acceptable for invalid JSON in context creation
 	root, _ := types.JSONToCollection(resource)
+
+	// Initialize variables map with %resource pointing to root
+	// This is required by FHIR constraints like bdl-3, bdl-4
+	variables := make(map[string]types.Collection)
+	variables["resource"] = root
+
 	return &Context{
 		root:      root,
 		this:      root,
-		variables: make(map[string]types.Collection),
+		variables: variables,
 		limits:    make(map[string]int),
 		goCtx:     context.Background(),
 	}
@@ -386,6 +393,14 @@ func (e *Evaluator) VisitFunctionInvocation(ctx *grammar.FunctionInvocationConte
 		if argCount > 0 {
 			return e.evaluateSelect(input, argExprs[0])
 		}
+	case "is":
+		if argCount > 0 {
+			return e.evaluateIsFunction(input, argExprs[0])
+		}
+	case "as":
+		if argCount > 0 {
+			return e.evaluateAsFunction(input, argExprs[0])
+		}
 	}
 
 	// Evaluate arguments normally
@@ -580,6 +595,72 @@ func (e *Evaluator) evaluateSelect(input types.Collection, projection grammar.IE
 	}
 
 	return result
+}
+
+// evaluateIsFunction evaluates is() function - checks if input is of specified type.
+// This handles is(Type) where Type is an identifier like Composition, Patient, etc.
+func (e *Evaluator) evaluateIsFunction(input types.Collection, typeExpr grammar.IExpressionContext) interface{} {
+	// Empty input returns empty
+	if input.Empty() {
+		return types.Collection{}
+	}
+
+	// is() requires singleton input
+	if len(input) != 1 {
+		return SingletonError(len(input))
+	}
+
+	// Extract the type name from the expression
+	typeName := e.extractTypeNameFromExpr(typeExpr)
+	if typeName == "" {
+		return InvalidArgumentsError("is", 1, 0)
+	}
+
+	// Get actual type - Type() already returns resourceType for ObjectValue
+	actualType := input[0].Type()
+
+	matches := TypeMatches(actualType, typeName)
+	return types.Collection{types.NewBoolean(matches)}
+}
+
+// evaluateAsFunction evaluates as() function - casts input to specified type.
+// Returns input if it matches the type, empty otherwise.
+func (e *Evaluator) evaluateAsFunction(input types.Collection, typeExpr grammar.IExpressionContext) interface{} {
+	// Empty input returns empty
+	if input.Empty() {
+		return types.Collection{}
+	}
+
+	// as() requires singleton input
+	if len(input) != 1 {
+		return SingletonError(len(input))
+	}
+
+	// Extract the type name from the expression
+	typeName := e.extractTypeNameFromExpr(typeExpr)
+	if typeName == "" {
+		return InvalidArgumentsError("as", 1, 0)
+	}
+
+	// Get actual type - Type() already returns resourceType for ObjectValue
+	actualType := input[0].Type()
+
+	if TypeMatches(actualType, typeName) {
+		return input
+	}
+
+	return types.Collection{}
+}
+
+// extractTypeNameFromExpr extracts a type name from a FHIRPath expression.
+// Handles identifiers like Composition, Patient, and qualified names like FHIR.Patient.
+func (e *Evaluator) extractTypeNameFromExpr(expr grammar.IExpressionContext) string {
+	// Get the text of the expression directly - this handles simple identifiers
+	text := expr.GetText()
+	if text != "" {
+		return text
+	}
+	return ""
 }
 
 // VisitThisInvocation visits $this.
@@ -976,9 +1057,9 @@ func (e *Evaluator) VisitTypeExpression(ctx *grammar.TypeExpressionContext) inte
 
 	switch op {
 	case "is":
-		return types.Collection{types.NewBoolean(typeMatches(actualType, typeName))}
+		return types.Collection{types.NewBoolean(TypeMatches(actualType, typeName))}
 	case "as":
-		if typeMatches(actualType, typeName) {
+		if TypeMatches(actualType, typeName) {
 			return leftCol
 		}
 		return types.Collection{}
@@ -987,9 +1068,10 @@ func (e *Evaluator) VisitTypeExpression(ctx *grammar.TypeExpressionContext) inte
 	return types.Collection{}
 }
 
-// typeMatches checks if actualType matches the requested typeName.
+// TypeMatches checks if actualType matches the requested typeName.
 // Handles case-insensitive comparison and FHIR type aliases.
-func typeMatches(actualType, typeName string) bool {
+// This function is exported for use by the is() function implementation.
+func TypeMatches(actualType, typeName string) bool {
 	// Direct match
 	if actualType == typeName {
 		return true

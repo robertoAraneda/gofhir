@@ -1191,9 +1191,9 @@ func TestTypeMatches(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := typeMatches(tt.actualType, tt.typeName)
+			result := TypeMatches(tt.actualType, tt.typeName)
 			if result != tt.expected {
-				t.Errorf("typeMatches(%q, %q) = %v, expected %v",
+				t.Errorf("TypeMatches(%q, %q) = %v, expected %v",
 					tt.actualType, tt.typeName, result, tt.expected)
 			}
 		})

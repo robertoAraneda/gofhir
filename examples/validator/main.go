@@ -7,6 +7,7 @@
 // - reference_validation.go: Reference validation (contained, relative, absolute, URN)
 // - extension_validation.go: Extension validation (simple, complex, HL7 standard)
 // - terminology_validation.go: Terminology binding validation (code, Coding, CodeableConcept)
+// - bundle_validation.go: Bundle validation (document, transaction, searchset, constraints)
 package main
 
 import (
@@ -43,6 +44,7 @@ func main() {
 	RunReferenceValidationExamples(ctx)
 	RunExtensionValidationExamples(ctx)
 	RunTerminologyValidationExamples(ctx)
+	RunBundleValidationExamples(ctx)
 
 	fmt.Println("\n" + separator)
 	fmt.Println("All examples completed!")

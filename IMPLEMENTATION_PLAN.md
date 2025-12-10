@@ -1241,7 +1241,30 @@ type TraceEntry struct {
 - [x] NullTraceLogger para production (disable traces)
 - [x] SetTraceLogger() global configuration
 
-#### 5.6 API Pública - ✅ COMPLETADO
+#### 5.6 Variables de Entorno FHIRPath - 🔄 PARCIALMENTE COMPLETADO
+
+```go
+// Variables FHIR estándar soportadas:
+// %resource - Recurso raíz que se está evaluando ✅ COMPLETADO
+// %ucum     - Constante http://unitsofmeasure.org (2 usos en R4)
+// %sct      - Constante http://snomed.info/sct
+// %loinc    - Constante http://loinc.org
+// %context  - Contexto de iteración padre (2 usos en ImplementationGuide)
+// %rootResource - Recurso raíz del Bundle (para recursos anidados)
+```
+
+- [x] Implementar `%resource` - Variable que apunta al recurso raíz
+- [x] Implementar función `is()` (forma función además del operador)
+- [ ] Implementar `%ucum` - Constante `http://unitsofmeasure.org`
+- [ ] Implementar `%sct` - Constante `http://snomed.info/sct`
+- [ ] Implementar `%loinc` - Constante `http://loinc.org`
+- [ ] Implementar `%context` - Contexto de iteración padre
+- [ ] Implementar `%rootResource` - Recurso raíz para Bundles anidados
+
+**Prioridad:** `%ucum` y constantes de terminología son de baja prioridad (solo 2-4 usos en R4).
+`%context` solo se usa en ImplementationGuide. `%rootResource` es útil para Bundles complejos.
+
+#### 5.7 API Pública - ✅ COMPLETADO
 ```go
 // pkg/fhirpath/fhirpath.go
 func Compile(expression string) (*Expression, error)
