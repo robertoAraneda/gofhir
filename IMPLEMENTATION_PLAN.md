@@ -1482,6 +1482,30 @@ func (v *Validator) evaluateConstraint(resource []byte, elementPath, resourceTyp
 // ✅ Detecta correctamente violación cuando contact solo tiene relationship
 ```
 
+#### 6.6.1 Validación Global ele-1 - ✅ COMPLETADO
+
+```go
+// pkg/validator/validator.go
+func (v *Validator) validateEle1(ctx context.Context, vctx *validationContext, result *ValidationResult) {
+    // ele-1: "All FHIR elements must have a @value or children"
+    // Se ejecuta SIEMPRE, automáticamente, sin opciones especiales
+    v.checkEle1Recursive(vctx.parsed, vctx.resourceType, result)
+}
+
+func (v *Validator) checkEle1Recursive(node interface{}, path string, result *ValidationResult) {
+    // Implementación estructural directa (no FHIRPath) para máximo rendimiento
+    // Detecta: objetos vacíos {}, objetos solo con "id", violaciones anidadas
+}
+```
+
+- [x] Validación ele-1 global (transversal a TODOS los elementos FHIR)
+- [x] Implementación estructural directa (no FHIRPath) para performance
+- [x] Sin allocaciones innecesarias - recorre árbol JSON ya parseado
+- [x] Detecta objetos vacíos `{}`
+- [x] Detecta objetos solo con `"id"` (id no cuenta como valor)
+- [x] Detecta violaciones en elementos anidados
+- [x] 4 tests específicos para ele-1
+
 #### 6.7 Validador de Referencias - ✅ COMPLETADO
 
 ```go
@@ -1523,7 +1547,7 @@ func (v *Validator) validateExtensions(ctx context.Context, vctx *validationCont
 - [x] Implementar validación de contexto (placeholder para futura implementación)
 - [x] Tests completos (7 tests de validación + 5 tests de helpers)
 
-### Tests Sprint 6 - ✅ COMPLETADO (33 tests)
+### Tests Sprint 6 - ✅ COMPLETADO (37 tests)
 - [x] Tests de validación estructural (TestValidateSimplePatient, TestValidateObservation)
 - [x] Tests de validación de primitivos (TestValidateInvalidPrimitiveType)
 - [x] Tests de constraints FHIRPath (TestValidateConstraintViolation, TestValidateConstraintPass)
@@ -1537,6 +1561,7 @@ func (v *Validator) validateExtensions(ctx context.Context, vctx *validationCont
 - [x] Tests de helpers de referencias (TestExtractResourceTypeFromProfile, TestPathWithoutArrayIndices)
 - [x] Tests de extensiones (TestValidateExtensions_*, 7 tests)
 - [x] Tests de helpers de extensiones (TestIsValidExtensionURL, TestIsHL7Extension, TestExtractExtensionName, TestHasExtensionValue, TestGetExtensionValueType)
+- [x] Tests de ele-1 global (TestValidateEle1EmptyObject, TestValidateEle1OnlyId, TestValidateEle1ValidElement, TestValidateEle1NestedEmpty)
 
 **Archivos creados:**
 - `pkg/validator/interfaces.go` - Interfaces para extensibilidad
@@ -1559,7 +1584,7 @@ func (v *Validator) validateExtensions(ctx context.Context, vctx *validationCont
 - [x] Validador de constraints FHIRPath (dinámico, cualquier nivel)
 - [x] Validador de referencias (formato, contenidos, tipos permitidos)
 - [x] Validador de extensiones (estructura, URLs, validación contra StructureDefinition)
-- [ ] Validador de terminología - PENDIENTE (Sprint 7)
+- [x] Validador de terminología - COMPLETADO (Sprint 7)
 
 ---
 
@@ -1588,39 +1613,63 @@ func (v *Validator) validateExtensions(ctx context.Context, vctx *validationCont
 - [x] Manejar cambios de estructura R5
 - [x] Generar `pkg/fhir/r5/*` (todos los archivos)
 
-#### 7.3 Validador de Terminologia
+#### 7.3 Validador de Terminologia - ✅ COMPLETADO
+
+Se implementó un sistema completo de validación de terminología con dos servicios:
+
+**Opción 1: EmbeddedTerminologyService (Recomendado para producción)**
 ```go
-// pkg/validator/validators/terminology.go
-package validators
-
-type TerminologyValidator struct {
-    client      *TerminologyClient
-    cache       *lru.Cache
-    codeSystem  map[string]*CodeSystem // Embebidos
+// Uso más simple - auto-configuración via ValidatorOptions
+opts := validator.ValidatorOptions{
+    ValidateTerminology: true,  // Usa R4 por defecto
+    // TerminologyService: validator.TerminologyEmbeddedR4B,  // O explícito R4B/R5
 }
+v := validator.NewValidator(registry, opts)
 
-type TerminologyClient struct {
-    serverURL string
-    http      *http.Client
-}
-
-func NewTerminologyValidator(serverURL string, cacheSize int) (*TerminologyValidator, error)
-
-func (v *TerminologyValidator) Validate(ctx context.Context, vctx *ValidationContext) ([]Issue, error) {
-    // Validar bindings:
-    // - required: codigo debe estar en ValueSet
-    // - extensible: warning si no esta
-    // - preferred: info si no esta
-    // - example: sin validacion
-}
-
-func (v *TerminologyValidator) ValidateCode(ctx context.Context, system, code string, valueSetURL string) (bool, error)
+// O creación manual del servicio
+svc := validator.NewEmbeddedTerminologyServiceR4()  // o R4B(), R5()
+v := validator.NewValidator(registry, opts).WithTerminologyService(svc)
 ```
 
-- [ ] Implementar cliente de terminologia (tx.fhir.org)
-- [ ] Implementar cache de validaciones
-- [ ] Implementar ValueSets embebidos comunes
-- [ ] Implementar validacion por binding strength
+**Opción 2: LocalTerminologyService (Para cargar ValueSets custom)**
+```go
+termService := validator.NewLocalTerminologyService()
+termService.LoadFromFile("specs/r4/valuesets.json")
+v := validator.NewValidator(registry, opts).WithTerminologyService(termService)
+```
+
+**Archivos creados:**
+- `pkg/validator/terminology.go` - LocalTerminologyService (carga desde JSON)
+- `pkg/validator/terminology_embedded.go` - EmbeddedTerminologyService base
+- `pkg/validator/terminology_embedded_r4.go` - 123 ValueSets, 1272 códigos (generado)
+- `pkg/validator/terminology_embedded_r4b.go` - 123 ValueSets, 1261 códigos (generado)
+- `pkg/validator/terminology_embedded_r5.go` - 113 ValueSets, 888 códigos (generado)
+- `cmd/gen-terminology/main.go` - CLI para regenerar ValueSets embebidos
+- `internal/codegen/generator/terminology_codegen.go` - Generador de código
+
+**Constantes de configuración:**
+```go
+type TerminologyServiceType int
+const (
+    TerminologyNone        // Sin validación (default cuando ValidateTerminology=false)
+    TerminologyEmbeddedR4  // R4 4.0.1 (default cuando ValidateTerminology=true)
+    TerminologyEmbeddedR4B // R4B 4.3.0
+    TerminologyEmbeddedR5  // R5 5.0.0
+)
+```
+
+- [x] Implementar interface TerminologyService
+- [x] Implementar LocalTerminologyService (carga desde JSON)
+- [x] Implementar EmbeddedTerminologyService (ValueSets pre-compilados)
+- [x] Generar ValueSets embebidos para R4 (123 ValueSets, 1272 códigos)
+- [x] Generar ValueSets embebidos para R4B (123 ValueSets, 1261 códigos)
+- [x] Generar ValueSets embebidos para R5 (113 ValueSets, 888 códigos)
+- [x] Implementar codegen para regenerar ValueSets (`cmd/gen-terminology`)
+- [x] Integrar con ValidatorOptions para auto-configuración
+- [x] Implementar validación por binding strength (required → error, extensible → warning)
+- [x] Tests completos (TestEmbeddedTerminologyService, TestValidatorOptionsTerminology, etc.)
+- [ ] Implementar CompositeTerminologyService para combinar Embedded + IGs custom - PENDIENTE
+- [ ] Implementar cliente remoto de terminología (tx.fhir.org) - OPCIONAL para futuro
 
 #### 7.4 CLI Tool
 ```go
@@ -1695,14 +1744,18 @@ func generateCmd() *cobra.Command {
 
 - [x] Tests de generacion R4B (backbones_test.go, etc.)
 - [x] Tests de generacion R5 (backbones_test.go, etc.)
-- [ ] Tests de validacion de terminologia
+- [x] Tests de validacion de terminología (TestEmbeddedTerminologyService, TestValidatorOptionsTerminology, etc.)
 - [ ] Tests E2E del CLI
 - [x] Tests de integracion multi-version
 
 ### Entregables
 
 - [x] Packages R4B y R5 generados
-- [ ] Validador de terminologia
+- [x] Validador de terminología completo:
+  - EmbeddedTerminologyService con ValueSets pre-compilados (R4, R4B, R5)
+  - LocalTerminologyService para cargar ValueSets desde JSON
+  - Integración con ValidatorOptions para configuración simple
+  - Codegen para regenerar ValueSets embebidos
 - [ ] CLI tool funcional
 - [ ] Documentacion de CLI
 

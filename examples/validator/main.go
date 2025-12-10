@@ -6,6 +6,7 @@
 // - constraint_validation.go: FHIRPath constraint validation
 // - reference_validation.go: Reference validation (contained, relative, absolute, URN)
 // - extension_validation.go: Extension validation (simple, complex, HL7 standard)
+// - terminology_validation.go: Terminology binding validation (code, Coding, CodeableConcept)
 package main
 
 import (
@@ -41,6 +42,7 @@ func main() {
 	RunConstraintValidationExamples(ctx)
 	RunReferenceValidationExamples(ctx)
 	RunExtensionValidationExamples(ctx)
+	RunTerminologyValidationExamples(ctx)
 
 	fmt.Println("\n" + separator)
 	fmt.Println("All examples completed!")

@@ -131,14 +131,33 @@ type validationContext struct {
 	index        elementIndex
 }
 
+// TerminologyServiceType specifies which terminology service to use.
+type TerminologyServiceType int
+
+const (
+	// TerminologyNone disables terminology validation (default).
+	TerminologyNone TerminologyServiceType = iota
+	// TerminologyEmbeddedR4 uses embedded ValueSets for FHIR R4.
+	TerminologyEmbeddedR4
+	// TerminologyEmbeddedR4B uses embedded ValueSets for FHIR R4B.
+	TerminologyEmbeddedR4B
+	// TerminologyEmbeddedR5 uses embedded ValueSets for FHIR R5.
+	TerminologyEmbeddedR5
+)
+
 // ValidatorOptions configures validation behavior.
 //
 //nolint:revive // Keeping ValidatorOptions name for API compatibility
 type ValidatorOptions struct {
 	// ValidateConstraints enables FHIRPath constraint validation
 	ValidateConstraints bool
-	// ValidateTerminology enables terminology binding validation
+	// ValidateTerminology enables terminology binding validation.
+	// If true and TerminologyService is not set, uses TerminologyEmbeddedR4 by default.
 	ValidateTerminology bool
+	// TerminologyService specifies which embedded terminology service to use.
+	// Only used when ValidateTerminology is true.
+	// If not set (TerminologyNone), defaults to TerminologyEmbeddedR4 when ValidateTerminology is true.
+	TerminologyService TerminologyServiceType
 	// ValidateReferences enables reference validation
 	ValidateReferences bool
 	// ValidateExtensions enables extension validation
@@ -165,12 +184,34 @@ func DefaultValidatorOptions() ValidatorOptions {
 
 // NewValidator creates a new Validator with the given registry and options.
 func NewValidator(registry StructureDefinitionProvider, opts ValidatorOptions) *Validator {
-	return &Validator{
+	v := &Validator{
 		registry:    registry,
 		options:     opts,
 		termService: &NoopTerminologyService{},
 		refResolver: &NoopReferenceResolver{},
 		exprCache:   newExpressionCache(1000), // Cache up to 1000 expressions
+	}
+
+	// Auto-configure terminology service based on options
+	if opts.ValidateTerminology {
+		v.termService = createTerminologyService(opts.TerminologyService)
+	}
+
+	return v
+}
+
+// createTerminologyService creates the appropriate terminology service based on type.
+func createTerminologyService(serviceType TerminologyServiceType) TerminologyService {
+	switch serviceType {
+	case TerminologyEmbeddedR4B:
+		return NewEmbeddedTerminologyServiceR4B()
+	case TerminologyEmbeddedR5:
+		return NewEmbeddedTerminologyServiceR5()
+	case TerminologyEmbeddedR4, TerminologyNone:
+		// Default to R4 when terminology is enabled but no specific version set
+		return NewEmbeddedTerminologyServiceR4()
+	default:
+		return NewEmbeddedTerminologyServiceR4()
 	}
 }
 
@@ -808,9 +849,164 @@ func isTruthy(result types.Collection) bool {
 }
 
 // validateTerminology validates terminology bindings.
+// It checks that coded elements conform to their bound ValueSets.
+// Only "required" bindings generate errors; "extensible" generates warnings.
 func (v *Validator) validateTerminology(ctx context.Context, vctx *validationContext, result *ValidationResult) {
-	// TODO: Implement terminology validation using termService
-	// For each element with a binding, validate the code against the ValueSet
+	// Check if we have a real terminology service (not noop)
+	if _, isNoop := v.termService.(*NoopTerminologyService); isNoop {
+		return
+	}
+
+	// Iterate through elements with bindings
+	for i := range vctx.sd.Snapshot {
+		elem := &vctx.sd.Snapshot[i]
+		if elem.Binding == nil || elem.Binding.ValueSet == "" {
+			continue
+		}
+
+		// Only validate required and extensible bindings
+		// preferred and example bindings are informational only
+		if elem.Binding.Strength != "required" && elem.Binding.Strength != "extensible" {
+			continue
+		}
+
+		// Check if this element exists in the resource
+		if elem.Path != vctx.resourceType && !elementExistsInResource(vctx.parsed, elem.Path, vctx.resourceType) {
+			continue
+		}
+
+		// Get the value(s) at this path
+		v.validateBindingAtPath(ctx, vctx.parsed, elem, vctx.resourceType, result)
+	}
+}
+
+// validateBindingAtPath validates terminology binding for a specific element path.
+func (v *Validator) validateBindingAtPath(ctx context.Context, resource map[string]interface{}, elem *ElementDef, resourceType string, result *ValidationResult) {
+	// Get the relative path from resource type
+	relativePath := strings.TrimPrefix(elem.Path, resourceType+".")
+
+	// Navigate to the element
+	values := v.getValuesAtPath(resource, relativePath)
+	if len(values) == 0 {
+		return
+	}
+
+	for _, value := range values {
+		v.validateCodeValue(ctx, value, elem, result)
+	}
+}
+
+// getValuesAtPath retrieves all values at a given path, handling arrays.
+func (v *Validator) getValuesAtPath(resource map[string]interface{}, path string) []interface{} {
+	parts := strings.Split(path, ".")
+	return v.collectValues(resource, parts, 0)
+}
+
+// collectValues recursively collects values at a path.
+func (v *Validator) collectValues(current interface{}, parts []string, index int) []interface{} {
+	if index >= len(parts) {
+		return []interface{}{current}
+	}
+
+	part := parts[index]
+
+	switch val := current.(type) {
+	case map[string]interface{}:
+		// Try exact match first
+		if child, ok := val[part]; ok {
+			return v.collectValues(child, parts, index+1)
+		}
+		// Try choice type variants (e.g., "value" might be "valueCodeableConcept")
+		for key, child := range val {
+			if strings.HasPrefix(key, part) {
+				return v.collectValues(child, parts, index+1)
+			}
+		}
+		return nil
+
+	case []interface{}:
+		var results []interface{}
+		for _, item := range val {
+			results = append(results, v.collectValues(item, parts, index)...)
+		}
+		return results
+
+	default:
+		return nil
+	}
+}
+
+// validateCodeValue validates a single code/Coding/CodeableConcept value.
+func (v *Validator) validateCodeValue(ctx context.Context, value interface{}, elem *ElementDef, result *ValidationResult) {
+	if value == nil {
+		return
+	}
+
+	binding := elem.Binding
+
+	// Determine value type and extract code(s) to validate
+	switch val := value.(type) {
+	case string:
+		// Simple code element (e.g., Patient.gender)
+		v.validateSingleCode(ctx, "", val, elem.Path, binding, result)
+
+	case map[string]interface{}:
+		// Could be Coding or CodeableConcept
+		if coding, ok := val["coding"].([]interface{}); ok {
+			// CodeableConcept - validate each coding
+			for _, c := range coding {
+				if codingMap, ok := c.(map[string]interface{}); ok {
+					system, _ := codingMap["system"].(string)
+					code, _ := codingMap["code"].(string)
+					if code != "" {
+						v.validateSingleCode(ctx, system, code, elem.Path, binding, result)
+					}
+				}
+			}
+		} else if code, ok := val["code"].(string); ok {
+			// Coding
+			system, _ := val["system"].(string)
+			v.validateSingleCode(ctx, system, code, elem.Path, binding, result)
+		}
+	}
+}
+
+// validateSingleCode validates a single code against the bound ValueSet.
+func (v *Validator) validateSingleCode(ctx context.Context, system, code, path string, binding *ElementBinding, result *ValidationResult) {
+	if code == "" {
+		return
+	}
+
+	valid, err := v.termService.ValidateCode(ctx, system, code, binding.ValueSet)
+	if err != nil {
+		// ValueSet not found or service error - report as warning
+		result.AddIssue(ValidationIssue{
+			Severity:    SeverityWarning,
+			Code:        IssueCodeCodeInvalid,
+			Diagnostics: fmt.Sprintf("Could not validate code '%s' against ValueSet %s: %v", code, binding.ValueSet, err),
+			Expression:  []string{path},
+		})
+		return
+	}
+
+	if !valid {
+		severity := SeverityWarning
+		if binding.Strength == "required" {
+			severity = SeverityError
+		}
+
+		displayCode := code
+		if system != "" {
+			displayCode = system + "#" + code
+		}
+
+		result.AddIssue(ValidationIssue{
+			Severity:    severity,
+			Code:        IssueCodeCodeInvalid,
+			Diagnostics: fmt.Sprintf("Code '%s' is not in ValueSet %s (binding: %s)", displayCode, binding.ValueSet, binding.Strength),
+			Expression:  []string{path},
+		})
+	}
 }
 
 // validateReferences is implemented in reference.go
