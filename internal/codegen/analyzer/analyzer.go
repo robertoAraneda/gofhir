@@ -368,12 +368,16 @@ func (a *Analyzer) analyzeChoiceType(elem *parser.ElementDefinition, baseName st
 		// e.g., "deceased" + "Boolean" = "DeceasedBoolean"
 		fieldName := toPascalCase(baseName) + toPascalCase(typeName)
 
+		// Interfaces should not have pointers, even in choice types
+		isInterface := (typeName == "Resource" || typeName == "DomainResource")
+		usePointer := !isInterface // true for most types, false for interfaces
+
 		prop := AnalyzedProperty{
 			Name:         fieldName,
 			JSONName:     toLowerFirst(baseName) + toPascalCase(typeName),
-			GoType:       a.resolveGoType(typeName, true, false), // Choice types are always pointers
+			GoType:       a.resolveGoType(typeName, usePointer, false),
 			Description:  elem.Short,
-			IsPointer:    true, // Choice types are always optional
+			IsPointer:    usePointer,
 			IsArray:      false,
 			IsRequired:   false,
 			IsPrimitive:  IsPrimitiveType(typeName),
@@ -434,10 +438,15 @@ func (a *Analyzer) createProperty(elem *parser.ElementDefinition, fieldName stri
 	isPrimitive := IsPrimitiveType(typeName)
 
 	// Determine if pointer is needed
+	// - Interfaces NEVER need pointers (they're already references)
 	// - Arrays don't need pointer (nil slice is fine)
 	// - Required primitives could be non-pointer, but we use pointer for JSON omitempty
 	// - Complex types are always pointers when optional
-	isPointer := !isArray && (elem.Min == 0 || isPrimitive)
+	isInterface := (typeName == "Resource" || typeName == "DomainResource")
+	isPointer := false
+	if !isArray && !isInterface {
+		isPointer = (elem.Min == 0 || isPrimitive)
+	}
 
 	// Check for required binding with code type - use custom type
 	goType := a.resolveGoTypeWithBinding(typeName, isPointer, isArray, elem.Binding)
