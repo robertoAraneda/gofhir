@@ -65,6 +65,51 @@ func (r *Account) GetResourceType() string {
 	return "Account"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Account) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Account) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Account) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Account) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Account) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Account) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Account) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Account) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Account) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Account) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Account"
@@ -255,6 +300,51 @@ func (r *ActivityDefinition) GetResourceType() string {
 	return "ActivityDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ActivityDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ActivityDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ActivityDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ActivityDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ActivityDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ActivityDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ActivityDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ActivityDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ActivityDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ActivityDefinition"
@@ -339,6 +429,51 @@ type AdverseEvent struct {
 // GetResourceType returns the FHIR resource type.
 func (r *AdverseEvent) GetResourceType() string {
 	return "AdverseEvent"
+}
+
+// GetId returns the resource's logical ID.
+func (r *AdverseEvent) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *AdverseEvent) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *AdverseEvent) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *AdverseEvent) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *AdverseEvent) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *AdverseEvent) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *AdverseEvent) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *AdverseEvent) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *AdverseEvent) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -431,6 +566,51 @@ type AllergyIntolerance struct {
 // GetResourceType returns the FHIR resource type.
 func (r *AllergyIntolerance) GetResourceType() string {
 	return "AllergyIntolerance"
+}
+
+// GetId returns the resource's logical ID.
+func (r *AllergyIntolerance) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *AllergyIntolerance) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *AllergyIntolerance) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *AllergyIntolerance) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *AllergyIntolerance) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *AllergyIntolerance) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *AllergyIntolerance) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *AllergyIntolerance) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *AllergyIntolerance) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -533,6 +713,51 @@ func (r *Appointment) GetResourceType() string {
 	return "Appointment"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Appointment) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Appointment) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Appointment) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Appointment) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Appointment) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Appointment) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Appointment) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Appointment) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Appointment) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Appointment) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Appointment"
@@ -593,6 +818,51 @@ type AppointmentResponse struct {
 // GetResourceType returns the FHIR resource type.
 func (r *AppointmentResponse) GetResourceType() string {
 	return "AppointmentResponse"
+}
+
+// GetId returns the resource's logical ID.
+func (r *AppointmentResponse) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *AppointmentResponse) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *AppointmentResponse) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *AppointmentResponse) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *AppointmentResponse) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *AppointmentResponse) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *AppointmentResponse) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *AppointmentResponse) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *AppointmentResponse) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -663,6 +933,51 @@ func (r *AuditEvent) GetResourceType() string {
 	return "AuditEvent"
 }
 
+// GetId returns the resource's logical ID.
+func (r *AuditEvent) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *AuditEvent) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *AuditEvent) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *AuditEvent) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *AuditEvent) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *AuditEvent) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *AuditEvent) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *AuditEvent) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *AuditEvent) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r AuditEvent) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "AuditEvent"
@@ -713,6 +1028,51 @@ func (r *Basic) GetResourceType() string {
 	return "Basic"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Basic) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Basic) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Basic) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Basic) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Basic) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Basic) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Basic) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Basic) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Basic) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Basic) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Basic"
@@ -751,6 +1111,26 @@ type Binary struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Binary) GetResourceType() string {
 	return "Binary"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Binary) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Binary) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Binary) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Binary) SetMeta(m *Meta) {
+	r.Meta = m
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -819,6 +1199,51 @@ func (r *BiologicallyDerivedProduct) GetResourceType() string {
 	return "BiologicallyDerivedProduct"
 }
 
+// GetId returns the resource's logical ID.
+func (r *BiologicallyDerivedProduct) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *BiologicallyDerivedProduct) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *BiologicallyDerivedProduct) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *BiologicallyDerivedProduct) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *BiologicallyDerivedProduct) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *BiologicallyDerivedProduct) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *BiologicallyDerivedProduct) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *BiologicallyDerivedProduct) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *BiologicallyDerivedProduct) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "BiologicallyDerivedProduct"
@@ -877,6 +1302,51 @@ func (r *BodyStructure) GetResourceType() string {
 	return "BodyStructure"
 }
 
+// GetId returns the resource's logical ID.
+func (r *BodyStructure) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *BodyStructure) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *BodyStructure) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *BodyStructure) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *BodyStructure) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *BodyStructure) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *BodyStructure) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *BodyStructure) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *BodyStructure) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r BodyStructure) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "BodyStructure"
@@ -925,6 +1395,26 @@ type Bundle struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Bundle) GetResourceType() string {
 	return "Bundle"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Bundle) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Bundle) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Bundle) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Bundle) SetMeta(m *Meta) {
+	r.Meta = m
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -1053,6 +1543,51 @@ func (r *CapabilityStatement) GetResourceType() string {
 	return "CapabilityStatement"
 }
 
+// GetId returns the resource's logical ID.
+func (r *CapabilityStatement) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CapabilityStatement) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CapabilityStatement) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CapabilityStatement) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CapabilityStatement) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CapabilityStatement) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CapabilityStatement) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CapabilityStatement) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CapabilityStatement) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r CapabilityStatement) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "CapabilityStatement"
@@ -1151,6 +1686,51 @@ func (r *CarePlan) GetResourceType() string {
 	return "CarePlan"
 }
 
+// GetId returns the resource's logical ID.
+func (r *CarePlan) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CarePlan) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CarePlan) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CarePlan) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CarePlan) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CarePlan) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CarePlan) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CarePlan) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CarePlan) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r CarePlan) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "CarePlan"
@@ -1217,6 +1797,51 @@ type CareTeam struct {
 // GetResourceType returns the FHIR resource type.
 func (r *CareTeam) GetResourceType() string {
 	return "CareTeam"
+}
+
+// GetId returns the resource's logical ID.
+func (r *CareTeam) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CareTeam) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CareTeam) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CareTeam) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CareTeam) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CareTeam) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CareTeam) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CareTeam) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CareTeam) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -1289,6 +1914,51 @@ type CatalogEntry struct {
 // GetResourceType returns the FHIR resource type.
 func (r *CatalogEntry) GetResourceType() string {
 	return "CatalogEntry"
+}
+
+// GetId returns the resource's logical ID.
+func (r *CatalogEntry) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CatalogEntry) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CatalogEntry) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CatalogEntry) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CatalogEntry) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CatalogEntry) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CatalogEntry) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CatalogEntry) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CatalogEntry) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -1399,6 +2069,51 @@ type ChargeItem struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ChargeItem) GetResourceType() string {
 	return "ChargeItem"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ChargeItem) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ChargeItem) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ChargeItem) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ChargeItem) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ChargeItem) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ChargeItem) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ChargeItem) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ChargeItem) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ChargeItem) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -1513,6 +2228,51 @@ func (r *ChargeItemDefinition) GetResourceType() string {
 	return "ChargeItemDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ChargeItemDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ChargeItemDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ChargeItemDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ChargeItemDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ChargeItemDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ChargeItemDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ChargeItemDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ChargeItemDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ChargeItemDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ChargeItemDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ChargeItemDefinition"
@@ -1609,6 +2369,51 @@ type Claim struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Claim) GetResourceType() string {
 	return "Claim"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Claim) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Claim) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Claim) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Claim) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Claim) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Claim) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Claim) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Claim) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Claim) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -1715,6 +2520,51 @@ func (r *ClaimResponse) GetResourceType() string {
 	return "ClaimResponse"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ClaimResponse) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ClaimResponse) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ClaimResponse) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ClaimResponse) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ClaimResponse) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ClaimResponse) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ClaimResponse) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ClaimResponse) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ClaimResponse) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ClaimResponse) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ClaimResponse"
@@ -1805,6 +2655,51 @@ type ClinicalImpression struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ClinicalImpression) GetResourceType() string {
 	return "ClinicalImpression"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ClinicalImpression) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ClinicalImpression) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ClinicalImpression) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ClinicalImpression) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ClinicalImpression) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ClinicalImpression) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ClinicalImpression) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ClinicalImpression) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ClinicalImpression) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -1935,6 +2830,51 @@ func (r *CodeSystem) GetResourceType() string {
 	return "CodeSystem"
 }
 
+// GetId returns the resource's logical ID.
+func (r *CodeSystem) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CodeSystem) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CodeSystem) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CodeSystem) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CodeSystem) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CodeSystem) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CodeSystem) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CodeSystem) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CodeSystem) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r CodeSystem) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "CodeSystem"
@@ -2031,6 +2971,51 @@ func (r *Communication) GetResourceType() string {
 	return "Communication"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Communication) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Communication) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Communication) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Communication) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Communication) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Communication) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Communication) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Communication) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Communication) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Communication) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Communication"
@@ -2125,6 +3110,51 @@ func (r *CommunicationRequest) GetResourceType() string {
 	return "CommunicationRequest"
 }
 
+// GetId returns the resource's logical ID.
+func (r *CommunicationRequest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CommunicationRequest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CommunicationRequest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CommunicationRequest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CommunicationRequest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CommunicationRequest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CommunicationRequest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CommunicationRequest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CommunicationRequest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r CommunicationRequest) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "CommunicationRequest"
@@ -2213,6 +3243,51 @@ func (r *CompartmentDefinition) GetResourceType() string {
 	return "CompartmentDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *CompartmentDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CompartmentDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CompartmentDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CompartmentDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CompartmentDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CompartmentDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CompartmentDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CompartmentDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CompartmentDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r CompartmentDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "CompartmentDefinition"
@@ -2287,6 +3362,51 @@ type Composition struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Composition) GetResourceType() string {
 	return "Composition"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Composition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Composition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Composition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Composition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Composition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Composition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Composition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Composition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Composition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -2397,6 +3517,51 @@ func (r *ConceptMap) GetResourceType() string {
 	return "ConceptMap"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ConceptMap) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ConceptMap) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ConceptMap) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ConceptMap) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ConceptMap) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ConceptMap) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ConceptMap) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ConceptMap) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ConceptMap) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ConceptMap) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ConceptMap"
@@ -2495,6 +3660,51 @@ func (r *Condition) GetResourceType() string {
 	return "Condition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Condition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Condition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Condition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Condition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Condition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Condition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Condition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Condition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Condition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Condition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Condition"
@@ -2563,6 +3773,51 @@ type Consent struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Consent) GetResourceType() string {
 	return "Consent"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Consent) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Consent) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Consent) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Consent) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Consent) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Consent) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Consent) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Consent) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Consent) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -2691,6 +3946,51 @@ func (r *Contract) GetResourceType() string {
 	return "Contract"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Contract) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Contract) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Contract) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Contract) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Contract) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Contract) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Contract) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Contract) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Contract) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Contract) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Contract"
@@ -2775,6 +4075,51 @@ func (r *Coverage) GetResourceType() string {
 	return "Coverage"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Coverage) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Coverage) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Coverage) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Coverage) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Coverage) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Coverage) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Coverage) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Coverage) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Coverage) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Coverage) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Coverage"
@@ -2849,6 +4194,51 @@ type CoverageEligibilityRequest struct {
 // GetResourceType returns the FHIR resource type.
 func (r *CoverageEligibilityRequest) GetResourceType() string {
 	return "CoverageEligibilityRequest"
+}
+
+// GetId returns the resource's logical ID.
+func (r *CoverageEligibilityRequest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CoverageEligibilityRequest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CoverageEligibilityRequest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CoverageEligibilityRequest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CoverageEligibilityRequest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CoverageEligibilityRequest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CoverageEligibilityRequest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CoverageEligibilityRequest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CoverageEligibilityRequest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -2935,6 +4325,51 @@ func (r *CoverageEligibilityResponse) GetResourceType() string {
 	return "CoverageEligibilityResponse"
 }
 
+// GetId returns the resource's logical ID.
+func (r *CoverageEligibilityResponse) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *CoverageEligibilityResponse) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *CoverageEligibilityResponse) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *CoverageEligibilityResponse) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *CoverageEligibilityResponse) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *CoverageEligibilityResponse) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *CoverageEligibilityResponse) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *CoverageEligibilityResponse) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *CoverageEligibilityResponse) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r CoverageEligibilityResponse) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "CoverageEligibilityResponse"
@@ -3007,6 +4442,51 @@ type DetectedIssue struct {
 // GetResourceType returns the FHIR resource type.
 func (r *DetectedIssue) GetResourceType() string {
 	return "DetectedIssue"
+}
+
+// GetId returns the resource's logical ID.
+func (r *DetectedIssue) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DetectedIssue) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DetectedIssue) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DetectedIssue) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DetectedIssue) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DetectedIssue) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DetectedIssue) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DetectedIssue) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DetectedIssue) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -3119,6 +4599,51 @@ func (r *Device) GetResourceType() string {
 	return "Device"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Device) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Device) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Device) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Device) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Device) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Device) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Device) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Device) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Device) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Device) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Device"
@@ -3213,6 +4738,51 @@ func (r *DeviceDefinition) GetResourceType() string {
 	return "DeviceDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *DeviceDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DeviceDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DeviceDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DeviceDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DeviceDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DeviceDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DeviceDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DeviceDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DeviceDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "DeviceDefinition"
@@ -3275,6 +4845,51 @@ type DeviceMetric struct {
 // GetResourceType returns the FHIR resource type.
 func (r *DeviceMetric) GetResourceType() string {
 	return "DeviceMetric"
+}
+
+// GetId returns the resource's logical ID.
+func (r *DeviceMetric) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DeviceMetric) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DeviceMetric) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DeviceMetric) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DeviceMetric) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DeviceMetric) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DeviceMetric) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DeviceMetric) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DeviceMetric) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -3383,6 +4998,51 @@ func (r *DeviceRequest) GetResourceType() string {
 	return "DeviceRequest"
 }
 
+// GetId returns the resource's logical ID.
+func (r *DeviceRequest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DeviceRequest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DeviceRequest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DeviceRequest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DeviceRequest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DeviceRequest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DeviceRequest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DeviceRequest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DeviceRequest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "DeviceRequest"
@@ -3455,6 +5115,51 @@ type DeviceUseStatement struct {
 // GetResourceType returns the FHIR resource type.
 func (r *DeviceUseStatement) GetResourceType() string {
 	return "DeviceUseStatement"
+}
+
+// GetId returns the resource's logical ID.
+func (r *DeviceUseStatement) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DeviceUseStatement) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DeviceUseStatement) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DeviceUseStatement) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DeviceUseStatement) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DeviceUseStatement) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DeviceUseStatement) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DeviceUseStatement) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DeviceUseStatement) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -3541,6 +5246,51 @@ func (r *DiagnosticReport) GetResourceType() string {
 	return "DiagnosticReport"
 }
 
+// GetId returns the resource's logical ID.
+func (r *DiagnosticReport) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DiagnosticReport) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DiagnosticReport) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DiagnosticReport) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DiagnosticReport) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DiagnosticReport) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DiagnosticReport) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DiagnosticReport) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DiagnosticReport) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "DiagnosticReport"
@@ -3609,6 +5359,51 @@ type DocumentManifest struct {
 // GetResourceType returns the FHIR resource type.
 func (r *DocumentManifest) GetResourceType() string {
 	return "DocumentManifest"
+}
+
+// GetId returns the resource's logical ID.
+func (r *DocumentManifest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DocumentManifest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DocumentManifest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DocumentManifest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DocumentManifest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DocumentManifest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DocumentManifest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DocumentManifest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DocumentManifest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -3687,6 +5482,51 @@ type DocumentReference struct {
 // GetResourceType returns the FHIR resource type.
 func (r *DocumentReference) GetResourceType() string {
 	return "DocumentReference"
+}
+
+// GetId returns the resource's logical ID.
+func (r *DocumentReference) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *DocumentReference) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *DocumentReference) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *DocumentReference) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *DocumentReference) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *DocumentReference) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *DocumentReference) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *DocumentReference) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *DocumentReference) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -3815,6 +5655,51 @@ func (r *EffectEvidenceSynthesis) GetResourceType() string {
 	return "EffectEvidenceSynthesis"
 }
 
+// GetId returns the resource's logical ID.
+func (r *EffectEvidenceSynthesis) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *EffectEvidenceSynthesis) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *EffectEvidenceSynthesis) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *EffectEvidenceSynthesis) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *EffectEvidenceSynthesis) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *EffectEvidenceSynthesis) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *EffectEvidenceSynthesis) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *EffectEvidenceSynthesis) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *EffectEvidenceSynthesis) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r EffectEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "EffectEvidenceSynthesis"
@@ -3901,6 +5786,51 @@ func (r *Encounter) GetResourceType() string {
 	return "Encounter"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Encounter) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Encounter) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Encounter) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Encounter) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Encounter) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Encounter) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Encounter) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Encounter) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Encounter) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Encounter) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Encounter"
@@ -3971,6 +5901,51 @@ func (r *Endpoint) GetResourceType() string {
 	return "Endpoint"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Endpoint) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Endpoint) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Endpoint) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Endpoint) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Endpoint) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Endpoint) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Endpoint) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Endpoint) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Endpoint) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Endpoint) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Endpoint"
@@ -4025,6 +6000,51 @@ type EnrollmentRequest struct {
 // GetResourceType returns the FHIR resource type.
 func (r *EnrollmentRequest) GetResourceType() string {
 	return "EnrollmentRequest"
+}
+
+// GetId returns the resource's logical ID.
+func (r *EnrollmentRequest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *EnrollmentRequest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *EnrollmentRequest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *EnrollmentRequest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *EnrollmentRequest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *EnrollmentRequest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *EnrollmentRequest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *EnrollmentRequest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *EnrollmentRequest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -4089,6 +6109,51 @@ func (r *EnrollmentResponse) GetResourceType() string {
 	return "EnrollmentResponse"
 }
 
+// GetId returns the resource's logical ID.
+func (r *EnrollmentResponse) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *EnrollmentResponse) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *EnrollmentResponse) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *EnrollmentResponse) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *EnrollmentResponse) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *EnrollmentResponse) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *EnrollmentResponse) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *EnrollmentResponse) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *EnrollmentResponse) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r EnrollmentResponse) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "EnrollmentResponse"
@@ -4151,6 +6216,51 @@ type EpisodeOfCare struct {
 // GetResourceType returns the FHIR resource type.
 func (r *EpisodeOfCare) GetResourceType() string {
 	return "EpisodeOfCare"
+}
+
+// GetId returns the resource's logical ID.
+func (r *EpisodeOfCare) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *EpisodeOfCare) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *EpisodeOfCare) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *EpisodeOfCare) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *EpisodeOfCare) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *EpisodeOfCare) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *EpisodeOfCare) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *EpisodeOfCare) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *EpisodeOfCare) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -4279,6 +6389,51 @@ func (r *EventDefinition) GetResourceType() string {
 	return "EventDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *EventDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *EventDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *EventDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *EventDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *EventDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *EventDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *EventDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *EventDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *EventDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r EventDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "EventDefinition"
@@ -4397,6 +6552,51 @@ type Evidence struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Evidence) GetResourceType() string {
 	return "Evidence"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Evidence) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Evidence) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Evidence) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Evidence) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Evidence) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Evidence) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Evidence) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Evidence) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Evidence) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -4519,6 +6719,51 @@ func (r *EvidenceVariable) GetResourceType() string {
 	return "EvidenceVariable"
 }
 
+// GetId returns the resource's logical ID.
+func (r *EvidenceVariable) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *EvidenceVariable) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *EvidenceVariable) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *EvidenceVariable) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *EvidenceVariable) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *EvidenceVariable) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *EvidenceVariable) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *EvidenceVariable) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *EvidenceVariable) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "EvidenceVariable"
@@ -4609,6 +6854,51 @@ type ExampleScenario struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ExampleScenario) GetResourceType() string {
 	return "ExampleScenario"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ExampleScenario) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ExampleScenario) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ExampleScenario) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ExampleScenario) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ExampleScenario) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ExampleScenario) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ExampleScenario) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ExampleScenario) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ExampleScenario) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -4749,6 +7039,51 @@ func (r *ExplanationOfBenefit) GetResourceType() string {
 	return "ExplanationOfBenefit"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ExplanationOfBenefit) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ExplanationOfBenefit) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ExplanationOfBenefit) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ExplanationOfBenefit) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ExplanationOfBenefit) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ExplanationOfBenefit) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ExplanationOfBenefit) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ExplanationOfBenefit) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ExplanationOfBenefit) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ExplanationOfBenefit) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ExplanationOfBenefit"
@@ -4863,6 +7198,51 @@ func (r *FamilyMemberHistory) GetResourceType() string {
 	return "FamilyMemberHistory"
 }
 
+// GetId returns the resource's logical ID.
+func (r *FamilyMemberHistory) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *FamilyMemberHistory) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *FamilyMemberHistory) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *FamilyMemberHistory) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *FamilyMemberHistory) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *FamilyMemberHistory) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *FamilyMemberHistory) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *FamilyMemberHistory) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *FamilyMemberHistory) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "FamilyMemberHistory"
@@ -4917,6 +7297,51 @@ type Flag struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Flag) GetResourceType() string {
 	return "Flag"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Flag) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Flag) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Flag) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Flag) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Flag) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Flag) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Flag) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Flag) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Flag) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -4997,6 +7422,51 @@ type Goal struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Goal) GetResourceType() string {
 	return "Goal"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Goal) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Goal) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Goal) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Goal) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Goal) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Goal) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Goal) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Goal) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Goal) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -5089,6 +7559,51 @@ func (r *GraphDefinition) GetResourceType() string {
 	return "GraphDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *GraphDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *GraphDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *GraphDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *GraphDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *GraphDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *GraphDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *GraphDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *GraphDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *GraphDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "GraphDefinition"
@@ -5155,6 +7670,51 @@ type Group struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Group) GetResourceType() string {
 	return "Group"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Group) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Group) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Group) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Group) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Group) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Group) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Group) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Group) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Group) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -5235,6 +7795,51 @@ type GuidanceResponse struct {
 // GetResourceType returns the FHIR resource type.
 func (r *GuidanceResponse) GetResourceType() string {
 	return "GuidanceResponse"
+}
+
+// GetId returns the resource's logical ID.
+func (r *GuidanceResponse) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *GuidanceResponse) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *GuidanceResponse) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *GuidanceResponse) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *GuidanceResponse) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *GuidanceResponse) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *GuidanceResponse) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *GuidanceResponse) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *GuidanceResponse) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -5335,6 +7940,51 @@ func (r *HealthcareService) GetResourceType() string {
 	return "HealthcareService"
 }
 
+// GetId returns the resource's logical ID.
+func (r *HealthcareService) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *HealthcareService) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *HealthcareService) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *HealthcareService) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *HealthcareService) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *HealthcareService) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *HealthcareService) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *HealthcareService) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *HealthcareService) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r HealthcareService) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "HealthcareService"
@@ -5421,6 +8071,51 @@ type ImagingStudy struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ImagingStudy) GetResourceType() string {
 	return "ImagingStudy"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ImagingStudy) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ImagingStudy) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ImagingStudy) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ImagingStudy) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ImagingStudy) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ImagingStudy) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ImagingStudy) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ImagingStudy) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ImagingStudy) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -5535,6 +8230,51 @@ func (r *Immunization) GetResourceType() string {
 	return "Immunization"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Immunization) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Immunization) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Immunization) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Immunization) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Immunization) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Immunization) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Immunization) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Immunization) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Immunization) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Immunization) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Immunization"
@@ -5619,6 +8359,51 @@ func (r *ImmunizationEvaluation) GetResourceType() string {
 	return "ImmunizationEvaluation"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ImmunizationEvaluation) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ImmunizationEvaluation) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ImmunizationEvaluation) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ImmunizationEvaluation) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ImmunizationEvaluation) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ImmunizationEvaluation) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ImmunizationEvaluation) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ImmunizationEvaluation) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ImmunizationEvaluation) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ImmunizationEvaluation"
@@ -5667,6 +8452,51 @@ type ImmunizationRecommendation struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ImmunizationRecommendation) GetResourceType() string {
 	return "ImmunizationRecommendation"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ImmunizationRecommendation) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ImmunizationRecommendation) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ImmunizationRecommendation) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ImmunizationRecommendation) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ImmunizationRecommendation) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ImmunizationRecommendation) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ImmunizationRecommendation) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ImmunizationRecommendation) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ImmunizationRecommendation) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -5773,6 +8603,51 @@ func (r *ImplementationGuide) GetResourceType() string {
 	return "ImplementationGuide"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ImplementationGuide) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ImplementationGuide) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ImplementationGuide) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ImplementationGuide) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ImplementationGuide) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ImplementationGuide) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ImplementationGuide) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ImplementationGuide) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ImplementationGuide) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ImplementationGuide"
@@ -5843,6 +8718,51 @@ type InsurancePlan struct {
 // GetResourceType returns the FHIR resource type.
 func (r *InsurancePlan) GetResourceType() string {
 	return "InsurancePlan"
+}
+
+// GetId returns the resource's logical ID.
+func (r *InsurancePlan) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *InsurancePlan) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *InsurancePlan) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *InsurancePlan) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *InsurancePlan) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *InsurancePlan) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *InsurancePlan) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *InsurancePlan) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *InsurancePlan) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -5921,6 +8841,51 @@ type Invoice struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Invoice) GetResourceType() string {
 	return "Invoice"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Invoice) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Invoice) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Invoice) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Invoice) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Invoice) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Invoice) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Invoice) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Invoice) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Invoice) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -6055,6 +9020,51 @@ func (r *Library) GetResourceType() string {
 	return "Library"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Library) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Library) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Library) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Library) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Library) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Library) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Library) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Library) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Library) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Library) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Library"
@@ -6099,6 +9109,51 @@ type Linkage struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Linkage) GetResourceType() string {
 	return "Linkage"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Linkage) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Linkage) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Linkage) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Linkage) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Linkage) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Linkage) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Linkage) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Linkage) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Linkage) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -6171,6 +9226,51 @@ type List struct {
 // GetResourceType returns the FHIR resource type.
 func (r *List) GetResourceType() string {
 	return "List"
+}
+
+// GetId returns the resource's logical ID.
+func (r *List) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *List) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *List) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *List) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *List) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *List) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *List) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *List) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *List) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -6255,6 +9355,51 @@ type Location struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Location) GetResourceType() string {
 	return "Location"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Location) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Location) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Location) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Location) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Location) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Location) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Location) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Location) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Location) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -6425,6 +9570,51 @@ func (r *Measure) GetResourceType() string {
 	return "Measure"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Measure) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Measure) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Measure) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Measure) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Measure) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Measure) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Measure) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Measure) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Measure) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Measure) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Measure"
@@ -6491,6 +9681,51 @@ type MeasureReport struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MeasureReport) GetResourceType() string {
 	return "MeasureReport"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MeasureReport) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MeasureReport) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MeasureReport) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MeasureReport) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MeasureReport) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MeasureReport) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MeasureReport) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MeasureReport) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MeasureReport) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -6593,6 +9828,51 @@ func (r *Media) GetResourceType() string {
 	return "Media"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Media) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Media) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Media) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Media) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Media) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Media) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Media) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Media) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Media) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Media) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Media"
@@ -6647,6 +9927,51 @@ type Medication struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Medication) GetResourceType() string {
 	return "Medication"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Medication) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Medication) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Medication) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Medication) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Medication) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Medication) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Medication) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Medication) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Medication) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -6733,6 +10058,51 @@ type MedicationAdministration struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MedicationAdministration) GetResourceType() string {
 	return "MedicationAdministration"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MedicationAdministration) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicationAdministration) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicationAdministration) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicationAdministration) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicationAdministration) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicationAdministration) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicationAdministration) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicationAdministration) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicationAdministration) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -6831,6 +10201,51 @@ func (r *MedicationDispense) GetResourceType() string {
 	return "MedicationDispense"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicationDispense) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicationDispense) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicationDispense) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicationDispense) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicationDispense) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicationDispense) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicationDispense) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicationDispense) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicationDispense) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicationDispense) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicationDispense"
@@ -6917,6 +10332,51 @@ type MedicationKnowledge struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MedicationKnowledge) GetResourceType() string {
 	return "MedicationKnowledge"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MedicationKnowledge) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicationKnowledge) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicationKnowledge) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicationKnowledge) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicationKnowledge) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicationKnowledge) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicationKnowledge) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicationKnowledge) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicationKnowledge) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -7041,6 +10501,51 @@ func (r *MedicationRequest) GetResourceType() string {
 	return "MedicationRequest"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicationRequest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicationRequest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicationRequest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicationRequest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicationRequest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicationRequest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicationRequest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicationRequest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicationRequest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicationRequest) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicationRequest"
@@ -7123,6 +10628,51 @@ func (r *MedicationStatement) GetResourceType() string {
 	return "MedicationStatement"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicationStatement) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicationStatement) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicationStatement) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicationStatement) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicationStatement) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicationStatement) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicationStatement) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicationStatement) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicationStatement) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicationStatement) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicationStatement"
@@ -7203,6 +10753,51 @@ func (r *MedicinalProduct) GetResourceType() string {
 	return "MedicinalProduct"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicinalProduct) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProduct) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProduct) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProduct) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProduct) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProduct) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProduct) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProduct) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProduct) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicinalProduct) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicinalProduct"
@@ -7281,6 +10876,51 @@ func (r *MedicinalProductAuthorization) GetResourceType() string {
 	return "MedicinalProductAuthorization"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductAuthorization) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductAuthorization) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductAuthorization) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductAuthorization) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductAuthorization) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductAuthorization) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductAuthorization) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductAuthorization) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductAuthorization) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicinalProductAuthorization) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicinalProductAuthorization"
@@ -7331,6 +10971,51 @@ type MedicinalProductContraindication struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MedicinalProductContraindication) GetResourceType() string {
 	return "MedicinalProductContraindication"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductContraindication) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductContraindication) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductContraindication) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductContraindication) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductContraindication) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductContraindication) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductContraindication) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductContraindication) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductContraindication) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -7389,6 +11074,51 @@ func (r *MedicinalProductIndication) GetResourceType() string {
 	return "MedicinalProductIndication"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductIndication) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductIndication) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductIndication) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductIndication) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductIndication) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductIndication) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductIndication) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductIndication) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductIndication) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicinalProductIndication) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicinalProductIndication"
@@ -7439,6 +11169,51 @@ type MedicinalProductIngredient struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MedicinalProductIngredient) GetResourceType() string {
 	return "MedicinalProductIngredient"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductIngredient) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductIngredient) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductIngredient) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductIngredient) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductIngredient) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductIngredient) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductIngredient) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductIngredient) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductIngredient) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -7495,6 +11270,51 @@ func (r *MedicinalProductInteraction) GetResourceType() string {
 	return "MedicinalProductInteraction"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductInteraction) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductInteraction) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductInteraction) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductInteraction) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductInteraction) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductInteraction) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductInteraction) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductInteraction) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductInteraction) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicinalProductInteraction) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicinalProductInteraction"
@@ -7545,6 +11365,51 @@ type MedicinalProductManufactured struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MedicinalProductManufactured) GetResourceType() string {
 	return "MedicinalProductManufactured"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductManufactured) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductManufactured) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductManufactured) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductManufactured) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductManufactured) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductManufactured) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductManufactured) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductManufactured) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductManufactured) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -7605,6 +11470,51 @@ func (r *MedicinalProductPackaged) GetResourceType() string {
 	return "MedicinalProductPackaged"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductPackaged) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductPackaged) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductPackaged) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductPackaged) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductPackaged) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductPackaged) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductPackaged) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductPackaged) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductPackaged) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicinalProductPackaged) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicinalProductPackaged"
@@ -7657,6 +11567,51 @@ func (r *MedicinalProductPharmaceutical) GetResourceType() string {
 	return "MedicinalProductPharmaceutical"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductPharmaceutical) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductPharmaceutical) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductPharmaceutical) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductPharmaceutical) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductPharmaceutical) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductPharmaceutical) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductPharmaceutical) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductPharmaceutical) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductPharmaceutical) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MedicinalProductPharmaceutical) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicinalProductPharmaceutical"
@@ -7703,6 +11658,51 @@ type MedicinalProductUndesirableEffect struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MedicinalProductUndesirableEffect) GetResourceType() string {
 	return "MedicinalProductUndesirableEffect"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MedicinalProductUndesirableEffect) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MedicinalProductUndesirableEffect) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MedicinalProductUndesirableEffect) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MedicinalProductUndesirableEffect) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MedicinalProductUndesirableEffect) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MedicinalProductUndesirableEffect) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MedicinalProductUndesirableEffect) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MedicinalProductUndesirableEffect) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MedicinalProductUndesirableEffect) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -7829,6 +11829,51 @@ func (r *MessageDefinition) GetResourceType() string {
 	return "MessageDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MessageDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MessageDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MessageDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MessageDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MessageDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MessageDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MessageDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MessageDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MessageDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MessageDefinition"
@@ -7893,6 +11938,51 @@ type MessageHeader struct {
 // GetResourceType returns the FHIR resource type.
 func (r *MessageHeader) GetResourceType() string {
 	return "MessageHeader"
+}
+
+// GetId returns the resource's logical ID.
+func (r *MessageHeader) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MessageHeader) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MessageHeader) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MessageHeader) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MessageHeader) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MessageHeader) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MessageHeader) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MessageHeader) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MessageHeader) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -7973,6 +12063,51 @@ func (r *MolecularSequence) GetResourceType() string {
 	return "MolecularSequence"
 }
 
+// GetId returns the resource's logical ID.
+func (r *MolecularSequence) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *MolecularSequence) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *MolecularSequence) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *MolecularSequence) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *MolecularSequence) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *MolecularSequence) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *MolecularSequence) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *MolecularSequence) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *MolecularSequence) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MolecularSequence"
@@ -8051,6 +12186,51 @@ type NamingSystem struct {
 // GetResourceType returns the FHIR resource type.
 func (r *NamingSystem) GetResourceType() string {
 	return "NamingSystem"
+}
+
+// GetId returns the resource's logical ID.
+func (r *NamingSystem) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *NamingSystem) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *NamingSystem) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *NamingSystem) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *NamingSystem) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *NamingSystem) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *NamingSystem) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *NamingSystem) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *NamingSystem) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -8135,6 +12315,51 @@ type NutritionOrder struct {
 // GetResourceType returns the FHIR resource type.
 func (r *NutritionOrder) GetResourceType() string {
 	return "NutritionOrder"
+}
+
+// GetId returns the resource's logical ID.
+func (r *NutritionOrder) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *NutritionOrder) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *NutritionOrder) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *NutritionOrder) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *NutritionOrder) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *NutritionOrder) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *NutritionOrder) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *NutritionOrder) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *NutritionOrder) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -8267,6 +12492,51 @@ func (r *Observation) GetResourceType() string {
 	return "Observation"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Observation) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Observation) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Observation) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Observation) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Observation) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Observation) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Observation) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Observation) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Observation) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Observation) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Observation"
@@ -8335,6 +12605,51 @@ type ObservationDefinition struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ObservationDefinition) GetResourceType() string {
 	return "ObservationDefinition"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ObservationDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ObservationDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ObservationDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ObservationDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ObservationDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ObservationDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ObservationDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ObservationDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ObservationDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -8469,6 +12784,51 @@ func (r *OperationDefinition) GetResourceType() string {
 	return "OperationDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *OperationDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *OperationDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *OperationDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *OperationDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *OperationDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *OperationDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *OperationDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *OperationDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *OperationDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r OperationDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "OperationDefinition"
@@ -8507,6 +12867,51 @@ type OperationOutcome struct {
 // GetResourceType returns the FHIR resource type.
 func (r *OperationOutcome) GetResourceType() string {
 	return "OperationOutcome"
+}
+
+// GetId returns the resource's logical ID.
+func (r *OperationOutcome) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *OperationOutcome) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *OperationOutcome) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *OperationOutcome) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *OperationOutcome) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *OperationOutcome) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *OperationOutcome) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *OperationOutcome) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *OperationOutcome) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -8573,6 +12978,51 @@ func (r *Organization) GetResourceType() string {
 	return "Organization"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Organization) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Organization) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Organization) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Organization) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Organization) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Organization) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Organization) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Organization) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Organization) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Organization) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Organization"
@@ -8637,6 +13087,51 @@ func (r *OrganizationAffiliation) GetResourceType() string {
 	return "OrganizationAffiliation"
 }
 
+// GetId returns the resource's logical ID.
+func (r *OrganizationAffiliation) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *OrganizationAffiliation) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *OrganizationAffiliation) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *OrganizationAffiliation) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *OrganizationAffiliation) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *OrganizationAffiliation) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *OrganizationAffiliation) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *OrganizationAffiliation) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *OrganizationAffiliation) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r OrganizationAffiliation) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "OrganizationAffiliation"
@@ -8667,6 +13162,26 @@ type Parameters struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Parameters) GetResourceType() string {
 	return "Parameters"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Parameters) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Parameters) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Parameters) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Parameters) SetMeta(m *Meta) {
+	r.Meta = m
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -8757,6 +13272,51 @@ func (r *Patient) GetResourceType() string {
 	return "Patient"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Patient) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Patient) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Patient) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Patient) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Patient) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Patient) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Patient) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Patient) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Patient) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Patient) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Patient"
@@ -8823,6 +13383,51 @@ type PaymentNotice struct {
 // GetResourceType returns the FHIR resource type.
 func (r *PaymentNotice) GetResourceType() string {
 	return "PaymentNotice"
+}
+
+// GetId returns the resource's logical ID.
+func (r *PaymentNotice) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *PaymentNotice) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *PaymentNotice) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *PaymentNotice) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *PaymentNotice) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *PaymentNotice) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *PaymentNotice) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *PaymentNotice) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *PaymentNotice) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -8903,6 +13508,51 @@ func (r *PaymentReconciliation) GetResourceType() string {
 	return "PaymentReconciliation"
 }
 
+// GetId returns the resource's logical ID.
+func (r *PaymentReconciliation) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *PaymentReconciliation) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *PaymentReconciliation) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *PaymentReconciliation) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *PaymentReconciliation) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *PaymentReconciliation) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *PaymentReconciliation) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *PaymentReconciliation) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *PaymentReconciliation) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "PaymentReconciliation"
@@ -8965,6 +13615,51 @@ type Person struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Person) GetResourceType() string {
 	return "Person"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Person) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Person) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Person) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Person) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Person) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Person) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Person) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Person) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Person) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -9101,6 +13796,51 @@ func (r *PlanDefinition) GetResourceType() string {
 	return "PlanDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *PlanDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *PlanDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *PlanDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *PlanDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *PlanDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *PlanDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *PlanDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *PlanDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *PlanDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r PlanDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "PlanDefinition"
@@ -9163,6 +13903,51 @@ type Practitioner struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Practitioner) GetResourceType() string {
 	return "Practitioner"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Practitioner) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Practitioner) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Practitioner) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Practitioner) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Practitioner) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Practitioner) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Practitioner) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Practitioner) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Practitioner) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -9233,6 +14018,51 @@ type PractitionerRole struct {
 // GetResourceType returns the FHIR resource type.
 func (r *PractitionerRole) GetResourceType() string {
 	return "PractitionerRole"
+}
+
+// GetId returns the resource's logical ID.
+func (r *PractitionerRole) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *PractitionerRole) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *PractitionerRole) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *PractitionerRole) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *PractitionerRole) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *PractitionerRole) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *PractitionerRole) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *PractitionerRole) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *PractitionerRole) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -9347,6 +14177,51 @@ func (r *Procedure) GetResourceType() string {
 	return "Procedure"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Procedure) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Procedure) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Procedure) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Procedure) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Procedure) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Procedure) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Procedure) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Procedure) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Procedure) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Procedure) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Procedure"
@@ -9411,6 +14286,51 @@ type Provenance struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Provenance) GetResourceType() string {
 	return "Provenance"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Provenance) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Provenance) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Provenance) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Provenance) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Provenance) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Provenance) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Provenance) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Provenance) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Provenance) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -9525,6 +14445,51 @@ func (r *Questionnaire) GetResourceType() string {
 	return "Questionnaire"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Questionnaire) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Questionnaire) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Questionnaire) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Questionnaire) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Questionnaire) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Questionnaire) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Questionnaire) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Questionnaire) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Questionnaire) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Questionnaire) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Questionnaire"
@@ -9589,6 +14554,51 @@ type QuestionnaireResponse struct {
 // GetResourceType returns the FHIR resource type.
 func (r *QuestionnaireResponse) GetResourceType() string {
 	return "QuestionnaireResponse"
+}
+
+// GetId returns the resource's logical ID.
+func (r *QuestionnaireResponse) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *QuestionnaireResponse) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *QuestionnaireResponse) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *QuestionnaireResponse) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *QuestionnaireResponse) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *QuestionnaireResponse) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *QuestionnaireResponse) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *QuestionnaireResponse) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *QuestionnaireResponse) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -9657,6 +14667,51 @@ type RelatedPerson struct {
 // GetResourceType returns the FHIR resource type.
 func (r *RelatedPerson) GetResourceType() string {
 	return "RelatedPerson"
+}
+
+// GetId returns the resource's logical ID.
+func (r *RelatedPerson) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *RelatedPerson) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *RelatedPerson) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *RelatedPerson) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *RelatedPerson) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *RelatedPerson) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *RelatedPerson) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *RelatedPerson) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *RelatedPerson) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -9743,6 +14798,51 @@ type RequestGroup struct {
 // GetResourceType returns the FHIR resource type.
 func (r *RequestGroup) GetResourceType() string {
 	return "RequestGroup"
+}
+
+// GetId returns the resource's logical ID.
+func (r *RequestGroup) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *RequestGroup) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *RequestGroup) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *RequestGroup) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *RequestGroup) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *RequestGroup) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *RequestGroup) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *RequestGroup) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *RequestGroup) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -9887,6 +14987,51 @@ type ResearchDefinition struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ResearchDefinition) GetResourceType() string {
 	return "ResearchDefinition"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ResearchDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ResearchDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ResearchDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ResearchDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ResearchDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ResearchDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ResearchDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ResearchDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ResearchDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -10035,6 +15180,51 @@ func (r *ResearchElementDefinition) GetResourceType() string {
 	return "ResearchElementDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ResearchElementDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ResearchElementDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ResearchElementDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ResearchElementDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ResearchElementDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ResearchElementDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ResearchElementDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ResearchElementDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ResearchElementDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ResearchElementDefinition"
@@ -10127,6 +15317,51 @@ func (r *ResearchStudy) GetResourceType() string {
 	return "ResearchStudy"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ResearchStudy) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ResearchStudy) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ResearchStudy) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ResearchStudy) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ResearchStudy) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ResearchStudy) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ResearchStudy) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ResearchStudy) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ResearchStudy) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ResearchStudy"
@@ -10185,6 +15420,51 @@ type ResearchSubject struct {
 // GetResourceType returns the FHIR resource type.
 func (r *ResearchSubject) GetResourceType() string {
 	return "ResearchSubject"
+}
+
+// GetId returns the resource's logical ID.
+func (r *ResearchSubject) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ResearchSubject) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ResearchSubject) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ResearchSubject) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ResearchSubject) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ResearchSubject) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ResearchSubject) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ResearchSubject) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ResearchSubject) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -10265,6 +15545,51 @@ type RiskAssessment struct {
 // GetResourceType returns the FHIR resource type.
 func (r *RiskAssessment) GetResourceType() string {
 	return "RiskAssessment"
+}
+
+// GetId returns the resource's logical ID.
+func (r *RiskAssessment) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *RiskAssessment) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *RiskAssessment) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *RiskAssessment) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *RiskAssessment) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *RiskAssessment) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *RiskAssessment) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *RiskAssessment) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *RiskAssessment) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -10389,6 +15714,51 @@ func (r *RiskEvidenceSynthesis) GetResourceType() string {
 	return "RiskEvidenceSynthesis"
 }
 
+// GetId returns the resource's logical ID.
+func (r *RiskEvidenceSynthesis) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *RiskEvidenceSynthesis) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *RiskEvidenceSynthesis) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *RiskEvidenceSynthesis) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *RiskEvidenceSynthesis) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *RiskEvidenceSynthesis) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *RiskEvidenceSynthesis) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *RiskEvidenceSynthesis) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *RiskEvidenceSynthesis) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "RiskEvidenceSynthesis"
@@ -10445,6 +15815,51 @@ type Schedule struct {
 // GetResourceType returns the FHIR resource type.
 func (r *Schedule) GetResourceType() string {
 	return "Schedule"
+}
+
+// GetId returns the resource's logical ID.
+func (r *Schedule) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Schedule) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Schedule) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Schedule) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Schedule) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Schedule) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Schedule) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Schedule) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Schedule) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -10581,6 +15996,51 @@ func (r *SearchParameter) GetResourceType() string {
 	return "SearchParameter"
 }
 
+// GetId returns the resource's logical ID.
+func (r *SearchParameter) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SearchParameter) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SearchParameter) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SearchParameter) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SearchParameter) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SearchParameter) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SearchParameter) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SearchParameter) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SearchParameter) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r SearchParameter) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "SearchParameter"
@@ -10715,6 +16175,51 @@ func (r *ServiceRequest) GetResourceType() string {
 	return "ServiceRequest"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ServiceRequest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ServiceRequest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ServiceRequest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ServiceRequest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ServiceRequest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ServiceRequest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ServiceRequest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ServiceRequest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ServiceRequest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ServiceRequest) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ServiceRequest"
@@ -10785,6 +16290,51 @@ func (r *Slot) GetResourceType() string {
 	return "Slot"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Slot) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Slot) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Slot) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Slot) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Slot) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Slot) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Slot) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Slot) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Slot) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Slot) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Slot"
@@ -10853,6 +16403,51 @@ func (r *Specimen) GetResourceType() string {
 	return "Specimen"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Specimen) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Specimen) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Specimen) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Specimen) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Specimen) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Specimen) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Specimen) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Specimen) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Specimen) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Specimen) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Specimen"
@@ -10903,6 +16498,51 @@ type SpecimenDefinition struct {
 // GetResourceType returns the FHIR resource type.
 func (r *SpecimenDefinition) GetResourceType() string {
 	return "SpecimenDefinition"
+}
+
+// GetId returns the resource's logical ID.
+func (r *SpecimenDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SpecimenDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SpecimenDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SpecimenDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SpecimenDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SpecimenDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SpecimenDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SpecimenDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SpecimenDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -11033,6 +16673,51 @@ func (r *StructureDefinition) GetResourceType() string {
 	return "StructureDefinition"
 }
 
+// GetId returns the resource's logical ID.
+func (r *StructureDefinition) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *StructureDefinition) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *StructureDefinition) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *StructureDefinition) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *StructureDefinition) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *StructureDefinition) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *StructureDefinition) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *StructureDefinition) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *StructureDefinition) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r StructureDefinition) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "StructureDefinition"
@@ -11131,6 +16816,51 @@ func (r *StructureMap) GetResourceType() string {
 	return "StructureMap"
 }
 
+// GetId returns the resource's logical ID.
+func (r *StructureMap) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *StructureMap) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *StructureMap) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *StructureMap) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *StructureMap) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *StructureMap) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *StructureMap) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *StructureMap) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *StructureMap) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r StructureMap) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "StructureMap"
@@ -11193,6 +16923,51 @@ func (r *Subscription) GetResourceType() string {
 	return "Subscription"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Subscription) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Subscription) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Subscription) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Subscription) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Subscription) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Subscription) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Subscription) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Subscription) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Subscription) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Subscription) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Subscription"
@@ -11249,6 +17024,51 @@ func (r *Substance) GetResourceType() string {
 	return "Substance"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Substance) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Substance) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Substance) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Substance) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Substance) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Substance) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Substance) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Substance) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Substance) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Substance) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Substance"
@@ -11299,6 +17119,51 @@ type SubstanceNucleicAcid struct {
 // GetResourceType returns the FHIR resource type.
 func (r *SubstanceNucleicAcid) GetResourceType() string {
 	return "SubstanceNucleicAcid"
+}
+
+// GetId returns the resource's logical ID.
+func (r *SubstanceNucleicAcid) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SubstanceNucleicAcid) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SubstanceNucleicAcid) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SubstanceNucleicAcid) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SubstanceNucleicAcid) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SubstanceNucleicAcid) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SubstanceNucleicAcid) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SubstanceNucleicAcid) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SubstanceNucleicAcid) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -11353,6 +17218,51 @@ func (r *SubstancePolymer) GetResourceType() string {
 	return "SubstancePolymer"
 }
 
+// GetId returns the resource's logical ID.
+func (r *SubstancePolymer) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SubstancePolymer) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SubstancePolymer) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SubstancePolymer) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SubstancePolymer) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SubstancePolymer) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SubstancePolymer) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SubstancePolymer) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SubstancePolymer) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r SubstancePolymer) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "SubstancePolymer"
@@ -11403,6 +17313,51 @@ func (r *SubstanceProtein) GetResourceType() string {
 	return "SubstanceProtein"
 }
 
+// GetId returns the resource's logical ID.
+func (r *SubstanceProtein) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SubstanceProtein) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SubstanceProtein) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SubstanceProtein) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SubstanceProtein) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SubstanceProtein) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SubstanceProtein) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SubstanceProtein) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SubstanceProtein) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r SubstanceProtein) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "SubstanceProtein"
@@ -11451,6 +17406,51 @@ type SubstanceReferenceInformation struct {
 // GetResourceType returns the FHIR resource type.
 func (r *SubstanceReferenceInformation) GetResourceType() string {
 	return "SubstanceReferenceInformation"
+}
+
+// GetId returns the resource's logical ID.
+func (r *SubstanceReferenceInformation) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SubstanceReferenceInformation) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SubstanceReferenceInformation) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SubstanceReferenceInformation) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SubstanceReferenceInformation) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SubstanceReferenceInformation) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SubstanceReferenceInformation) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SubstanceReferenceInformation) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SubstanceReferenceInformation) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -11521,6 +17521,51 @@ type SubstanceSourceMaterial struct {
 // GetResourceType returns the FHIR resource type.
 func (r *SubstanceSourceMaterial) GetResourceType() string {
 	return "SubstanceSourceMaterial"
+}
+
+// GetId returns the resource's logical ID.
+func (r *SubstanceSourceMaterial) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SubstanceSourceMaterial) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SubstanceSourceMaterial) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SubstanceSourceMaterial) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SubstanceSourceMaterial) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SubstanceSourceMaterial) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SubstanceSourceMaterial) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SubstanceSourceMaterial) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SubstanceSourceMaterial) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -11603,6 +17648,51 @@ func (r *SubstanceSpecification) GetResourceType() string {
 	return "SubstanceSpecification"
 }
 
+// GetId returns the resource's logical ID.
+func (r *SubstanceSpecification) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SubstanceSpecification) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SubstanceSpecification) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SubstanceSpecification) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SubstanceSpecification) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SubstanceSpecification) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SubstanceSpecification) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SubstanceSpecification) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SubstanceSpecification) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r SubstanceSpecification) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "SubstanceSpecification"
@@ -11669,6 +17759,51 @@ type SupplyDelivery struct {
 // GetResourceType returns the FHIR resource type.
 func (r *SupplyDelivery) GetResourceType() string {
 	return "SupplyDelivery"
+}
+
+// GetId returns the resource's logical ID.
+func (r *SupplyDelivery) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SupplyDelivery) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SupplyDelivery) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SupplyDelivery) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SupplyDelivery) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SupplyDelivery) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SupplyDelivery) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SupplyDelivery) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SupplyDelivery) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -11751,6 +17886,51 @@ type SupplyRequest struct {
 // GetResourceType returns the FHIR resource type.
 func (r *SupplyRequest) GetResourceType() string {
 	return "SupplyRequest"
+}
+
+// GetId returns the resource's logical ID.
+func (r *SupplyRequest) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *SupplyRequest) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *SupplyRequest) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *SupplyRequest) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *SupplyRequest) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *SupplyRequest) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *SupplyRequest) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *SupplyRequest) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *SupplyRequest) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -11869,6 +18049,51 @@ func (r *Task) GetResourceType() string {
 	return "Task"
 }
 
+// GetId returns the resource's logical ID.
+func (r *Task) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *Task) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *Task) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *Task) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *Task) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *Task) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *Task) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *Task) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *Task) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r Task) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "Task"
@@ -11983,6 +18208,51 @@ func (r *TerminologyCapabilities) GetResourceType() string {
 	return "TerminologyCapabilities"
 }
 
+// GetId returns the resource's logical ID.
+func (r *TerminologyCapabilities) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *TerminologyCapabilities) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *TerminologyCapabilities) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *TerminologyCapabilities) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *TerminologyCapabilities) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *TerminologyCapabilities) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *TerminologyCapabilities) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *TerminologyCapabilities) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *TerminologyCapabilities) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r TerminologyCapabilities) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "TerminologyCapabilities"
@@ -12055,6 +18325,51 @@ type TestReport struct {
 // GetResourceType returns the FHIR resource type.
 func (r *TestReport) GetResourceType() string {
 	return "TestReport"
+}
+
+// GetId returns the resource's logical ID.
+func (r *TestReport) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *TestReport) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *TestReport) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *TestReport) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *TestReport) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *TestReport) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *TestReport) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *TestReport) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *TestReport) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.
@@ -12165,6 +18480,51 @@ func (r *TestScript) GetResourceType() string {
 	return "TestScript"
 }
 
+// GetId returns the resource's logical ID.
+func (r *TestScript) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *TestScript) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *TestScript) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *TestScript) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *TestScript) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *TestScript) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *TestScript) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *TestScript) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *TestScript) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r TestScript) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "TestScript"
@@ -12263,6 +18623,51 @@ func (r *ValueSet) GetResourceType() string {
 	return "ValueSet"
 }
 
+// GetId returns the resource's logical ID.
+func (r *ValueSet) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *ValueSet) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *ValueSet) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *ValueSet) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *ValueSet) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *ValueSet) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *ValueSet) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *ValueSet) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *ValueSet) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r ValueSet) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ValueSet"
@@ -12339,6 +18744,51 @@ func (r *VerificationResult) GetResourceType() string {
 	return "VerificationResult"
 }
 
+// GetId returns the resource's logical ID.
+func (r *VerificationResult) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *VerificationResult) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *VerificationResult) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *VerificationResult) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *VerificationResult) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *VerificationResult) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *VerificationResult) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *VerificationResult) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *VerificationResult) GetModifierExtension() []Extension {
+	return r.ModifierExtension
+}
+
 // MarshalJSON ensures resourceType is always included in JSON output.
 func (r VerificationResult) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "VerificationResult"
@@ -12397,6 +18847,51 @@ type VisionPrescription struct {
 // GetResourceType returns the FHIR resource type.
 func (r *VisionPrescription) GetResourceType() string {
 	return "VisionPrescription"
+}
+
+// GetId returns the resource's logical ID.
+func (r *VisionPrescription) GetId() *string {
+	return r.Id
+}
+
+// SetId sets the resource's logical ID.
+func (r *VisionPrescription) SetId(id string) {
+	r.Id = &id
+}
+
+// GetMeta returns the resource's Meta element.
+func (r *VisionPrescription) GetMeta() *Meta {
+	return r.Meta
+}
+
+// SetMeta sets the resource's Meta element.
+func (r *VisionPrescription) SetMeta(m *Meta) {
+	r.Meta = m
+}
+
+// GetText returns the resource's narrative text.
+func (r *VisionPrescription) GetText() *Narrative {
+	return r.Text
+}
+
+// SetText sets the resource's narrative text.
+func (r *VisionPrescription) SetText(t *Narrative) {
+	r.Text = t
+}
+
+// GetContained returns the resource's contained resources.
+func (r *VisionPrescription) GetContained() []Resource {
+	return r.Contained
+}
+
+// GetExtension returns the resource's extensions.
+func (r *VisionPrescription) GetExtension() []Extension {
+	return r.Extension
+}
+
+// GetModifierExtension returns the resource's modifier extensions.
+func (r *VisionPrescription) GetModifierExtension() []Extension {
+	return r.ModifierExtension
 }
 
 // MarshalJSON ensures resourceType is always included in JSON output.

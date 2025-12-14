@@ -5,11 +5,24 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"strings"
 	"sync"
 
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath"
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/types"
+)
+
+// FHIR primitive type regex patterns (compiled once at package level)
+var (
+	// date: YYYY, YYYY-MM, or YYYY-MM-DD
+	dateRegex = regexp.MustCompile(`^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?$`)
+	// dateTime: date with optional time
+	dateTimeRegex = regexp.MustCompile(`^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?$`)
+	// instant: full date/time with timezone
+	instantRegex = regexp.MustCompile(`^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))$`)
+	// time: HH:MM:SS with optional fractional seconds
+	timeRegex = regexp.MustCompile(`^([01]\d|2[0-3]):[0-5]\d:([0-5]\d|60)(\.\d+)?$`)
 )
 
 // Package-level constants to avoid allocations in hot paths
@@ -682,7 +695,78 @@ func (v *Validator) validatePrimitiveValue(value interface{}, typeCode, path str
 				Expression:  []string{path},
 			})
 		}
-		// TODO: Add regex validation for specific string types
+	case "date":
+		if str, ok := value.(string); ok {
+			if !dateRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid date format: %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (date)", path),
+				Expression:  []string{path},
+			})
+		}
+	case "dateTime":
+		if str, ok := value.(string); ok {
+			if !dateTimeRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid dateTime format: %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (dateTime)", path),
+				Expression:  []string{path},
+			})
+		}
+	case "instant":
+		if str, ok := value.(string); ok {
+			if !instantRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid instant format: %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (instant)", path),
+				Expression:  []string{path},
+			})
+		}
+	case "time":
+		if str, ok := value.(string); ok {
+			if !timeRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid time format: %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (time)", path),
+				Expression:  []string{path},
+			})
+		}
 	}
 }
 
@@ -1100,8 +1184,19 @@ func (v *Validator) checkEle1Recursive(node interface{}, path string, result *Va
 			itemPath := fmt.Sprintf("%s[%d]", path, i)
 			v.checkEle1Recursive(item, itemPath, result)
 		}
+
+	case string:
+		// Empty strings violate ele-1 (hasValue() returns false for empty strings)
+		if val == "" {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeInvariant,
+				Diagnostics: "Constraint ele-1 violated: All FHIR elements must have a @value or children (empty string)",
+				Expression:  []string{path},
+			})
+		}
 	}
-	// Primitives (string, number, bool, nil) are valid - they have a value
+	// Non-empty primitives (string, number, bool) are valid - they have a value
 }
 
 // isResourceRoot checks if a map is the root resource (has resourceType).

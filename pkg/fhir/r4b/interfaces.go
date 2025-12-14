@@ -4,6 +4,22 @@
 package r4b
 
 // Resource is the interface implemented by all FHIR resources.
+// Per FHIR spec, Resource contains: id, meta, implicitRules, language.
 type Resource interface {
 	GetResourceType() string
+	GetId() *string
+	SetId(string)
+	GetMeta() *Meta
+	SetMeta(*Meta)
+}
+
+// DomainResource is the interface for resources with narrative and extensions.
+// Per FHIR spec, DomainResource extends Resource adding: text, contained, extension, modifierExtension.
+type DomainResource interface {
+	Resource
+	GetText() *Narrative
+	SetText(*Narrative)
+	GetContained() []Resource
+	GetExtension() []Extension
+	GetModifierExtension() []Extension
 }

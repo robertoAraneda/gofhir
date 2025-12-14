@@ -398,3 +398,58 @@ func (c *CodeGen) generateBackbonesFromTemplate() error {
 	path := filepath.Join(c.config.OutputDir, "backbones.go")
 	return writeTemplateFile(path, "backbones.go.tmpl", data)
 }
+
+// SummaryTemplateData holds data for summary template.
+type SummaryTemplateData struct {
+	TemplateData
+	Resources []ResourceSummaryData
+}
+
+// ResourceSummaryData holds summary field data for a resource.
+type ResourceSummaryData struct {
+	Name          string
+	SummaryFields []string
+}
+
+// generateSummaryFromTemplate generates summary.go using template.
+func (c *CodeGen) generateSummaryFromTemplate() error {
+	resources := make([]ResourceSummaryData, 0)
+
+	for _, t := range c.types {
+		if t.Kind != kindResource {
+			continue
+		}
+
+		summaryFields := make([]string, 0)
+		for _, prop := range t.Properties {
+			if prop.IsSummary {
+				summaryFields = append(summaryFields, prop.JSONName)
+			}
+		}
+
+		// Only include resources that have summary fields
+		if len(summaryFields) > 0 {
+			sort.Strings(summaryFields)
+			resources = append(resources, ResourceSummaryData{
+				Name:          t.Name,
+				SummaryFields: summaryFields,
+			})
+		}
+	}
+
+	sort.Slice(resources, func(i, j int) bool {
+		return resources[i].Name < resources[j].Name
+	})
+
+	data := SummaryTemplateData{
+		TemplateData: TemplateData{
+			PackageName: c.config.PackageName,
+			Version:     strings.ToUpper(c.config.Version),
+			FileType:    "summary",
+		},
+		Resources: resources,
+	}
+
+	path := filepath.Join(c.config.OutputDir, "summary.go")
+	return writeTemplateFile(path, "summary.go.tmpl", data)
+}

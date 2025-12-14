@@ -209,7 +209,7 @@ type AdministrableProductDefinitionRouteOfAdministration struct {
 	// The maximum treatment period during which the product can be administered
 	MaxTreatmentPeriod *Duration `json:"maxTreatmentPeriod,omitempty"`
 	// A species for which this route applies
-	TargetSpecies []BackboneElement `json:"targetSpecies,omitempty"`
+	TargetSpecies []AdministrableProductDefinitionRouteOfAdministrationTargetSpecies `json:"targetSpecies,omitempty"`
 }
 
 // AdministrableProductDefinitionRouteOfAdministrationTargetSpecies represents the AdministrableProductDefinition.routeOfAdministration.targetSpecies backbone element.
@@ -224,7 +224,7 @@ type AdministrableProductDefinitionRouteOfAdministrationTargetSpecies struct {
 	// Coded expression for the species
 	Code CodeableConcept `json:"code,omitempty"`
 	// A species specific time during which consumption of animal product is not appropriate
-	WithdrawalPeriod []BackboneElement `json:"withdrawalPeriod,omitempty"`
+	WithdrawalPeriod []AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod `json:"withdrawalPeriod,omitempty"`
 }
 
 // AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod represents the AdministrableProductDefinition.routeOfAdministration.targetSpecies.withdrawalPeriod backbone element.
@@ -333,7 +333,7 @@ type AdverseEventSuspectEntity struct {
 	// Refers to the specific entity that caused the adverse event
 	InstanceReference *Reference `json:"instanceReference,omitempty"`
 	// Information on the possible cause of the event
-	Causality *BackboneElement `json:"causality,omitempty"`
+	Causality *AdverseEventSuspectEntityCausality `json:"causality,omitempty"`
 }
 
 // AdverseEventSuspectEntityCausality represents the AdverseEvent.suspectEntity.causality backbone element.
@@ -434,11 +434,11 @@ type AppointmentRecurrenceTemplate struct {
 	// Specific dates for a recurring set of appointments (no template)
 	OccurrenceDate []string `json:"occurrenceDate,omitempty"`
 	// Information about weekly recurring appointments
-	WeeklyTemplate *BackboneElement `json:"weeklyTemplate,omitempty"`
+	WeeklyTemplate *AppointmentRecurrenceTemplateWeeklyTemplate `json:"weeklyTemplate,omitempty"`
 	// Information about monthly recurring appointments
-	MonthlyTemplate *BackboneElement `json:"monthlyTemplate,omitempty"`
+	MonthlyTemplate *AppointmentRecurrenceTemplateMonthlyTemplate `json:"monthlyTemplate,omitempty"`
 	// Information about yearly recurring appointments
-	YearlyTemplate *BackboneElement `json:"yearlyTemplate,omitempty"`
+	YearlyTemplate *AppointmentRecurrenceTemplateYearlyTemplate `json:"yearlyTemplate,omitempty"`
 	// Any dates that should be excluded from the series
 	ExcludingDate []string `json:"excludingDate,omitempty"`
 	// Any recurrence IDs that should be excluded from the recurrence
@@ -586,7 +586,7 @@ type AuditEventEntity struct {
 	// Query parameters
 	Query *string `json:"query,omitempty"`
 	// Additional Information about the entity
-	Detail []BackboneElement `json:"detail,omitempty"`
+	Detail []AuditEventEntityDetail `json:"detail,omitempty"`
 }
 
 // AuditEventEntityDetail represents the AuditEvent.entity.detail backbone element.
@@ -785,7 +785,7 @@ type BodyStructureIncludedStructure struct {
 	// Code that represents the included structure laterality
 	Laterality *CodeableConcept `json:"laterality,omitempty"`
 	// Landmark relative location
-	BodyLandmarkOrientation []BackboneElement `json:"bodyLandmarkOrientation,omitempty"`
+	BodyLandmarkOrientation []BodyStructureIncludedStructureBodyLandmarkOrientation `json:"bodyLandmarkOrientation,omitempty"`
 	// Cartesian reference for structure
 	SpatialReference []Reference `json:"spatialReference,omitempty"`
 	// Code that represents the included structure qualifier
@@ -806,7 +806,7 @@ type BodyStructureIncludedStructureBodyLandmarkOrientation struct {
 	// Clockface orientation
 	ClockFacePosition []CodeableConcept `json:"clockFacePosition,omitempty"`
 	// Landmark relative location
-	DistanceFromLandmark []BackboneElement `json:"distanceFromLandmark,omitempty"`
+	DistanceFromLandmark []BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark `json:"distanceFromLandmark,omitempty"`
 	// Relative landmark surface orientation
 	SurfaceOrientation []CodeableConcept `json:"surfaceOrientation,omitempty"`
 }
@@ -840,11 +840,11 @@ type BundleEntry struct {
 	// A resource in the bundle
 	Resource *Resource `json:"resource,omitempty"`
 	// Search related information
-	Search *BackboneElement `json:"search,omitempty"`
+	Search *BundleEntrySearch `json:"search,omitempty"`
 	// Additional execution information (transaction/batch/history)
-	Request *BackboneElement `json:"request,omitempty"`
+	Request *BundleEntryRequest `json:"request,omitempty"`
 	// Results of execution (transaction/batch/history)
-	Response *BackboneElement `json:"response,omitempty"`
+	Response *BundleEntryResponse `json:"response,omitempty"`
 }
 
 // BundleEntryRequest represents the Bundle.entry.request backbone element.
@@ -965,13 +965,13 @@ type CapabilityStatementMessaging struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Where messages should be sent
-	Endpoint []BackboneElement `json:"endpoint,omitempty"`
+	Endpoint []CapabilityStatementMessagingEndpoint `json:"endpoint,omitempty"`
 	// Reliable Message Cache Length (min)
 	ReliableCache *uint32 `json:"reliableCache,omitempty"`
 	// Messaging interface behavior details
 	Documentation *string `json:"documentation,omitempty"`
 	// Messages supported by this system
-	SupportedMessage []BackboneElement `json:"supportedMessage,omitempty"`
+	SupportedMessage []CapabilityStatementMessagingSupportedMessage `json:"supportedMessage,omitempty"`
 }
 
 // CapabilityStatementMessagingEndpoint represents the CapabilityStatement.messaging.endpoint backbone element.
@@ -1018,11 +1018,11 @@ type CapabilityStatementRest struct {
 	// General description of implementation
 	Documentation *string `json:"documentation,omitempty"`
 	// Information about security of implementation
-	Security *BackboneElement `json:"security,omitempty"`
+	Security *CapabilityStatementRestSecurity `json:"security,omitempty"`
 	// Resource served on the REST interface
-	Resource []BackboneElement `json:"resource,omitempty"`
+	Resource []CapabilityStatementRestResource `json:"resource,omitempty"`
 	// What operations are supported?
-	Interaction []BackboneElement `json:"interaction,omitempty"`
+	Interaction []CapabilityStatementRestInteraction `json:"interaction,omitempty"`
 	// Compartments served/used by system
 	Compartment []string `json:"compartment,omitempty"`
 }
@@ -1060,7 +1060,7 @@ type CapabilityStatementRestResource struct {
 	// Additional information about the use of the resource type
 	Documentation *string `json:"documentation,omitempty"`
 	// What operations are supported?
-	Interaction []BackboneElement `json:"interaction,omitempty"`
+	Interaction []CapabilityStatementRestResourceInteraction `json:"interaction,omitempty"`
 	// no-version | versioned | versioned-update
 	Versioning *ResourceVersionPolicy `json:"versioning,omitempty"`
 	// Whether vRead can return past versions
@@ -1084,9 +1084,9 @@ type CapabilityStatementRestResource struct {
 	// _revinclude values supported by the server
 	SearchRevInclude []string `json:"searchRevInclude,omitempty"`
 	// Search parameters supported by implementation
-	SearchParam []BackboneElement `json:"searchParam,omitempty"`
+	SearchParam []CapabilityStatementRestResourceSearchParam `json:"searchParam,omitempty"`
 	// Definition of a resource operation
-	Operation []BackboneElement `json:"operation,omitempty"`
+	Operation []CapabilityStatementRestResourceOperation `json:"operation,omitempty"`
 }
 
 // CapabilityStatementRestResourceInteraction represents the CapabilityStatement.rest.resource.interaction backbone element.
@@ -1273,27 +1273,27 @@ type CitationCitedArtifact struct {
 	// When the cited artifact was accessed
 	DateAccessed *string `json:"dateAccessed,omitempty"`
 	// The defined version of the cited artifact
-	Version *BackboneElement `json:"version,omitempty"`
+	Version *CitationCitedArtifactVersion `json:"version,omitempty"`
 	// The status of the cited artifact
 	CurrentState []CodeableConcept `json:"currentState,omitempty"`
 	// An effective date or period for a status of the cited artifact
-	StatusDate []BackboneElement `json:"statusDate,omitempty"`
+	StatusDate []CitationCitedArtifactStatusDate `json:"statusDate,omitempty"`
 	// The title details of the article or artifact
-	Title []BackboneElement `json:"title,omitempty"`
+	Title []CitationCitedArtifactTitle `json:"title,omitempty"`
 	// Summary of the article or artifact
-	Abstract []BackboneElement `json:"abstract,omitempty"`
+	Abstract []CitationCitedArtifactAbstract `json:"abstract,omitempty"`
 	// The component of the article or artifact
-	Part *BackboneElement `json:"part,omitempty"`
+	Part *CitationCitedArtifactPart `json:"part,omitempty"`
 	// The artifact related to the cited artifact
-	RelatesTo []BackboneElement `json:"relatesTo,omitempty"`
+	RelatesTo []CitationCitedArtifactRelatesTo `json:"relatesTo,omitempty"`
 	// If multiple, used to represent alternative forms of the article that are not separate citations
-	PublicationForm []BackboneElement `json:"publicationForm,omitempty"`
+	PublicationForm []CitationCitedArtifactPublicationForm `json:"publicationForm,omitempty"`
 	// Used for any URL for the article or artifact cited
-	WebLocation []BackboneElement `json:"webLocation,omitempty"`
+	WebLocation []CitationCitedArtifactWebLocation `json:"webLocation,omitempty"`
 	// The assignment to an organizing scheme
-	Classification []BackboneElement `json:"classification,omitempty"`
+	Classification []CitationCitedArtifactClassification `json:"classification,omitempty"`
 	// Attribution of authors and other contributors
-	Contributorship *BackboneElement `json:"contributorship,omitempty"`
+	Contributorship *CitationCitedArtifactContributorship `json:"contributorship,omitempty"`
 	// Any additional information or content for the article or artifact
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -1346,9 +1346,9 @@ type CitationCitedArtifactContributorship struct {
 	// Indicates if the list includes all authors and/or contributors
 	Complete *bool `json:"complete,omitempty"`
 	// An individual entity named as a contributor
-	Entry []BackboneElement `json:"entry,omitempty"`
+	Entry []CitationCitedArtifactContributorshipEntry `json:"entry,omitempty"`
 	// Used to record a display of the author/contributor list without separate data element for each list member
-	Summary []BackboneElement `json:"summary,omitempty"`
+	Summary []CitationCitedArtifactContributorshipSummary `json:"summary,omitempty"`
 }
 
 // CitationCitedArtifactContributorshipEntry represents the Citation.citedArtifact.contributorship.entry backbone element.
@@ -1371,7 +1371,7 @@ type CitationCitedArtifactContributorshipEntry struct {
 	// The role of the contributor (e.g. author, editor, reviewer, funder)
 	Role *CodeableConcept `json:"role,omitempty"`
 	// Contributions with accounting for time or number
-	ContributionInstance []BackboneElement `json:"contributionInstance,omitempty"`
+	ContributionInstance []CitationCitedArtifactContributorshipEntryContributionInstance `json:"contributionInstance,omitempty"`
 	// Whether the contributor is the corresponding contributor for the role
 	CorrespondingContact *bool `json:"correspondingContact,omitempty"`
 	// Ranked order of contribution
@@ -1439,7 +1439,7 @@ type CitationCitedArtifactPublicationForm struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// The collection the cited article or artifact is published in
-	PublishedIn *BackboneElement `json:"publishedIn,omitempty"`
+	PublishedIn *CitationCitedArtifactPublicationFormPublishedIn `json:"publishedIn,omitempty"`
 	// Internet or Print
 	CitedMedium *CodeableConcept `json:"citedMedium,omitempty"`
 	// Volume number of journal or other collection in which the article is published
@@ -1796,11 +1796,11 @@ type ClaimItem struct {
 	// Unique device identifier
 	Udi []Reference `json:"udi,omitempty"`
 	// Anatomical location
-	BodySite []BackboneElement `json:"bodySite,omitempty"`
+	BodySite []ClaimItemBodySite `json:"bodySite,omitempty"`
 	// Encounters associated with the listed treatments
 	Encounter []Reference `json:"encounter,omitempty"`
 	// Product or service provided
-	Detail []BackboneElement `json:"detail,omitempty"`
+	Detail []ClaimItemDetail `json:"detail,omitempty"`
 }
 
 // ClaimItemBodySite represents the Claim.item.bodySite backbone element.
@@ -1858,7 +1858,7 @@ type ClaimItemDetail struct {
 	// Unique device identifier
 	Udi []Reference `json:"udi,omitempty"`
 	// Product or service provided
-	SubDetail []BackboneElement `json:"subDetail,omitempty"`
+	SubDetail []ClaimItemDetailSubDetail `json:"subDetail,omitempty"`
 }
 
 // ClaimItemDetailSubDetail represents the Claim.item.detail.subDetail backbone element.
@@ -2011,11 +2011,11 @@ type ClaimResponseAddItem struct {
 	// Total item cost
 	Net *Money `json:"net,omitempty"`
 	// Anatomical location
-	BodySite []BackboneElement `json:"bodySite,omitempty"`
+	BodySite []ClaimResponseAddItemBodySite `json:"bodySite,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Insurer added line details
-	Detail []BackboneElement `json:"detail,omitempty"`
+	Detail []ClaimResponseAddItemDetail `json:"detail,omitempty"`
 }
 
 // ClaimResponseAddItemBodySite represents the ClaimResponse.addItem.bodySite backbone element.
@@ -2065,7 +2065,7 @@ type ClaimResponseAddItemDetail struct {
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Insurer added line items
-	SubDetail []BackboneElement `json:"subDetail,omitempty"`
+	SubDetail []ClaimResponseAddItemDetailSubDetail `json:"subDetail,omitempty"`
 }
 
 // ClaimResponseAddItemDetailSubDetail represents the ClaimResponse.addItem.detail.subDetail backbone element.
@@ -2178,11 +2178,11 @@ type ClaimResponseItem struct {
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Adjudication results
-	ReviewOutcome *BackboneElement `json:"reviewOutcome,omitempty"`
+	ReviewOutcome *ClaimResponseItemReviewOutcome `json:"reviewOutcome,omitempty"`
 	// Adjudication details
-	Adjudication []BackboneElement `json:"adjudication,omitempty"`
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Adjudication for claim details
-	Detail []BackboneElement `json:"detail,omitempty"`
+	Detail []ClaimResponseItemDetail `json:"detail,omitempty"`
 }
 
 // ClaimResponseItemAdjudication represents the ClaimResponse.item.adjudication backbone element.
@@ -2220,7 +2220,7 @@ type ClaimResponseItemDetail struct {
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Adjudication for claim sub-details
-	SubDetail []BackboneElement `json:"subDetail,omitempty"`
+	SubDetail []ClaimResponseItemDetailSubDetail `json:"subDetail,omitempty"`
 }
 
 // ClaimResponseItemDetailSubDetail represents the ClaimResponse.item.detail.subDetail backbone element.
@@ -2392,7 +2392,7 @@ type ClinicalUseDefinitionContraindication struct {
 	// An expression that returns true or false, indicating whether the indication is applicable or not, after having applied its other elements
 	Applicability *Expression `json:"applicability,omitempty"`
 	// Information about use of the product in relation to other therapies described as part of the contraindication
-	OtherTherapy []BackboneElement `json:"otherTherapy,omitempty"`
+	OtherTherapy []ClinicalUseDefinitionContraindicationOtherTherapy `json:"otherTherapy,omitempty"`
 }
 
 // ClinicalUseDefinitionContraindicationOtherTherapy represents the ClinicalUseDefinition.contraindication.otherTherapy backbone element.
@@ -2449,7 +2449,7 @@ type ClinicalUseDefinitionInteraction struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// The specific medication, product, food etc. or laboratory test that interacts
-	Interactant []BackboneElement `json:"interactant,omitempty"`
+	Interactant []ClinicalUseDefinitionInteractionInteractant `json:"interactant,omitempty"`
 	// The type of the interaction e.g. drug-drug interaction, drug-lab test interaction
 	Type *CodeableConcept `json:"type,omitempty"`
 	// The effect of the interaction, for example "reduced gastric absorption of primary medication"
@@ -2523,9 +2523,9 @@ type CodeSystemConcept struct {
 	// Formal definition
 	Definition *string `json:"definition,omitempty"`
 	// Additional representations for the concept
-	Designation []BackboneElement `json:"designation,omitempty"`
+	Designation []CodeSystemConceptDesignation `json:"designation,omitempty"`
 	// Property value for the concept
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []CodeSystemConceptProperty `json:"property,omitempty"`
 }
 
 // CodeSystemConceptDesignation represents the CodeSystem.concept.designation backbone element.
@@ -2771,9 +2771,9 @@ type ConceptMapGroup struct {
 	// Target system that the concepts are to be mapped to
 	Target *string `json:"target,omitempty"`
 	// Mappings for a concept from the source set
-	Element []BackboneElement `json:"element,omitempty"`
+	Element []ConceptMapGroupElement `json:"element,omitempty"`
 	// What to do when there is no mapping target for the source concept and ConceptMap.group.element.noMap is not true
-	Unmapped *BackboneElement `json:"unmapped,omitempty"`
+	Unmapped *ConceptMapGroupUnmapped `json:"unmapped,omitempty"`
 }
 
 // ConceptMapGroupElement represents the ConceptMap.group.element backbone element.
@@ -2794,7 +2794,7 @@ type ConceptMapGroupElement struct {
 	// No mapping to a target concept for this source concept
 	NoMap *bool `json:"noMap,omitempty"`
 	// Concept in target system for element
-	Target []BackboneElement `json:"target,omitempty"`
+	Target []ConceptMapGroupElementTarget `json:"target,omitempty"`
 }
 
 // ConceptMapGroupElementTarget represents the ConceptMap.group.element.target backbone element.
@@ -2817,9 +2817,9 @@ type ConceptMapGroupElementTarget struct {
 	// Description of status/issues in mapping
 	Comment *string `json:"comment,omitempty"`
 	// Property value for the source -> target mapping
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []ConceptMapGroupElementTargetProperty `json:"property,omitempty"`
 	// Other properties required for this mapping
-	DependsOn []BackboneElement `json:"dependsOn,omitempty"`
+	DependsOn []ConceptMapGroupElementTargetDependsOn `json:"dependsOn,omitempty"`
 }
 
 // ConceptMapGroupElementTargetDependsOn represents the ConceptMap.group.element.target.dependsOn backbone element.
@@ -3074,7 +3074,7 @@ type ConsentProvision struct {
 	// Timeframe for this provision
 	Period *Period `json:"period,omitempty"`
 	// Who|what controlled by this provision (or group, by role)
-	Actor []BackboneElement `json:"actor,omitempty"`
+	Actor []ConsentProvisionActor `json:"actor,omitempty"`
 	// Actions controlled by this provision
 	Action []CodeableConcept `json:"action,omitempty"`
 	// Security Labels that define affected resources
@@ -3090,7 +3090,7 @@ type ConsentProvision struct {
 	// Timeframe for data controlled by this provision
 	DataPeriod *Period `json:"dataPeriod,omitempty"`
 	// Data controlled by this provision
-	Data []BackboneElement `json:"data,omitempty"`
+	Data []ConsentProvisionData `json:"data,omitempty"`
 	// A computable expression of the consent
 	Expression *Expression `json:"expression,omitempty"`
 }
@@ -3257,13 +3257,13 @@ type ContractTerm struct {
 	// Term Statement
 	Text *string `json:"text,omitempty"`
 	// Protection for the Term
-	SecurityLabel []BackboneElement `json:"securityLabel,omitempty"`
+	SecurityLabel []ContractTermSecurityLabel `json:"securityLabel,omitempty"`
 	// Context of the Contract term
-	Offer BackboneElement `json:"offer,omitempty"`
+	Offer *ContractTermOffer `json:"offer,omitempty"`
 	// Contract Term Asset List
-	Asset []BackboneElement `json:"asset,omitempty"`
+	Asset []ContractTermAsset `json:"asset,omitempty"`
 	// Entity being ascribed responsibility
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []ContractTermAction `json:"action,omitempty"`
 }
 
 // ContractTermAction represents the Contract.term.action backbone element.
@@ -3280,7 +3280,7 @@ type ContractTermAction struct {
 	// Type or form of the action
 	Type CodeableConcept `json:"type,omitempty"`
 	// Entity of the action
-	Subject []BackboneElement `json:"subject,omitempty"`
+	Subject []ContractTermActionSubject `json:"subject,omitempty"`
 	// Purpose for the Contract Term Action
 	Intent CodeableConcept `json:"intent,omitempty"`
 	// Pointer to specific item
@@ -3356,7 +3356,7 @@ type ContractTermAsset struct {
 	// Kinship of the asset
 	Relationship *Coding `json:"relationship,omitempty"`
 	// Circumstance of the asset
-	Context []BackboneElement `json:"context,omitempty"`
+	Context []ContractTermAssetContext `json:"context,omitempty"`
 	// Quality desctiption of asset
 	Condition *string `json:"condition,omitempty"`
 	// Asset availability types
@@ -3372,7 +3372,7 @@ type ContractTermAsset struct {
 	// Asset restriction numbers
 	SecurityLabelNumber []uint32 `json:"securityLabelNumber,omitempty"`
 	// Contract Valued Item List
-	ValuedItem []BackboneElement `json:"valuedItem,omitempty"`
+	ValuedItem []ContractTermAssetValuedItem `json:"valuedItem,omitempty"`
 }
 
 // ContractTermAssetContext represents the Contract.term.asset.context backbone element.
@@ -3445,7 +3445,7 @@ type ContractTermOffer struct {
 	// Offer business ID
 	Identifier []Identifier `json:"identifier,omitempty"`
 	// Offer Recipient
-	Party []BackboneElement `json:"party,omitempty"`
+	Party []ContractTermOfferParty `json:"party,omitempty"`
 	// Negotiable offer asset
 	Topic *Reference `json:"topic,omitempty"`
 	// Contract Offer Type or Form
@@ -3455,7 +3455,7 @@ type ContractTermOffer struct {
 	// How decision is conveyed
 	DecisionMode []CodeableConcept `json:"decisionMode,omitempty"`
 	// Response to offer text
-	Answer []BackboneElement `json:"answer,omitempty"`
+	Answer []ContractTermOfferAnswer `json:"answer,omitempty"`
 	// Human readable offer text
 	Text *string `json:"text,omitempty"`
 	// Pointer to text
@@ -3590,7 +3590,7 @@ type CoverageCostToBeneficiary struct {
 	// The amount or percentage due from the beneficiary
 	ValueMoney *Money `json:"valueMoney,omitempty"`
 	// Exceptions for patient payments
-	Exception []BackboneElement `json:"exception,omitempty"`
+	Exception []CoverageCostToBeneficiaryException `json:"exception,omitempty"`
 }
 
 // CoverageCostToBeneficiaryException represents the Coverage.costToBeneficiary.exception backbone element.
@@ -3670,7 +3670,7 @@ type CoverageEligibilityRequestItem struct {
 	// Servicing facility
 	Facility *Reference `json:"facility,omitempty"`
 	// Applicable diagnosis
-	Diagnosis []BackboneElement `json:"diagnosis,omitempty"`
+	Diagnosis []CoverageEligibilityRequestItemDiagnosis `json:"diagnosis,omitempty"`
 	// Product or service details
 	Detail []Reference `json:"detail,omitempty"`
 }
@@ -3757,7 +3757,7 @@ type CoverageEligibilityResponseInsurance struct {
 	// When the benefits are applicable
 	BenefitPeriod *Period `json:"benefitPeriod,omitempty"`
 	// Benefits and authorization details
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []CoverageEligibilityResponseInsuranceItem `json:"item,omitempty"`
 }
 
 // CoverageEligibilityResponseInsuranceItem represents the CoverageEligibilityResponse.insurance.item backbone element.
@@ -3790,7 +3790,7 @@ type CoverageEligibilityResponseInsuranceItem struct {
 	// Annual or lifetime
 	Term *CodeableConcept `json:"term,omitempty"`
 	// Benefit Summary
-	Benefit []BackboneElement `json:"benefit,omitempty"`
+	Benefit []CoverageEligibilityResponseInsuranceItemBenefit `json:"benefit,omitempty"`
 	// Authorization required flag
 	AuthorizationRequired *bool `json:"authorizationRequired,omitempty"`
 	// Type of required supporting materials
@@ -4162,7 +4162,7 @@ type DeviceDefinitionPackaging struct {
 	// The number of items contained in the package (devices or sub-packages)
 	Count *int `json:"count,omitempty"`
 	// An organization that distributes the packaged device
-	Distributor []BackboneElement `json:"distributor,omitempty"`
+	Distributor []DeviceDefinitionPackagingDistributor `json:"distributor,omitempty"`
 }
 
 // DeviceDefinitionPackagingDistributor represents the DeviceDefinition.packaging.distributor backbone element.
@@ -4248,7 +4248,7 @@ type DeviceDefinitionUdiDeviceIdentifier struct {
 	// The jurisdiction to which the deviceIdentifier applies
 	Jurisdiction *string `json:"jurisdiction,omitempty"`
 	// Indicates whether and when the device is available on the market
-	MarketDistribution []BackboneElement `json:"marketDistribution,omitempty"`
+	MarketDistribution []DeviceDefinitionUdiDeviceIdentifierMarketDistribution `json:"marketDistribution,omitempty"`
 }
 
 // DeviceDefinitionUdiDeviceIdentifierMarketDistribution represents the DeviceDefinition.udiDeviceIdentifier.marketDistribution backbone element.
@@ -4504,7 +4504,7 @@ type DocumentReferenceContent struct {
 	// Where to access the document
 	Attachment Attachment `json:"attachment,omitempty"`
 	// Content profile rules for the document
-	Profile []BackboneElement `json:"profile,omitempty"`
+	Profile []DocumentReferenceContentProfile `json:"profile,omitempty"`
 }
 
 // DocumentReferenceContentProfile represents the DocumentReference.content.profile backbone element.
@@ -4593,7 +4593,7 @@ type ElementDefinitionBinding struct {
 	// Source of value set
 	ValueSet *string `json:"valueSet,omitempty"`
 	// Additional Bindings - more rules about the binding
-	Additional []Element `json:"additional,omitempty"`
+	Additional []ElementDefinitionBindingAdditional `json:"additional,omitempty"`
 }
 
 // ElementDefinitionBindingAdditional represents the ElementDefinition.binding.additional backbone element.
@@ -4824,7 +4824,7 @@ type ElementDefinitionSlicing struct {
 	// Additional content defined by implementations
 	Extension []Extension `json:"extension,omitempty"`
 	// Element values that are used to distinguish the slices
-	Discriminator []Element `json:"discriminator,omitempty"`
+	Discriminator []ElementDefinitionSlicingDiscriminator `json:"discriminator,omitempty"`
 	// Text description of how slicing works (or not)
 	Description *string `json:"description,omitempty"`
 	// If elements must be in same order as slices
@@ -5062,7 +5062,7 @@ type EvidenceReportRelatesTo struct {
 	// replaces | amends | appends | transforms | replacedWith | amendedWith | appendedWith | transformedWith
 	Code *ReportRelationshipType `json:"code,omitempty"`
 	// Target of the relationship
-	Target BackboneElement `json:"target,omitempty"`
+	Target *EvidenceReportRelatesToTarget `json:"target,omitempty"`
 }
 
 // EvidenceReportRelatesToTarget represents the EvidenceReport.relatesTo.target backbone element.
@@ -5127,7 +5127,7 @@ type EvidenceReportSubject struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Characteristic
-	Characteristic []BackboneElement `json:"characteristic,omitempty"`
+	Characteristic []EvidenceReportSubjectCharacteristic `json:"characteristic,omitempty"`
 	// Footnotes and/or explanatory notes
 	Note []Annotation `json:"note,omitempty"`
 }
@@ -5185,11 +5185,11 @@ type EvidenceStatistic struct {
 	// The number of participants affected
 	NumberAffected *uint32 `json:"numberAffected,omitempty"`
 	// Number of samples in the statistic
-	SampleSize *BackboneElement `json:"sampleSize,omitempty"`
+	SampleSize *EvidenceStatisticSampleSize `json:"sampleSize,omitempty"`
 	// An attribute of the Statistic
-	AttributeEstimate []BackboneElement `json:"attributeEstimate,omitempty"`
+	AttributeEstimate []EvidenceStatisticAttributeEstimate `json:"attributeEstimate,omitempty"`
 	// An aspect of the statistical model
-	ModelCharacteristic []BackboneElement `json:"modelCharacteristic,omitempty"`
+	ModelCharacteristic []EvidenceStatisticModelCharacteristic `json:"modelCharacteristic,omitempty"`
 }
 
 // EvidenceStatisticAttributeEstimate represents the Evidence.statistic.attributeEstimate backbone element.
@@ -5229,7 +5229,7 @@ type EvidenceStatisticModelCharacteristic struct {
 	// Numerical value to complete model specification
 	Value *Quantity `json:"value,omitempty"`
 	// A variable adjusted for in the adjusted analysis
-	Variable []BackboneElement `json:"variable,omitempty"`
+	Variable []EvidenceStatisticModelCharacteristicVariable `json:"variable,omitempty"`
 }
 
 // EvidenceStatisticModelCharacteristicVariable represents the Evidence.statistic.modelCharacteristic.variable backbone element.
@@ -5321,9 +5321,9 @@ type EvidenceVariableCharacteristic struct {
 	// Defines the characteristic (without using type and value) by an id
 	DefinitionId *string `json:"definitionId,omitempty"`
 	// Defines the characteristic using type and value
-	DefinitionByTypeAndValue *BackboneElement `json:"definitionByTypeAndValue,omitempty"`
+	DefinitionByTypeAndValue *EvidenceVariableCharacteristicDefinitionByTypeAndValue `json:"definitionByTypeAndValue,omitempty"`
 	// Used to specify how two or more characteristics are combined
-	DefinitionByCombination *BackboneElement `json:"definitionByCombination,omitempty"`
+	DefinitionByCombination *EvidenceVariableCharacteristicDefinitionByCombination `json:"definitionByCombination,omitempty"`
 	// Number of occurrences meeting the characteristic
 	InstancesQuantity *Quantity `json:"instancesQuantity,omitempty"`
 	// Number of occurrences meeting the characteristic
@@ -5333,7 +5333,7 @@ type EvidenceVariableCharacteristic struct {
 	// Length of time in which the characteristic is met
 	DurationRange *Range `json:"durationRange,omitempty"`
 	// Timing in which the characteristic is determined
-	TimeFromEvent []BackboneElement `json:"timeFromEvent,omitempty"`
+	TimeFromEvent []EvidenceVariableCharacteristicTimeFromEvent `json:"timeFromEvent,omitempty"`
 }
 
 // EvidenceVariableCharacteristicDefinitionByCombination represents the EvidenceVariable.characteristic.definitionByCombination backbone element.
@@ -5489,9 +5489,9 @@ type ExampleScenarioInstance struct {
 	// Example instance data
 	Content *Reference `json:"content,omitempty"`
 	// Snapshot of instance that changes
-	Version []BackboneElement `json:"version,omitempty"`
+	Version []ExampleScenarioInstanceVersion `json:"version,omitempty"`
 	// Resources contained in the instance
-	ContainedInstance []BackboneElement `json:"containedInstance,omitempty"`
+	ContainedInstance []ExampleScenarioInstanceContainedInstance `json:"containedInstance,omitempty"`
 }
 
 // ExampleScenarioInstanceContainedInstance represents the ExampleScenario.instance.containedInstance backbone element.
@@ -5546,7 +5546,7 @@ type ExampleScenarioProcess struct {
 	// Status after successful completion
 	PostConditions *string `json:"postConditions,omitempty"`
 	// Event within of the process
-	Step []BackboneElement `json:"step,omitempty"`
+	Step []ExampleScenarioProcessStep `json:"step,omitempty"`
 }
 
 // ExampleScenarioProcessStep represents the ExampleScenario.process.step backbone element.
@@ -5563,9 +5563,9 @@ type ExampleScenarioProcessStep struct {
 	// Step is nested workflow
 	Workflow *string `json:"workflow,omitempty"`
 	// Step is simple action
-	Operation *BackboneElement `json:"operation,omitempty"`
+	Operation *ExampleScenarioProcessStepOperation `json:"operation,omitempty"`
 	// Alternate non-typical step action
-	Alternative []BackboneElement `json:"alternative,omitempty"`
+	Alternative []ExampleScenarioProcessStepAlternative `json:"alternative,omitempty"`
 	// Pause in the flow?
 	Pause *bool `json:"pause,omitempty"`
 }
@@ -5685,11 +5685,11 @@ type ExplanationOfBenefitAddItem struct {
 	// Total item cost
 	Net *Money `json:"net,omitempty"`
 	// Anatomical location
-	BodySite []BackboneElement `json:"bodySite,omitempty"`
+	BodySite []ExplanationOfBenefitAddItemBodySite `json:"bodySite,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Insurer added line items
-	Detail []BackboneElement `json:"detail,omitempty"`
+	Detail []ExplanationOfBenefitAddItemDetail `json:"detail,omitempty"`
 }
 
 // ExplanationOfBenefitAddItemBodySite represents the ExplanationOfBenefit.addItem.bodySite backbone element.
@@ -5741,7 +5741,7 @@ type ExplanationOfBenefitAddItemDetail struct {
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Insurer added line items
-	SubDetail []BackboneElement `json:"subDetail,omitempty"`
+	SubDetail []ExplanationOfBenefitAddItemDetailSubDetail `json:"subDetail,omitempty"`
 }
 
 // ExplanationOfBenefitAddItemDetailSubDetail represents the ExplanationOfBenefit.addItem.detail.subDetail backbone element.
@@ -5803,7 +5803,7 @@ type ExplanationOfBenefitBenefitBalance struct {
 	// Annual or lifetime
 	Term *CodeableConcept `json:"term,omitempty"`
 	// Benefit Summary
-	Financial []BackboneElement `json:"financial,omitempty"`
+	Financial []ExplanationOfBenefitBenefitBalanceFinancial `json:"financial,omitempty"`
 }
 
 // ExplanationOfBenefitBenefitBalanceFinancial represents the ExplanationOfBenefit.benefitBalance.financial backbone element.
@@ -5975,17 +5975,17 @@ type ExplanationOfBenefitItem struct {
 	// Unique device identifier
 	Udi []Reference `json:"udi,omitempty"`
 	// Anatomical location
-	BodySite []BackboneElement `json:"bodySite,omitempty"`
+	BodySite []ExplanationOfBenefitItemBodySite `json:"bodySite,omitempty"`
 	// Encounters associated with the listed treatments
 	Encounter []Reference `json:"encounter,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Adjudication results
-	ReviewOutcome *BackboneElement `json:"reviewOutcome,omitempty"`
+	ReviewOutcome *ExplanationOfBenefitItemReviewOutcome `json:"reviewOutcome,omitempty"`
 	// Adjudication details
-	Adjudication []BackboneElement `json:"adjudication,omitempty"`
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Additional items
-	Detail []BackboneElement `json:"detail,omitempty"`
+	Detail []ExplanationOfBenefitItemDetail `json:"detail,omitempty"`
 }
 
 // ExplanationOfBenefitItemAdjudication represents the ExplanationOfBenefit.item.adjudication backbone element.
@@ -6064,7 +6064,7 @@ type ExplanationOfBenefitItemDetail struct {
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
 	// Additional items
-	SubDetail []BackboneElement `json:"subDetail,omitempty"`
+	SubDetail []ExplanationOfBenefitItemDetailSubDetail `json:"subDetail,omitempty"`
 }
 
 // ExplanationOfBenefitItemDetailSubDetail represents the ExplanationOfBenefit.item.detail.subDetail backbone element.
@@ -6397,13 +6397,13 @@ type GenomicStudyAnalysis struct {
 	// Genomic regions actually called in the analysis event (BED file)
 	RegionsCalled []Reference `json:"regionsCalled,omitempty"`
 	// Inputs for the analysis event
-	Input []BackboneElement `json:"input,omitempty"`
+	Input []GenomicStudyAnalysisInput `json:"input,omitempty"`
 	// Outputs for the analysis event
-	Output []BackboneElement `json:"output,omitempty"`
+	Output []GenomicStudyAnalysisOutput `json:"output,omitempty"`
 	// Performer for the analysis event
-	Performer []BackboneElement `json:"performer,omitempty"`
+	Performer []GenomicStudyAnalysisPerformer `json:"performer,omitempty"`
 	// Devices used for the analysis (e.g., instruments, software), with settings and parameters
-	Device []BackboneElement `json:"device,omitempty"`
+	Device []GenomicStudyAnalysisDevice `json:"device,omitempty"`
 }
 
 // GenomicStudyAnalysisDevice represents the GenomicStudy.analysis.device backbone element.
@@ -6535,7 +6535,7 @@ type GraphDefinitionLink struct {
 	// Criteria for reverse lookup
 	Params *string `json:"params,omitempty"`
 	// Compartment Consistency Rules
-	Compartment []BackboneElement `json:"compartment,omitempty"`
+	Compartment []GraphDefinitionLinkCompartment `json:"compartment,omitempty"`
 }
 
 // GraphDefinitionLinkCompartment represents the GraphDefinition.link.compartment backbone element.
@@ -6657,9 +6657,9 @@ type ImagingSelectionInstance struct {
 	// The selected subset of the SOP Instance
 	Subset []string `json:"subset,omitempty"`
 	// A specific 2D region in a DICOM image / frame
-	ImageRegion2D []BackboneElement `json:"imageRegion2D,omitempty"`
+	ImageRegion2D []ImagingSelectionInstanceImageRegion2D `json:"imageRegion2D,omitempty"`
 	// A specific 3D region in a DICOM frame of reference
-	ImageRegion3D []BackboneElement `json:"imageRegion3D,omitempty"`
+	ImageRegion3D []ImagingSelectionInstanceImageRegion3D `json:"imageRegion3D,omitempty"`
 }
 
 // ImagingSelectionInstanceImageRegion2D represents the ImagingSelection.instance.imageRegion2D backbone element.
@@ -6737,9 +6737,9 @@ type ImagingStudySeries struct {
 	// When the series started
 	Started *string `json:"started,omitempty"`
 	// Who performed the series
-	Performer []BackboneElement `json:"performer,omitempty"`
+	Performer []ImagingStudySeriesPerformer `json:"performer,omitempty"`
 	// A single SOP instance from the series
-	Instance []BackboneElement `json:"instance,omitempty"`
+	Instance []ImagingStudySeriesInstance `json:"instance,omitempty"`
 }
 
 // ImagingStudySeriesInstance represents the ImagingStudy.series.instance backbone element.
@@ -6864,7 +6864,7 @@ type ImmunizationRecommendationRecommendation struct {
 	// Vaccine administration status reason
 	ForecastReason []CodeableConcept `json:"forecastReason,omitempty"`
 	// Dates governing proposed immunization
-	DateCriterion []BackboneElement `json:"dateCriterion,omitempty"`
+	DateCriterion []ImmunizationRecommendationRecommendationDateCriterion `json:"dateCriterion,omitempty"`
 	// Protocol details
 	Description *string `json:"description,omitempty"`
 	// Name of vaccination series
@@ -6904,15 +6904,15 @@ type ImplementationGuideDefinition struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Grouping used to present related resources in the IG
-	Grouping []BackboneElement `json:"grouping,omitempty"`
+	Grouping []ImplementationGuideDefinitionGrouping `json:"grouping,omitempty"`
 	// Resource in the implementation guide
-	Resource []BackboneElement `json:"resource,omitempty"`
+	Resource []ImplementationGuideDefinitionResource `json:"resource,omitempty"`
 	// Page/Section in the Guide
-	Page *BackboneElement `json:"page,omitempty"`
+	Page *ImplementationGuideDefinitionPage `json:"page,omitempty"`
 	// Defines how IG is built by tools
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []ImplementationGuideDefinitionParameter `json:"parameter,omitempty"`
 	// A template for building resources
-	Template []BackboneElement `json:"template,omitempty"`
+	Template []ImplementationGuideDefinitionTemplate `json:"template,omitempty"`
 }
 
 // ImplementationGuideDefinitionGrouping represents the ImplementationGuide.definition.grouping backbone element.
@@ -7062,9 +7062,9 @@ type ImplementationGuideManifest struct {
 	// Location of rendered implementation guide
 	Rendering *string `json:"rendering,omitempty"`
 	// Resource in the implementation guide
-	Resource []BackboneElement `json:"resource,omitempty"`
+	Resource []ImplementationGuideManifestResource `json:"resource,omitempty"`
 	// HTML page within the parent IG
-	Page []BackboneElement `json:"page,omitempty"`
+	Page []ImplementationGuideManifestPage `json:"page,omitempty"`
 	// Image within the IG
 	Image []string `json:"image,omitempty"`
 	// Additional linkable file in IG
@@ -7134,7 +7134,7 @@ type IngredientSubstance struct {
 	// A code or full resource that represents the ingredient substance
 	Code CodeableReference `json:"code,omitempty"`
 	// The quantity of substance, per presentation, or per volume or mass, and type of quantity
-	Strength []BackboneElement `json:"strength,omitempty"`
+	Strength []IngredientSubstanceStrength `json:"strength,omitempty"`
 }
 
 // IngredientSubstanceStrength represents the Ingredient.substance.strength backbone element.
@@ -7173,7 +7173,7 @@ type IngredientSubstanceStrength struct {
 	// Where the strength range applies
 	Country []CodeableConcept `json:"country,omitempty"`
 	// Strength expressed in terms of a reference substance
-	ReferenceStrength []BackboneElement `json:"referenceStrength,omitempty"`
+	ReferenceStrength []IngredientSubstanceStrengthReferenceStrength `json:"referenceStrength,omitempty"`
 }
 
 // IngredientSubstanceStrengthReferenceStrength represents the Ingredient.substance.strength.referenceStrength backbone element.
@@ -7213,7 +7213,7 @@ type InsurancePlanCoverage struct {
 	// What networks provide coverage
 	Network []Reference `json:"network,omitempty"`
 	// List of benefits
-	Benefit []BackboneElement `json:"benefit,omitempty"`
+	Benefit []InsurancePlanCoverageBenefit `json:"benefit,omitempty"`
 }
 
 // InsurancePlanCoverageBenefit represents the InsurancePlan.coverage.benefit backbone element.
@@ -7230,7 +7230,7 @@ type InsurancePlanCoverageBenefit struct {
 	// Referral requirements
 	Requirement *string `json:"requirement,omitempty"`
 	// Benefit limits
-	Limit []BackboneElement `json:"limit,omitempty"`
+	Limit []InsurancePlanCoverageBenefitLimit `json:"limit,omitempty"`
 }
 
 // InsurancePlanCoverageBenefitLimit represents the InsurancePlan.coverage.benefit.limit backbone element.
@@ -7266,9 +7266,9 @@ type InsurancePlanPlan struct {
 	// What networks provide coverage
 	Network []Reference `json:"network,omitempty"`
 	// Overall costs
-	GeneralCost []BackboneElement `json:"generalCost,omitempty"`
+	GeneralCost []InsurancePlanPlanGeneralCost `json:"generalCost,omitempty"`
 	// Specific costs
-	SpecificCost []BackboneElement `json:"specificCost,omitempty"`
+	SpecificCost []InsurancePlanPlanSpecificCost `json:"specificCost,omitempty"`
 }
 
 // InsurancePlanPlanGeneralCost represents the InsurancePlan.plan.generalCost backbone element.
@@ -7302,7 +7302,7 @@ type InsurancePlanPlanSpecificCost struct {
 	// General category of benefit
 	Category CodeableConcept `json:"category,omitempty"`
 	// Benefits list
-	Benefit []BackboneElement `json:"benefit,omitempty"`
+	Benefit []InsurancePlanPlanSpecificCostBenefit `json:"benefit,omitempty"`
 }
 
 // InsurancePlanPlanSpecificCostBenefit represents the InsurancePlan.plan.specificCost.benefit backbone element.
@@ -7317,7 +7317,7 @@ type InsurancePlanPlanSpecificCostBenefit struct {
 	// Type of specific benefit
 	Type CodeableConcept `json:"type,omitempty"`
 	// List of the costs
-	Cost []BackboneElement `json:"cost,omitempty"`
+	Cost []InsurancePlanPlanSpecificCostBenefitCost `json:"cost,omitempty"`
 }
 
 // InsurancePlanPlanSpecificCostBenefitCost represents the InsurancePlan.plan.specificCost.benefit.cost backbone element.
@@ -7491,7 +7491,7 @@ type InventoryReportInventoryListing struct {
 	// The date and time when the items were counted
 	CountingDateTime *string `json:"countingDateTime,omitempty"`
 	// The item or items in this listing
-	Item []BackboneElement `json:"item,omitempty"`
+	Item []InventoryReportInventoryListingItem `json:"item,omitempty"`
 }
 
 // InventoryReportInventoryListingItem represents the InventoryReport.inventoryListing.item backbone element.
@@ -7618,7 +7618,7 @@ type ManufacturedItemDefinitionComponent struct {
 	// The measurable amount of total quantity of all substances in the component, expressable in different ways (e.g. by mass or volume)
 	Amount []Quantity `json:"amount,omitempty"`
 	// A reference to a constituent of the manufactured item as a whole, linked here so that its component location within the item can be indicated. This not where the item's ingredient are primarily stated (for which see Ingredient.for or ManufacturedItemDefinition.ingredient)
-	Constituent []BackboneElement `json:"constituent,omitempty"`
+	Constituent []ManufacturedItemDefinitionComponentConstituent `json:"constituent,omitempty"`
 }
 
 // ManufacturedItemDefinitionComponentConstituent represents the ManufacturedItemDefinition.component.constituent backbone element.
@@ -7707,9 +7707,9 @@ type MeasureGroup struct {
 	// Logic used by the measure group
 	Library []string `json:"library,omitempty"`
 	// Population criteria
-	Population []BackboneElement `json:"population,omitempty"`
+	Population []MeasureGroupPopulation `json:"population,omitempty"`
 	// Stratifier criteria for the measure
-	Stratifier []BackboneElement `json:"stratifier,omitempty"`
+	Stratifier []MeasureGroupStratifier `json:"stratifier,omitempty"`
 }
 
 // MeasureGroupPopulation represents the Measure.group.population backbone element.
@@ -7757,7 +7757,7 @@ type MeasureGroupStratifier struct {
 	// A group resource that defines this population
 	GroupDefinition *Reference `json:"groupDefinition,omitempty"`
 	// Stratifier criteria component for the measure
-	Component []BackboneElement `json:"component,omitempty"`
+	Component []MeasureGroupStratifierComponent `json:"component,omitempty"`
 }
 
 // MeasureGroupStratifierComponent represents the Measure.group.stratifier.component backbone element.
@@ -7797,7 +7797,7 @@ type MeasureReportGroup struct {
 	// What individual(s) the report is for
 	Subject *Reference `json:"subject,omitempty"`
 	// The populations in the group
-	Population []BackboneElement `json:"population,omitempty"`
+	Population []MeasureReportGroupPopulation `json:"population,omitempty"`
 	// What score this group achieved
 	MeasureScoreQuantity *Quantity `json:"measureScoreQuantity,omitempty"`
 	// What score this group achieved
@@ -7813,7 +7813,7 @@ type MeasureReportGroup struct {
 	// What score this group achieved
 	MeasureScoreDuration *Duration `json:"measureScoreDuration,omitempty"`
 	// Stratification results
-	Stratifier []BackboneElement `json:"stratifier,omitempty"`
+	Stratifier []MeasureReportGroupStratifier `json:"stratifier,omitempty"`
 }
 
 // MeasureReportGroupPopulation represents the MeasureReport.group.population backbone element.
@@ -7853,7 +7853,7 @@ type MeasureReportGroupStratifier struct {
 	// What stratifier of the group
 	Code *CodeableConcept `json:"code,omitempty"`
 	// Stratum results, one for each unique value, or set of values, in the stratifier, or stratifier components
-	Stratum []BackboneElement `json:"stratum,omitempty"`
+	Stratum []MeasureReportGroupStratifierStratum `json:"stratum,omitempty"`
 }
 
 // MeasureReportGroupStratifierStratum represents the MeasureReport.group.stratifier.stratum backbone element.
@@ -7878,9 +7878,9 @@ type MeasureReportGroupStratifierStratum struct {
 	// The stratum value, e.g. male
 	ValueReference *Reference `json:"valueReference,omitempty"`
 	// Stratifier component values
-	Component []BackboneElement `json:"component,omitempty"`
+	Component []MeasureReportGroupStratifierStratumComponent `json:"component,omitempty"`
 	// Population results in this stratum
-	Population []BackboneElement `json:"population,omitempty"`
+	Population []MeasureReportGroupStratifierStratumPopulation `json:"population,omitempty"`
 	// What score this stratum achieved
 	MeasureScoreQuantity *Quantity `json:"measureScoreQuantity,omitempty"`
 	// What score this stratum achieved
@@ -8130,9 +8130,9 @@ type MedicationKnowledgeDefinitional struct {
 	// The intended or approved route of administration
 	IntendedRoute []CodeableConcept `json:"intendedRoute,omitempty"`
 	// Active or inactive ingredient
-	Ingredient []BackboneElement `json:"ingredient,omitempty"`
+	Ingredient []MedicationKnowledgeDefinitionalIngredient `json:"ingredient,omitempty"`
 	// Specifies descriptive properties of the medicine
-	DrugCharacteristic []BackboneElement `json:"drugCharacteristic,omitempty"`
+	DrugCharacteristic []MedicationKnowledgeDefinitionalDrugCharacteristic `json:"drugCharacteristic,omitempty"`
 }
 
 // MedicationKnowledgeDefinitionalDrugCharacteristic represents the MedicationKnowledge.definitional.drugCharacteristic backbone element.
@@ -8195,7 +8195,7 @@ type MedicationKnowledgeIndicationGuideline struct {
 	// Indication for use that applies to the specific administration guideline
 	Indication []CodeableReference `json:"indication,omitempty"`
 	// Guidelines for dosage of the medication
-	DosingGuideline []BackboneElement `json:"dosingGuideline,omitempty"`
+	DosingGuideline []MedicationKnowledgeIndicationGuidelineDosingGuideline `json:"dosingGuideline,omitempty"`
 }
 
 // MedicationKnowledgeIndicationGuidelineDosingGuideline represents the MedicationKnowledge.indicationGuideline.dosingGuideline backbone element.
@@ -8210,11 +8210,11 @@ type MedicationKnowledgeIndicationGuidelineDosingGuideline struct {
 	// Intention of the treatment
 	TreatmentIntent *CodeableConcept `json:"treatmentIntent,omitempty"`
 	// Dosage for the medication for the specific guidelines
-	Dosage []BackboneElement `json:"dosage,omitempty"`
+	Dosage []MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage `json:"dosage,omitempty"`
 	// Type of treatment the guideline applies to
 	AdministrationTreatment *CodeableConcept `json:"administrationTreatment,omitempty"`
 	// Characteristics of the patient that are relevant to the administration guidelines
-	PatientCharacteristic []BackboneElement `json:"patientCharacteristic,omitempty"`
+	PatientCharacteristic []MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic `json:"patientCharacteristic,omitempty"`
 }
 
 // MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage represents the MedicationKnowledge.indicationGuideline.dosingGuideline.dosage backbone element.
@@ -8329,11 +8329,11 @@ type MedicationKnowledgeRegulatory struct {
 	// Specifies the authority of the regulation
 	RegulatoryAuthority Reference `json:"regulatoryAuthority,omitempty"`
 	// Specifies if changes are allowed when dispensing a medication from a regulatory perspective
-	Substitution []BackboneElement `json:"substitution,omitempty"`
+	Substitution []MedicationKnowledgeRegulatorySubstitution `json:"substitution,omitempty"`
 	// Specifies the schedule of a medication in jurisdiction
 	Schedule []CodeableConcept `json:"schedule,omitempty"`
 	// The maximum number of units of the medication that can be dispensed in a period
-	MaxDispense *BackboneElement `json:"maxDispense,omitempty"`
+	MaxDispense *MedicationKnowledgeRegulatoryMaxDispense `json:"maxDispense,omitempty"`
 }
 
 // MedicationKnowledgeRegulatoryMaxDispense represents the MedicationKnowledge.regulatory.maxDispense backbone element.
@@ -8397,7 +8397,7 @@ type MedicationKnowledgeStorageGuideline struct {
 	// Duration remains stable
 	StabilityDuration *Duration `json:"stabilityDuration,omitempty"`
 	// Setting or value of environment for adequate storage
-	EnvironmentalSetting []BackboneElement `json:"environmentalSetting,omitempty"`
+	EnvironmentalSetting []MedicationKnowledgeStorageGuidelineEnvironmentalSetting `json:"environmentalSetting,omitempty"`
 }
 
 // MedicationKnowledgeStorageGuidelineEnvironmentalSetting represents the MedicationKnowledge.storageGuideline.environmentalSetting backbone element.
@@ -8429,7 +8429,7 @@ type MedicationRequestDispenseRequest struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// First fill details
-	InitialFill *BackboneElement `json:"initialFill,omitempty"`
+	InitialFill *MedicationRequestDispenseRequestInitialFill `json:"initialFill,omitempty"`
 	// Minimum period of time between dispenses
 	DispenseInterval *Duration `json:"dispenseInterval,omitempty"`
 	// Time period supply is authorized for
@@ -8576,9 +8576,9 @@ type MedicinalProductDefinitionName struct {
 	// Type of product name, such as rINN, BAN, Proprietary, Non-Proprietary
 	Type *CodeableConcept `json:"type,omitempty"`
 	// Coding words or phrases of the name
-	Part []BackboneElement `json:"part,omitempty"`
+	Part []MedicinalProductDefinitionNamePart `json:"part,omitempty"`
 	// Country and jurisdiction where the name applies
-	Usage []BackboneElement `json:"usage,omitempty"`
+	Usage []MedicinalProductDefinitionNameUsage `json:"usage,omitempty"`
 }
 
 // MedicinalProductDefinitionNamePart represents the MedicinalProductDefinition.name.part backbone element.
@@ -8747,9 +8747,9 @@ type MolecularSequenceRelative struct {
 	// Indicates the nucleotide range in the composed sequence when multiple 'relative' elements are used together
 	SequenceRange *Range `json:"sequenceRange,omitempty"`
 	// A sequence used as starting sequence
-	StartingSequence *BackboneElement `json:"startingSequence,omitempty"`
+	StartingSequence *MolecularSequenceRelativeStartingSequence `json:"startingSequence,omitempty"`
 	// Changes in sequence from the starting sequence
-	Edit []BackboneElement `json:"edit,omitempty"`
+	Edit []MolecularSequenceRelativeEdit `json:"edit,omitempty"`
 }
 
 // MolecularSequenceRelativeEdit represents the MolecularSequence.relative.edit backbone element.
@@ -8896,13 +8896,13 @@ type NutritionOrderEnteralFormula struct {
 	// Intended type of device for the administration
 	DeliveryDevice []CodeableReference `json:"deliveryDevice,omitempty"`
 	// Components to add to the feeding
-	Additive []BackboneElement `json:"additive,omitempty"`
+	Additive []NutritionOrderEnteralFormulaAdditive `json:"additive,omitempty"`
 	// Amount of energy per specified volume that is required
 	CaloricDensity *Quantity `json:"caloricDensity,omitempty"`
 	// How the formula should enter the patient's gastrointestinal tract
 	RouteOfAdministration *CodeableConcept `json:"routeOfAdministration,omitempty"`
 	// Formula feeding instruction as structured data
-	Administration []BackboneElement `json:"administration,omitempty"`
+	Administration []NutritionOrderEnteralFormulaAdministration `json:"administration,omitempty"`
 	// Upper limit on formula volume per unit of time
 	MaxVolumeToDeliver *Quantity `json:"maxVolumeToDeliver,omitempty"`
 	// Formula feeding instructions expressed as text
@@ -8936,7 +8936,7 @@ type NutritionOrderEnteralFormulaAdministration struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Scheduling information for enteral formula products
-	Schedule *BackboneElement `json:"schedule,omitempty"`
+	Schedule *NutritionOrderEnteralFormulaAdministrationSchedule `json:"schedule,omitempty"`
 	// The volume of formula to provide
 	Quantity *Quantity `json:"quantity,omitempty"`
 	// Speed with which the formula is provided per period of time
@@ -8974,11 +8974,11 @@ type NutritionOrderOralDiet struct {
 	// Type of oral diet or diet restrictions that describe what can be consumed orally
 	Type []CodeableConcept `json:"type,omitempty"`
 	// Scheduling information for oral diets
-	Schedule *BackboneElement `json:"schedule,omitempty"`
+	Schedule *NutritionOrderOralDietSchedule `json:"schedule,omitempty"`
 	// Required  nutrient modifications
-	Nutrient []BackboneElement `json:"nutrient,omitempty"`
+	Nutrient []NutritionOrderOralDietNutrient `json:"nutrient,omitempty"`
 	// Required  texture modifications
-	Texture []BackboneElement `json:"texture,omitempty"`
+	Texture []NutritionOrderOralDietTexture `json:"texture,omitempty"`
 	// The required consistency of fluids and liquids provided to the patient
 	FluidConsistencyType []CodeableConcept `json:"fluidConsistencyType,omitempty"`
 	// Instructions or additional information about the oral diet
@@ -9046,7 +9046,7 @@ type NutritionOrderSupplement struct {
 	// Product or brand name of the nutritional supplement
 	ProductName *string `json:"productName,omitempty"`
 	// Scheduling information for supplements
-	Schedule *BackboneElement `json:"schedule,omitempty"`
+	Schedule *NutritionOrderSupplementSchedule `json:"schedule,omitempty"`
 	// Amount of the nutritional supplement
 	Quantity *Quantity `json:"quantity,omitempty"`
 	// Instructions or additional information about the oral supplement
@@ -9348,9 +9348,9 @@ type OperationDefinitionParameter struct {
 	// number | date | string | token | reference | composite | quantity | uri | special
 	SearchType *SearchParamType `json:"searchType,omitempty"`
 	// ValueSet details if this is coded
-	Binding *BackboneElement `json:"binding,omitempty"`
+	Binding *OperationDefinitionParameterBinding `json:"binding,omitempty"`
 	// References to this parameter
-	ReferencedFrom []BackboneElement `json:"referencedFrom,omitempty"`
+	ReferencedFrom []OperationDefinitionParameterReferencedFrom `json:"referencedFrom,omitempty"`
 }
 
 // OperationDefinitionParameterBinding represents the OperationDefinition.parameter.binding backbone element.
@@ -9466,9 +9466,9 @@ type PackagedProductDefinitionPackaging struct {
 	// Manufacturer of this packaging item (multiple means these are all potential manufacturers)
 	Manufacturer []Reference `json:"manufacturer,omitempty"`
 	// General characteristics of this item
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []PackagedProductDefinitionPackagingProperty `json:"property,omitempty"`
 	// The item(s) within the packaging
-	ContainedItem []BackboneElement `json:"containedItem,omitempty"`
+	ContainedItem []PackagedProductDefinitionPackagingContainedItem `json:"containedItem,omitempty"`
 }
 
 // PackagedProductDefinitionPackagingContainedItem represents the PackagedProductDefinition.packaging.containedItem backbone element.
@@ -9818,9 +9818,9 @@ type PermissionRule struct {
 	// deny | permit
 	Type *ConsentProvisionType `json:"type,omitempty"`
 	// The selection criteria to identify data that is within scope of this provision
-	Data []BackboneElement `json:"data,omitempty"`
+	Data []PermissionRuleData `json:"data,omitempty"`
 	// A description or definition of which activities are allowed to be done on the data
-	Activity []BackboneElement `json:"activity,omitempty"`
+	Activity []PermissionRuleActivity `json:"activity,omitempty"`
 	// What limits apply to the use of the data
 	Limit []CodeableConcept `json:"limit,omitempty"`
 }
@@ -9852,7 +9852,7 @@ type PermissionRuleData struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Explicit FHIR Resource references
-	Resource []BackboneElement `json:"resource,omitempty"`
+	Resource []PermissionRuleDataResource `json:"resource,omitempty"`
 	// Security tag code on .meta.security
 	Security []Coding `json:"security,omitempty"`
 	// Timeframe encompasing data create/update
@@ -9946,13 +9946,13 @@ type PlanDefinitionAction struct {
 	// When the action should be triggered
 	Trigger []TriggerDefinition `json:"trigger,omitempty"`
 	// Whether or not the action is applicable
-	Condition []BackboneElement `json:"condition,omitempty"`
+	Condition []PlanDefinitionActionCondition `json:"condition,omitempty"`
 	// Input data requirements
-	Input []BackboneElement `json:"input,omitempty"`
+	Input []PlanDefinitionActionInput `json:"input,omitempty"`
 	// Output data definition
-	Output []BackboneElement `json:"output,omitempty"`
+	Output []PlanDefinitionActionOutput `json:"output,omitempty"`
 	// Relationship to another action
-	RelatedAction []BackboneElement `json:"relatedAction,omitempty"`
+	RelatedAction []PlanDefinitionActionRelatedAction `json:"relatedAction,omitempty"`
 	// When the action should take place
 	TimingAge *Age `json:"timingAge,omitempty"`
 	// When the action should take place
@@ -9964,7 +9964,7 @@ type PlanDefinitionAction struct {
 	// Where it should happen
 	Location *CodeableReference `json:"location,omitempty"`
 	// Who should participate in the action
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []PlanDefinitionActionParticipant `json:"participant,omitempty"`
 	// create | update | remove | fire-event
 	Type *CodeableConcept `json:"type,omitempty"`
 	// visual-group | logical-group | sentence-group
@@ -9988,7 +9988,7 @@ type PlanDefinitionAction struct {
 	// Transform to apply the template
 	Transform *string `json:"transform,omitempty"`
 	// Dynamic aspects of the definition
-	DynamicValue []BackboneElement `json:"dynamicValue,omitempty"`
+	DynamicValue []PlanDefinitionActionDynamicValue `json:"dynamicValue,omitempty"`
 }
 
 // PlanDefinitionActionCondition represents the PlanDefinition.action.condition backbone element.
@@ -10113,7 +10113,7 @@ type PlanDefinitionActor struct {
 	// Describes the actor
 	Description *string `json:"description,omitempty"`
 	// Who or what can be this actor
-	Option []BackboneElement `json:"option,omitempty"`
+	Option []PlanDefinitionActorOption `json:"option,omitempty"`
 }
 
 // PlanDefinitionActorOption represents the PlanDefinition.actor.option backbone element.
@@ -10157,7 +10157,7 @@ type PlanDefinitionGoal struct {
 	// Supporting documentation for the goal
 	Documentation []RelatedArtifact `json:"documentation,omitempty"`
 	// Target outcome for the goal
-	Target []BackboneElement `json:"target,omitempty"`
+	Target []PlanDefinitionGoalTarget `json:"target,omitempty"`
 }
 
 // PlanDefinitionGoalTarget represents the PlanDefinition.goal.target backbone element.
@@ -10319,7 +10319,7 @@ type QuestionnaireItem struct {
 	// group | display | boolean | decimal | integer | date | dateTime +
 	Type *QuestionnaireItemType `json:"type,omitempty"`
 	// Only allow data when
-	EnableWhen []BackboneElement `json:"enableWhen,omitempty"`
+	EnableWhen []QuestionnaireItemEnableWhen `json:"enableWhen,omitempty"`
 	// all | any
 	EnableBehavior *EnableWhenBehavior `json:"enableBehavior,omitempty"`
 	// hidden | protected
@@ -10337,9 +10337,9 @@ type QuestionnaireItem struct {
 	// ValueSet containing permitted answers
 	AnswerValueSet *string `json:"answerValueSet,omitempty"`
 	// Permitted answer
-	AnswerOption []BackboneElement `json:"answerOption,omitempty"`
+	AnswerOption []QuestionnaireItemAnswerOption `json:"answerOption,omitempty"`
 	// Initial value(s) when item is first rendered
-	Initial []BackboneElement `json:"initial,omitempty"`
+	Initial []QuestionnaireItemInitial `json:"initial,omitempty"`
 }
 
 // QuestionnaireItemAnswerOption represents the Questionnaire.item.answerOption backbone element.
@@ -10491,7 +10491,7 @@ type QuestionnaireResponseItem struct {
 	// Name for group or question text
 	Text *string `json:"text,omitempty"`
 	// The response(s) to the question
-	Answer []BackboneElement `json:"answer,omitempty"`
+	Answer []QuestionnaireResponseItemAnswer `json:"answer,omitempty"`
 }
 
 // QuestionnaireResponseItemAnswer represents the QuestionnaireResponse.item.answer backbone element.
@@ -10611,13 +10611,13 @@ type RequestOrchestrationAction struct {
 	// What goals
 	Goal []Reference `json:"goal,omitempty"`
 	// Whether or not the action is applicable
-	Condition []BackboneElement `json:"condition,omitempty"`
+	Condition []RequestOrchestrationActionCondition `json:"condition,omitempty"`
 	// Input data requirements
-	Input []BackboneElement `json:"input,omitempty"`
+	Input []RequestOrchestrationActionInput `json:"input,omitempty"`
 	// Output data definition
-	Output []BackboneElement `json:"output,omitempty"`
+	Output []RequestOrchestrationActionOutput `json:"output,omitempty"`
 	// Relationship to another action
-	RelatedAction []BackboneElement `json:"relatedAction,omitempty"`
+	RelatedAction []RequestOrchestrationActionRelatedAction `json:"relatedAction,omitempty"`
 	// When the action should take place
 	TimingDateTime *string `json:"timingDateTime,omitempty"`
 	// Extension for TimingDateTime
@@ -10635,7 +10635,7 @@ type RequestOrchestrationAction struct {
 	// Where it should happen
 	Location *CodeableReference `json:"location,omitempty"`
 	// Who should perform the action
-	Participant []BackboneElement `json:"participant,omitempty"`
+	Participant []RequestOrchestrationActionParticipant `json:"participant,omitempty"`
 	// create | update | remove | fire-event
 	Type *CodeableConcept `json:"type,omitempty"`
 	// visual-group | logical-group | sentence-group
@@ -10661,7 +10661,7 @@ type RequestOrchestrationAction struct {
 	// Transform to apply the template
 	Transform *string `json:"transform,omitempty"`
 	// Dynamic aspects of the definition
-	DynamicValue []BackboneElement `json:"dynamicValue,omitempty"`
+	DynamicValue []RequestOrchestrationActionDynamicValue `json:"dynamicValue,omitempty"`
 }
 
 // RequestOrchestrationActionCondition represents the RequestOrchestration.action.condition backbone element.
@@ -11017,7 +11017,7 @@ type ServiceRequestOrderDetail struct {
 	// The context of the order details by reference
 	ParameterFocus *CodeableReference `json:"parameterFocus,omitempty"`
 	// The parameter details for the service being requested
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []ServiceRequestOrderDetailParameter `json:"parameter,omitempty"`
 }
 
 // ServiceRequestOrderDetailParameter represents the ServiceRequest.orderDetail.parameter backbone element.
@@ -11136,7 +11136,7 @@ type SpecimenDefinitionTypeTested struct {
 	// preferred | alternate
 	Preference *SpecimenContainedPreference `json:"preference,omitempty"`
 	// The specimen's container
-	Container *BackboneElement `json:"container,omitempty"`
+	Container *SpecimenDefinitionTypeTestedContainer `json:"container,omitempty"`
 	// Requirements for specimen delivery and special handling
 	Requirement *string `json:"requirement,omitempty"`
 	// The usual time for retaining this kind of specimen
@@ -11146,7 +11146,7 @@ type SpecimenDefinitionTypeTested struct {
 	// Criterion specified for specimen rejection
 	RejectionCriterion []CodeableConcept `json:"rejectionCriterion,omitempty"`
 	// Specimen handling before testing
-	Handling []BackboneElement `json:"handling,omitempty"`
+	Handling []SpecimenDefinitionTypeTestedHandling `json:"handling,omitempty"`
 	// Where the specimen will be tested
 	TestingDestination []CodeableConcept `json:"testingDestination,omitempty"`
 }
@@ -11177,7 +11177,7 @@ type SpecimenDefinitionTypeTestedContainer struct {
 	// Extension for MinimumVolumeString
 	MinimumVolumeStringExt *Element `json:"_minimumVolumeString,omitempty"`
 	// Additive associated with container
-	Additive []BackboneElement `json:"additive,omitempty"`
+	Additive []SpecimenDefinitionTypeTestedContainerAdditive `json:"additive,omitempty"`
 	// Special processing applied to the container for this specimen type
 	Preparation *string `json:"preparation,omitempty"`
 }
@@ -11347,9 +11347,9 @@ type StructureMapGroup struct {
 	// Additional description/explanation for group
 	Documentation *string `json:"documentation,omitempty"`
 	// Named instance provided when invoking the map
-	Input []BackboneElement `json:"input,omitempty"`
+	Input []StructureMapGroupInput `json:"input,omitempty"`
 	// Transform Rule from source to target
-	Rule []BackboneElement `json:"rule,omitempty"`
+	Rule []StructureMapGroupRule `json:"rule,omitempty"`
 }
 
 // StructureMapGroupInput represents the StructureMap.group.input backbone element.
@@ -11383,11 +11383,11 @@ type StructureMapGroupRule struct {
 	// Name of the rule for internal references
 	Name *string `json:"name,omitempty"`
 	// Source inputs to the mapping
-	Source []BackboneElement `json:"source,omitempty"`
+	Source []StructureMapGroupRuleSource `json:"source,omitempty"`
 	// Content to create because of this mapping rule
-	Target []BackboneElement `json:"target,omitempty"`
+	Target []StructureMapGroupRuleTarget `json:"target,omitempty"`
 	// Which other rules to apply in the context of this rule
-	Dependent []BackboneElement `json:"dependent,omitempty"`
+	Dependent []StructureMapGroupRuleDependent `json:"dependent,omitempty"`
 	// Documentation for this instance of data
 	Documentation *string `json:"documentation,omitempty"`
 }
@@ -11460,7 +11460,7 @@ type StructureMapGroupRuleTarget struct {
 	// create | copy +
 	Transform *StructureMapTransform `json:"transform,omitempty"`
 	// Parameters to the transform
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []StructureMapGroupRuleTargetParameter `json:"parameter,omitempty"`
 }
 
 // StructureMapGroupRuleTargetParameter represents the StructureMap.group.rule.target.parameter backbone element.
@@ -11653,7 +11653,7 @@ type SubscriptionTopicResourceTrigger struct {
 	// create | update | delete
 	SupportedInteraction []InteractionTrigger `json:"supportedInteraction,omitempty"`
 	// Query based trigger rule
-	QueryCriteria *BackboneElement `json:"queryCriteria,omitempty"`
+	QueryCriteria *SubscriptionTopicResourceTriggerQueryCriteria `json:"queryCriteria,omitempty"`
 	// FHIRPath based trigger rule
 	FhirPathCriteria *string `json:"fhirPathCriteria,omitempty"`
 }
@@ -11791,7 +11791,7 @@ type SubstanceDefinitionName struct {
 	// The jurisdiction where this name applies
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
 	// Details of the official nature of this name
-	Official []BackboneElement `json:"official,omitempty"`
+	Official []SubstanceDefinitionNameOfficial `json:"official,omitempty"`
 	// Supporting literature
 	Source []Reference `json:"source,omitempty"`
 }
@@ -11916,7 +11916,7 @@ type SubstanceDefinitionStructure struct {
 	// Source of information for the structure
 	SourceDocument []Reference `json:"sourceDocument,omitempty"`
 	// A depiction of the structure of the substance
-	Representation []BackboneElement `json:"representation,omitempty"`
+	Representation []SubstanceDefinitionStructureRepresentation `json:"representation,omitempty"`
 }
 
 // SubstanceDefinitionStructureRepresentation represents the SubstanceDefinition.structure.representation backbone element.
@@ -11977,9 +11977,9 @@ type SubstanceNucleicAcidSubunit struct {
 	// The nucleotide present at the 3’ terminal shall be specified based on a controlled vocabulary. Since the sequence is represented from the 5' to the 3' end, the 5’ prime nucleotide is the letter at the last position in the sequence. A separate representation would be redundant
 	ThreePrime *CodeableConcept `json:"threePrime,omitempty"`
 	// The linkages between sugar residues will also be captured
-	Linkage []BackboneElement `json:"linkage,omitempty"`
+	Linkage []SubstanceNucleicAcidSubunitLinkage `json:"linkage,omitempty"`
 	// 5.3.6.8.1 Sugar ID (Mandatory)
-	Sugar []BackboneElement `json:"sugar,omitempty"`
+	Sugar []SubstanceNucleicAcidSubunitSugar `json:"sugar,omitempty"`
 }
 
 // SubstanceNucleicAcidSubunitLinkage represents the SubstanceNucleicAcid.subunit.linkage backbone element.
@@ -12030,7 +12030,7 @@ type SubstancePolymerMonomerSet struct {
 	// Captures the type of ratio to the entire polymer, e.g. Monomer/Polymer ratio, SRU/Polymer Ratio
 	RatioType *CodeableConcept `json:"ratioType,omitempty"`
 	// The starting materials - monomer(s) used in the synthesis of the polymer
-	StartingMaterial []BackboneElement `json:"startingMaterial,omitempty"`
+	StartingMaterial []SubstancePolymerMonomerSetStartingMaterial `json:"startingMaterial,omitempty"`
 }
 
 // SubstancePolymerMonomerSetStartingMaterial represents the SubstancePolymer.monomerSet.startingMaterial backbone element.
@@ -12066,7 +12066,7 @@ type SubstancePolymerRepeat struct {
 	// How the quantitative amount of Structural Repeat Units is captured (e.g. Exact, Numeric, Average)
 	RepeatUnitAmountType *CodeableConcept `json:"repeatUnitAmountType,omitempty"`
 	// An SRU - Structural Repeat Unit
-	RepeatUnit []BackboneElement `json:"repeatUnit,omitempty"`
+	RepeatUnit []SubstancePolymerRepeatRepeatUnit `json:"repeatUnit,omitempty"`
 }
 
 // SubstancePolymerRepeatRepeatUnit represents the SubstancePolymer.repeat.repeatUnit backbone element.
@@ -12085,9 +12085,9 @@ type SubstancePolymerRepeatRepeatUnit struct {
 	// Number of repeats of this unit
 	Amount *int `json:"amount,omitempty"`
 	// Applies to homopolymer and block co-polymers where the degree of polymerisation within a block can be described
-	DegreeOfPolymerisation []BackboneElement `json:"degreeOfPolymerisation,omitempty"`
+	DegreeOfPolymerisation []SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation `json:"degreeOfPolymerisation,omitempty"`
 	// A graphical structure for this SRU
-	StructuralRepresentation []BackboneElement `json:"structuralRepresentation,omitempty"`
+	StructuralRepresentation []SubstancePolymerRepeatRepeatUnitStructuralRepresentation `json:"structuralRepresentation,omitempty"`
 }
 
 // SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation represents the SubstancePolymer.repeat.repeatUnit.degreeOfPolymerisation backbone element.
@@ -12257,11 +12257,11 @@ type SubstanceSourceMaterialOrganism struct {
 	// The intraspecific description of an organism shall be specified based on a controlled vocabulary. For Influenza Vaccine, the intraspecific description shall contain the syntax of the antigen in line with the WHO convention
 	IntraspecificDescription *string `json:"intraspecificDescription,omitempty"`
 	// 4.9.13.6.1 Author type (Conditional)
-	Author []BackboneElement `json:"author,omitempty"`
+	Author []SubstanceSourceMaterialOrganismAuthor `json:"author,omitempty"`
 	// 4.9.13.8.1 Hybrid species maternal organism ID (Optional)
-	Hybrid *BackboneElement `json:"hybrid,omitempty"`
+	Hybrid *SubstanceSourceMaterialOrganismHybrid `json:"hybrid,omitempty"`
 	// 4.9.13.7.1 Kingdom (Conditional)
-	OrganismGeneral *BackboneElement `json:"organismGeneral,omitempty"`
+	OrganismGeneral *SubstanceSourceMaterialOrganismOrganismGeneral `json:"organismGeneral,omitempty"`
 }
 
 // SubstanceSourceMaterialOrganismAuthor represents the SubstanceSourceMaterial.organism.author backbone element.
@@ -12753,7 +12753,7 @@ type TerminologyCapabilitiesCodeSystem struct {
 	// Canonical identifier for the code system, represented as a URI
 	Uri *string `json:"uri,omitempty"`
 	// Version of Code System supported
-	Version []BackboneElement `json:"version,omitempty"`
+	Version []TerminologyCapabilitiesCodeSystemVersion `json:"version,omitempty"`
 	// not-present | example | fragment | complete | supplement
 	Content *CodeSystemContentMode `json:"content,omitempty"`
 	// Whether subsumption is supported
@@ -12778,7 +12778,7 @@ type TerminologyCapabilitiesCodeSystemVersion struct {
 	// Language Displays supported
 	Language []CommonLanguages `json:"language,omitempty"`
 	// Filter Properties supported
-	Filter []BackboneElement `json:"filter,omitempty"`
+	Filter []TerminologyCapabilitiesCodeSystemVersionFilter `json:"filter,omitempty"`
 	// Properties supported for $lookup
 	Property []string `json:"property,omitempty"`
 }
@@ -12814,7 +12814,7 @@ type TerminologyCapabilitiesExpansion struct {
 	// Allow request for incomplete expansions?
 	Incomplete *bool `json:"incomplete,omitempty"`
 	// Supported expansion parameter
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []TerminologyCapabilitiesExpansionParameter `json:"parameter,omitempty"`
 	// Documentation about text searching works
 	TextFilter *string `json:"textFilter,omitempty"`
 }
@@ -12919,13 +12919,13 @@ type TestPlanTestCase struct {
 	// The scope or artifact covered by the case
 	Scope []Reference `json:"scope,omitempty"`
 	// Required criteria to execute the test case
-	Dependency []BackboneElement `json:"dependency,omitempty"`
+	Dependency []TestPlanTestCaseDependency `json:"dependency,omitempty"`
 	// The actual test to be executed
-	TestRun []BackboneElement `json:"testRun,omitempty"`
+	TestRun []TestPlanTestCaseTestRun `json:"testRun,omitempty"`
 	// The test data used in the test case
-	TestData []BackboneElement `json:"testData,omitempty"`
+	TestData []TestPlanTestCaseTestData `json:"testData,omitempty"`
 	// Test assertions or expectations
-	Assertion []BackboneElement `json:"assertion,omitempty"`
+	Assertion []TestPlanTestCaseAssertion `json:"assertion,omitempty"`
 }
 
 // TestPlanTestCaseAssertion represents the TestPlan.testCase.assertion backbone element.
@@ -12993,7 +12993,7 @@ type TestPlanTestCaseTestRun struct {
 	// The narrative description of the tests
 	Narrative *string `json:"narrative,omitempty"`
 	// The test cases in a structured language e.g. gherkin, Postman, or FHIR TestScript
-	Script *BackboneElement `json:"script,omitempty"`
+	Script *TestPlanTestCaseTestRunScript `json:"script,omitempty"`
 }
 
 // TestPlanTestCaseTestRunScript represents the TestPlan.testCase.testRun.script backbone element.
@@ -13042,7 +13042,7 @@ type TestReportSetup struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// A setup operation or assert that was executed
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []TestReportSetupAction `json:"action,omitempty"`
 }
 
 // TestReportSetupAction represents the TestReport.setup.action backbone element.
@@ -13055,9 +13055,9 @@ type TestReportSetupAction struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// The operation to perform
-	Operation *BackboneElement `json:"operation,omitempty"`
+	Operation *TestReportSetupActionOperation `json:"operation,omitempty"`
 	// The assertion to perform
-	Assert *BackboneElement `json:"assert,omitempty"`
+	Assert *TestReportSetupActionAssert `json:"assert,omitempty"`
 }
 
 // TestReportSetupActionAssert represents the TestReport.setup.action.assert backbone element.
@@ -13076,7 +13076,7 @@ type TestReportSetupActionAssert struct {
 	// A link to further details on the result
 	Detail *string `json:"detail,omitempty"`
 	// Links or references to the testing requirements
-	Requirement []BackboneElement `json:"requirement,omitempty"`
+	Requirement []TestReportSetupActionAssertRequirement `json:"requirement,omitempty"`
 }
 
 // TestReportSetupActionAssertRequirement represents the TestReport.setup.action.assert.requirement backbone element.
@@ -13125,7 +13125,7 @@ type TestReportTeardown struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// One or more teardown operations performed
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []TestReportTeardownAction `json:"action,omitempty"`
 }
 
 // TestReportTeardownAction represents the TestReport.teardown.action backbone element.
@@ -13153,7 +13153,7 @@ type TestReportTest struct {
 	// Tracking/reporting short description of the test
 	Description *string `json:"description,omitempty"`
 	// A test operation or assert that was performed
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []TestReportTestAction `json:"action,omitempty"`
 }
 
 // TestReportTestAction represents the TestReport.test.action backbone element.
@@ -13211,9 +13211,9 @@ type TestScriptMetadata struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Links to the FHIR specification
-	Link []BackboneElement `json:"link,omitempty"`
+	Link []TestScriptMetadataLink `json:"link,omitempty"`
 	// Capabilities  that are assumed to function correctly on the FHIR server being tested
-	Capability []BackboneElement `json:"capability,omitempty"`
+	Capability []TestScriptMetadataCapability `json:"capability,omitempty"`
 }
 
 // TestScriptMetadataCapability represents the TestScript.metadata.capability backbone element.
@@ -13300,7 +13300,7 @@ type TestScriptSetup struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// A setup operation or assert to perform
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []TestScriptSetupAction `json:"action,omitempty"`
 }
 
 // TestScriptSetupAction represents the TestScript.setup.action backbone element.
@@ -13313,9 +13313,9 @@ type TestScriptSetupAction struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// The setup operation to perform
-	Operation *BackboneElement `json:"operation,omitempty"`
+	Operation *TestScriptSetupActionOperation `json:"operation,omitempty"`
 	// The assertion to perform
-	Assert *BackboneElement `json:"assert,omitempty"`
+	Assert *TestScriptSetupActionAssert `json:"assert,omitempty"`
 }
 
 // TestScriptSetupActionAssert represents the TestScript.setup.action.assert backbone element.
@@ -13376,7 +13376,7 @@ type TestScriptSetupActionAssert struct {
 	// Will this assert produce a warning only on error?
 	WarningOnly *bool `json:"warningOnly,omitempty"`
 	// Links or references to the testing requirements
-	Requirement []BackboneElement `json:"requirement,omitempty"`
+	Requirement []TestScriptSetupActionAssertRequirement `json:"requirement,omitempty"`
 }
 
 // TestScriptSetupActionAssertRequirement represents the TestScript.setup.action.assert.requirement backbone element.
@@ -13430,7 +13430,7 @@ type TestScriptSetupActionOperation struct {
 	// Explicitly defined path parameters
 	Params *string `json:"params,omitempty"`
 	// Each operation can have one or more header elements
-	RequestHeader []BackboneElement `json:"requestHeader,omitempty"`
+	RequestHeader []TestScriptSetupActionOperationRequestHeader `json:"requestHeader,omitempty"`
 	// Fixture Id of mapped request
 	RequestId *string `json:"requestId,omitempty"`
 	// Fixture Id of mapped response
@@ -13468,7 +13468,7 @@ type TestScriptTeardown struct {
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// One or more teardown operations to perform
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []TestScriptTeardownAction `json:"action,omitempty"`
 }
 
 // TestScriptTeardownAction represents the TestScript.teardown.action backbone element.
@@ -13496,7 +13496,7 @@ type TestScriptTest struct {
 	// Tracking/reporting short description of the test
 	Description *string `json:"description,omitempty"`
 	// A test operation or assert to perform
-	Action []BackboneElement `json:"action,omitempty"`
+	Action []TestScriptTestAction `json:"action,omitempty"`
 }
 
 // TestScriptTestAction represents the TestScript.test.action backbone element.
@@ -13933,7 +13933,7 @@ type ValueSetCompose struct {
 	// Whether inactive codes are in the value set
 	Inactive *bool `json:"inactive,omitempty"`
 	// Include one or more codes from a code system or other value set(s)
-	Include []BackboneElement `json:"include,omitempty"`
+	Include []ValueSetComposeInclude `json:"include,omitempty"`
 	// Property to return if client doesn't override
 	Property []string `json:"property,omitempty"`
 }
@@ -13952,9 +13952,9 @@ type ValueSetComposeInclude struct {
 	// Specific version of the code system referred to
 	Version *string `json:"version,omitempty"`
 	// A concept defined in the system
-	Concept []BackboneElement `json:"concept,omitempty"`
+	Concept []ValueSetComposeIncludeConcept `json:"concept,omitempty"`
 	// Select codes/concepts by their properties (including relationships)
-	Filter []BackboneElement `json:"filter,omitempty"`
+	Filter []ValueSetComposeIncludeFilter `json:"filter,omitempty"`
 	// Select the contents included in this value set
 	ValueSet []string `json:"valueSet,omitempty"`
 	// A copyright statement for the specific code system included in the value set
@@ -13975,7 +13975,7 @@ type ValueSetComposeIncludeConcept struct {
 	// Text to display for this code for this value set in this valueset
 	Display *string `json:"display,omitempty"`
 	// Additional representations for this concept
-	Designation []BackboneElement `json:"designation,omitempty"`
+	Designation []ValueSetComposeIncludeConceptDesignation `json:"designation,omitempty"`
 }
 
 // ValueSetComposeIncludeConceptDesignation represents the ValueSet.compose.include.concept.designation backbone element.
@@ -14034,11 +14034,11 @@ type ValueSetExpansion struct {
 	// Offset at which this resource starts
 	Offset *int `json:"offset,omitempty"`
 	// Parameter that controlled the expansion process
-	Parameter []BackboneElement `json:"parameter,omitempty"`
+	Parameter []ValueSetExpansionParameter `json:"parameter,omitempty"`
 	// Additional information supplied about each concept
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []ValueSetExpansionProperty `json:"property,omitempty"`
 	// Codes in the value set
-	Contains []BackboneElement `json:"contains,omitempty"`
+	Contains []ValueSetExpansionContains `json:"contains,omitempty"`
 }
 
 // ValueSetExpansionContains represents the ValueSet.expansion.contains backbone element.
@@ -14063,7 +14063,7 @@ type ValueSetExpansionContains struct {
 	// User display for the concept
 	Display *string `json:"display,omitempty"`
 	// Property value for the concept
-	Property []BackboneElement `json:"property,omitempty"`
+	Property []ValueSetExpansionContainsProperty `json:"property,omitempty"`
 }
 
 // ValueSetExpansionContainsProperty represents the ValueSet.expansion.contains.property backbone element.
@@ -14104,7 +14104,7 @@ type ValueSetExpansionContainsProperty struct {
 	// Extension for ValueDecimal
 	ValueDecimalExt *Element `json:"_valueDecimal,omitempty"`
 	// SubProperty value for the concept
-	SubProperty []BackboneElement `json:"subProperty,omitempty"`
+	SubProperty []ValueSetExpansionContainsPropertySubProperty `json:"subProperty,omitempty"`
 }
 
 // ValueSetExpansionContainsPropertySubProperty represents the ValueSet.expansion.contains.property.subProperty backbone element.
@@ -14306,7 +14306,7 @@ type VisionPrescriptionLensSpecification struct {
 	// Lens meridian which contain no power for astigmatism
 	Axis *int `json:"axis,omitempty"`
 	// Eye alignment compensation
-	Prism []BackboneElement `json:"prism,omitempty"`
+	Prism []VisionPrescriptionLensSpecificationPrism `json:"prism,omitempty"`
 	// Added power for multifocal levels
 	Add *float64 `json:"add,omitempty"`
 	// Contact lens power

@@ -68,6 +68,7 @@ type AnalyzedProperty struct {
 	HasExtension bool   // Whether this primitive needs a _field for extensions
 	IsBackbone   bool   // Whether this is a backbone element reference
 	BackboneType string // For backbone: the specific backbone type name (e.g., "PatientContact")
+	IsSummary    bool   // Whether this field is marked as isSummary in FHIR spec
 }
 
 // AnalyzedBinding represents a value set binding.
@@ -197,11 +198,37 @@ func (a *Analyzer) extractBackboneElements(sd *parser.StructureDefinition) []*An
 
 		// Create the property
 		fieldName := suffix
-		if elem.IsChoiceType() {
+		switch {
+		case elem.IsChoiceType():
 			//nolint:errcheck // Choice type analysis errors are non-fatal; skip on error
 			props, _ := a.analyzeChoiceType(&elem, strings.TrimSuffix(fieldName, "[x]"))
 			backbone.Properties = append(backbone.Properties, props...)
-		} else if len(elem.Type) > 0 {
+		case elem.IsBackboneElement():
+			// Nested backbone element - use specific type name
+			backboneTypeName := a.getBackboneTypeName(elem.Path)
+			isArray := elem.IsArray()
+			var goType string
+			if isArray {
+				goType = "[]" + backboneTypeName
+			} else {
+				goType = "*" + backboneTypeName
+			}
+
+			prop := AnalyzedProperty{
+				Name:         toGoFieldName(fieldName),
+				JSONName:     toLowerFirst(fieldName),
+				GoType:       goType,
+				Description:  elem.Short,
+				IsPointer:    !isArray,
+				IsArray:      isArray,
+				IsRequired:   elem.IsRequired(),
+				IsPrimitive:  false,
+				FHIRType:     "BackboneElement",
+				IsBackbone:   true,
+				BackboneType: backboneTypeName,
+			}
+			backbone.Properties = append(backbone.Properties, prop)
+		case len(elem.Type) > 0:
 			prop := a.createProperty(&elem, fieldName, elem.Type[0])
 			backbone.Properties = append(backbone.Properties, prop)
 		}
@@ -427,6 +454,7 @@ func (a *Analyzer) createProperty(elem *parser.ElementDefinition, fieldName stri
 		IsChoice:     false,
 		FHIRType:     typeName,
 		HasExtension: isPrimitive,
+		IsSummary:    elem.IsSummary,
 	}
 
 	if elem.Binding != nil {

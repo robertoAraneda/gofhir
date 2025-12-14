@@ -175,6 +175,11 @@ func (c *CodeGen) Generate() error {
 		return fmt.Errorf("failed to generate registry: %w", err)
 	}
 
+	// Generate summary.go (summary fields per resource type)
+	if err := c.generateSummaryFromTemplate(); err != nil {
+		return fmt.Errorf("failed to generate summary: %w", err)
+	}
+
 	return nil
 }
 
