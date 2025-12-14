@@ -140,34 +140,9 @@ func (c *CodeGen) Generate() error {
 		return fmt.Errorf("failed to create output directory: %w", err)
 	}
 
-	// Generate codesystems.go first (types used by datatypes and resources)
-	if err := c.generateCodeSystemsFromTemplate(); err != nil {
-		return fmt.Errorf("failed to generate codesystems: %w", err)
-	}
-
-	// Generate datatypes.go
-	if err := c.generateDatatypesFromTemplate(); err != nil {
-		return fmt.Errorf("failed to generate datatypes: %w", err)
-	}
-
-	// Generate backbones.go (backbone element types from resources)
-	if err := c.generateBackbonesFromTemplate(); err != nil {
-		return fmt.Errorf("failed to generate backbones: %w", err)
-	}
-
-	// Generate resources.go
-	if err := c.generateResourcesFromTemplate(); err != nil {
-		return fmt.Errorf("failed to generate resources: %w", err)
-	}
-
-	// Generate interfaces.go
+	// Generate interfaces.go (shared interfaces, small file)
 	if err := c.generateInterfacesFromTemplate(); err != nil {
 		return fmt.Errorf("failed to generate interfaces: %w", err)
-	}
-
-	// Generate builders.go (Functional Options + Fluent Builders)
-	if err := c.generateBuildersFromTemplate(); err != nil {
-		return fmt.Errorf("failed to generate builders: %w", err)
 	}
 
 	// Generate registry.go (resource factories and unmarshal functions)
@@ -175,9 +150,39 @@ func (c *CodeGen) Generate() error {
 		return fmt.Errorf("failed to generate registry: %w", err)
 	}
 
+	// Generate codesystems.go (types used by datatypes and resources)
+	if err := c.generateCodeSystemsFromTemplate(); err != nil {
+		return fmt.Errorf("failed to generate codesystems: %w", err)
+	}
+
 	// Generate summary.go (summary fields per resource type)
 	if err := c.generateSummaryFromTemplate(); err != nil {
 		return fmt.Errorf("failed to generate summary: %w", err)
+	}
+
+	// NEW: Generate separate files for datatypes (one file per datatype)
+	if err := c.generateDatatypesSeparately(); err != nil {
+		return fmt.Errorf("failed to generate datatypes: %w", err)
+	}
+
+	// NEW: Generate separate files for resources (one file per resource)
+	if err := c.generateResourcesSeparately(); err != nil {
+		return fmt.Errorf("failed to generate resources: %w", err)
+	}
+
+	// NEW: Generate separate backbone files (grouped by parent resource)
+	if err := c.generateBackbonesSeparately(); err != nil {
+		return fmt.Errorf("failed to generate backbones: %w", err)
+	}
+
+	// NEW: Generate separate builder files (one per resource)
+	if err := c.generateBuildersSeparately(); err != nil {
+		return fmt.Errorf("failed to generate builders: %w", err)
+	}
+
+	// NEW: Generate separate option files (one per resource)
+	if err := c.generateOptionsSeparately(); err != nil {
+		return fmt.Errorf("failed to generate options: %w", err)
 	}
 
 	return nil
