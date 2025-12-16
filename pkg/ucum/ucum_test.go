@@ -7,12 +7,12 @@ import (
 
 func TestNormalize(t *testing.T) {
 	tests := []struct {
-		name         string
-		value        float64
-		code         string
-		wantValue    float64
-		wantCode     string
-		tolerance    float64
+		name      string
+		value     float64
+		code      string
+		wantValue float64
+		wantCode  string
+		tolerance float64
 	}{
 		// Mass conversions
 		{"kg to g", 1, "kg", 1000, "g", 0.0001},
@@ -158,8 +158,8 @@ func TestIsKnownUnit(t *testing.T) {
 		{"kg", true},
 		{"L", true},
 		{"mL", true},
-		{"ml", true},  // case insensitive
-		{"ML", true},  // case insensitive
+		{"ml", true}, // case insensitive
+		{"ML", true}, // case insensitive
 		{"mmol/L", true},
 		{"mm[Hg]", true},
 		{"%", true},

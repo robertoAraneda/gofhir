@@ -143,58 +143,6 @@ func writeTemplateFile(outputPath, templateName string, data interface{}) error 
 	return os.WriteFile(outputPath, content, 0o600)
 }
 
-// generateDatatypesFromTemplate generates datatypes.go using template.
-func (c *CodeGen) generateDatatypesFromTemplate() error {
-	var datatypes []*analyzer.AnalyzedType
-	for _, t := range c.types {
-		if t.Kind == "datatype" || t.Kind == "primitive" || t.Kind == "backbone" {
-			datatypes = append(datatypes, t)
-		}
-	}
-
-	sort.Slice(datatypes, func(i, j int) bool {
-		return datatypes[i].Name < datatypes[j].Name
-	})
-
-	data := TypesTemplateData{
-		TemplateData: TemplateData{
-			PackageName: c.config.PackageName,
-			Version:     strings.ToUpper(c.config.Version),
-			FileType:    "datatypes",
-		},
-		Types: datatypes,
-	}
-
-	path := filepath.Join(c.config.OutputDir, "datatypes.go")
-	return writeTemplateFile(path, "datatypes.go.tmpl", data)
-}
-
-// generateResourcesFromTemplate generates resources.go using template.
-func (c *CodeGen) generateResourcesFromTemplate() error {
-	var resources []*analyzer.AnalyzedType
-	for _, t := range c.types {
-		if t.Kind == kindResource {
-			resources = append(resources, t)
-		}
-	}
-
-	sort.Slice(resources, func(i, j int) bool {
-		return resources[i].Name < resources[j].Name
-	})
-
-	data := TypesTemplateData{
-		TemplateData: TemplateData{
-			PackageName: c.config.PackageName,
-			Version:     strings.ToUpper(c.config.Version),
-			FileType:    "resources",
-		},
-		Types: resources,
-	}
-
-	path := filepath.Join(c.config.OutputDir, "resources.go")
-	return writeTemplateFile(path, "resources.go.tmpl", data)
-}
-
 // generateRegistryFromTemplate generates registry.go using template.
 func (c *CodeGen) generateRegistryFromTemplate() error {
 	var resourceNames []string
@@ -291,71 +239,6 @@ func (c *CodeGen) generateCodeSystemsFromTemplate() error {
 	return writeTemplateFile(path, "codesystems.go.tmpl", data)
 }
 
-// generateBuildersFromTemplate generates functional_options.go and fluent_builders.go using templates.
-func (c *CodeGen) generateBuildersFromTemplate() error {
-	resources := make([]ResourceBuilderData, 0, len(c.types))
-
-	for _, t := range c.types {
-		if t.Kind != kindResource {
-			continue
-		}
-
-		resource := ResourceBuilderData{
-			Name:       t.Name,
-			LowerName:  toLowerFirstChar(t.Name),
-			Properties: make([]PropertyBuilderData, 0, len(t.Properties)),
-		}
-
-		for _, prop := range t.Properties {
-			propData := PropertyBuilderData{
-				Name:      prop.Name,
-				GoType:    prop.GoType,
-				IsArray:   prop.IsArray,
-				IsPointer: prop.IsPointer,
-				IsChoice:  prop.IsChoice,
-			}
-
-			if prop.IsArray {
-				propData.ElementType = strings.TrimPrefix(prop.GoType, "[]")
-			}
-			if prop.IsPointer {
-				propData.BaseType = strings.TrimPrefix(prop.GoType, "*")
-			}
-
-			resource.Properties = append(resource.Properties, propData)
-		}
-
-		resources = append(resources, resource)
-	}
-
-	sort.Slice(resources, func(i, j int) bool {
-		return resources[i].Name < resources[j].Name
-	})
-
-	data := BuildersTemplateData{
-		TemplateData: TemplateData{
-			PackageName: c.config.PackageName,
-			Version:     strings.ToUpper(c.config.Version),
-			FileType:    "builders",
-		},
-		Resources: resources,
-	}
-
-	// Generate functional_options.go
-	functionalPath := filepath.Join(c.config.OutputDir, "functional_options.go")
-	if err := writeTemplateFile(functionalPath, "functional_options.go.tmpl", data); err != nil {
-		return fmt.Errorf("failed to generate functional_options.go: %w", err)
-	}
-
-	// Generate fluent_builders.go
-	fluentPath := filepath.Join(c.config.OutputDir, "fluent_builders.go")
-	if err := writeTemplateFile(fluentPath, "fluent_builders.go.tmpl", data); err != nil {
-		return fmt.Errorf("failed to generate fluent_builders.go: %w", err)
-	}
-
-	return nil
-}
-
 // toLowerFirstChar converts the first character to lowercase.
 func toLowerFirstChar(s string) string {
 	if s == "" {
@@ -364,39 +247,6 @@ func toLowerFirstChar(s string) string {
 	runes := []rune(s)
 	runes[0] = unicode.ToLower(runes[0])
 	return string(runes)
-}
-
-// generateBackbonesFromTemplate generates backbones.go using template.
-func (c *CodeGen) generateBackbonesFromTemplate() error {
-	// Collect all backbone types from resources, datatypes, and backbone types
-	var backbones []*analyzer.AnalyzedType
-
-	for _, t := range c.types {
-		if (t.Kind == "resource" || t.Kind == "datatype" || t.Kind == "backbone") && len(t.BackboneTypes) > 0 {
-			backbones = append(backbones, t.BackboneTypes...)
-		}
-	}
-
-	if len(backbones) == 0 {
-		return nil
-	}
-
-	// Sort by name for consistent output
-	sort.Slice(backbones, func(i, j int) bool {
-		return backbones[i].Name < backbones[j].Name
-	})
-
-	data := BackbonesTemplateData{
-		TemplateData: TemplateData{
-			PackageName: c.config.PackageName,
-			Version:     strings.ToUpper(c.config.Version),
-			FileType:    "backbones",
-		},
-		Backbones: backbones,
-	}
-
-	path := filepath.Join(c.config.OutputDir, "backbones.go")
-	return writeTemplateFile(path, "backbones.go.tmpl", data)
 }
 
 // SummaryTemplateData holds data for summary template.
@@ -587,36 +437,41 @@ func (c *CodeGen) generateBackbonesSeparately() error {
 	return nil
 }
 
+// buildResourceBuilderData converts an AnalyzedType to ResourceBuilderData.
+func buildResourceBuilderData(t *analyzer.AnalyzedType) ResourceBuilderData {
+	resource := ResourceBuilderData{
+		Name:       t.Name,
+		LowerName:  toLowerFirstChar(t.Name),
+		Properties: make([]PropertyBuilderData, 0, len(t.Properties)),
+	}
+
+	for _, prop := range t.Properties {
+		propData := PropertyBuilderData{
+			Name:      prop.Name,
+			GoType:    prop.GoType,
+			IsArray:   prop.IsArray,
+			IsPointer: prop.IsPointer,
+			IsChoice:  prop.IsChoice,
+		}
+
+		if prop.IsArray {
+			propData.ElementType = strings.TrimPrefix(prop.GoType, "[]")
+		}
+		if prop.IsPointer {
+			propData.BaseType = strings.TrimPrefix(prop.GoType, "*")
+		}
+
+		resource.Properties = append(resource.Properties, propData)
+	}
+
+	return resource
+}
+
 // generateBuildersSeparately generates one fluent builder file per resource.
 func (c *CodeGen) generateBuildersSeparately() error {
 	for _, t := range c.types {
 		if t.Kind != kindResource {
 			continue
-		}
-
-		resource := ResourceBuilderData{
-			Name:       t.Name,
-			LowerName:  toLowerFirstChar(t.Name),
-			Properties: make([]PropertyBuilderData, 0, len(t.Properties)),
-		}
-
-		for _, prop := range t.Properties {
-			propData := PropertyBuilderData{
-				Name:      prop.Name,
-				GoType:    prop.GoType,
-				IsArray:   prop.IsArray,
-				IsPointer: prop.IsPointer,
-				IsChoice:  prop.IsChoice,
-			}
-
-			if prop.IsArray {
-				propData.ElementType = strings.TrimPrefix(prop.GoType, "[]")
-			}
-			if prop.IsPointer {
-				propData.BaseType = strings.TrimPrefix(prop.GoType, "*")
-			}
-
-			resource.Properties = append(resource.Properties, propData)
 		}
 
 		data := BuildersTemplateData{
@@ -625,10 +480,9 @@ func (c *CodeGen) generateBuildersSeparately() error {
 				Version:     strings.ToUpper(c.config.Version),
 				FileType:    "builders",
 			},
-			Resources: []ResourceBuilderData{resource},
+			Resources: []ResourceBuilderData{buildResourceBuilderData(t)},
 		}
 
-		// Naming convention: builder_<lowercase_name>.go
 		filename := fmt.Sprintf("builder_%s.go", strings.ToLower(t.Name))
 		path := filepath.Join(c.config.OutputDir, filename)
 
@@ -647,41 +501,15 @@ func (c *CodeGen) generateOptionsSeparately() error {
 			continue
 		}
 
-		resource := ResourceBuilderData{
-			Name:       t.Name,
-			LowerName:  toLowerFirstChar(t.Name),
-			Properties: make([]PropertyBuilderData, 0, len(t.Properties)),
-		}
-
-		for _, prop := range t.Properties {
-			propData := PropertyBuilderData{
-				Name:      prop.Name,
-				GoType:    prop.GoType,
-				IsArray:   prop.IsArray,
-				IsPointer: prop.IsPointer,
-				IsChoice:  prop.IsChoice,
-			}
-
-			if prop.IsArray {
-				propData.ElementType = strings.TrimPrefix(prop.GoType, "[]")
-			}
-			if prop.IsPointer {
-				propData.BaseType = strings.TrimPrefix(prop.GoType, "*")
-			}
-
-			resource.Properties = append(resource.Properties, propData)
-		}
-
 		data := BuildersTemplateData{
 			TemplateData: TemplateData{
 				PackageName: c.config.PackageName,
 				Version:     strings.ToUpper(c.config.Version),
 				FileType:    "options",
 			},
-			Resources: []ResourceBuilderData{resource},
+			Resources: []ResourceBuilderData{buildResourceBuilderData(t)},
 		}
 
-		// Naming convention: options_<lowercase_name>.go
 		filename := fmt.Sprintf("options_%s.go", strings.ToLower(t.Name))
 		path := filepath.Join(c.config.OutputDir, filename)
 
