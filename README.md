@@ -9,10 +9,13 @@ Production-grade FHIR toolkit for Go.
 ## Features
 
 - **Strongly-typed resources**: All FHIR R4, R4B, and R5 resources as Go structs
+- **Multi-version abstraction**: Common interfaces for version-agnostic code
 - **Fluent builders**: Construct resources with a fluent API
 - **FHIRPath engine**: Evaluate FHIRPath expressions
 - **Validation**: Validate resources against StructureDefinitions
 - **Full extension support**: Primitive elements support extensions via `_field` pattern
+- **JSON field ordering**: Typed structs guarantee FHIR-compliant field order
+- **FHIR Server**: Production-grade server with CRUD, search, and validation
 
 ## Installation
 
@@ -55,12 +58,14 @@ func main() {
 
 | Package | Description |
 |---------|-------------|
-| `pkg/fhir/r4` | FHIR R4 (4.0.1) types and builders |
-| `pkg/fhir/r4b` | FHIR R4B (4.3.0) types and builders |
-| `pkg/fhir/r5` | FHIR R5 (5.0.0) types and builders |
+| `pkg/fhir` | Multi-version abstraction (ResourceFactory, Resource, Meta interfaces) |
+| `pkg/fhir/r4` | FHIR R4 (4.0.1) types, builders, and version adapter |
+| `pkg/fhir/r4b` | FHIR R4B (4.3.0) types, builders, and version adapter |
+| `pkg/fhir/r5` | FHIR R5 (5.0.0) types, builders, and version adapter |
 | `pkg/fhirpath` | FHIRPath expression evaluator |
 | `pkg/validator` | Resource validation |
 | `pkg/common` | Shared utilities |
+| `fhir-server/` | Production-grade FHIR server (see [fhir-server/README.md](fhir-server/README.md)) |
 
 ## CLI
 
@@ -104,19 +109,24 @@ make lint
 
 ### Project Structure
 
-```
+```text
 gofhir/
 ├── cmd/gofhir/          # CLI application
 ├── pkg/
-│   ├── fhir/            # FHIR types (generated)
-│   │   ├── r4/
-│   │   ├── r4b/
-│   │   └── r5/
+│   ├── fhir/            # FHIR types and multi-version abstraction
+│   │   ├── fhir.go      # Common interfaces (Resource, Meta, ResourceFactory)
+│   │   ├── r4/          # R4 types + adapter
+│   │   ├── r4b/         # R4B types + adapter
+│   │   └── r5/          # R5 types + adapter
 │   ├── fhirpath/        # FHIRPath engine
 │   ├── validator/       # Validation
 │   └── common/          # Utilities
 ├── internal/
 │   └── codegen/         # Code generation
+├── fhir-server/         # Production FHIR server
+│   ├── cmd/server/      # Server entry point
+│   ├── internal/        # Server implementation
+│   └── docs/            # Architecture documentation
 ├── specs/               # FHIR specifications
 └── scripts/             # Build scripts
 ```
