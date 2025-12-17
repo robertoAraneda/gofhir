@@ -506,6 +506,234 @@ func TestParentheses(t *testing.T) {
 	})
 }
 
+// Test data for polymorphic elements
+var observationWithQuantity = []byte(`{
+	"resourceType": "Observation",
+	"id": "obs1",
+	"status": "final",
+	"code": {
+		"coding": [{
+			"system": "http://loinc.org",
+			"code": "8867-4"
+		}]
+	},
+	"valueQuantity": {
+		"value": 72,
+		"unit": "beats/min",
+		"system": "http://unitsofmeasure.org",
+		"code": "/min"
+	}
+}`)
+
+var observationWithString = []byte(`{
+	"resourceType": "Observation",
+	"id": "obs2",
+	"status": "final",
+	"code": {
+		"coding": [{
+			"system": "http://loinc.org",
+			"code": "8867-4"
+		}]
+	},
+	"valueString": "Normal findings"
+}`)
+
+var observationWithCodeableConcept = []byte(`{
+	"resourceType": "Observation",
+	"id": "obs3",
+	"status": "final",
+	"code": {
+		"coding": [{
+			"system": "http://loinc.org",
+			"code": "8867-4"
+		}]
+	},
+	"valueCodeableConcept": {
+		"coding": [{
+			"system": "http://snomed.info/sct",
+			"code": "260385009",
+			"display": "Negative"
+		}],
+		"text": "Negative"
+	}
+}`)
+
+var bundleWithMixedResources = []byte(`{
+	"resourceType": "Bundle",
+	"type": "collection",
+	"entry": [
+		{
+			"resource": {
+				"resourceType": "Patient",
+				"id": "p1",
+				"name": [{"family": "Doe"}]
+			}
+		},
+		{
+			"resource": {
+				"resourceType": "Observation",
+				"id": "obs1",
+				"status": "final"
+			}
+		},
+		{
+			"resource": {
+				"resourceType": "Patient",
+				"id": "p2",
+				"name": [{"family": "Smith"}]
+			}
+		}
+	]
+}`)
+
+func TestPolymorphicElements(t *testing.T) {
+	t.Run("Observation.value resolves valueQuantity", func(t *testing.T) {
+		result, err := Evaluate(observationWithQuantity, "Observation.value")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Empty() {
+			t.Fatal("expected non-empty result for Observation.value")
+		}
+		// Should resolve to the Quantity object
+		if result[0].Type() != "Quantity" {
+			t.Errorf("expected Quantity type, got %s", result[0].Type())
+		}
+	})
+
+	t.Run("Observation.value resolves valueString", func(t *testing.T) {
+		result, err := Evaluate(observationWithString, "Observation.value")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Empty() {
+			t.Fatal("expected non-empty result for Observation.value")
+		}
+		assertStringResult(t, result, "Normal findings")
+	})
+
+	t.Run("Observation.value resolves valueCodeableConcept", func(t *testing.T) {
+		result, err := Evaluate(observationWithCodeableConcept, "Observation.value")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Empty() {
+			t.Fatal("expected non-empty result for Observation.value")
+		}
+		if result[0].Type() != "CodeableConcept" {
+			t.Errorf("expected CodeableConcept type, got %s", result[0].Type())
+		}
+	})
+
+	t.Run("Direct access valueQuantity still works", func(t *testing.T) {
+		result, err := Evaluate(observationWithQuantity, "Observation.valueQuantity")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Empty() {
+			t.Fatal("expected non-empty result")
+		}
+		if result[0].Type() != "Quantity" {
+			t.Errorf("expected Quantity type, got %s", result[0].Type())
+		}
+	})
+
+	t.Run("Access value.value (nested) for Quantity", func(t *testing.T) {
+		result, err := Evaluate(observationWithQuantity, "Observation.value.value")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertIntegerResult(t, result, 72)
+	})
+
+	t.Run("Access value.unit for Quantity", func(t *testing.T) {
+		result, err := Evaluate(observationWithQuantity, "Observation.value.unit")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "beats/min")
+	})
+}
+
+func TestOfTypeFunction(t *testing.T) {
+	t.Run("ofType filters by Quantity", func(t *testing.T) {
+		result, err := Evaluate(observationWithQuantity, "Observation.value.ofType(Quantity)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Empty() {
+			t.Fatal("expected non-empty result")
+		}
+		if result[0].Type() != "Quantity" {
+			t.Errorf("expected Quantity type, got %s", result[0].Type())
+		}
+	})
+
+	t.Run("ofType filters by String", func(t *testing.T) {
+		result, err := Evaluate(observationWithString, "Observation.value.ofType(String)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Empty() {
+			t.Fatal("expected non-empty result")
+		}
+		assertStringResult(t, result, "Normal findings")
+	})
+
+	t.Run("ofType returns empty for non-matching type", func(t *testing.T) {
+		result, err := Evaluate(observationWithQuantity, "Observation.value.ofType(String)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if !result.Empty() {
+			t.Errorf("expected empty result, got %v", result)
+		}
+	})
+
+	t.Run("ofType filters CodeableConcept", func(t *testing.T) {
+		result, err := Evaluate(observationWithCodeableConcept, "Observation.value.ofType(CodeableConcept)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Empty() {
+			t.Fatal("expected non-empty result")
+		}
+		if result[0].Type() != "CodeableConcept" {
+			t.Errorf("expected CodeableConcept type, got %s", result[0].Type())
+		}
+	})
+
+	t.Run("ofType filters resources in Bundle", func(t *testing.T) {
+		result, err := Evaluate(bundleWithMixedResources, "Bundle.entry.resource.ofType(Patient)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Count() != 2 {
+			t.Errorf("expected 2 Patient resources, got %d", result.Count())
+		}
+	})
+
+	t.Run("ofType filters to single resource type", func(t *testing.T) {
+		result, err := Evaluate(bundleWithMixedResources, "Bundle.entry.resource.ofType(Observation)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if result.Count() != 1 {
+			t.Errorf("expected 1 Observation resource, got %d", result.Count())
+		}
+	})
+
+	t.Run("ofType on empty returns empty", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "{}.ofType(String)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if !result.Empty() {
+			t.Errorf("expected empty result, got %v", result)
+		}
+	})
+}
+
 // Helper functions
 
 func assertBooleanResult(t *testing.T, result types.Collection, expected bool) {

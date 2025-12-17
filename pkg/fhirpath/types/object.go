@@ -23,12 +23,175 @@ func NewObjectValue(data []byte) *ObjectValue {
 	}
 }
 
-// Type returns "Object" or the resourceType if available.
+// FHIR type constants for type inference.
+const (
+	typeQuantity        = "Quantity"
+	typeCoding          = "Coding"
+	typeCodeableConcept = "CodeableConcept"
+	typeReference       = "Reference"
+	typePeriod          = "Period"
+	typeIdentifier      = "Identifier"
+	typeRange           = "Range"
+	typeRatio           = "Ratio"
+	typeAttachment      = "Attachment"
+	typeHumanName       = "HumanName"
+	typeAddress         = "Address"
+	typeContactPoint    = "ContactPoint"
+	typeAnnotation      = "Annotation"
+	typeObject          = "Object"
+)
+
+// Type returns the FHIR type of this object.
+// First checks resourceType, then attempts to infer common FHIR types from structure.
 func (o *ObjectValue) Type() string {
+	// First, check for explicit resourceType (FHIR resources)
 	if rt, err := jsonparser.GetString(o.data, "resourceType"); err == nil {
 		return rt
 	}
-	return "Object"
+
+	// Try to infer type from structure for common FHIR complex types
+	return o.inferType()
+}
+
+// inferType attempts to infer the FHIR type from the object's structure.
+// Uses a series of helper methods to reduce cyclomatic complexity.
+func (o *ObjectValue) inferType() string {
+	if t := o.inferQuantityType(); t != "" {
+		return t
+	}
+	if t := o.inferCodingType(); t != "" {
+		return t
+	}
+	if t := o.inferComplexTypes(); t != "" {
+		return t
+	}
+	return typeObject
+}
+
+// inferQuantityType checks if the object is a Quantity type.
+func (o *ObjectValue) inferQuantityType() string {
+	if o.hasField("value") {
+		if o.hasField("unit") || o.hasField("code") || o.hasField("system") {
+			return typeQuantity
+		}
+	}
+	return ""
+}
+
+// inferCodingType checks if the object is a Coding type.
+func (o *ObjectValue) inferCodingType() string {
+	if o.hasField("system") && o.hasField("code") && !o.hasField("value") {
+		return typeCoding
+	}
+	return ""
+}
+
+// inferComplexTypes checks for various FHIR complex types.
+func (o *ObjectValue) inferComplexTypes() string {
+	// CodeableConcept
+	if o.hasArrayField("coding") {
+		return typeCodeableConcept
+	}
+
+	// Reference
+	if o.hasField("reference") {
+		return typeReference
+	}
+
+	// Period
+	if o.hasPeriodFields() {
+		return typePeriod
+	}
+
+	// Identifier
+	if o.hasIdentifierFields() {
+		return typeIdentifier
+	}
+
+	// Range
+	if o.hasField("low") || o.hasField("high") {
+		return typeRange
+	}
+
+	// Ratio
+	if o.hasField("numerator") || o.hasField("denominator") {
+		return typeRatio
+	}
+
+	// Attachment
+	if o.hasField("contentType") {
+		return typeAttachment
+	}
+
+	// HumanName
+	if o.hasHumanNameFields() {
+		return typeHumanName
+	}
+
+	// Address
+	if o.hasAddressFields() {
+		return typeAddress
+	}
+
+	// ContactPoint
+	if o.hasContactPointFields() {
+		return typeContactPoint
+	}
+
+	// Annotation
+	if o.hasAnnotationFields() {
+		return typeAnnotation
+	}
+
+	return ""
+}
+
+// hasArrayField checks if a field exists and is an array.
+func (o *ObjectValue) hasArrayField(name string) bool {
+	_, dataType, _, err := jsonparser.Get(o.data, name)
+	return err == nil && dataType == jsonparser.Array
+}
+
+func (o *ObjectValue) hasPeriodFields() bool {
+	hasStart := o.hasField("start")
+	hasEnd := o.hasField("end")
+	return hasStart || hasEnd
+}
+
+// hasField checks if a field exists in the object.
+func (o *ObjectValue) hasField(name string) bool {
+	//nolint:dogsled // jsonparser.Get returns 4 values, we only need the error
+	_, _, _, err := jsonparser.Get(o.data, name)
+	return err == nil
+}
+
+func (o *ObjectValue) hasIdentifierFields() bool {
+	return o.hasField("system") && o.hasStringField("value")
+}
+
+// hasStringField checks if a field exists and is a string.
+func (o *ObjectValue) hasStringField(name string) bool {
+	_, dataType, _, err := jsonparser.Get(o.data, name)
+	return err == nil && dataType == jsonparser.String
+}
+
+func (o *ObjectValue) hasHumanNameFields() bool {
+	return o.hasField("family") || o.hasArrayField("given")
+}
+
+func (o *ObjectValue) hasAddressFields() bool {
+	return o.hasField("city") || o.hasField("postalCode")
+}
+
+func (o *ObjectValue) hasContactPointFields() bool {
+	return o.hasField("system") && o.hasField("use")
+}
+
+func (o *ObjectValue) hasAnnotationFields() bool {
+	if !o.hasField("text") {
+		return false
+	}
+	return o.hasField("time") || o.hasField("authorReference") || o.hasField("authorString")
 }
 
 // Equal returns true if the JSON data is identical.

@@ -401,6 +401,10 @@ func (e *Evaluator) VisitFunctionInvocation(ctx *grammar.FunctionInvocationConte
 		if argCount > 0 {
 			return e.evaluateAsFunction(input, argExprs[0])
 		}
+	case "ofType":
+		if argCount > 0 {
+			return e.evaluateOfType(input, argExprs[0])
+		}
 	}
 
 	// Evaluate arguments normally
@@ -661,6 +665,38 @@ func (e *Evaluator) extractTypeNameFromExpr(expr grammar.IExpressionContext) str
 		return text
 	}
 	return ""
+}
+
+// evaluateOfType evaluates ofType() function - filters collection by type.
+// Unlike is()/as() which require singleton, ofType() works on collections.
+func (e *Evaluator) evaluateOfType(input types.Collection, typeExpr grammar.IExpressionContext) interface{} {
+	// Empty input returns empty
+	if input.Empty() {
+		return types.Collection{}
+	}
+
+	// Extract the type name from the expression
+	typeName := e.extractTypeNameFromExpr(typeExpr)
+	if typeName == "" {
+		return InvalidArgumentsError("ofType", 1, 0)
+	}
+
+	result := types.Collection{}
+	for _, item := range input {
+		actualType := item.Type()
+
+		// For ObjectValue, also check if it's a FHIR type matching the request
+		if obj, ok := item.(*types.ObjectValue); ok {
+			// Try to get more specific type information
+			actualType = obj.Type()
+		}
+
+		if TypeMatches(actualType, typeName) {
+			result = append(result, item)
+		}
+	}
+
+	return result
 }
 
 // VisitThisInvocation visits $this.
@@ -1153,20 +1189,70 @@ func TypeMatches(actualType, typeName string) bool {
 
 // Helper functions
 
+// polymorphicTypeSuffixes contains all FHIR type suffixes for polymorphic elements (value[x] pattern).
+// These are used to resolve element names like "value" to "valueQuantity", "valueString", etc.
+var polymorphicTypeSuffixes = []string{
+	// Primitive types
+	"Boolean", "Integer", "Integer64", "Decimal", "String", "Code", "Id", "Uri", "Url", "Canonical",
+	"Base64Binary", "Instant", "Date", "DateTime", "Time", "Oid", "Uuid", "Markdown", "PositiveInt", "UnsignedInt",
+	// Complex types
+	"Quantity", "CodeableConcept", "Coding", "Range", "Period", "Ratio", "RatioRange",
+	"Identifier", "Reference", "Attachment", "HumanName", "Address", "ContactPoint",
+	"Timing", "Signature", "Annotation", "SampledData", "Age", "Distance", "Duration",
+	"Count", "Money", "MoneyQuantity", "SimpleQuantity",
+	// Special types
+	"Meta", "Dosage", "ContactDetail", "Contributor", "DataRequirement", "Expression",
+	"ParameterDefinition", "RelatedArtifact", "TriggerDefinition", "UsageContext",
+}
+
 // navigateMember navigates to a member of objects in the collection.
+// Supports FHIR polymorphic elements (value[x] pattern) by automatically
+// resolving element names like "value" to their typed variants.
 func (e *Evaluator) navigateMember(input types.Collection, name string) types.Collection {
 	result := types.Collection{}
 
 	for _, item := range input {
-		if obj, ok := item.(*types.ObjectValue); ok {
-			// Check if name matches resourceType (for FHIR resources)
-			if obj.Type() == name {
-				result = append(result, obj)
-				continue
-			}
-			// Otherwise, get the field
-			children := obj.GetCollection(name)
+		obj, ok := item.(*types.ObjectValue)
+		if !ok {
+			continue
+		}
+
+		// Check if name matches resourceType (for FHIR resources)
+		if obj.Type() == name {
+			result = append(result, obj)
+			continue
+		}
+
+		// Try direct field access first
+		children := obj.GetCollection(name)
+		if len(children) > 0 {
 			result = append(result, children...)
+			continue
+		}
+
+		// If direct access failed, try polymorphic element resolution
+		// This handles FHIR's value[x] pattern where "value" can resolve to
+		// "valueQuantity", "valueString", "valueCodeableConcept", etc.
+		polymorphicChildren := e.resolvePolymorphicField(obj, name)
+		result = append(result, polymorphicChildren...)
+	}
+
+	return result
+}
+
+// resolvePolymorphicField attempts to resolve a polymorphic FHIR element.
+// For example, accessing "value" will search for "valueQuantity", "valueString", etc.
+func (e *Evaluator) resolvePolymorphicField(obj *types.ObjectValue, name string) types.Collection {
+	result := types.Collection{}
+
+	// Try each possible type suffix
+	for _, suffix := range polymorphicTypeSuffixes {
+		fieldName := name + suffix
+		children := obj.GetCollection(fieldName)
+		if len(children) > 0 {
+			result = append(result, children...)
+			// Return on first match - polymorphic elements have only one variant
+			return result
 		}
 	}
 
