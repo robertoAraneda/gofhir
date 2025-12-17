@@ -6,6 +6,8 @@ import (
 	"strings"
 
 	"github.com/shopspring/decimal"
+
+	"github.com/robertoaraneda/gofhir/pkg/ucum"
 )
 
 // Quantity represents a FHIRPath quantity value with a numeric value and unit.
@@ -50,27 +52,80 @@ func (q Quantity) Type() string {
 }
 
 // Equal checks equality with another value.
+// For quantities with different units, uses UCUM normalization per FHIRPath spec.
 func (q Quantity) Equal(other Value) bool {
-	if o, ok := other.(Quantity); ok {
-		return q.value.Equal(o.value) && q.unit == o.unit
+	o, ok := other.(Quantity)
+	if !ok {
+		return false
 	}
-	return false
+
+	// Same unit - compare values directly
+	if q.unit == o.unit {
+		return q.value.Equal(o.value)
+	}
+
+	// Empty units - compare values directly
+	if q.unit == "" || o.unit == "" {
+		return q.value.Equal(o.value)
+	}
+
+	// Different units - use UCUM normalization
+	norm1 := q.Normalize()
+	norm2 := o.Normalize()
+
+	// Must have same canonical unit
+	if norm1.Code != norm2.Code {
+		return false
+	}
+
+	// Compare normalized values
+	val1 := decimal.NewFromFloat(norm1.Value)
+	val2 := decimal.NewFromFloat(norm2.Value)
+	return val1.Equal(val2)
 }
 
 // Equivalent checks equivalence with another value.
-// For quantities, this considers unit compatibility.
+// For quantities, this uses UCUM normalization to compare values with different units.
+// Per FHIRPath spec: quantities are equivalent if their canonical normalized forms are equal.
 func (q Quantity) Equivalent(other Value) bool {
-	if o, ok := other.(Quantity); ok {
-		// Same value and compatible units
-		if q.value.Equal(o.value) {
-			// Empty units are compatible with anything
-			if q.unit == "" || o.unit == "" {
-				return true
-			}
-			return strings.EqualFold(q.unit, o.unit)
-		}
+	o, ok := other.(Quantity)
+	if !ok {
+		return false
 	}
-	return false
+
+	// Empty units are compatible with anything - compare values directly
+	if q.unit == "" || o.unit == "" {
+		return q.value.Equal(o.value)
+	}
+
+	// Same unit - compare values directly
+	if strings.EqualFold(q.unit, o.unit) {
+		return q.value.Equal(o.value)
+	}
+
+	// Different units - try UCUM normalization
+	norm1 := q.Normalize()
+	norm2 := o.Normalize()
+
+	// Must have same canonical unit
+	if norm1.Code != norm2.Code {
+		return false
+	}
+
+	// Compare normalized values with tolerance for floating point
+	diff := norm1.Value - norm2.Value
+	if diff < 0 {
+		diff = -diff
+	}
+	// Use relative tolerance for comparison
+	maxVal := norm1.Value
+	if norm2.Value > maxVal {
+		maxVal = norm2.Value
+	}
+	if maxVal == 0 {
+		return diff == 0
+	}
+	return diff/maxVal < 1e-10
 }
 
 // String returns the string representation.
@@ -102,16 +157,38 @@ func (q Quantity) Unit() string {
 
 // Compare compares two quantities.
 // Returns -1, 0, or 1 if units are compatible, or error if not.
+// Uses UCUM normalization to compare quantities with different but compatible units.
 // Implements the Comparable interface.
 func (q Quantity) Compare(other Value) (int, error) {
 	otherQ, ok := other.(Quantity)
 	if !ok {
 		return 0, fmt.Errorf("cannot compare Quantity with %s", other.Type())
 	}
-	if q.unit != otherQ.unit && q.unit != "" && otherQ.unit != "" {
+
+	// If units are the same (or one is empty), compare directly
+	if q.unit == otherQ.unit || q.unit == "" || otherQ.unit == "" {
+		return q.value.Cmp(otherQ.value), nil
+	}
+
+	// Try UCUM normalization for different units
+	norm1 := q.Normalize()
+	norm2 := otherQ.Normalize()
+
+	// Check if units are compatible after normalization
+	if norm1.Code != norm2.Code {
 		return 0, fmt.Errorf("incompatible units: %s and %s", q.unit, otherQ.unit)
 	}
-	return q.value.Cmp(otherQ.value), nil
+
+	// Compare normalized values
+	val1 := decimal.NewFromFloat(norm1.Value)
+	val2 := decimal.NewFromFloat(norm2.Value)
+	return val1.Cmp(val2), nil
+}
+
+// Normalize returns the UCUM-normalized form of this quantity.
+func (q Quantity) Normalize() ucum.NormalizedQuantity {
+	val, _ := q.value.Float64()
+	return ucum.Normalize(val, q.unit)
 }
 
 // Add adds two quantities.

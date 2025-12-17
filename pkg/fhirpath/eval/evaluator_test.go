@@ -1440,8 +1440,12 @@ func TestQuantityComparison(t *testing.T) {
 		// Mixed empty and non-empty units (compatible)
 		{"10 kg > 5 (empty)", 10, "kg", 5, "", ">", true, false},
 
-		// Incompatible units
-		{"incompatible units error", 10, "kg", 5, "mg", ">", false, true},
+		// UCUM compatible units (kg and mg are both mass)
+		{"10 kg > 5 mg (UCUM)", 10, "kg", 5, "mg", ">", true, false},
+		{"5 mg > 10 kg (UCUM)", 5, "mg", 10, "kg", ">", false, false},
+
+		// Truly incompatible units (mass vs length)
+		{"incompatible units error", 10, "kg", 5, "m", ">", false, true},
 	}
 
 	for _, tt := range tests {
