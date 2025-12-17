@@ -52,15 +52,20 @@ type Context struct {
 }
 
 // NewContext creates a new evaluation context.
-// Automatically sets %resource to the root resource for FHIR constraint evaluation.
+// Automatically sets %resource and %context to the root resource for FHIR constraint evaluation.
+// Per FHIRPath spec:
+//   - %resource: the root resource being evaluated
+//   - %context: the original node passed to the evaluation engine (same as %resource for top-level evaluation)
 func NewContext(resource []byte) *Context {
 	//nolint:errcheck // Empty collection is acceptable for invalid JSON in context creation
 	root, _ := types.JSONToCollection(resource)
 
-	// Initialize variables map with %resource pointing to root
-	// This is required by FHIR constraints like bdl-3, bdl-4
+	// Initialize variables map with %resource and %context pointing to root
+	// %resource is required by FHIR constraints like bdl-3, bdl-4
+	// %context represents the evaluation context (same as root for top-level evaluation)
 	variables := make(map[string]types.Collection)
 	variables["resource"] = root
+	variables["context"] = root
 
 	return &Context{
 		root:      root,
@@ -238,7 +243,7 @@ func (e *Evaluator) VisitExternalConstantTerm(ctx *grammar.ExternalConstantTermC
 func (e *Evaluator) VisitExternalConstant(ctx *grammar.ExternalConstantContext) interface{} {
 	var name string
 	if ctx.Identifier() != nil {
-		name = ctx.Identifier().GetText()
+		name = stripBackticks(ctx.Identifier().GetText())
 	} else if ctx.STRING() != nil {
 		name = unquoteString(ctx.STRING().GetText())
 	}
@@ -343,14 +348,14 @@ func (e *Evaluator) VisitQuantityLiteral(ctx *grammar.QuantityLiteralContext) in
 
 // VisitMemberInvocation visits a member access.
 func (e *Evaluator) VisitMemberInvocation(ctx *grammar.MemberInvocationContext) interface{} {
-	name := ctx.Identifier().GetText()
+	name := stripBackticks(ctx.Identifier().GetText())
 	return e.navigateMember(e.ctx.This(), name)
 }
 
 // VisitFunctionInvocation visits a function call.
 func (e *Evaluator) VisitFunctionInvocation(ctx *grammar.FunctionInvocationContext) interface{} {
 	funcCtx := ctx.Function()
-	name := funcCtx.Identifier().GetText()
+	name := stripBackticks(funcCtx.Identifier().GetText())
 
 	// Get function from registry
 	fn, ok := e.funcs.Get(name)
@@ -404,6 +409,11 @@ func (e *Evaluator) VisitFunctionInvocation(ctx *grammar.FunctionInvocationConte
 	case "ofType":
 		if argCount > 0 {
 			return e.evaluateOfType(input, argExprs[0])
+		}
+	case "iif":
+		// iif requires lazy evaluation - only evaluate the branch that matches
+		if argCount >= 2 {
+			return e.evaluateIif(input, argExprs)
 		}
 	}
 
@@ -697,6 +707,57 @@ func (e *Evaluator) evaluateOfType(input types.Collection, typeExpr grammar.IExp
 	}
 
 	return result
+}
+
+// evaluateIif evaluates the iif() function with lazy evaluation.
+// Only the matching branch is evaluated, preventing errors from the other branch.
+// Signature: iif(criterion, true-result [, otherwise-result])
+func (e *Evaluator) evaluateIif(_ types.Collection, argExprs []grammar.IExpressionContext) interface{} {
+	if len(argExprs) < 2 {
+		return InvalidArgumentsError("iif", 2, len(argExprs))
+	}
+
+	// Evaluate the criterion (first argument)
+	criterionResult := e.Visit(argExprs[0])
+	if err, ok := criterionResult.(error); ok {
+		return err
+	}
+
+	// Convert criterion to boolean
+	criterion := false
+	if coll, ok := criterionResult.(types.Collection); ok {
+		if !coll.Empty() {
+			if b, ok := coll[0].(types.Boolean); ok {
+				criterion = b.Bool()
+			}
+		}
+	}
+
+	// Lazily evaluate only the matching branch
+	if criterion {
+		// Evaluate and return true-result (second argument)
+		result := e.Visit(argExprs[1])
+		if err, ok := result.(error); ok {
+			return err
+		}
+		if coll, ok := result.(types.Collection); ok {
+			return coll
+		}
+		return types.Collection{}
+	}
+
+	// Evaluate and return otherwise-result (third argument) if provided
+	if len(argExprs) > 2 {
+		result := e.Visit(argExprs[2])
+		if err, ok := result.(error); ok {
+			return err
+		}
+		if coll, ok := result.(types.Collection); ok {
+			return coll
+		}
+	}
+
+	return types.Collection{}
 }
 
 // VisitThisInvocation visits $this.
@@ -1274,5 +1335,14 @@ func unquoteString(s string) string {
 	s = strings.ReplaceAll(s, "\\r", "\r")
 	s = strings.ReplaceAll(s, "\\t", "\t")
 
+	return s
+}
+
+// stripBackticks removes backtick delimiters from delimited identifiers.
+// FHIRPath allows backticks for identifiers with special characters: `PID-1`
+func stripBackticks(s string) string {
+	if len(s) >= 2 && s[0] == '`' && s[len(s)-1] == '`' {
+		return s[1 : len(s)-1]
+	}
 	return s
 }
