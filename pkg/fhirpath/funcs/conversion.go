@@ -8,6 +8,7 @@ import (
 
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/eval"
 	"github.com/robertoaraneda/gofhir/pkg/fhirpath/types"
+	"github.com/robertoaraneda/gofhir/pkg/ucum"
 )
 
 func init() {
@@ -498,22 +499,52 @@ func fnToQuantity(_ *eval.Context, input types.Collection, args []interface{}) (
 }
 
 // fnConvertsToQuantity returns true if the input can be converted to quantity.
+// If a unit argument is provided, returns true only if the quantity can be converted to that unit.
 func fnConvertsToQuantity(_ *eval.Context, input types.Collection, args []interface{}) (types.Collection, error) {
 	if input.Empty() {
 		return types.Collection{types.NewBoolean(false)}, nil
+	}
+
+	// Get optional target unit from arguments
+	targetUnit := ""
+	if len(args) > 0 {
+		if argCol, ok := args[0].(types.Collection); ok && !argCol.Empty() {
+			if s, ok := argCol[0].(types.String); ok {
+				targetUnit = s.Value()
+			}
+		}
 	}
 
 	item := input[0]
 
 	switch v := item.(type) {
 	case types.Quantity:
-		return types.Collection{types.NewBoolean(true)}, nil
+		// If no target unit specified, any quantity converts
+		if targetUnit == "" {
+			return types.Collection{types.NewBoolean(true)}, nil
+		}
+		// Check if units are compatible using UCUM normalization
+		sourceNorm := v.Normalize()
+		targetNorm := ucum.Normalize(1, targetUnit)
+		// Units are compatible if they normalize to the same canonical unit
+		return types.Collection{types.NewBoolean(sourceNorm.Code == targetNorm.Code)}, nil
 	case types.Integer, types.Decimal:
+		// Integer/Decimal can always be converted to a quantity (with any unit)
 		return types.Collection{types.NewBoolean(true)}, nil
 	case types.String:
 		// Try to parse as quantity string
-		_, err := types.NewQuantity(v.Value())
-		return types.Collection{types.NewBoolean(err == nil)}, nil
+		q, err := types.NewQuantity(v.Value())
+		if err != nil {
+			return types.Collection{types.NewBoolean(false)}, nil
+		}
+		// If no target unit, just check if it parses
+		if targetUnit == "" {
+			return types.Collection{types.NewBoolean(true)}, nil
+		}
+		// Check unit compatibility
+		sourceNorm := q.Normalize()
+		targetNorm := ucum.Normalize(1, targetUnit)
+		return types.Collection{types.NewBoolean(sourceNorm.Code == targetNorm.Code)}, nil
 	default:
 		return types.Collection{types.NewBoolean(false)}, nil
 	}
