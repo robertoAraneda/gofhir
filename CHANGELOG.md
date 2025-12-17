@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/robertoAraneda/gofhir/compare/v1.1.0...v1.2.0) (2025-12-17)
+
+
+### Features
+
+* **fhirpath:** add iif lazy evaluation, %context variable, and backtick identifiers ([9c3350e](https://github.com/robertoAraneda/gofhir/commit/9c3350e525bdefa3064465437ced56b4f5f5e025))
+* **fhirpath:** add UCUM normalization for quantity comparisons ([ecb031b](https://github.com/robertoAraneda/gofhir/commit/ecb031bf5b4129f18c6e3ad20a713556004b4800))
+* **fhirpath:** add unit parameter support to convertsToQuantity() ([1bd2a9c](https://github.com/robertoAraneda/gofhir/commit/1bd2a9c5a30765a16057e2187e313999a9e55b74))
+
 ## [1.1.0](https://github.com/robertoAraneda/gofhir/compare/v1.0.0...v1.1.0) (2025-12-17)
 
 
