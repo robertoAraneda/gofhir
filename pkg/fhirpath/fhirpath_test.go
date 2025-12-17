@@ -786,3 +786,331 @@ func assertStringResult(t *testing.T, result types.Collection, expected string) 
 		t.Errorf("expected '%s', got '%s'", expected, s.Value())
 	}
 }
+
+// TestUCUMQuantityComparison tests UCUM unit normalization for quantity comparisons.
+func TestUCUMQuantityComparison(t *testing.T) {
+	t.Run("10 mg equals 0.01 g", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "10 'mg' = 0.01 'g'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("1000 mg equals 1 g", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "1000 'mg' = 1 'g'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("100 cm equals 1 m", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "100 'cm' = 1 'm'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("1000 mL equals 1 L", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "1000 'mL' = 1 'L'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("60 min equals 1 h", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "60 'min' = 1 'h'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("500 mg less than 1 g", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "500 'mg' < 1 'g'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("incompatible units return false", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "1 'kg' = 1 'm'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		// Per FHIRPath spec: if units cannot be converted to same canonical form, result is false
+		assertBooleanResult(t, result, false)
+	})
+}
+
+// TestQuantityEquivalent tests the ~ operator for quantities with UCUM normalization.
+func TestQuantityEquivalent(t *testing.T) {
+	t.Run("10 mg equivalent to 0.01 g", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "10 'mg' ~ 0.01 'g'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("1 kg equivalent to 1000 g", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "1 'kg' ~ 1000 'g'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("incompatible units not equivalent", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "1 'kg' ~ 1 'm'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, false)
+	})
+}
+
+// TestIifLazyEvaluation tests that iif() only evaluates the matching branch.
+func TestIifLazyEvaluation(t *testing.T) {
+	t.Run("iif true branch only", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "iif(true, 'yes', 'no')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "yes")
+	})
+
+	t.Run("iif false branch only", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "iif(false, 'yes', 'no')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "no")
+	})
+
+	t.Run("iif with no else returns empty", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "iif(false, 'yes')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if !result.Empty() {
+			t.Errorf("expected empty result, got %v", result)
+		}
+	})
+
+	t.Run("iif with expression criterion", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "iif(1 > 0, 'positive', 'negative')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "positive")
+	})
+
+	t.Run("iif returns numeric values", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "iif(true, 42, 0)")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertIntegerResult(t, result, 42)
+	})
+}
+
+// TestStringEquivalent tests the ~ operator for strings with normalization.
+func TestStringEquivalent(t *testing.T) {
+	t.Run("case insensitive equivalence", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "'Hello' ~ 'hello'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("whitespace normalization", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "'hello   world' ~ 'hello world'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("leading trailing whitespace ignored", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "'  hello  ' ~ 'hello'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("different strings not equivalent", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "'hello' ~ 'world'")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, false)
+	})
+}
+
+// TestConvertsToQuantityWithUnit tests convertsToQuantity with optional unit parameter.
+func TestConvertsToQuantityWithUnit(t *testing.T) {
+	t.Run("quantity without unit arg", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(10 'kg').convertsToQuantity()")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("quantity with compatible unit", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(10 'kg').convertsToQuantity('g')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("quantity with incompatible unit", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(10 'kg').convertsToQuantity('m')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, false)
+	})
+
+	t.Run("quantity mg to kg compatible", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(500 'mg').convertsToQuantity('kg')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("quantity mm to cm compatible", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(100 'mm').convertsToQuantity('cm')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("string quantity with compatible unit", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "'5 kg'.convertsToQuantity('g')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("string quantity with incompatible unit", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "'5 kg'.convertsToQuantity('L')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, false)
+	})
+
+	t.Run("integer always converts to quantity", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(42).convertsToQuantity('kg')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("decimal always converts to quantity", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(3.14).convertsToQuantity('m')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("time units compatible", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(60 's').convertsToQuantity('min')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("volume units compatible", func(t *testing.T) {
+		result, err := Evaluate(simpleJSON, "(1000 'mL').convertsToQuantity('L')")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+}
+
+// TestContextVariable tests the %context environment variable.
+func TestContextVariable(t *testing.T) {
+	t.Run("%context returns root resource", func(t *testing.T) {
+		result, err := Evaluate(patientJSON, "%context.resourceType")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "Patient")
+	})
+
+	t.Run("%context equals %resource for top-level evaluation", func(t *testing.T) {
+		result, err := Evaluate(patientJSON, "%context = %resource")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertBooleanResult(t, result, true)
+	})
+
+	t.Run("%context.id returns resource id", func(t *testing.T) {
+		result, err := Evaluate(patientJSON, "%context.id")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "123")
+	})
+}
+
+// TestDelimitedIdentifiers tests backtick-delimited identifiers for special characters.
+func TestDelimitedIdentifiers(t *testing.T) {
+	// JSON with hyphenated field names
+	jsonWithSpecialFields := []byte(`{
+		"resourceType": "Patient",
+		"PID-1": "12345",
+		"PID-2": "67890",
+		"normal_field": "value"
+	}`)
+
+	t.Run("backtick identifier with hyphen", func(t *testing.T) {
+		result, err := Evaluate(jsonWithSpecialFields, "Patient.`PID-1`")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "12345")
+	})
+
+	t.Run("backtick identifier second field", func(t *testing.T) {
+		result, err := Evaluate(jsonWithSpecialFields, "Patient.`PID-2`")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "67890")
+	})
+
+	t.Run("normal identifier still works", func(t *testing.T) {
+		result, err := Evaluate(jsonWithSpecialFields, "Patient.normal_field")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "value")
+	})
+
+	t.Run("backtick with normal field name", func(t *testing.T) {
+		result, err := Evaluate(jsonWithSpecialFields, "Patient.`normal_field`")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		assertStringResult(t, result, "value")
+	})
+}
