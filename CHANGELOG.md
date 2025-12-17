@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/robertoAraneda/gofhir/compare/v1.0.0...v1.1.0) (2025-12-17)
+
+
+### Features
+
+* **fhirpath:** add polymorphic element resolution and ofType function ([dc92417](https://github.com/robertoAraneda/gofhir/commit/dc92417163fefe0489d7d59e208ec964baac09de))
+
 ## 1.0.0 (2025-12-16)
 
 
