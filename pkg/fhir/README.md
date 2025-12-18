@@ -1,18 +1,12 @@
 # FHIR
 
-Version-agnostic FHIR resource definitions and factories for Go.
+Strongly-typed FHIR resource definitions for Go.
 
 ## Overview
 
 This package provides strongly-typed FHIR resource definitions with support for multiple FHIR versions (R4, R4B, R5). It includes auto-generated resource types, fluent builders, and functional options for creating FHIR resources.
 
 ## Installation
-
-```go
-import "github.com/robertoaraneda/gofhir/pkg/fhir"
-```
-
-For version-specific types:
 
 ```go
 import "github.com/robertoaraneda/gofhir/pkg/fhir/r4"
@@ -29,9 +23,7 @@ import (
     "encoding/json"
     "fmt"
 
-    "github.com/robertoaraneda/gofhir/pkg/fhir"
     "github.com/robertoaraneda/gofhir/pkg/fhir/r4"
-    "github.com/robertoaraneda/gofhir/pkg/fhir/common"
 )
 
 func main() {
@@ -40,13 +32,13 @@ func main() {
         SetId("patient-123").
         SetActive(true).
         AddName(r4.HumanName{
-            Use:    common.String("official"),
-            Family: common.String("Doe"),
+            Use:    ptr("official"),
+            Family: ptr("Doe"),
             Given:  []string{"John", "Michael"},
         }).
         AddTelecom(r4.ContactPoint{
-            System: common.String("email"),
-            Value:  common.String("john.doe@example.com"),
+            System: ptr("email"),
+            Value:  ptr("john.doe@example.com"),
         }).
         Build()
 
@@ -54,47 +46,17 @@ func main() {
     data, _ := json.MarshalIndent(patient, "", "  ")
     fmt.Println(string(data))
 }
+
+func ptr[T any](v T) *T { return &v }
 ```
 
-## Version-Agnostic API
+## Supported Versions
 
-### Factory Pattern
-
-```go
-// Register factory (done automatically by version packages)
-fhir.RegisterFactory(r4.NewFactory())
-
-// Get factory for specific version
-factory, err := fhir.GetFactory(fhir.R4)
-if err != nil {
-    panic(err)
-}
-
-// Create resource dynamically
-resource, err := factory.NewResource("Patient")
-patient := resource.(*r4.Patient)
-
-// Unmarshal from JSON
-resource, err = factory.UnmarshalResource(jsonData)
-```
-
-### Supported Versions
-
-| Version | Constant | FHIR Version |
-|---------|----------|--------------|
-| R4 | `fhir.R4` | 4.0.1 |
-| R4B | `fhir.R4B` | 4.3.0 |
-| R5 | `fhir.R5` | 5.0.0 |
-
-```go
-// Check version support
-if fhir.IsVersionSupported(fhir.R4) {
-    // R4 is available
-}
-
-// List all supported versions
-versions := fhir.SupportedVersions() // [R4, R4B, R5]
-```
+| Version | Package | FHIR Version |
+|---------|---------|--------------|
+| R4 | `pkg/fhir/r4` | 4.0.1 |
+| R4B | `pkg/fhir/r4b` | 4.3.0 |
+| R5 | `pkg/fhir/r5` | 5.0.0 |
 
 ## Resource Types
 
@@ -150,20 +112,20 @@ patient := r4.NewPatientBuilder().
     SetGender("male").
     SetBirthDate("1990-05-15").
     AddIdentifier(r4.Identifier{
-        System: common.String("http://hospital.org/mrn"),
-        Value:  common.String("MRN-12345"),
+        System: ptr("http://hospital.org/mrn"),
+        Value:  ptr("MRN-12345"),
     }).
     AddName(r4.HumanName{
-        Use:    common.String("official"),
-        Family: common.String("Doe"),
+        Use:    ptr("official"),
+        Family: ptr("Doe"),
         Given:  []string{"John"},
     }).
     AddAddress(r4.Address{
-        Use:        common.String("home"),
+        Use:        ptr("home"),
         Line:       []string{"123 Main St"},
-        City:       common.String("Springfield"),
-        State:      common.String("IL"),
-        PostalCode: common.String("62701"),
+        City:       ptr("Springfield"),
+        State:      ptr("IL"),
+        PostalCode: ptr("62701"),
     }).
     Build()
 ```
@@ -186,12 +148,12 @@ patient := r4.NewPatient(
 // Direct struct creation
 patient := &r4.Patient{
     ResourceType: "Patient",
-    Id:           common.String("123"),
-    Active:       common.Bool(true),
-    Gender:       common.String("male"),
+    Id:           ptr("123"),
+    Active:       ptr(true),
+    Gender:       ptr("male"),
     Name: []r4.HumanName{
         {
-            Family: common.String("Doe"),
+            Family: ptr("Doe"),
             Given:  []string{"John"},
         },
     },
@@ -204,15 +166,15 @@ patient := &r4.Patient{
 
 | Type | Go Type | Example |
 |------|---------|---------|
-| `string` | `*string` | `common.String("value")` |
-| `boolean` | `*bool` | `common.Bool(true)` |
-| `integer` | `*int` | `common.Int(42)` |
-| `decimal` | `*float64` | `common.Float64(3.14)` |
-| `date` | `*string` | `common.String("2024-01-15")` |
-| `dateTime` | `*string` | `common.String("2024-01-15T10:30:00Z")` |
-| `instant` | `*string` | `common.String("2024-01-15T10:30:00.000Z")` |
-| `uri` | `*string` | `common.String("http://example.com")` |
-| `code` | `*string` | `common.String("active")` |
+| `string` | `*string` | `ptr("value")` |
+| `boolean` | `*bool` | `ptr(true)` |
+| `integer` | `*int` | `ptr(42)` |
+| `decimal` | `*float64` | `ptr(3.14)` |
+| `date` | `*string` | `ptr("2024-01-15")` |
+| `dateTime` | `*string` | `ptr("2024-01-15T10:30:00Z")` |
+| `instant` | `*string` | `ptr("2024-01-15T10:30:00.000Z")` |
+| `uri` | `*string` | `ptr("http://example.com")` |
+| `code` | `*string` | `ptr("active")` |
 
 ### Complex Types
 
@@ -221,61 +183,43 @@ patient := &r4.Patient{
 codeableConcept := r4.CodeableConcept{
     Coding: []r4.Coding{
         {
-            System:  common.String("http://loinc.org"),
-            Code:    common.String("8867-4"),
-            Display: common.String("Heart rate"),
+            System:  ptr("http://loinc.org"),
+            Code:    ptr("8867-4"),
+            Display: ptr("Heart rate"),
         },
     },
-    Text: common.String("Heart rate"),
+    Text: ptr("Heart rate"),
 }
 
 // Quantity
 quantity := r4.Quantity{
-    Value:  common.Float64(72),
-    Unit:   common.String("beats/min"),
-    System: common.String("http://unitsofmeasure.org"),
-    Code:   common.String("/min"),
+    Value:  ptr(72.0),
+    Unit:   ptr("beats/min"),
+    System: ptr("http://unitsofmeasure.org"),
+    Code:   ptr("/min"),
 }
 
 // Reference
 reference := r4.Reference{
-    Reference: common.String("Patient/123"),
-    Display:   common.String("John Doe"),
+    Reference: ptr("Patient/123"),
+    Display:   ptr("John Doe"),
 }
 
 // Period
 period := r4.Period{
-    Start: common.String("2024-01-01T00:00:00Z"),
-    End:   common.String("2024-12-31T23:59:59Z"),
+    Start: ptr("2024-01-01T00:00:00Z"),
+    End:   ptr("2024-12-31T23:59:59Z"),
 }
 
 // Identifier
 identifier := r4.Identifier{
-    Use:    common.String("official"),
-    System: common.String("http://hospital.org/mrn"),
-    Value:  common.String("MRN-12345"),
+    Use:    ptr("official"),
+    System: ptr("http://hospital.org/mrn"),
+    Value:  ptr("MRN-12345"),
 }
 ```
 
 ## Helper Functions
-
-### Common Pointer Helpers
-
-```go
-import "github.com/robertoaraneda/gofhir/pkg/fhir/common"
-
-// Create pointers
-strPtr := common.String("value")
-boolPtr := common.Bool(true)
-intPtr := common.Int(42)
-floatPtr := common.Float64(3.14)
-
-// Get values (with defaults)
-str := common.StringVal(strPtr)       // "value"
-str := common.StringVal(nil)          // ""
-b := common.BoolVal(boolPtr)          // true
-b := common.BoolVal(nil)              // false
-```
 
 ### LOINC Code Helpers (R4)
 
@@ -307,30 +251,49 @@ heartRate := helpers.QuantityBpm(72)     // 72 /min
 
 ## Working with Bundles
 
-### Creating a Search Bundle
+### Creating a Bundle
 
 ```go
-factory, _ := fhir.GetFactory(fhir.R4)
+bundle := r4.NewBundle(
+    r4.WithBundleType(r4.BundleTypeSearchset),
+    r4.WithBundleTotal(100),
+    r4.WithBundleLink(r4.BundleLink{
+        Relation: ptr("self"),
+        Url:      ptr("http://example.com/Patient?_count=10"),
+    }),
+    r4.WithBundleEntry(r4.BundleEntry{
+        FullUrl:  ptr("http://example.com/Patient/123"),
+        Resource: patient,
+    }),
+)
+```
 
-bundle, _ := factory.BuildSearchBundle(fhir.SearchBundleConfig{
-    Total:  100,
-    Count:  10,
-    Offset: 0,
-    SelfURL: "http://example.com/Patient?_count=10",
-    NextURL: "http://example.com/Patient?_count=10&_offset=10",
-    Entries: patients, // []Resource
-})
+### Using the Builder
+
+```go
+bundle := r4.NewBundleBuilder().
+    SetType(r4.BundleTypeCollection).
+    AddEntry(r4.BundleEntry{
+        FullUrl:  ptr("urn:uuid:patient-1"),
+        Resource: patient,
+    }).
+    AddEntry(r4.BundleEntry{
+        FullUrl:  ptr("urn:uuid:obs-1"),
+        Resource: observation,
+    }).
+    Build()
 ```
 
 ### Creating an OperationOutcome
 
 ```go
-outcome, _ := factory.BuildOperationOutcome(fhir.OutcomeConfig{
-    Severity:    "error",
-    Code:        "invalid",
-    Diagnostics: "Patient.birthDate is required",
-    Expression:  []string{"Patient.birthDate"},
-})
+outcome := r4.NewOperationOutcome(
+    r4.WithOperationOutcomeIssue(r4.OperationOutcomeIssue{
+        Severity:    ptr(r4.IssueSeverityError),
+        Code:        ptr(r4.IssueTypeInvalid),
+        Diagnostics: ptr("Patient.birthDate is required"),
+    }),
+)
 ```
 
 ## JSON Serialization
@@ -347,9 +310,13 @@ data, err := json.MarshalIndent(patient, "", "  ")
 var patient r4.Patient
 err := json.Unmarshal(data, &patient)
 
-// Or use factory for dynamic unmarshaling
-factory, _ := fhir.GetFactory(fhir.R4)
-resource, err := factory.UnmarshalResource(data)
+// Dynamic unmarshaling by resource type
+resourceType, err := r4.GetResourceType(data)
+if err != nil {
+    // handle error
+}
+
+resource, err := r4.UnmarshalResource(data)
 switch r := resource.(type) {
 case *r4.Patient:
     fmt.Printf("Patient: %s\n", *r.Id)
@@ -361,20 +328,25 @@ case *r4.Observation:
 ## Resource Interfaces
 
 ```go
-// All resources implement these interfaces
+// All resources implement this interface
 type Resource interface {
     GetResourceType() string
-    GetID() *string
-    SetID(string)
-    GetMeta() Meta
-    SetMeta(Meta)
+    GetId() *string
+    SetId(string)
+    GetMeta() *Meta
+    SetMeta(*Meta)
 }
 
 // Usage
-func processResource(r fhir.Resource) {
+func processResource(r r4.Resource) {
     fmt.Printf("Type: %s, ID: %s\n",
         r.GetResourceType(),
-        common.StringVal(r.GetID()))
+        deref(r.GetId()))
+}
+
+func deref(s *string) string {
+    if s == nil { return "" }
+    return *s
 }
 ```
 
@@ -388,31 +360,14 @@ observation := r4.NewObservationBuilder().
     SetStatus("final").
     SetCode(helpers.HeartRate()).
     SetSubject(r4.Reference{
-        Reference: common.String("Patient/123"),
+        Reference: ptr("Patient/123"),
     }).
     SetEffectiveDateTime("2024-01-15T10:30:00Z").
     SetValueQuantity(r4.Quantity{
-        Value:  common.Float64(72),
-        Unit:   common.String("beats/min"),
-        System: common.String("http://unitsofmeasure.org"),
-        Code:   common.String("/min"),
-    }).
-    Build()
-```
-
-### Creating a Bundle with Multiple Resources
-
-```go
-bundle := r4.NewBundleBuilder().
-    SetId("bundle-123").
-    SetType("collection").
-    AddEntry(r4.BundleEntry{
-        FullUrl:  common.String("urn:uuid:patient-1"),
-        Resource: patient,
-    }).
-    AddEntry(r4.BundleEntry{
-        FullUrl:  common.String("urn:uuid:obs-1"),
-        Resource: observation,
+        Value:  ptr(72.0),
+        Unit:   ptr("beats/min"),
+        System: ptr("http://unitsofmeasure.org"),
+        Code:   ptr("/min"),
     }).
     Build()
 ```
@@ -427,16 +382,167 @@ medRequest := r4.NewMedicationRequestBuilder().
     SetMedicationCodeableConcept(r4.CodeableConcept{
         Coding: []r4.Coding{
             {
-                System:  common.String("http://www.nlm.nih.gov/research/umls/rxnorm"),
-                Code:    common.String("1049502"),
-                Display: common.String("Acetaminophen 325 MG Oral Tablet"),
+                System:  ptr("http://www.nlm.nih.gov/research/umls/rxnorm"),
+                Code:    ptr("1049502"),
+                Display: ptr("Acetaminophen 325 MG Oral Tablet"),
             },
         },
     }).
     SetSubject(r4.Reference{
-        Reference: common.String("Patient/123"),
+        Reference: ptr("Patient/123"),
     }).
     Build()
+```
+
+### Complete Example: Vital Signs with Helpers
+
+This example shows how to use LOINC and UCUM helpers with builders:
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+
+    "github.com/robertoaraneda/gofhir/pkg/fhir/r4"
+    "github.com/robertoaraneda/gofhir/pkg/fhir/r4/helpers"
+)
+
+func ptr[T any](v T) *T { return &v }
+
+func main() {
+    // Create a heart rate observation using helpers
+    observation := r4.NewObservationBuilder().
+        SetId("vitals-hr-001").
+        SetStatus("final").
+        SetCode(helpers.HeartRate()).              // LOINC 8867-4
+        SetSubject(r4.Reference{
+            Reference: ptr("Patient/patient-123"),
+            Display:   ptr("John Doe"),
+        }).
+        SetEffectiveDateTime("2024-01-15T10:30:00Z").
+        SetValueQuantity(helpers.QuantityBpm(72)). // 72 beats/min
+        Build()
+
+    // Print JSON output
+    data, _ := json.MarshalIndent(observation, "", "  ")
+    fmt.Println(string(data))
+}
+```
+
+**JSON Output:**
+
+```json
+{
+  "resourceType": "Observation",
+  "id": "vitals-hr-001",
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "8867-4",
+        "display": "Heart rate"
+      }
+    ],
+    "text": "Heart rate"
+  },
+  "subject": {
+    "reference": "Patient/patient-123",
+    "display": "John Doe"
+  },
+  "effectiveDateTime": "2024-01-15T10:30:00Z",
+  "valueQuantity": {
+    "value": 72,
+    "unit": "beats/min",
+    "system": "http://unitsofmeasure.org",
+    "code": "/min"
+  }
+}
+```
+
+### Using Functional Options with Helpers
+
+```go
+// Blood pressure observation using functional options
+observation := r4.NewObservation(
+    r4.WithObservationId("vitals-bp-001"),
+    r4.WithObservationStatus("final"),
+    r4.WithObservationCode(helpers.BloodPressure()), // LOINC 85354-9
+    r4.WithObservationSubject(r4.Reference{
+        Reference: ptr("Patient/patient-123"),
+    }),
+    r4.WithObservationEffectiveDateTime("2024-01-15T10:30:00Z"),
+    r4.WithObservationComponent(r4.ObservationComponent{
+        Code:          helpers.SystolicBP(),         // LOINC 8480-6
+        ValueQuantity: ptr(helpers.QuantityMmHg(120)),
+    }),
+    r4.WithObservationComponent(r4.ObservationComponent{
+        Code:          helpers.DiastolicBP(),        // LOINC 8462-4
+        ValueQuantity: ptr(helpers.QuantityMmHg(80)),
+    }),
+)
+```
+
+**JSON Output:**
+
+```json
+{
+  "resourceType": "Observation",
+  "id": "vitals-bp-001",
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "85354-9",
+        "display": "Blood pressure panel"
+      }
+    ],
+    "text": "Blood pressure panel"
+  },
+  "subject": {
+    "reference": "Patient/patient-123"
+  },
+  "effectiveDateTime": "2024-01-15T10:30:00Z",
+  "component": [
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "8480-6",
+            "display": "Systolic blood pressure"
+          }
+        ]
+      },
+      "valueQuantity": {
+        "value": 120,
+        "unit": "mmHg",
+        "system": "http://unitsofmeasure.org",
+        "code": "mm[Hg]"
+      }
+    },
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "8462-4",
+            "display": "Diastolic blood pressure"
+          }
+        ]
+      },
+      "valueQuantity": {
+        "value": 80,
+        "unit": "mmHg",
+        "system": "http://unitsofmeasure.org",
+        "code": "mm[Hg]"
+      }
+    }
+  ]
+}
 ```
 
 ## Code Generation
