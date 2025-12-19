@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/robertoAraneda/gofhir/compare/v1.3.0...v1.4.0) (2025-12-19)
+
+
+### Features
+
+* **codegen:** add UnmarshalJSON for polymorphic resource fields ([6eb1155](https://github.com/robertoAraneda/gofhir/commit/6eb1155ae48a60f6eab1fbd40b73eb342a366295))
+
 ## [1.3.0](https://github.com/robertoAraneda/gofhir/compare/v1.2.0...v1.3.0) (2025-12-19)
 
 
