@@ -458,6 +458,13 @@ func (v *Validator) validateNode(ctx context.Context, node interface{}, sd *Stru
 		// Validate cardinality
 		v.validateCardinality(child, elemDef, childPath, result)
 
+		// Check if this element has type "Resource" (e.g., DomainResource.contained)
+		// If so, we need to validate each contained resource against its own StructureDefinition
+		if v.hasResourceType(elemDef) {
+			v.validateContainedResources(ctx, child, childPath, presentElements, result)
+			continue
+		}
+
 		// Recursively validate children
 		if arr, ok := child.([]interface{}); ok {
 			for i, item := range arr {
@@ -468,6 +475,73 @@ func (v *Validator) validateNode(ctx context.Context, node interface{}, sd *Stru
 		} else {
 			v.validateNode(ctx, child, sd, index, basePath, childPath, presentElements, result)
 		}
+	}
+}
+
+// hasResourceType checks if an ElementDef allows type "Resource".
+// This indicates the element can contain any FHIR resource (e.g., contained resources).
+func (v *Validator) hasResourceType(elemDef *ElementDef) bool {
+	if elemDef == nil {
+		return false
+	}
+	for _, t := range elemDef.Types {
+		if t.Code == "Resource" {
+			return true
+		}
+	}
+	return false
+}
+
+// validateContainedResources validates contained resources against their own StructureDefinitions.
+// Each contained resource is validated using the SD for its resourceType.
+func (v *Validator) validateContainedResources(ctx context.Context, child interface{}, childPath string, presentElements map[string]bool, result *ValidationResult) {
+	// Handle both single resource and array of resources
+	var resources []interface{}
+	if arr, ok := child.([]interface{}); ok {
+		resources = arr
+	} else {
+		resources = []interface{}{child}
+	}
+
+	for i, item := range resources {
+		itemPath := fmt.Sprintf("%s[%d]", childPath, i)
+
+		// Get the contained resource as a map
+		resourceMap, ok := item.(map[string]interface{})
+		if !ok {
+			continue
+		}
+
+		// Extract resourceType from the contained resource
+		resourceType, ok := resourceMap["resourceType"].(string)
+		if !ok || resourceType == "" {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeRequired,
+				Diagnostics: fmt.Sprintf("Contained resource at %s must have a resourceType", itemPath),
+				Expression:  []string{itemPath},
+			})
+			continue
+		}
+
+		// Get the StructureDefinition for this resource type
+		containedSD, err := v.registry.GetByType(ctx, resourceType)
+		if err != nil {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeNotFound,
+				Diagnostics: fmt.Sprintf("Unknown resource type in contained resource: %s", resourceType),
+				Expression:  []string{itemPath},
+			})
+			continue
+		}
+
+		// Build element index for the contained resource's StructureDefinition
+		containedIndex := v.buildElementIndex(containedSD)
+
+		// Validate the contained resource against its own StructureDefinition
+		// Use the contained resource's type as basePath and reset currentPath
+		v.validateNode(ctx, item, containedSD, containedIndex, resourceType, "", presentElements, result)
 	}
 }
 
@@ -601,24 +675,42 @@ func (v *Validator) validateCardinality(value interface{}, elem *ElementDef, pat
 }
 
 // validatePrimitives validates primitive type values.
-func (v *Validator) validatePrimitives(_ context.Context, vctx *validationContext, result *ValidationResult) {
-	v.validatePrimitiveNode(vctx.parsed, vctx.index, vctx.resourceType, result)
+func (v *Validator) validatePrimitives(ctx context.Context, vctx *validationContext, result *ValidationResult) {
+	v.validatePrimitiveNode(ctx, vctx.parsed, vctx.index, vctx.resourceType, result)
 }
 
 // validatePrimitiveNode recursively validates primitive values.
-func (v *Validator) validatePrimitiveNode(node interface{}, index elementIndex, path string, result *ValidationResult) {
+func (v *Validator) validatePrimitiveNode(ctx context.Context, node interface{}, index elementIndex, path string, result *ValidationResult) {
 	switch val := node.(type) {
 	case map[string]interface{}:
+		// Check if this is a contained resource (has resourceType)
+		if resourceType, ok := val["resourceType"].(string); ok && resourceType != "" {
+			// This is a contained resource - get its own index
+			containedSD, err := v.registry.GetByType(ctx, resourceType)
+			if err == nil {
+				containedIndex := v.buildElementIndex(containedSD)
+				// Validate contained resource with its own index
+				for key, child := range val {
+					if key == "resourceType" || strings.HasPrefix(key, "_") {
+						continue
+					}
+					childPath := resourceType + "." + key
+					v.validatePrimitiveNode(ctx, child, containedIndex, childPath, result)
+				}
+				return
+			}
+		}
+
 		for key, child := range val {
 			if key == "resourceType" || strings.HasPrefix(key, "_") {
 				continue
 			}
 			childPath := path + "." + key
-			v.validatePrimitiveNode(child, index, childPath, result)
+			v.validatePrimitiveNode(ctx, child, index, childPath, result)
 		}
 	case []interface{}:
 		for _, item := range val {
-			v.validatePrimitiveNode(item, index, path, result)
+			v.validatePrimitiveNode(ctx, item, index, path, result)
 		}
 	default:
 		// Validate primitive value against type

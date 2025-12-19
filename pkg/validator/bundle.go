@@ -464,7 +464,7 @@ func (v *Validator) validateEntryResource(ctx context.Context, vctx *validationC
 	v.validateNode(ctx, resource, sd, nestedIndex, resourceType, "", presentElements, result)
 
 	// Validate primitives
-	v.validatePrimitiveNode(resource, nestedIndex, resourceType, result)
+	v.validatePrimitiveNode(ctx, resource, nestedIndex, resourceType, result)
 
 	// Validate ele-1
 	v.checkEle1Recursive(resource, entryPath+".resource", result)

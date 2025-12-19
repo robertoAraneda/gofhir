@@ -799,3 +799,265 @@ func TestValidateEle1NestedEmpty(t *testing.T) {
 		t.Error("Expected ele-1 constraint violation for nested empty object")
 	}
 }
+
+// TestValidateContainedResourceValid tests validation of valid contained resources
+func TestValidateContainedResourceValid(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Condition with a valid contained Practitioner
+	condition := []byte(`{
+		"resourceType": "Condition",
+		"id": "example",
+		"contained": [
+			{
+				"resourceType": "Practitioner",
+				"id": "p1",
+				"name": [{"family": "Smith", "given": ["John"]}]
+			}
+		],
+		"subject": {"reference": "Patient/example"},
+		"asserter": {"reference": "#p1"}
+	}`)
+
+	result, err := v.Validate(ctx, condition)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Contained resource validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should not have "Unknown element" errors for the contained Practitioner fields
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeStructure && strings.Contains(issue.Diagnostics, "Unknown element") {
+			if strings.Contains(issue.Diagnostics, "contained") {
+				t.Errorf("Should not have unknown element error for contained resource fields: %s", issue.Diagnostics)
+			}
+		}
+	}
+}
+
+// TestValidateContainedResourceInvalid tests validation of contained resources with invalid elements
+func TestValidateContainedResourceInvalid(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Condition with a contained Practitioner that has an invalid field
+	condition := []byte(`{
+		"resourceType": "Condition",
+		"id": "example",
+		"contained": [
+			{
+				"resourceType": "Practitioner",
+				"id": "p1",
+				"name": [{"family": "Smith"}],
+				"invalidField": "should cause error"
+			}
+		],
+		"subject": {"reference": "Patient/example"}
+	}`)
+
+	result, err := v.Validate(ctx, condition)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Invalid contained resource validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should have an "Unknown element" error for the invalidField in the Practitioner
+	hasUnknownFieldError := false
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeStructure && strings.Contains(issue.Diagnostics, "invalidField") {
+			hasUnknownFieldError = true
+			break
+		}
+	}
+	if !hasUnknownFieldError {
+		t.Error("Expected unknown element error for invalidField in contained resource")
+	}
+}
+
+// TestValidateContainedResourceMissingType tests contained resources without resourceType
+func TestValidateContainedResourceMissingType(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Condition with a contained resource without resourceType
+	condition := []byte(`{
+		"resourceType": "Condition",
+		"id": "example",
+		"contained": [
+			{
+				"id": "p1",
+				"name": [{"family": "Smith"}]
+			}
+		],
+		"subject": {"reference": "Patient/example"}
+	}`)
+
+	result, err := v.Validate(ctx, condition)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Missing resourceType validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should have error for missing resourceType
+	hasMissingTypeError := false
+	for _, issue := range result.Issues {
+		if strings.Contains(issue.Diagnostics, "resourceType") {
+			hasMissingTypeError = true
+			break
+		}
+	}
+	if !hasMissingTypeError {
+		t.Error("Expected error for contained resource without resourceType")
+	}
+}
+
+// TestValidateContainedResourceMultiple tests validation of multiple contained resources
+func TestValidateContainedResourceMultiple(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Condition with multiple valid contained resources of different types
+	condition := []byte(`{
+		"resourceType": "Condition",
+		"id": "example",
+		"contained": [
+			{
+				"resourceType": "Practitioner",
+				"id": "p1",
+				"name": [{"family": "Smith"}]
+			},
+			{
+				"resourceType": "Organization",
+				"id": "org1",
+				"name": "Test Hospital"
+			}
+		],
+		"subject": {"reference": "Patient/example"},
+		"asserter": {"reference": "#p1"}
+	}`)
+
+	result, err := v.Validate(ctx, condition)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Multiple contained resources validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should not have "Unknown element" errors for the contained resources
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeStructure && strings.Contains(issue.Diagnostics, "Unknown element") {
+			if strings.Contains(issue.Diagnostics, "contained") {
+				t.Errorf("Should not have unknown element error for contained resources: %s", issue.Diagnostics)
+			}
+		}
+	}
+}
+
+// TestValidateContainedResourceUnknownType tests contained resources with unknown resourceType
+func TestValidateContainedResourceUnknownType(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Condition with a contained resource with unknown type
+	condition := []byte(`{
+		"resourceType": "Condition",
+		"id": "example",
+		"contained": [
+			{
+				"resourceType": "UnknownResourceType",
+				"id": "u1"
+			}
+		],
+		"subject": {"reference": "Patient/example"}
+	}`)
+
+	result, err := v.Validate(ctx, condition)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Unknown type contained resource validation: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should have error for unknown resource type
+	hasUnknownTypeError := false
+	for _, issue := range result.Issues {
+		if strings.Contains(issue.Diagnostics, "Unknown resource type") {
+			hasUnknownTypeError = true
+			break
+		}
+	}
+	if !hasUnknownTypeError {
+		t.Error("Expected error for unknown resource type in contained resource")
+	}
+}
+
+// TestValidateContainedResourcePrimitives tests primitive validation in contained resources
+func TestValidateContainedResourcePrimitives(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	// Condition with a contained Patient that has invalid primitives
+	condition := []byte(`{
+		"resourceType": "Condition",
+		"id": "example",
+		"contained": [
+			{
+				"resourceType": "Patient",
+				"id": "p1",
+				"active": "not-a-boolean",
+				"birthDate": 12345
+			}
+		],
+		"subject": {"reference": "#p1"}
+	}`)
+
+	result, err := v.Validate(ctx, condition)
+	if err != nil {
+		t.Fatalf("Validate error: %v", err)
+	}
+
+	t.Logf("Primitive validation in contained: valid=%v, errors=%d", result.Valid, result.ErrorCount())
+	for _, issue := range result.Issues {
+		t.Logf("Issue: [%s] %s - %s (path: %v)", issue.Severity, issue.Code, issue.Diagnostics, issue.Expression)
+	}
+
+	// Should have errors for invalid primitives
+	hasBooleanError := false
+	hasDateError := false
+	for _, issue := range result.Issues {
+		if issue.Code == IssueCodeValue {
+			if strings.Contains(issue.Diagnostics, "boolean") {
+				hasBooleanError = true
+			}
+			if strings.Contains(issue.Diagnostics, "date") || strings.Contains(issue.Diagnostics, "string") {
+				hasDateError = true
+			}
+		}
+	}
+
+	if !hasBooleanError {
+		t.Error("Expected error for invalid boolean in contained resource")
+	}
+	if !hasDateError {
+		t.Error("Expected error for invalid date in contained resource")
+	}
+}
