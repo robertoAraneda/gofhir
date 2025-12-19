@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/robertoAraneda/gofhir/compare/v1.2.0...v1.3.0) (2025-12-19)
+
+
+### Features
+
+* **validator:** add contained resource validation support ([de6c7eb](https://github.com/robertoAraneda/gofhir/commit/de6c7eb9930a8719696d4b24ae623fb3870c5bd7))
+
 ## [1.2.0](https://github.com/robertoAraneda/gofhir/compare/v1.1.0...v1.2.0) (2025-12-17)
 
 
