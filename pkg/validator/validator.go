@@ -26,6 +26,10 @@ var (
 )
 
 // Package-level constants to avoid allocations in hot paths
+const (
+	// resourceTypeKey is the JSON key for FHIR resource type
+	resourceTypeKey = "resourceType"
+)
 
 // choiceSuffixes contains all possible type suffixes for choice types (value[x]).
 // Defined once at package level to avoid repeated allocations.
@@ -255,7 +259,7 @@ func (v *Validator) Validate(ctx context.Context, resource []byte) (*ValidationR
 		return result, nil
 	}
 
-	resourceType, ok := parsed["resourceType"].(string)
+	resourceType, ok := parsed[resourceTypeKey].(string)
 	if !ok || resourceType == "" {
 		result.AddIssue(ValidationIssue{
 			Severity:    SeverityFatal,
@@ -423,7 +427,7 @@ func (v *Validator) validateNode(ctx context.Context, node interface{}, sd *Stru
 
 	for key, child := range val {
 		// Skip internal fields
-		if key == "resourceType" && currentPath == "" {
+		if key == resourceTypeKey && currentPath == "" {
 			continue
 		}
 		if strings.HasPrefix(key, "_") {
@@ -513,7 +517,7 @@ func (v *Validator) validateContainedResources(ctx context.Context, child interf
 		}
 
 		// Extract resourceType from the contained resource
-		resourceType, ok := resourceMap["resourceType"].(string)
+		resourceType, ok := resourceMap[resourceTypeKey].(string)
 		if !ok || resourceType == "" {
 			result.AddIssue(ValidationIssue{
 				Severity:    SeverityError,
@@ -684,14 +688,14 @@ func (v *Validator) validatePrimitiveNode(ctx context.Context, node interface{},
 	switch val := node.(type) {
 	case map[string]interface{}:
 		// Check if this is a contained resource (has resourceType)
-		if resourceType, ok := val["resourceType"].(string); ok && resourceType != "" {
+		if resourceType, ok := val[resourceTypeKey].(string); ok && resourceType != "" {
 			// This is a contained resource - get its own index
 			containedSD, err := v.registry.GetByType(ctx, resourceType)
 			if err == nil {
 				containedIndex := v.buildElementIndex(containedSD)
 				// Validate contained resource with its own index
 				for key, child := range val {
-					if key == "resourceType" || strings.HasPrefix(key, "_") {
+					if key == resourceTypeKey || strings.HasPrefix(key, "_") {
 						continue
 					}
 					childPath := resourceType + "." + key
@@ -702,7 +706,7 @@ func (v *Validator) validatePrimitiveNode(ctx context.Context, node interface{},
 		}
 
 		for key, child := range val {
-			if key == "resourceType" || strings.HasPrefix(key, "_") {
+			if key == resourceTypeKey || strings.HasPrefix(key, "_") {
 				continue
 			}
 			childPath := path + "." + key
@@ -1240,7 +1244,7 @@ func (v *Validator) checkEle1Recursive(node interface{}, path string, result *Va
 		if path == "" || isResourceRoot(val) {
 			// Continue to check children
 			for key, child := range val {
-				if key == "resourceType" {
+				if key == resourceTypeKey {
 					continue
 				}
 				childPath := buildElementPath(path, key)
@@ -1293,7 +1297,7 @@ func (v *Validator) checkEle1Recursive(node interface{}, path string, result *Va
 
 // isResourceRoot checks if a map is the root resource (has resourceType).
 func isResourceRoot(m map[string]interface{}) bool {
-	_, hasResourceType := m["resourceType"]
+	_, hasResourceType := m[resourceTypeKey]
 	return hasResourceType
 }
 
