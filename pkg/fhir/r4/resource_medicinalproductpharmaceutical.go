@@ -4,7 +4,10 @@
 
 package r4
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // MedicinalProductPharmaceutical represents FHIR MedicinalProductPharmaceutical.
 type MedicinalProductPharmaceutical struct {
@@ -101,4 +104,34 @@ func (r MedicinalProductPharmaceutical) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "MedicinalProductPharmaceutical"
 	type Alias MedicinalProductPharmaceutical
 	return json.Marshal((Alias)(r))
+}
+
+// UnmarshalJSON handles deserialization of polymorphic contained resources.
+func (r *MedicinalProductPharmaceutical) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias MedicinalProductPharmaceutical
+	aux := &struct {
+		Contained []json.RawMessage `json:"contained,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(r),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal each contained resource using the dispatcher
+	if len(aux.Contained) > 0 {
+		r.Contained = make([]Resource, len(aux.Contained))
+		for i, raw := range aux.Contained {
+			resource, err := UnmarshalResource(raw)
+			if err != nil {
+				return fmt.Errorf("failed to unmarshal contained[%d]: %w", i, err)
+			}
+			r.Contained[i] = resource
+		}
+	}
+
+	return nil
 }

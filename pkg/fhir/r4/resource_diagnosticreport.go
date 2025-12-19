@@ -4,7 +4,10 @@
 
 package r4
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // DiagnosticReport represents FHIR DiagnosticReport.
 type DiagnosticReport struct {
@@ -133,4 +136,34 @@ func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "DiagnosticReport"
 	type Alias DiagnosticReport
 	return json.Marshal((Alias)(r))
+}
+
+// UnmarshalJSON handles deserialization of polymorphic contained resources.
+func (r *DiagnosticReport) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias DiagnosticReport
+	aux := &struct {
+		Contained []json.RawMessage `json:"contained,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(r),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal each contained resource using the dispatcher
+	if len(aux.Contained) > 0 {
+		r.Contained = make([]Resource, len(aux.Contained))
+		for i, raw := range aux.Contained {
+			resource, err := UnmarshalResource(raw)
+			if err != nil {
+				return fmt.Errorf("failed to unmarshal contained[%d]: %w", i, err)
+			}
+			r.Contained[i] = resource
+		}
+	}
+
+	return nil
 }
