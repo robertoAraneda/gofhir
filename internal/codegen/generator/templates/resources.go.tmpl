@@ -5,7 +5,22 @@
 
 package {{.PackageName}}
 
-import "encoding/json"
+{{/* Check if any type has a contained field to determine if we need fmt import */}}
+{{- $needsFmt := false -}}
+{{- range .Types -}}
+{{- range .Properties -}}
+{{- if eq .JSONName "contained" -}}
+{{- $needsFmt = true -}}
+{{- end -}}
+{{- end -}}
+{{- end }}
+
+import (
+	"encoding/json"
+{{- if $needsFmt }}
+	"fmt"
+{{- end }}
+)
 
 {{range .Types}}
 {{if .Description}}// {{.Name}} {{.Description}}
@@ -121,5 +136,38 @@ func (r {{.Name}}) MarshalJSON() ([]byte, error) {
 	type Alias {{.Name}}
 	return json.Marshal((Alias)(r))
 }
+
+{{- if $hasContained }}
+
+// UnmarshalJSON handles deserialization of polymorphic contained resources.
+func (r *{{.Name}}) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias {{.Name}}
+	aux := &struct {
+		Contained []json.RawMessage `json:"contained,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(r),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal each contained resource using the dispatcher
+	if len(aux.Contained) > 0 {
+		r.Contained = make([]Resource, len(aux.Contained))
+		for i, raw := range aux.Contained {
+			resource, err := UnmarshalResource(raw)
+			if err != nil {
+				return fmt.Errorf("failed to unmarshal contained[%d]: %w", i, err)
+			}
+			r.Contained[i] = resource
+		}
+	}
+
+	return nil
+}
+{{- end }}
 
 {{end}}
