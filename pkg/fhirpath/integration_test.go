@@ -737,6 +737,139 @@ func TestIsOperatorIntegration(t *testing.T) {
 	}
 }
 
+// TestResourceBaseTypeIntegration tests that Resource and DomainResource
+// base types work correctly in FHIRPath expressions.
+// This addresses the issue where expressions like "Resource.meta.tag" were
+// returning empty results even though all FHIR resources inherit from Resource.
+func TestResourceBaseTypeIntegration(t *testing.T) {
+	// Patient with meta.tag for testing the _tag search parameter expression
+	patient := []byte(`{
+		"resourceType": "Patient",
+		"id": "test",
+		"meta": {
+			"tag": [{
+				"system": "http://example.org",
+				"code": "test"
+			}]
+		},
+		"name": [{"family": "Test"}]
+	}`)
+
+	// Bundle to test non-DomainResource behavior
+	bundle := []byte(`{
+		"resourceType": "Bundle",
+		"id": "test-bundle",
+		"type": "collection",
+		"meta": {
+			"tag": [{
+				"system": "http://example.org",
+				"code": "bundle-tag"
+			}]
+		}
+	}`)
+
+	t.Run("Resource.meta.tag returns tags for Patient", func(t *testing.T) {
+		result, err := fhirpath.Evaluate(patient, "Resource.meta.tag")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if result.Empty() {
+			t.Error("Resource.meta.tag should return tags, got empty")
+		}
+		if len(result) != 1 {
+			t.Errorf("expected 1 tag, got %d", len(result))
+		}
+	})
+
+	t.Run("DomainResource.meta.tag returns tags for Patient", func(t *testing.T) {
+		result, err := fhirpath.Evaluate(patient, "DomainResource.meta.tag")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if result.Empty() {
+			t.Error("DomainResource.meta.tag should return tags, got empty")
+		}
+	})
+
+	t.Run("Resource.id returns id for Patient", func(t *testing.T) {
+		result, err := fhirpath.Evaluate(patient, "Resource.id")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if result.Empty() {
+			t.Error("Resource.id should return id, got empty")
+		}
+		if len(result) != 1 {
+			t.Errorf("expected 1 result, got %d", len(result))
+		}
+		// Get the first item and check its string value
+		if first := result[0]; first.String() != "test" {
+			t.Errorf("expected 'test', got %q", first.String())
+		}
+	})
+
+	t.Run("Resource.meta.tag works for Bundle", func(t *testing.T) {
+		result, err := fhirpath.Evaluate(bundle, "Resource.meta.tag")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if result.Empty() {
+			t.Error("Resource.meta.tag should work for Bundle, got empty")
+		}
+	})
+
+	t.Run("DomainResource.meta.tag is empty for Bundle", func(t *testing.T) {
+		// Bundle inherits from Resource, NOT DomainResource
+		result, err := fhirpath.Evaluate(bundle, "DomainResource.meta.tag")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if !result.Empty() {
+			t.Error("DomainResource.meta.tag should be empty for Bundle (Bundle is not a DomainResource)")
+		}
+	})
+
+	t.Run("Patient is Resource returns true", func(t *testing.T) {
+		result, err := fhirpath.EvaluateToBoolean(patient, "Patient.is(Resource)")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if !result {
+			t.Error("Patient.is(Resource) should be true")
+		}
+	})
+
+	t.Run("Patient is DomainResource returns true", func(t *testing.T) {
+		result, err := fhirpath.EvaluateToBoolean(patient, "Patient.is(DomainResource)")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if !result {
+			t.Error("Patient.is(DomainResource) should be true")
+		}
+	})
+
+	t.Run("Bundle is Resource returns true", func(t *testing.T) {
+		result, err := fhirpath.EvaluateToBoolean(bundle, "Bundle.is(Resource)")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if !result {
+			t.Error("Bundle.is(Resource) should be true")
+		}
+	})
+
+	t.Run("Bundle is DomainResource returns false", func(t *testing.T) {
+		result, err := fhirpath.EvaluateToBoolean(bundle, "Bundle.is(DomainResource)")
+		if err != nil {
+			t.Fatalf("error = %v", err)
+		}
+		if result {
+			t.Error("Bundle.is(DomainResource) should be false (Bundle inherits directly from Resource)")
+		}
+	})
+}
+
 // Helper functions
 func strPtr(s string) *string {
 	return &s

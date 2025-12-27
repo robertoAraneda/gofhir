@@ -1187,6 +1187,27 @@ func TestTypeMatches(t *testing.T) {
 		// Resource types
 		{"Patient resource", "Patient", "Patient", true},
 		{"Observation resource", "Observation", "Observation", true},
+
+		// Resource and DomainResource base type inheritance
+		{"Patient is Resource", "Patient", "Resource", true},
+		{"Observation is Resource", "Observation", "Resource", true},
+		{"Bundle is Resource", "Bundle", "Resource", true},
+		{"Binary is Resource", "Binary", "Resource", true},
+		{"Parameters is Resource", "Parameters", "Resource", true},
+
+		{"Patient is DomainResource", "Patient", "DomainResource", true},
+		{"Observation is DomainResource", "Observation", "DomainResource", true},
+		{"MedicationRequest is DomainResource", "MedicationRequest", "DomainResource", true},
+
+		// Bundle, Binary, Parameters inherit directly from Resource, NOT DomainResource
+		{"Bundle is NOT DomainResource", "Bundle", "DomainResource", false},
+		{"Binary is NOT DomainResource", "Binary", "DomainResource", false},
+		{"Parameters is NOT DomainResource", "Parameters", "DomainResource", false},
+
+		// Primitives are not resources
+		{"String is not Resource", "String", "Resource", false},
+		{"Boolean is not Resource", "Boolean", "Resource", false},
+		{"Integer is not Resource", "Integer", "Resource", false},
 	}
 
 	for _, tt := range tests {
@@ -1197,6 +1218,80 @@ func TestTypeMatches(t *testing.T) {
 					tt.actualType, tt.typeName, result, tt.expected)
 			}
 		})
+	}
+}
+
+func TestIsSubtypeOf(t *testing.T) {
+	tests := []struct {
+		name       string
+		actualType string
+		baseType   string
+		expected   bool
+	}{
+		// Direct matches
+		{"Patient equals Patient", "Patient", "Patient", true},
+		{"Resource equals Resource", "Resource", "Resource", true},
+		{"DomainResource equals DomainResource", "DomainResource", "DomainResource", true},
+
+		// All resources inherit from Resource
+		{"Patient is Resource", "Patient", "Resource", true},
+		{"Observation is Resource", "Observation", "Resource", true},
+		{"Encounter is Resource", "Encounter", "Resource", true},
+		{"Bundle is Resource", "Bundle", "Resource", true},
+		{"Binary is Resource", "Binary", "Resource", true},
+		{"Parameters is Resource", "Parameters", "Resource", true},
+
+		// Most resources inherit from DomainResource
+		{"Patient is DomainResource", "Patient", "DomainResource", true},
+		{"Observation is DomainResource", "Observation", "DomainResource", true},
+		{"Condition is DomainResource", "Condition", "DomainResource", true},
+
+		// Bundle, Binary, Parameters do NOT inherit from DomainResource
+		{"Bundle is NOT DomainResource", "Bundle", "DomainResource", false},
+		{"Binary is NOT DomainResource", "Binary", "DomainResource", false},
+		{"Parameters is NOT DomainResource", "Parameters", "DomainResource", false},
+
+		// Primitives are not resources
+		{"String is not Resource", "String", "Resource", false},
+		{"Boolean is not Resource", "Boolean", "Resource", false},
+		{"Integer is not Resource", "Integer", "Resource", false},
+		{"Quantity is not Resource", "Quantity", "Resource", false},
+
+		// Case insensitive for base types
+		{"Patient is resource (lowercase)", "Patient", "resource", true},
+		{"Patient is domainresource (lowercase)", "Patient", "domainresource", true},
+
+		// Different concrete types don't match
+		{"Patient is not Observation", "Patient", "Observation", false},
+		{"Bundle is not Patient", "Bundle", "Patient", false},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := IsSubtypeOf(tt.actualType, tt.baseType)
+			if result != tt.expected {
+				t.Errorf("IsSubtypeOf(%q, %q) = %v, expected %v",
+					tt.actualType, tt.baseType, result, tt.expected)
+			}
+		})
+	}
+}
+
+func TestIsDomainResource(t *testing.T) {
+	// Resources that are NOT DomainResources
+	nonDomainResources := []string{"Bundle", "Binary", "Parameters"}
+	for _, rt := range nonDomainResources {
+		if IsDomainResource(rt) {
+			t.Errorf("IsDomainResource(%q) = true, expected false", rt)
+		}
+	}
+
+	// Resources that ARE DomainResources
+	domainResources := []string{"Patient", "Observation", "Encounter", "Condition", "MedicationRequest"}
+	for _, rt := range domainResources {
+		if !IsDomainResource(rt) {
+			t.Errorf("IsDomainResource(%q) = false, expected true", rt)
+		}
 	}
 }
 

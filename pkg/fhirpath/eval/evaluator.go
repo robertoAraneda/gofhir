@@ -1165,6 +1165,77 @@ func (e *Evaluator) VisitTypeExpression(ctx *grammar.TypeExpressionContext) inte
 	return types.Collection{}
 }
 
+// nonDomainResources contains FHIR resources that inherit directly from Resource,
+// not from DomainResource. All other resources inherit from DomainResource.
+var nonDomainResources = map[string]bool{
+	"Bundle":     true,
+	"Binary":     true,
+	"Parameters": true,
+}
+
+// IsDomainResource returns true if the given resource type inherits from DomainResource.
+// Bundle, Binary, and Parameters inherit directly from Resource, not DomainResource.
+func IsDomainResource(resourceType string) bool {
+	return !nonDomainResources[resourceType]
+}
+
+// IsSubtypeOf checks if actualType is a subtype of (or equal to) baseType.
+// This handles the FHIR type hierarchy:
+//
+//	Resource
+//	  └── DomainResource
+//	        ├── Patient
+//	        ├── Observation
+//	        └── ... (most resources)
+//	  └── Bundle, Binary, Parameters (directly inherit from Resource)
+func IsSubtypeOf(actualType, baseType string) bool {
+	// Direct match
+	if actualType == baseType {
+		return true
+	}
+
+	// Case-insensitive direct match
+	if strings.EqualFold(actualType, baseType) {
+		return true
+	}
+
+	// Check Resource base type - all resources inherit from Resource
+	if baseType == "Resource" || strings.EqualFold(baseType, "resource") {
+		// Any non-empty type that looks like a resource type matches Resource
+		// Resource types are PascalCase and don't include primitives
+		return isPossibleResourceType(actualType)
+	}
+
+	// Check DomainResource base type
+	if baseType == "DomainResource" || strings.EqualFold(baseType, "domainresource") {
+		// Most resources inherit from DomainResource, except Bundle, Binary, Parameters
+		return isPossibleResourceType(actualType) && IsDomainResource(actualType)
+	}
+
+	return false
+}
+
+// isPossibleResourceType checks if the type looks like a FHIR resource type.
+// Resource types are PascalCase and are not primitive types.
+func isPossibleResourceType(typeName string) bool {
+	if typeName == "" {
+		return false
+	}
+
+	// Primitive types are not resources
+	primitiveTypes := map[string]bool{
+		"Boolean": true, "String": true, "Integer": true, "Decimal": true,
+		"Date": true, "DateTime": true, "Time": true, "Quantity": true,
+		"Object": true,
+	}
+	if primitiveTypes[typeName] {
+		return false
+	}
+
+	// Resource types start with uppercase
+	return typeName[0] >= 'A' && typeName[0] <= 'Z'
+}
+
 // TypeMatches checks if actualType matches the requested typeName.
 // Handles case-insensitive comparison and FHIR type aliases.
 // This function is exported for use by the is() function implementation.
@@ -1180,6 +1251,11 @@ func TypeMatches(actualType, typeName string) bool {
 
 	// Case-insensitive match
 	if actualLower == typeNameLower {
+		return true
+	}
+
+	// Check FHIR base type inheritance (Resource, DomainResource)
+	if IsSubtypeOf(actualType, typeName) {
 		return true
 	}
 
@@ -1279,7 +1355,8 @@ func (e *Evaluator) navigateMember(input types.Collection, name string) types.Co
 		}
 
 		// Check if name matches resourceType (for FHIR resources)
-		if obj.Type() == name {
+		// Uses IsSubtypeOf to handle Resource and DomainResource base types
+		if IsSubtypeOf(obj.Type(), name) {
 			result = append(result, obj)
 			continue
 		}
