@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/robertoAraneda/gofhir/compare/v1.4.0...v1.4.1) (2025-12-27)
+
+
+### Bug Fixes
+
+* **fhirpath:** support Resource and DomainResource base type inheritance ([848d840](https://github.com/robertoAraneda/gofhir/commit/848d8409ef29995c5c67d733a209bf52305f10ec))
+
 ## [1.4.0](https://github.com/robertoAraneda/gofhir/compare/v1.3.0...v1.4.0) (2025-12-19)
 
 
