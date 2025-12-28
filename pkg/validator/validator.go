@@ -393,8 +393,8 @@ func (v *Validator) validateStructure(ctx context.Context, vctx *validationConte
 	for _, elem := range vctx.sd.Snapshot {
 		if elem.Min > 0 {
 			// Element is required
-			if !presentElements[elem.Path] && !isChildPath(elem.Path, vctx.resourceType) {
-				// Only report if it's a direct child of what we're validating
+			if !presentElements[elem.Path] {
+				// Only report if parent exists (direct child of resource or child of present element)
 				parentPath := getParentPath(elem.Path)
 				if parentPath == vctx.resourceType || presentElements[parentPath] {
 					// Check if this is a choice element that might be satisfied by another choice
@@ -551,6 +551,11 @@ func (v *Validator) validateContainedResources(ctx context.Context, child interf
 
 // findElementDef finds the ElementDef for a path, handling choice types and complex types.
 func (v *Validator) findElementDef(index elementIndex, path, _ string) *ElementDef {
+	return v.findElementDefWithContext(context.Background(), index, path)
+}
+
+// findElementDefWithContext finds the ElementDef for a path, with context for loading complex type definitions.
+func (v *Validator) findElementDefWithContext(ctx context.Context, index elementIndex, path string) *ElementDef {
 	// Direct match
 	if elem, ok := index[path]; ok {
 		return elem
@@ -558,7 +563,7 @@ func (v *Validator) findElementDef(index elementIndex, path, _ string) *ElementD
 
 	parts := strings.Split(path, ".")
 
-	// Try choice type (e.g., "Patient.deceased" for "Patient.deceasedBoolean")
+	// Try choice type (e.g., "Patient.deceasedBoolean" -> "Patient.deceased[x]")
 	// Uses package-level choiceSuffixes to avoid allocation
 	if len(parts) >= 2 {
 		lastPart := parts[len(parts)-1]
@@ -568,14 +573,33 @@ func (v *Validator) findElementDef(index elementIndex, path, _ string) *ElementD
 				baseName := strings.TrimSuffix(lastPart, suffix)
 				choicePath := strings.Join(parts[:len(parts)-1], ".") + "." + baseName + "[x]"
 				if elem, ok := index[choicePath]; ok {
-					return elem
+					// Return a modified ElementDef with the correct type based on suffix
+					// Convert suffix to lowercase for type code (e.g., "DateTime" -> "dateTime")
+					typeCode := strings.ToLower(suffix[:1]) + suffix[1:]
+					return &ElementDef{
+						ID:          elem.ID,
+						Path:        path,
+						SliceName:   elem.SliceName,
+						Min:         elem.Min,
+						Max:         elem.Max,
+						Types:       []TypeRef{{Code: typeCode}},
+						Binding:     elem.Binding,
+						Constraints: elem.Constraints,
+						Fixed:       elem.Fixed,
+						Pattern:     elem.Pattern,
+						Short:       elem.Short,
+						Definition:  elem.Definition,
+						MustSupport: elem.MustSupport,
+						IsModifier:  elem.IsModifier,
+						IsSummary:   elem.IsSummary,
+					}
 				}
 			}
 		}
 	}
 
 	// For nested elements of complex types (e.g., Patient.name.family or Observation.code.coding.system),
-	// check if any ancestor is a complex type.
+	// check if any ancestor is a complex type and look up the element in the type's StructureDefinition.
 	if len(parts) >= 3 {
 		// Walk backwards through the path to find a complex type ancestor
 		for i := len(parts) - 1; i >= 2; i-- {
@@ -586,7 +610,11 @@ func (v *Validator) findElementDef(index elementIndex, path, _ string) *ElementD
 				if len(ancestorElem.Types) > 0 {
 					typeCode := ancestorElem.Types[0].Code
 					if isComplexType(typeCode) {
-						// This is a child of a complex type - return synthetic ElementDef
+						// Try to load the complex type's StructureDefinition and find the element
+						if elemDef := v.findElementInComplexType(ctx, typeCode, parts[i:], path); elemDef != nil {
+							return elemDef
+						}
+						// Fallback to synthetic ElementDef if type definition not found
 						return &ElementDef{
 							Path: path,
 							Min:  0,
@@ -606,26 +634,88 @@ func (v *Validator) findElementDef(index elementIndex, path, _ string) *ElementD
 					if strings.HasSuffix(ancestorLastPart, suffix) {
 						baseName := strings.TrimSuffix(ancestorLastPart, suffix)
 						choicePath := strings.Join(ancestorParts[:len(ancestorParts)-1], ".") + "." + baseName + "[x]"
-						if choiceElem, ok := index[choicePath]; ok {
+						if _, ok := index[choicePath]; ok {
 							// Found the choice type element - check if the suffix type is complex
 							if isComplexType(suffix) {
+								// Try to load the complex type's StructureDefinition
+								remainingParts := parts[i:]
+								if elemDef := v.findElementInComplexType(ctx, suffix, remainingParts, path); elemDef != nil {
+									return elemDef
+								}
 								return &ElementDef{
 									Path: path,
 									Min:  0,
 									Max:  "*",
 								}
 							}
-							// Also check if any of the choice types is complex
-							for _, t := range choiceElem.Types {
-								if t.Code == suffix && isComplexType(t.Code) {
-									return &ElementDef{
-										Path: path,
-										Min:  0,
-										Max:  "*",
-									}
-								}
-							}
 						}
+					}
+				}
+			}
+		}
+	}
+
+	return nil
+}
+
+// findElementInComplexType loads the StructureDefinition for a complex type and finds the element.
+// It handles nested complex types recursively (e.g., CodeableConcept.coding.system where coding is Coding type).
+func (v *Validator) findElementInComplexType(ctx context.Context, typeCode string, remainingParts []string, originalPath string) *ElementDef {
+	if len(remainingParts) == 0 {
+		return nil
+	}
+
+	// Build the canonical URL for the complex type
+	typeURL := "http://hl7.org/fhir/StructureDefinition/" + typeCode
+
+	// Try to load the type's StructureDefinition
+	typeDef, err := v.registry.Get(ctx, typeURL)
+	if err != nil {
+		return nil
+	}
+
+	// Build the full path within the complex type (e.g., "CodeableConcept.coding.system")
+	fullTypePath := typeCode + "." + strings.Join(remainingParts, ".")
+
+	// First, try direct match for the full path
+	for i := range typeDef.Snapshot {
+		elem := &typeDef.Snapshot[i]
+		if elem.Path == fullTypePath {
+			// Return a copy with the original path for error reporting
+			return &ElementDef{
+				ID:          elem.ID,
+				Path:        originalPath,
+				SliceName:   elem.SliceName,
+				Min:         elem.Min,
+				Max:         elem.Max,
+				Types:       elem.Types,
+				Binding:     elem.Binding,
+				Constraints: elem.Constraints,
+				Fixed:       elem.Fixed,
+				Pattern:     elem.Pattern,
+				Short:       elem.Short,
+				Definition:  elem.Definition,
+				MustSupport: elem.MustSupport,
+				IsModifier:  elem.IsModifier,
+				IsSummary:   elem.IsSummary,
+			}
+		}
+	}
+
+	// If not found directly, check if there's an intermediate complex type
+	// e.g., for "CodeableConcept.coding.system", check if "CodeableConcept.coding" has a complex type
+	for i := 1; i < len(remainingParts); i++ {
+		intermediatePath := typeCode + "." + strings.Join(remainingParts[:i], ".")
+
+		for j := range typeDef.Snapshot {
+			elem := &typeDef.Snapshot[j]
+			if elem.Path == intermediatePath && len(elem.Types) > 0 {
+				intermediateTypeCode := elem.Types[0].Code
+				if isComplexType(intermediateTypeCode) {
+					// Recursively search in the intermediate complex type
+					nestedParts := remainingParts[i:]
+					if result := v.findElementInComplexType(ctx, intermediateTypeCode, nestedParts, originalPath); result != nil {
+						return result
 					}
 				}
 			}
@@ -718,7 +808,7 @@ func (v *Validator) validatePrimitiveNode(ctx context.Context, node interface{},
 		}
 	default:
 		// Validate primitive value against type
-		elemDef := v.findElementDef(index, path, strings.Split(path, ".")[0])
+		elemDef := v.findElementDefWithContext(ctx, index, path)
 		if elemDef != nil && len(elemDef.Types) > 0 {
 			v.validatePrimitiveValue(val, elemDef.Types[0].Code, path, result)
 		}
