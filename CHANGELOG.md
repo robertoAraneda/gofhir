@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.0](https://github.com/robertoAraneda/gofhir/compare/v1.4.1...v1.5.0) (2025-12-29)
+
+
+### Features
+
+* **validator:** add format validation for code, id, oid, uuid primitives ([75b301c](https://github.com/robertoAraneda/gofhir/commit/75b301c922b417b9a42a9cea5d9dddee2c43437c))
+
+
+### Bug Fixes
+
+* **validator:** detect primitive type mismatches and missing required fields ([8cd7007](https://github.com/robertoAraneda/gofhir/commit/8cd7007f2cb47050ba185c281f5d6a89d850749b))
+
 ## [1.4.1](https://github.com/robertoAraneda/gofhir/compare/v1.4.0...v1.4.1) (2025-12-27)
 
 
