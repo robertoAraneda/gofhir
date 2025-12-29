@@ -4,7 +4,9 @@
 
 package r5
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Parameters represents FHIR Parameters.
 type Parameters struct {

@@ -4,7 +4,10 @@
 
 package r5
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // DeviceUsage represents FHIR DeviceUsage.
 type DeviceUsage struct {
@@ -131,4 +134,34 @@ func (r DeviceUsage) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "DeviceUsage"
 	type Alias DeviceUsage
 	return json.Marshal((Alias)(r))
+}
+
+// UnmarshalJSON handles deserialization of polymorphic contained resources.
+func (r *DeviceUsage) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias DeviceUsage
+	aux := &struct {
+		Contained []json.RawMessage `json:"contained,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(r),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal each contained resource using the dispatcher
+	if len(aux.Contained) > 0 {
+		r.Contained = make([]Resource, len(aux.Contained))
+		for i, raw := range aux.Contained {
+			resource, err := UnmarshalResource(raw)
+			if err != nil {
+				return fmt.Errorf("failed to unmarshal contained[%d]: %w", i, err)
+			}
+			r.Contained[i] = resource
+		}
+	}
+
+	return nil
 }

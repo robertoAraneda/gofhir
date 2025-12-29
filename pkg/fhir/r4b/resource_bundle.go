@@ -4,7 +4,9 @@
 
 package r4b
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Bundle represents FHIR Bundle.
 type Bundle struct {

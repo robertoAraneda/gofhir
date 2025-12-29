@@ -4,6 +4,11 @@
 
 package r5
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // ParametersParameter represents the Parameters.parameter backbone element.
 // Operation Parameter
 type ParametersParameter struct {
@@ -165,4 +170,31 @@ type ParametersParameter struct {
 	ValueMeta *Meta `json:"valueMeta,omitempty"`
 	// If parameter is a whole resource
 	Resource Resource `json:"resource,omitempty"`
+}
+
+// UnmarshalJSON handles deserialization of polymorphic resource field.
+func (b *ParametersParameter) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias ParametersParameter
+	aux := &struct {
+		Resource json.RawMessage `json:"resource,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(b),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal the resource field using the dispatcher
+	if len(aux.Resource) > 0 {
+		resource, err := UnmarshalResource(aux.Resource)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal resource: %w", err)
+		}
+		b.Resource = resource
+	}
+
+	return nil
 }

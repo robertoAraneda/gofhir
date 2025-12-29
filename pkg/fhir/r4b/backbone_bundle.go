@@ -4,6 +4,11 @@
 
 package r4b
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // BundleEntry represents the Bundle.entry backbone element.
 // Entry in the bundle - will have a resource or information
 type BundleEntry struct {
@@ -23,6 +28,33 @@ type BundleEntry struct {
 	Request *BundleEntryRequest `json:"request,omitempty"`
 	// Results of execution (transaction/batch/history)
 	Response *BundleEntryResponse `json:"response,omitempty"`
+}
+
+// UnmarshalJSON handles deserialization of polymorphic resource field.
+func (b *BundleEntry) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias BundleEntry
+	aux := &struct {
+		Resource json.RawMessage `json:"resource,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(b),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal the resource field using the dispatcher
+	if len(aux.Resource) > 0 {
+		resource, err := UnmarshalResource(aux.Resource)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal resource: %w", err)
+		}
+		b.Resource = resource
+	}
+
+	return nil
 }
 
 // BundleEntryRequest represents the Bundle.entry.request backbone element.
@@ -67,6 +99,33 @@ type BundleEntryResponse struct {
 	LastModified *string `json:"lastModified,omitempty"`
 	// OperationOutcome with hints and warnings (for batch/transaction)
 	Outcome Resource `json:"outcome,omitempty"`
+}
+
+// UnmarshalJSON handles deserialization of polymorphic resource field.
+func (b *BundleEntryResponse) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias BundleEntryResponse
+	aux := &struct {
+		Outcome json.RawMessage `json:"outcome,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(b),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal the resource field using the dispatcher
+	if len(aux.Outcome) > 0 {
+		resource, err := UnmarshalResource(aux.Outcome)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal outcome: %w", err)
+		}
+		b.Outcome = resource
+	}
+
+	return nil
 }
 
 // BundleEntrySearch represents the Bundle.entry.search backbone element.

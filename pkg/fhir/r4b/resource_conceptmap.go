@@ -4,7 +4,10 @@
 
 package r4b
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // ConceptMap represents FHIR ConceptMap.
 type ConceptMap struct {
@@ -157,4 +160,34 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "ConceptMap"
 	type Alias ConceptMap
 	return json.Marshal((Alias)(r))
+}
+
+// UnmarshalJSON handles deserialization of polymorphic contained resources.
+func (r *ConceptMap) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias ConceptMap
+	aux := &struct {
+		Contained []json.RawMessage `json:"contained,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(r),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal each contained resource using the dispatcher
+	if len(aux.Contained) > 0 {
+		r.Contained = make([]Resource, len(aux.Contained))
+		for i, raw := range aux.Contained {
+			resource, err := UnmarshalResource(raw)
+			if err != nil {
+				return fmt.Errorf("failed to unmarshal contained[%d]: %w", i, err)
+			}
+			r.Contained[i] = resource
+		}
+	}
+
+	return nil
 }

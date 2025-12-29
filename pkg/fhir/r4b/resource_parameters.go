@@ -4,7 +4,9 @@
 
 package r4b
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Parameters represents FHIR Parameters.
 type Parameters struct {

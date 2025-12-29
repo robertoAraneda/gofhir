@@ -4,7 +4,10 @@
 
 package r4b
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // CatalogEntry represents FHIR CatalogEntry.
 type CatalogEntry struct {
@@ -121,4 +124,34 @@ func (r CatalogEntry) MarshalJSON() ([]byte, error) {
 	r.ResourceType = "CatalogEntry"
 	type Alias CatalogEntry
 	return json.Marshal((Alias)(r))
+}
+
+// UnmarshalJSON handles deserialization of polymorphic contained resources.
+func (r *CatalogEntry) UnmarshalJSON(data []byte) error {
+	// Use an alias to avoid infinite recursion
+	type Alias CatalogEntry
+	aux := &struct {
+		Contained []json.RawMessage `json:"contained,omitempty"`
+		*Alias
+	}{
+		Alias: (*Alias)(r),
+	}
+
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+
+	// Unmarshal each contained resource using the dispatcher
+	if len(aux.Contained) > 0 {
+		r.Contained = make([]Resource, len(aux.Contained))
+		for i, raw := range aux.Contained {
+			resource, err := UnmarshalResource(raw)
+			if err != nil {
+				return fmt.Errorf("failed to unmarshal contained[%d]: %w", i, err)
+			}
+			r.Contained[i] = resource
+		}
+	}
+
+	return nil
 }

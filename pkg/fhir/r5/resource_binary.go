@@ -4,7 +4,9 @@
 
 package r5
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Binary represents FHIR Binary.
 type Binary struct {
