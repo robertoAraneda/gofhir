@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/robertoAraneda/gofhir/compare/v1.6.0...v1.6.1) (2025-12-29)
+
+
+### Bug Fixes
+
+* **codegen:** resolve contentReference elements to proper Go types ([151d0e9](https://github.com/robertoAraneda/gofhir/commit/151d0e9a7844eea7d57cb73dc02f60028a25be2c))
+
 ## [1.6.0](https://github.com/robertoAraneda/gofhir/compare/v1.5.0...v1.6.0) (2025-12-29)
 
 
