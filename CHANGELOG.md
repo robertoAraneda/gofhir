@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/robertoAraneda/gofhir/compare/v1.5.0...v1.6.0) (2025-12-29)
+
+
+### Features
+
+* **validator:** add SkipContainedValidation option ([a6e6a0c](https://github.com/robertoAraneda/gofhir/commit/a6e6a0c656ecb6749c8d9d333f8aa4e6fda2925b))
+
+
+### Bug Fixes
+
+* **fhir:** add UnmarshalJSON for contained resources in R4B and R5 ([8477b21](https://github.com/robertoAraneda/gofhir/commit/8477b217edfec4546469083d2adc9e4b3cdb05cb))
+
 ## [1.5.0](https://github.com/robertoAraneda/gofhir/compare/v1.4.1...v1.5.0) (2025-12-29)
 
 
