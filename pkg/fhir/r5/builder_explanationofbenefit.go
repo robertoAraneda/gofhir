@@ -319,6 +319,12 @@ func (b *ExplanationOfBenefitBuilder) AddAddItem(v ExplanationOfBenefitAddItem) 
 	return b
 }
 
+// AddAdjudication adds a Adjudication element.
+func (b *ExplanationOfBenefitBuilder) AddAdjudication(v ExplanationOfBenefitItemAdjudication) *ExplanationOfBenefitBuilder {
+	b.explanationOfBenefit.Adjudication = append(b.explanationOfBenefit.Adjudication, v)
+	return b
+}
+
 // AddTotal adds a Total element.
 func (b *ExplanationOfBenefitBuilder) AddTotal(v ExplanationOfBenefitTotal) *ExplanationOfBenefitBuilder {
 	b.explanationOfBenefit.Total = append(b.explanationOfBenefit.Total, v)

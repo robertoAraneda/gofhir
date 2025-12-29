@@ -44,7 +44,7 @@ type BodyStructure struct {
 	// Included anatomic location(s)
 	IncludedStructure []BodyStructureIncludedStructure `json:"includedStructure,omitempty"`
 	// Excluded anatomic locations(s)
-	ExcludedStructure *interface{} `json:"excludedStructure,omitempty"`
+	ExcludedStructure []BodyStructureIncludedStructure `json:"excludedStructure,omitempty"`
 	// Text description
 	Description *string `json:"description,omitempty"`
 	// Extension for Description

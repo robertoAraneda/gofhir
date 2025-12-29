@@ -175,6 +175,12 @@ func (b *ClaimResponseBuilder) AddAddItem(v ClaimResponseAddItem) *ClaimResponse
 	return b
 }
 
+// AddAdjudication adds a Adjudication element.
+func (b *ClaimResponseBuilder) AddAdjudication(v ClaimResponseItemAdjudication) *ClaimResponseBuilder {
+	b.claimResponse.Adjudication = append(b.claimResponse.Adjudication, v)
+	return b
+}
+
 // AddTotal adds a Total element.
 func (b *ClaimResponseBuilder) AddTotal(v ClaimResponseTotal) *ClaimResponseBuilder {
 	b.claimResponse.Total = append(b.claimResponse.Total, v)

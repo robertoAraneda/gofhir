@@ -90,7 +90,7 @@ type ClaimResponse struct {
 	// Insurer added line items
 	AddItem []ClaimResponseAddItem `json:"addItem,omitempty"`
 	// Header-level adjudication
-	Adjudication *interface{} `json:"adjudication,omitempty"`
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Adjudication totals
 	Total []ClaimResponseTotal `json:"total,omitempty"`
 	// Payment Details

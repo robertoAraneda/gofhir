@@ -19,6 +19,8 @@ type ValueSetCompose struct {
 	Inactive *bool `json:"inactive,omitempty"`
 	// Include one or more codes from a code system or other value set(s)
 	Include []ValueSetComposeInclude `json:"include,omitempty"`
+	// Explicitly exclude codes from a code system or other value sets
+	Exclude []ValueSetComposeInclude `json:"exclude,omitempty"`
 	// Property to return if client doesn't override
 	Property []string `json:"property,omitempty"`
 }
@@ -147,8 +149,12 @@ type ValueSetExpansionContains struct {
 	Code *string `json:"code,omitempty"`
 	// User display for the concept
 	Display *string `json:"display,omitempty"`
+	// Additional representations for this item
+	Designation []ValueSetComposeIncludeConceptDesignation `json:"designation,omitempty"`
 	// Property value for the concept
 	Property []ValueSetExpansionContainsProperty `json:"property,omitempty"`
+	// Codes contained under this entry
+	Contains []ValueSetExpansionContains `json:"contains,omitempty"`
 }
 
 // ValueSetExpansionContainsProperty represents the ValueSet.expansion.contains.property backbone element.

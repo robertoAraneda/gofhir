@@ -48,6 +48,8 @@ type ConsentProvision struct {
 	DataPeriod *Period `json:"dataPeriod,omitempty"`
 	// Data controlled by this rule
 	Data []ConsentProvisionData `json:"data,omitempty"`
+	// Nested Exception Rules
+	Provision []ConsentProvision `json:"provision,omitempty"`
 }
 
 // ConsentProvisionActor represents the Consent.provision.actor backbone element.

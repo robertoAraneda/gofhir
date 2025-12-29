@@ -19,6 +19,8 @@ type ObservationDefinitionComponent struct {
 	PermittedDataType []ObservationDataType `json:"permittedDataType,omitempty"`
 	// Unit for quantitative results
 	PermittedUnit []Coding `json:"permittedUnit,omitempty"`
+	// Set of qualified values for observation results
+	QualifiedValue []ObservationDefinitionQualifiedValue `json:"qualifiedValue,omitempty"`
 }
 
 // ObservationDefinitionQualifiedValue represents the ObservationDefinition.qualifiedValue backbone element.

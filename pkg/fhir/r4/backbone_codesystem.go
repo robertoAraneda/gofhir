@@ -23,6 +23,8 @@ type CodeSystemConcept struct {
 	Designation []CodeSystemConceptDesignation `json:"designation,omitempty"`
 	// Property value for the concept
 	Property []CodeSystemConceptProperty `json:"property,omitempty"`
+	// Child Concepts (is-a/contains/categorizes)
+	Concept []CodeSystemConcept `json:"concept,omitempty"`
 }
 
 // CodeSystemConceptDesignation represents the CodeSystem.concept.designation backbone element.

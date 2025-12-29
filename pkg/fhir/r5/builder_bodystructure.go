@@ -97,6 +97,12 @@ func (b *BodyStructureBuilder) AddIncludedStructure(v BodyStructureIncludedStruc
 	return b
 }
 
+// AddExcludedStructure adds a ExcludedStructure element.
+func (b *BodyStructureBuilder) AddExcludedStructure(v BodyStructureIncludedStructure) *BodyStructureBuilder {
+	b.bodyStructure.ExcludedStructure = append(b.bodyStructure.ExcludedStructure, v)
+	return b
+}
+
 // SetDescription sets the Description field.
 func (b *BodyStructureBuilder) SetDescription(v string) *BodyStructureBuilder {
 	b.bodyStructure.Description = &v

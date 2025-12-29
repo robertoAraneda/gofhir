@@ -21,6 +21,10 @@ type ManufacturedItemDefinitionComponent struct {
 	Amount []Quantity `json:"amount,omitempty"`
 	// A reference to a constituent of the manufactured item as a whole, linked here so that its component location within the item can be indicated. This not where the item's ingredient are primarily stated (for which see Ingredient.for or ManufacturedItemDefinition.ingredient)
 	Constituent []ManufacturedItemDefinitionComponentConstituent `json:"constituent,omitempty"`
+	// General characteristics of this component
+	Property []ManufacturedItemDefinitionProperty `json:"property,omitempty"`
+	// A component that this component contains or is made from
+	Component []ManufacturedItemDefinitionComponent `json:"component,omitempty"`
 }
 
 // ManufacturedItemDefinitionComponentConstituent represents the ManufacturedItemDefinition.component.constituent backbone element.

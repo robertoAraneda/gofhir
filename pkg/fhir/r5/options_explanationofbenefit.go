@@ -363,6 +363,13 @@ func WithExplanationOfBenefitAddItem(v ExplanationOfBenefitAddItem) ExplanationO
 	}
 }
 
+// WithExplanationOfBenefitAdjudication adds a Adjudication to the ExplanationOfBenefit.
+func WithExplanationOfBenefitAdjudication(v ExplanationOfBenefitItemAdjudication) ExplanationOfBenefitOption {
+	return func(r *ExplanationOfBenefit) {
+		r.Adjudication = append(r.Adjudication, v)
+	}
+}
+
 // WithExplanationOfBenefitTotal adds a Total to the ExplanationOfBenefit.
 func WithExplanationOfBenefitTotal(v ExplanationOfBenefitTotal) ExplanationOfBenefitOption {
 	return func(r *ExplanationOfBenefit) {

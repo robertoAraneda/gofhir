@@ -151,6 +151,12 @@ func (b *SubstanceSpecificationBuilder) AddName(v SubstanceSpecificationName) *S
 	return b
 }
 
+// AddMolecularWeight adds a MolecularWeight element.
+func (b *SubstanceSpecificationBuilder) AddMolecularWeight(v SubstanceSpecificationStructureIsotopeMolecularWeight) *SubstanceSpecificationBuilder {
+	b.substanceSpecification.MolecularWeight = append(b.substanceSpecification.MolecularWeight, v)
+	return b
+}
+
 // AddRelationship adds a Relationship element.
 func (b *SubstanceSpecificationBuilder) AddRelationship(v SubstanceSpecificationRelationship) *SubstanceSpecificationBuilder {
 	b.substanceSpecification.Relationship = append(b.substanceSpecification.Relationship, v)

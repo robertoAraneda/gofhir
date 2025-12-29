@@ -67,6 +67,8 @@ type ImplementationGuideDefinitionPage struct {
 	Title *string `json:"title,omitempty"`
 	// html | markdown | xml | generated
 	Generation *GuidePageGeneration `json:"generation,omitempty"`
+	// Nested Pages / Sections
+	Page []ImplementationGuideDefinitionPage `json:"page,omitempty"`
 }
 
 // ImplementationGuideDefinitionParameter represents the ImplementationGuide.definition.parameter backbone element.

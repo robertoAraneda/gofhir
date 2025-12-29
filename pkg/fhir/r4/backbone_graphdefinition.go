@@ -44,6 +44,8 @@ type GraphDefinitionLinkTarget struct {
 	Profile *string `json:"profile,omitempty"`
 	// Compartment Consistency Rules
 	Compartment []GraphDefinitionLinkTargetCompartment `json:"compartment,omitempty"`
+	// Additional links from target resource
+	Link []GraphDefinitionLink `json:"link,omitempty"`
 }
 
 // GraphDefinitionLinkTargetCompartment represents the GraphDefinition.link.target.compartment backbone element.

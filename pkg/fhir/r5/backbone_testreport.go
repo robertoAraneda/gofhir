@@ -126,6 +126,8 @@ type TestReportTeardownAction struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// The teardown operation performed
+	Operation *TestReportSetupActionOperation `json:"operation,omitempty"`
 }
 
 // TestReportTest represents the TestReport.test backbone element.
@@ -154,4 +156,8 @@ type TestReportTestAction struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// The operation performed
+	Operation *TestReportSetupActionOperation `json:"operation,omitempty"`
+	// The assertion performed
+	Assert *TestReportSetupActionAssert `json:"assert,omitempty"`
 }

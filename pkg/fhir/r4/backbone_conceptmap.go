@@ -63,6 +63,8 @@ type ConceptMapGroupElementTarget struct {
 	Comment *string `json:"comment,omitempty"`
 	// Other elements required for this mapping (from context)
 	DependsOn []ConceptMapGroupElementTargetDependsOn `json:"dependsOn,omitempty"`
+	// Other concepts that this mapping also produces
+	Product []ConceptMapGroupElementTargetDependsOn `json:"product,omitempty"`
 }
 
 // ConceptMapGroupElementTargetDependsOn represents the ConceptMap.group.element.target.dependsOn backbone element.

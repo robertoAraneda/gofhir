@@ -48,6 +48,8 @@ type PackagedProductDefinitionPackaging struct {
 	Property []PackagedProductDefinitionPackagingProperty `json:"property,omitempty"`
 	// The item(s) within the packaging
 	ContainedItem []PackagedProductDefinitionPackagingContainedItem `json:"containedItem,omitempty"`
+	// Allows containers (and parts of containers) within containers, still as a part of single packaged product
+	Packaging []PackagedProductDefinitionPackaging `json:"packaging,omitempty"`
 }
 
 // PackagedProductDefinitionPackagingContainedItem represents the PackagedProductDefinition.packaging.containedItem backbone element.

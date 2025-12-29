@@ -271,6 +271,8 @@ type TestScriptTeardownAction struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// The teardown operation to perform
+	Operation *TestScriptSetupActionOperation `json:"operation,omitempty"`
 }
 
 // TestScriptTest represents the TestScript.test backbone element.
@@ -299,6 +301,10 @@ type TestScriptTestAction struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// The setup operation to perform
+	Operation *TestScriptSetupActionOperation `json:"operation,omitempty"`
+	// The setup assertion to perform
+	Assert *TestScriptSetupActionAssert `json:"assert,omitempty"`
 }
 
 // TestScriptVariable represents the TestScript.variable backbone element.

@@ -48,6 +48,8 @@ type OperationDefinitionParameter struct {
 	Binding *OperationDefinitionParameterBinding `json:"binding,omitempty"`
 	// References to this parameter
 	ReferencedFrom []OperationDefinitionParameterReferencedFrom `json:"referencedFrom,omitempty"`
+	// Parts of a nested Parameter
+	Part []OperationDefinitionParameter `json:"part,omitempty"`
 }
 
 // OperationDefinitionParameterBinding represents the OperationDefinition.parameter.binding backbone element.

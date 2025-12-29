@@ -106,6 +106,10 @@ type CapabilityStatementRest struct {
 	Resource []CapabilityStatementRestResource `json:"resource,omitempty"`
 	// What operations are supported?
 	Interaction []CapabilityStatementRestInteraction `json:"interaction,omitempty"`
+	// Search parameters for searching all resources
+	SearchParam []CapabilityStatementRestResourceSearchParam `json:"searchParam,omitempty"`
+	// Definition of a system level operation
+	Operation []CapabilityStatementRestResourceOperation `json:"operation,omitempty"`
 	// Compartments served/used by system
 	Compartment []string `json:"compartment,omitempty"`
 }

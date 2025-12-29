@@ -139,6 +139,12 @@ func (b *InvoiceBuilder) AddLineItem(v InvoiceLineItem) *InvoiceBuilder {
 	return b
 }
 
+// AddTotalPriceComponent adds a TotalPriceComponent element.
+func (b *InvoiceBuilder) AddTotalPriceComponent(v InvoiceLineItemPriceComponent) *InvoiceBuilder {
+	b.invoice.TotalPriceComponent = append(b.invoice.TotalPriceComponent, v)
+	return b
+}
+
 // SetTotalNet sets the TotalNet field.
 func (b *InvoiceBuilder) SetTotalNet(v Money) *InvoiceBuilder {
 	b.invoice.TotalNet = &v

@@ -115,6 +115,10 @@ type SubstanceDefinitionName struct {
 	Domain []CodeableConcept `json:"domain,omitempty"`
 	// The jurisdiction where this name applies
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
+	// A synonym of this particular name, by which the substance is also known
+	Synonym []SubstanceDefinitionName `json:"synonym,omitempty"`
+	// A translation for this name into another human language
+	Translation []SubstanceDefinitionName `json:"translation,omitempty"`
 	// Details of the official nature of this name
 	Official []SubstanceDefinitionNameOfficial `json:"official,omitempty"`
 	// Supporting literature
@@ -236,6 +240,8 @@ type SubstanceDefinitionStructure struct {
 	MolecularFormula *string `json:"molecularFormula,omitempty"`
 	// Specified per moiety according to the Hill system
 	MolecularFormulaByMoiety *string `json:"molecularFormulaByMoiety,omitempty"`
+	// The molecular weight or weight range
+	MolecularWeight *SubstanceDefinitionMolecularWeight `json:"molecularWeight,omitempty"`
 	// The method used to find the structure e.g. X-ray, NMR
 	Technique []CodeableConcept `json:"technique,omitempty"`
 	// Source of information for the structure

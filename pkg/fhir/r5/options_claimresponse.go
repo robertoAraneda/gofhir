@@ -230,6 +230,13 @@ func WithClaimResponseAddItem(v ClaimResponseAddItem) ClaimResponseOption {
 	}
 }
 
+// WithClaimResponseAdjudication adds a Adjudication to the ClaimResponse.
+func WithClaimResponseAdjudication(v ClaimResponseItemAdjudication) ClaimResponseOption {
+	return func(r *ClaimResponse) {
+		r.Adjudication = append(r.Adjudication, v)
+	}
+}
+
 // WithClaimResponseTotal adds a Total to the ClaimResponse.
 func WithClaimResponseTotal(v ClaimResponseTotal) ClaimResponseOption {
 	return func(r *ClaimResponse) {

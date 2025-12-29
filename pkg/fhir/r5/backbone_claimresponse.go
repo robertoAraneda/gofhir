@@ -61,6 +61,10 @@ type ClaimResponseAddItem struct {
 	BodySite []ClaimResponseAddItemBodySite `json:"bodySite,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items adjudication results
+	ReviewOutcome *ClaimResponseItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Added items adjudication
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line details
 	Detail []ClaimResponseAddItemDetail `json:"detail,omitempty"`
 }
@@ -111,6 +115,10 @@ type ClaimResponseAddItemDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items detail level adjudication results
+	ReviewOutcome *ClaimResponseItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Added items detail adjudication
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line items
 	SubDetail []ClaimResponseAddItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -146,6 +154,10 @@ type ClaimResponseAddItemDetailSubDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items subdetail level adjudication results
+	ReviewOutcome *ClaimResponseItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Added items subdetail adjudication
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ClaimResponseError represents the ClaimResponse.error backbone element.
@@ -266,6 +278,10 @@ type ClaimResponseItemDetail struct {
 	TraceNumber []Identifier `json:"traceNumber,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Detail level adjudication results
+	ReviewOutcome *ClaimResponseItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Detail level adjudication details
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Adjudication for claim sub-details
 	SubDetail []ClaimResponseItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -285,6 +301,10 @@ type ClaimResponseItemDetailSubDetail struct {
 	TraceNumber []Identifier `json:"traceNumber,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Subdetail level adjudication results
+	ReviewOutcome *ClaimResponseItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Subdetail level adjudication details
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ClaimResponseItemReviewOutcome represents the ClaimResponse.item.reviewOutcome backbone element.

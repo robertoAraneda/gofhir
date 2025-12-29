@@ -65,6 +65,8 @@ type ClinicalUseDefinitionIndication struct {
 	DurationStringExt *Element `json:"_durationString,omitempty"`
 	// An unwanted side effect or negative outcome of the subject of this resource when being used for this indication
 	UndesirableEffect []Reference `json:"undesirableEffect,omitempty"`
+	// The use of the medicinal product in relation to other therapies described as part of the indication
+	OtherTherapy []ClinicalUseDefinitionContraindicationOtherTherapy `json:"otherTherapy,omitempty"`
 }
 
 // ClinicalUseDefinitionInteraction represents the ClinicalUseDefinition.interaction backbone element.

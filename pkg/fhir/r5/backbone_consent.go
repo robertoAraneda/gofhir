@@ -50,6 +50,8 @@ type ConsentProvision struct {
 	Data []ConsentProvisionData `json:"data,omitempty"`
 	// A computable expression of the consent
 	Expression *Expression `json:"expression,omitempty"`
+	// Nested Exception Provisions
+	Provision []ConsentProvision `json:"provision,omitempty"`
 }
 
 // ConsentProvisionActor represents the Consent.provision.actor backbone element.

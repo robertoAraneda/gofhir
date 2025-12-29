@@ -118,7 +118,7 @@ type ExplanationOfBenefit struct {
 	// Insurer added line items
 	AddItem []ExplanationOfBenefitAddItem `json:"addItem,omitempty"`
 	// Header-level adjudication
-	Adjudication *interface{} `json:"adjudication,omitempty"`
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Adjudication totals
 	Total []ExplanationOfBenefitTotal `json:"total,omitempty"`
 	// Payment Details

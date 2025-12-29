@@ -52,6 +52,8 @@ type EvidenceReportSection struct {
 	EntryQuantity []Quantity `json:"entryQuantity,omitempty"`
 	// Why the section is empty
 	EmptyReason *CodeableConcept `json:"emptyReason,omitempty"`
+	// Nested Section
+	Section []EvidenceReportSection `json:"section,omitempty"`
 }
 
 // EvidenceReportSubject represents the EvidenceReport.subject backbone element.

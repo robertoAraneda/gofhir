@@ -167,6 +167,13 @@ func WithSubstanceSpecificationName(v SubstanceSpecificationName) SubstanceSpeci
 	}
 }
 
+// WithSubstanceSpecificationMolecularWeight adds a MolecularWeight to the SubstanceSpecification.
+func WithSubstanceSpecificationMolecularWeight(v SubstanceSpecificationStructureIsotopeMolecularWeight) SubstanceSpecificationOption {
+	return func(r *SubstanceSpecification) {
+		r.MolecularWeight = append(r.MolecularWeight, v)
+	}
+}
+
 // WithSubstanceSpecificationRelationship adds a Relationship to the SubstanceSpecification.
 func WithSubstanceSpecificationRelationship(v SubstanceSpecificationRelationship) SubstanceSpecificationOption {
 	return func(r *SubstanceSpecification) {

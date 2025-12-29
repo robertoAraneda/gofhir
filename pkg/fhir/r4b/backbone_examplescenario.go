@@ -106,6 +106,8 @@ type ExampleScenarioProcessStep struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// Nested process
+	Process []ExampleScenarioProcess `json:"process,omitempty"`
 	// If there is a pause in the flow
 	Pause *bool `json:"pause,omitempty"`
 	// Each interaction or action
@@ -127,6 +129,8 @@ type ExampleScenarioProcessStepAlternative struct {
 	Title *string `json:"title,omitempty"`
 	// A human-readable description of each option
 	Description *string `json:"description,omitempty"`
+	// What happens in each alternative option
+	Step []ExampleScenarioProcessStep `json:"step,omitempty"`
 }
 
 // ExampleScenarioProcessStepOperation represents the ExampleScenario.process.step.operation backbone element.
@@ -154,4 +158,8 @@ type ExampleScenarioProcessStepOperation struct {
 	InitiatorActive *bool `json:"initiatorActive,omitempty"`
 	// Whether the receiver is deactivated right after the transaction
 	ReceiverActive *bool `json:"receiverActive,omitempty"`
+	// Each resource instance used by the initiator
+	Request *ExampleScenarioInstanceContainedInstance `json:"request,omitempty"`
+	// Each resource instance used by the responder
+	Response *ExampleScenarioInstanceContainedInstance `json:"response,omitempty"`
 }

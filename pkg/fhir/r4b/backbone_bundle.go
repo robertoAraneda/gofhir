@@ -18,6 +18,8 @@ type BundleEntry struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// Links related to this entry
+	Link []BundleLink `json:"link,omitempty"`
 	// URI for resource (Absolute URL server address or URI for UUID/OID)
 	FullUrl *string `json:"fullUrl,omitempty"`
 	// A resource in the bundle

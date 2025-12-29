@@ -82,6 +82,10 @@ type ExplanationOfBenefitAddItem struct {
 	BodySite []ExplanationOfBenefitAddItemBodySite `json:"bodySite,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Additem level adjudication results
+	ReviewOutcome *ExplanationOfBenefitItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Added items adjudication
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line items
 	Detail []ExplanationOfBenefitAddItemDetail `json:"detail,omitempty"`
 }
@@ -134,6 +138,10 @@ type ExplanationOfBenefitAddItemDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Additem detail level adjudication results
+	ReviewOutcome *ExplanationOfBenefitItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Added items adjudication
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line items
 	SubDetail []ExplanationOfBenefitAddItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -171,6 +179,10 @@ type ExplanationOfBenefitAddItemDetailSubDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Additem subdetail level adjudication results
+	ReviewOutcome *ExplanationOfBenefitItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Added items adjudication
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ExplanationOfBenefitBenefitBalance represents the ExplanationOfBenefit.benefitBalance backbone element.
@@ -457,6 +469,10 @@ type ExplanationOfBenefitItemDetail struct {
 	Udi []Reference `json:"udi,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Detail level adjudication results
+	ReviewOutcome *ExplanationOfBenefitItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Detail level adjudication details
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Additional items
 	SubDetail []ExplanationOfBenefitItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -502,6 +518,10 @@ type ExplanationOfBenefitItemDetailSubDetail struct {
 	Udi []Reference `json:"udi,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Subdetail level adjudication results
+	ReviewOutcome *ExplanationOfBenefitItemReviewOutcome `json:"reviewOutcome,omitempty"`
+	// Subdetail level adjudication details
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ExplanationOfBenefitItemReviewOutcome represents the ExplanationOfBenefit.item.reviewOutcome backbone element.

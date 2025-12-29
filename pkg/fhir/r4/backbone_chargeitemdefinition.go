@@ -30,6 +30,8 @@ type ChargeItemDefinitionPropertyGroup struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// Conditions under which the priceComponent is applicable
+	Applicability []ChargeItemDefinitionApplicability `json:"applicability,omitempty"`
 	// Components of total line item price
 	PriceComponent []ChargeItemDefinitionPropertyGroupPriceComponent `json:"priceComponent,omitempty"`
 }

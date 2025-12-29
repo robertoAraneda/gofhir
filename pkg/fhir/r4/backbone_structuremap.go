@@ -61,6 +61,8 @@ type StructureMapGroupRule struct {
 	Source []StructureMapGroupRuleSource `json:"source,omitempty"`
 	// Content to create because of this mapping rule
 	Target []StructureMapGroupRuleTarget `json:"target,omitempty"`
+	// Rules contained in this rule
+	Rule []StructureMapGroupRule `json:"rule,omitempty"`
 	// Which other rules to apply in the context of this rule
 	Dependent []StructureMapGroupRuleDependent `json:"dependent,omitempty"`
 	// Documentation for this instance of data

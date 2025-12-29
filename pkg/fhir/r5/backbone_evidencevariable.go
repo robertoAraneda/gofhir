@@ -79,6 +79,8 @@ type EvidenceVariableCharacteristicDefinitionByCombination struct {
 	Code *CharacteristicCombination `json:"code,omitempty"`
 	// Provides the value of "n" when "at-least" or "at-most" codes are used
 	Threshold *uint32 `json:"threshold,omitempty"`
+	// A defining factor of the characteristic
+	Characteristic []EvidenceVariableCharacteristic `json:"characteristic,omitempty"`
 }
 
 // EvidenceVariableCharacteristicDefinitionByTypeAndValue represents the EvidenceVariable.characteristic.definitionByTypeAndValue backbone element.

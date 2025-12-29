@@ -23,6 +23,8 @@ type EvidenceCertainty struct {
 	Rating *CodeableConcept `json:"rating,omitempty"`
 	// Individual or group who did the rating
 	Rater *string `json:"rater,omitempty"`
+	// A domain or subdomain of certainty
+	Subcomponent []EvidenceCertainty `json:"subcomponent,omitempty"`
 }
 
 // EvidenceStatistic represents the Evidence.statistic backbone element.
@@ -77,6 +79,8 @@ type EvidenceStatisticAttributeEstimate struct {
 	Level *float64 `json:"level,omitempty"`
 	// Lower and upper bound values of the attribute estimate
 	Range *Range `json:"range,omitempty"`
+	// A nested attribute estimate; which is the attribute estimate of an attribute estimate
+	AttributeEstimate []EvidenceStatisticAttributeEstimate `json:"attributeEstimate,omitempty"`
 }
 
 // EvidenceStatisticModelCharacteristic represents the Evidence.statistic.modelCharacteristic backbone element.
@@ -94,6 +98,8 @@ type EvidenceStatisticModelCharacteristic struct {
 	Value *Quantity `json:"value,omitempty"`
 	// A variable adjusted for in the adjusted analysis
 	Variable []EvidenceStatisticModelCharacteristicVariable `json:"variable,omitempty"`
+	// An attribute of the statistic used as a model characteristic
+	AttributeEstimate []EvidenceStatisticAttributeEstimate `json:"attributeEstimate,omitempty"`
 }
 
 // EvidenceStatisticModelCharacteristicVariable represents the Evidence.statistic.modelCharacteristic.variable backbone element.

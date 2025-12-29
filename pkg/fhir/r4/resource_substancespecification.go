@@ -64,7 +64,7 @@ type SubstanceSpecification struct {
 	// Names applicable to this substance
 	Name []SubstanceSpecificationName `json:"name,omitempty"`
 	// The molecular weight or weight range (for proteins, polymers or nucleic acids)
-	MolecularWeight *interface{} `json:"molecularWeight,omitempty"`
+	MolecularWeight []SubstanceSpecificationStructureIsotopeMolecularWeight `json:"molecularWeight,omitempty"`
 	// A link between this substance and another, with details of the relationship
 	Relationship []SubstanceSpecificationRelationship `json:"relationship,omitempty"`
 	// Data items specific to nucleic acids

@@ -53,6 +53,8 @@ type ClaimResponseAddItem struct {
 	SubSite []CodeableConcept `json:"subSite,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items adjudication
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line details
 	Detail []ClaimResponseAddItemDetail `json:"detail,omitempty"`
 }
@@ -80,6 +82,8 @@ type ClaimResponseAddItemDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items detail adjudication
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line items
 	SubDetail []ClaimResponseAddItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -107,6 +111,8 @@ type ClaimResponseAddItemDetailSubDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items detail adjudication
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ClaimResponseError represents the ClaimResponse.error backbone element.
@@ -200,6 +206,8 @@ type ClaimResponseItemDetail struct {
 	DetailSequence *uint32 `json:"detailSequence,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Detail level adjudication details
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 	// Adjudication for claim sub-details
 	SubDetail []ClaimResponseItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -217,6 +225,8 @@ type ClaimResponseItemDetailSubDetail struct {
 	SubDetailSequence *uint32 `json:"subDetailSequence,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Subdetail level adjudication details
+	Adjudication []ClaimResponseItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ClaimResponsePayment represents the ClaimResponse.payment backbone element.

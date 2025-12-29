@@ -124,6 +124,8 @@ type ExampleScenarioProcessStep struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Sequential number of the step
 	Number *string `json:"number,omitempty"`
+	// Step is nested process
+	Process *ExampleScenarioProcess `json:"process,omitempty"`
 	// Step is nested workflow
 	Workflow *string `json:"workflow,omitempty"`
 	// Step is simple action
@@ -147,6 +149,8 @@ type ExampleScenarioProcessStepAlternative struct {
 	Title *string `json:"title,omitempty"`
 	// Human-readable description of option
 	Description *string `json:"description,omitempty"`
+	// Alternative action(s)
+	Step []ExampleScenarioProcessStep `json:"step,omitempty"`
 }
 
 // ExampleScenarioProcessStepOperation represents the ExampleScenario.process.step.operation backbone element.
@@ -172,4 +176,8 @@ type ExampleScenarioProcessStepOperation struct {
 	InitiatorActive *bool `json:"initiatorActive,omitempty"`
 	// Receiver stays active?
 	ReceiverActive *bool `json:"receiverActive,omitempty"`
+	// Instance transmitted on invocation
+	Request *ExampleScenarioInstanceContainedInstance `json:"request,omitempty"`
+	// Instance transmitted on invocation response
+	Response *ExampleScenarioInstanceContainedInstance `json:"response,omitempty"`
 }

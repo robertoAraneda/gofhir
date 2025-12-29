@@ -83,6 +83,8 @@ type RequestOrchestrationAction struct {
 	Transform *string `json:"transform,omitempty"`
 	// Dynamic aspects of the definition
 	DynamicValue []RequestOrchestrationActionDynamicValue `json:"dynamicValue,omitempty"`
+	// Sub action
+	Action []RequestOrchestrationAction `json:"action,omitempty"`
 }
 
 // RequestOrchestrationActionCondition represents the RequestOrchestration.action.condition backbone element.

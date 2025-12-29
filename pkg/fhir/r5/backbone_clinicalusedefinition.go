@@ -69,6 +69,8 @@ type ClinicalUseDefinitionIndication struct {
 	UndesirableEffect []Reference `json:"undesirableEffect,omitempty"`
 	// An expression that returns true or false, indicating whether the indication is applicable or not, after having applied its other elements
 	Applicability *Expression `json:"applicability,omitempty"`
+	// The use of the medicinal product in relation to other therapies described as part of the indication
+	OtherTherapy []ClinicalUseDefinitionContraindicationOtherTherapy `json:"otherTherapy,omitempty"`
 }
 
 // ClinicalUseDefinitionInteraction represents the ClinicalUseDefinition.interaction backbone element.

@@ -62,7 +62,7 @@ type Invoice struct {
 	// Line items of this Invoice
 	LineItem []InvoiceLineItem `json:"lineItem,omitempty"`
 	// Components of Invoice total
-	TotalPriceComponent *interface{} `json:"totalPriceComponent,omitempty"`
+	TotalPriceComponent []InvoiceLineItemPriceComponent `json:"totalPriceComponent,omitempty"`
 	// Net total of this Invoice
 	TotalNet *Money `json:"totalNet,omitempty"`
 	// Gross total of this Invoice

@@ -72,6 +72,8 @@ type ExplanationOfBenefitAddItem struct {
 	SubSite []CodeableConcept `json:"subSite,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items adjudication
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line items
 	Detail []ExplanationOfBenefitAddItemDetail `json:"detail,omitempty"`
 }
@@ -99,6 +101,8 @@ type ExplanationOfBenefitAddItemDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items adjudication
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Insurer added line items
 	SubDetail []ExplanationOfBenefitAddItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -126,6 +130,8 @@ type ExplanationOfBenefitAddItemDetailSubDetail struct {
 	Net *Money `json:"net,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Added items adjudication
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ExplanationOfBenefitBenefitBalance represents the ExplanationOfBenefit.benefitBalance backbone element.
@@ -362,6 +368,8 @@ type ExplanationOfBenefitItemDetail struct {
 	Udi []Reference `json:"udi,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Detail level adjudication details
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 	// Additional items
 	SubDetail []ExplanationOfBenefitItemDetailSubDetail `json:"subDetail,omitempty"`
 }
@@ -399,6 +407,8 @@ type ExplanationOfBenefitItemDetailSubDetail struct {
 	Udi []Reference `json:"udi,omitempty"`
 	// Applicable note numbers
 	NoteNumber []uint32 `json:"noteNumber,omitempty"`
+	// Subdetail level adjudication details
+	Adjudication []ExplanationOfBenefitItemAdjudication `json:"adjudication,omitempty"`
 }
 
 // ExplanationOfBenefitPayee represents the ExplanationOfBenefit.payee backbone element.

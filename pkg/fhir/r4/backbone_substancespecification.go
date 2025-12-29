@@ -77,6 +77,10 @@ type SubstanceSpecificationName struct {
 	Domain []CodeableConcept `json:"domain,omitempty"`
 	// The jurisdiction where this name applies
 	Jurisdiction []CodeableConcept `json:"jurisdiction,omitempty"`
+	// A synonym of this name
+	Synonym []SubstanceSpecificationName `json:"synonym,omitempty"`
+	// A translation for this name
+	Translation []SubstanceSpecificationName `json:"translation,omitempty"`
 	// Details of the official nature of this name
 	Official []SubstanceSpecificationNameOfficial `json:"official,omitempty"`
 	// Supporting literature
@@ -181,6 +185,8 @@ type SubstanceSpecificationStructure struct {
 	MolecularFormulaByMoiety *string `json:"molecularFormulaByMoiety,omitempty"`
 	// Applicable for single substances that contain a radionuclide or a non-natural isotopic ratio
 	Isotope []SubstanceSpecificationStructureIsotope `json:"isotope,omitempty"`
+	// The molecular weight or weight range (for proteins, polymers or nucleic acids)
+	MolecularWeight *SubstanceSpecificationStructureIsotopeMolecularWeight `json:"molecularWeight,omitempty"`
 	// Supporting literature
 	Source []Reference `json:"source,omitempty"`
 	// Molecular structural representation

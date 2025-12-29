@@ -47,6 +47,8 @@ type QuestionnaireItem struct {
 	AnswerOption []QuestionnaireItemAnswerOption `json:"answerOption,omitempty"`
 	// Initial value(s) when item is first rendered
 	Initial []QuestionnaireItemInitial `json:"initial,omitempty"`
+	// Nested questionnaire items
+	Item []QuestionnaireItem `json:"item,omitempty"`
 }
 
 // QuestionnaireItemAnswerOption represents the Questionnaire.item.answerOption backbone element.

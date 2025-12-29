@@ -156,3 +156,9 @@ func (b *PackagedProductDefinitionBuilder) SetPackaging(v PackagedProductDefinit
 	b.packagedProductDefinition.Packaging = &v
 	return b
 }
+
+// AddCharacteristic adds a Characteristic element.
+func (b *PackagedProductDefinitionBuilder) AddCharacteristic(v PackagedProductDefinitionPackagingProperty) *PackagedProductDefinitionBuilder {
+	b.packagedProductDefinition.Characteristic = append(b.packagedProductDefinition.Characteristic, v)
+	return b
+}

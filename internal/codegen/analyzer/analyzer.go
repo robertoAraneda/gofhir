@@ -203,6 +203,23 @@ func (a *Analyzer) extractBackboneElements(sd *parser.StructureDefinition) []*An
 			//nolint:errcheck // Choice type analysis errors are non-fatal; skip on error
 			props, _ := a.analyzeChoiceType(&elem, strings.TrimSuffix(fieldName, "[x]"))
 			backbone.Properties = append(backbone.Properties, props...)
+		case elem.ContentReference != "":
+			// Content reference - resolve to the referenced type
+			goType, isBackboneRef, backboneTypeName := a.resolveContentReference(elem.ContentReference, elem.IsArray())
+			prop := AnalyzedProperty{
+				Name:         toGoFieldName(fieldName),
+				JSONName:     toLowerFirst(fieldName),
+				GoType:       goType,
+				Description:  elem.Short,
+				IsPointer:    !elem.IsArray(),
+				IsArray:      elem.IsArray(),
+				IsRequired:   elem.IsRequired(),
+				IsPrimitive:  false,
+				FHIRType:     "ContentReference",
+				IsBackbone:   isBackboneRef,
+				BackboneType: backboneTypeName,
+			}
+			backbone.Properties = append(backbone.Properties, prop)
 		case elem.IsBackboneElement():
 			// Nested backbone element - use specific type name
 			backboneTypeName := a.getBackboneTypeName(elem.Path)
@@ -416,19 +433,106 @@ func (a *Analyzer) analyzeChoiceType(elem *parser.ElementDefinition, baseName st
 }
 
 // analyzeContentReference handles content references.
+// Content references point to another element's definition within the same or different resource.
+// Format: "#ResourceType.path.to.element" (e.g., "#TestScript.setup.action.operation")
 func (a *Analyzer) analyzeContentReference(elem *parser.ElementDefinition, fieldName string) ([]AnalyzedProperty, error) {
-	// Content references point to another element's definition
-	// For now, treat as a generic type that will be resolved later
+	// Resolve the content reference to get the actual Go type
+	goType, isBackbone, backboneTypeName := a.resolveContentReference(elem.ContentReference, elem.IsArray())
+
 	prop := AnalyzedProperty{
-		Name:        toGoFieldName(fieldName),
-		JSONName:    toLowerFirst(fieldName),
-		GoType:      "*interface{}", // Will be resolved during generation
-		Description: elem.Short,
-		IsPointer:   true,
-		IsArray:     elem.IsArray(),
-		FHIRType:    "ContentReference",
+		Name:         toGoFieldName(fieldName),
+		JSONName:     toLowerFirst(fieldName),
+		GoType:       goType,
+		Description:  elem.Short,
+		IsPointer:    !elem.IsArray(),
+		IsArray:      elem.IsArray(),
+		IsRequired:   elem.IsRequired(),
+		FHIRType:     "ContentReference",
+		IsBackbone:   isBackbone,
+		BackboneType: backboneTypeName,
 	}
 	return []AnalyzedProperty{prop}, nil
+}
+
+// resolveContentReference parses a contentReference URL and returns the Go type.
+func (a *Analyzer) resolveContentReference(ref string, isArray bool) (goType string, isBackbone bool, backboneTypeName string) {
+	// Remove the leading "#" from the reference
+	if !strings.HasPrefix(ref, "#") {
+		// Invalid format, return interface{} as fallback
+		if isArray {
+			return "[]interface{}", false, ""
+		}
+		return "*interface{}", false, ""
+	}
+
+	refPath := strings.TrimPrefix(ref, "#")
+
+	// The refPath is the full element path like "TestScript.setup.action.operation"
+	// We need to find if this is a BackboneElement and generate the appropriate type name
+
+	// Extract the resource type from the path (first segment)
+	parts := strings.Split(refPath, ".")
+	if len(parts) < 2 {
+		if isArray {
+			return "[]interface{}", false, ""
+		}
+		return "*interface{}", false, ""
+	}
+
+	resourceType := parts[0]
+
+	// Try to find the StructureDefinition for this resource
+	sd := a.definitions[resourceType]
+	if sd == nil {
+		// Resource not found, try to generate a reasonable type name anyway
+		// This handles cases where the referenced resource might not be loaded
+		backboneTypeName = a.getBackboneTypeName(refPath)
+		if isArray {
+			return "[]" + backboneTypeName, true, backboneTypeName
+		}
+		return "*" + backboneTypeName, true, backboneTypeName
+	}
+
+	// Find the referenced element in the StructureDefinition
+	var targetElem *parser.ElementDefinition
+	for i := range sd.Snapshot.Element {
+		if sd.Snapshot.Element[i].Path == refPath {
+			targetElem = &sd.Snapshot.Element[i]
+			break
+		}
+	}
+
+	if targetElem == nil {
+		// Element not found, generate backbone type name from path
+		backboneTypeName = a.getBackboneTypeName(refPath)
+		if isArray {
+			return "[]" + backboneTypeName, true, backboneTypeName
+		}
+		return "*" + backboneTypeName, true, backboneTypeName
+	}
+
+	// Check if the target element is a BackboneElement
+	if targetElem.IsBackboneElement() {
+		backboneTypeName = a.getBackboneTypeName(refPath)
+		if isArray {
+			return "[]" + backboneTypeName, true, backboneTypeName
+		}
+		return "*" + backboneTypeName, true, backboneTypeName
+	}
+
+	// If it has types, use the first type
+	if len(targetElem.Type) > 0 {
+		typeName := targetElem.Type[0].Code
+		goType = a.resolveGoType(typeName, !isArray, isArray)
+		return goType, false, ""
+	}
+
+	// Fallback: assume it's a backbone element based on the path
+	backboneTypeName = a.getBackboneTypeName(refPath)
+	if isArray {
+		return "[]" + backboneTypeName, true, backboneTypeName
+	}
+	return "*" + backboneTypeName, true, backboneTypeName
 }
 
 // createProperty creates an AnalyzedProperty from an element and type reference.

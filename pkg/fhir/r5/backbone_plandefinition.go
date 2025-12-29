@@ -87,6 +87,8 @@ type PlanDefinitionAction struct {
 	Transform *string `json:"transform,omitempty"`
 	// Dynamic aspects of the definition
 	DynamicValue []PlanDefinitionActionDynamicValue `json:"dynamicValue,omitempty"`
+	// A sub-action
+	Action []PlanDefinitionAction `json:"action,omitempty"`
 }
 
 // PlanDefinitionActionCondition represents the PlanDefinition.action.condition backbone element.

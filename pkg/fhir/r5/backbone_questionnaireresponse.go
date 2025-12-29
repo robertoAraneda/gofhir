@@ -21,6 +21,8 @@ type QuestionnaireResponseItem struct {
 	Text *string `json:"text,omitempty"`
 	// The response(s) to the question
 	Answer []QuestionnaireResponseItemAnswer `json:"answer,omitempty"`
+	// Child items of group item
+	Item []QuestionnaireResponseItem `json:"item,omitempty"`
 }
 
 // QuestionnaireResponseItemAnswer represents the QuestionnaireResponse.item.answer backbone element.
@@ -72,4 +74,6 @@ type QuestionnaireResponseItemAnswer struct {
 	ValueQuantity *Quantity `json:"valueQuantity,omitempty"`
 	// Single-valued answer to the question
 	ValueReference *Reference `json:"valueReference,omitempty"`
+	// Child items of question
+	Item []QuestionnaireResponseItem `json:"item,omitempty"`
 }

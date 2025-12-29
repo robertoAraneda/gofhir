@@ -55,6 +55,8 @@ type ObservationComponent struct {
 	DataAbsentReason *CodeableConcept `json:"dataAbsentReason,omitempty"`
 	// High, low, normal, etc
 	Interpretation []CodeableConcept `json:"interpretation,omitempty"`
+	// Provides guide for interpretation of component result
+	ReferenceRange []ObservationReferenceRange `json:"referenceRange,omitempty"`
 }
 
 // ObservationReferenceRange represents the Observation.referenceRange backbone element.

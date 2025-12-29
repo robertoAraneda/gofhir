@@ -224,6 +224,8 @@ type MedicationKnowledgePackaging struct {
 	Extension []Extension `json:"extension,omitempty"`
 	// Extensions that cannot be ignored even if unrecognized
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	// Cost of the packaged medication
+	Cost []MedicationKnowledgeCost `json:"cost,omitempty"`
 	// The packaged medication that is being priced
 	PackagedProduct *Reference `json:"packagedProduct,omitempty"`
 }

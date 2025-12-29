@@ -82,4 +82,6 @@ type CompositionSection struct {
 	Entry []Reference `json:"entry,omitempty"`
 	// Why the section is empty
 	EmptyReason *CodeableConcept `json:"emptyReason,omitempty"`
+	// Nested Section
+	Section []CompositionSection `json:"section,omitempty"`
 }

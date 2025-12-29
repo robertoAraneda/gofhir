@@ -153,6 +153,13 @@ func WithInvoiceLineItem(v InvoiceLineItem) InvoiceOption {
 	}
 }
 
+// WithInvoiceTotalPriceComponent adds a TotalPriceComponent to the Invoice.
+func WithInvoiceTotalPriceComponent(v InvoiceLineItemPriceComponent) InvoiceOption {
+	return func(r *Invoice) {
+		r.TotalPriceComponent = append(r.TotalPriceComponent, v)
+	}
+}
+
 // WithInvoiceTotalNet sets the TotalNet field.
 func WithInvoiceTotalNet(v Money) InvoiceOption {
 	return func(r *Invoice) {

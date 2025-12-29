@@ -58,6 +58,8 @@ type AuditEventEntity struct {
 	Query *string `json:"query,omitempty"`
 	// Additional Information about the entity
 	Detail []AuditEventEntityDetail `json:"detail,omitempty"`
+	// Entity is attributed to this agent
+	Agent []AuditEventAgent `json:"agent,omitempty"`
 }
 
 // AuditEventEntityDetail represents the AuditEvent.entity.detail backbone element.

@@ -86,6 +86,8 @@ type ConceptMapGroupElementTarget struct {
 	Property []ConceptMapGroupElementTargetProperty `json:"property,omitempty"`
 	// Other properties required for this mapping
 	DependsOn []ConceptMapGroupElementTargetDependsOn `json:"dependsOn,omitempty"`
+	// Other data elements that this mapping also produces
+	Product []ConceptMapGroupElementTargetDependsOn `json:"product,omitempty"`
 }
 
 // ConceptMapGroupElementTargetDependsOn represents the ConceptMap.group.element.target.dependsOn backbone element.

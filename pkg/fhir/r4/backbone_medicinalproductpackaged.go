@@ -42,6 +42,8 @@ type MedicinalProductPackagedPackageItem struct {
 	Device []Reference `json:"device,omitempty"`
 	// The manufactured item as contained in the packaged medicinal product
 	ManufacturedItem []Reference `json:"manufacturedItem,omitempty"`
+	// Allows containers within containers
+	PackageItem []MedicinalProductPackagedPackageItem `json:"packageItem,omitempty"`
 	// Dimensions, color etc.
 	PhysicalCharacteristics *ProdCharacteristic `json:"physicalCharacteristics,omitempty"`
 	// Other codeable characteristics

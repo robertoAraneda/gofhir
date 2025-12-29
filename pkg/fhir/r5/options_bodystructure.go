@@ -104,6 +104,13 @@ func WithBodyStructureIncludedStructure(v BodyStructureIncludedStructure) BodySt
 	}
 }
 
+// WithBodyStructureExcludedStructure adds a ExcludedStructure to the BodyStructure.
+func WithBodyStructureExcludedStructure(v BodyStructureIncludedStructure) BodyStructureOption {
+	return func(r *BodyStructure) {
+		r.ExcludedStructure = append(r.ExcludedStructure, v)
+	}
+}
+
 // WithBodyStructureDescription sets the Description field.
 func WithBodyStructureDescription(v string) BodyStructureOption {
 	return func(r *BodyStructure) {

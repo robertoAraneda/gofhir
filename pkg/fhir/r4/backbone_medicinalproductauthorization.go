@@ -44,4 +44,6 @@ type MedicinalProductAuthorizationProcedure struct {
 	DateDateTime *string `json:"dateDateTime,omitempty"`
 	// Extension for DateDateTime
 	DateDateTimeExt *Element `json:"_dateDateTime,omitempty"`
+	// Applcations submitted to obtain a marketing authorization
+	Application []MedicinalProductAuthorizationProcedure `json:"application,omitempty"`
 }

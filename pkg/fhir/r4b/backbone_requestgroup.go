@@ -61,6 +61,8 @@ type RequestGroupAction struct {
 	CardinalityBehavior *ActionCardinalityBehavior `json:"cardinalityBehavior,omitempty"`
 	// The target of the action
 	Resource *Reference `json:"resource,omitempty"`
+	// Sub action
+	Action []RequestGroupAction `json:"action,omitempty"`
 }
 
 // RequestGroupActionCondition represents the RequestGroup.action.condition backbone element.

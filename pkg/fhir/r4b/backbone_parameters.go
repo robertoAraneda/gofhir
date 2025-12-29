@@ -160,6 +160,8 @@ type ParametersParameter struct {
 	ValueMeta *Meta `json:"valueMeta,omitempty"`
 	// If parameter is a whole resource
 	Resource Resource `json:"resource,omitempty"`
+	// Named part of a multi-part parameter
+	Part []ParametersParameter `json:"part,omitempty"`
 }
 
 // UnmarshalJSON handles deserialization of polymorphic resource field.

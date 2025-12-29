@@ -284,3 +284,247 @@ func TestHelperFunctions(t *testing.T) {
 		assert.Equal(t, "Import", toGoFieldName("import"))
 	})
 }
+
+// Sample TestScript-like SD with contentReference for testing
+var sampleTestScriptSD = []byte(`{
+	"resourceType": "StructureDefinition",
+	"id": "TestScript",
+	"url": "http://hl7.org/fhir/StructureDefinition/TestScript",
+	"name": "TestScript",
+	"title": "TestScript Resource",
+	"status": "active",
+	"kind": "resource",
+	"abstract": false,
+	"type": "TestScript",
+	"baseDefinition": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+	"snapshot": {
+		"element": [
+			{
+				"id": "TestScript",
+				"path": "TestScript",
+				"short": "Describes a set of tests",
+				"min": 0,
+				"max": "*"
+			},
+			{
+				"id": "TestScript.id",
+				"path": "TestScript.id",
+				"short": "Logical id",
+				"min": 0,
+				"max": "1",
+				"type": [{"code": "id"}]
+			},
+			{
+				"id": "TestScript.setup",
+				"path": "TestScript.setup",
+				"short": "A series of required setup operations",
+				"min": 0,
+				"max": "1",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.setup.action",
+				"path": "TestScript.setup.action",
+				"short": "A setup operation or assert",
+				"min": 1,
+				"max": "*",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.setup.action.operation",
+				"path": "TestScript.setup.action.operation",
+				"short": "The setup operation to perform",
+				"min": 0,
+				"max": "1",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.setup.action.operation.type",
+				"path": "TestScript.setup.action.operation.type",
+				"short": "The operation code type",
+				"min": 0,
+				"max": "1",
+				"type": [{"code": "Coding"}]
+			},
+			{
+				"id": "TestScript.setup.action.assert",
+				"path": "TestScript.setup.action.assert",
+				"short": "The assertion to perform",
+				"min": 0,
+				"max": "1",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.setup.action.assert.label",
+				"path": "TestScript.setup.action.assert.label",
+				"short": "Tracking/logging assertion label",
+				"min": 0,
+				"max": "1",
+				"type": [{"code": "string"}]
+			},
+			{
+				"id": "TestScript.test",
+				"path": "TestScript.test",
+				"short": "A test in this script",
+				"min": 0,
+				"max": "*",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.test.action",
+				"path": "TestScript.test.action",
+				"short": "A test operation or assert",
+				"min": 1,
+				"max": "*",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.test.action.operation",
+				"path": "TestScript.test.action.operation",
+				"short": "The setup operation to perform",
+				"min": 0,
+				"max": "1",
+				"contentReference": "#TestScript.setup.action.operation"
+			},
+			{
+				"id": "TestScript.test.action.assert",
+				"path": "TestScript.test.action.assert",
+				"short": "The setup assertion to perform",
+				"min": 0,
+				"max": "1",
+				"contentReference": "#TestScript.setup.action.assert"
+			},
+			{
+				"id": "TestScript.teardown",
+				"path": "TestScript.teardown",
+				"short": "A series of required clean up steps",
+				"min": 0,
+				"max": "1",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.teardown.action",
+				"path": "TestScript.teardown.action",
+				"short": "One or more teardown operations",
+				"min": 1,
+				"max": "*",
+				"type": [{"code": "BackboneElement"}]
+			},
+			{
+				"id": "TestScript.teardown.action.operation",
+				"path": "TestScript.teardown.action.operation",
+				"short": "The teardown operation to perform",
+				"min": 1,
+				"max": "1",
+				"contentReference": "#TestScript.setup.action.operation"
+			}
+		]
+	}
+}`)
+
+func TestAnalyzer_ResolveContentReference(t *testing.T) {
+	sd, err := parser.ParseStructureDefinition(sampleTestScriptSD)
+	require.NoError(t, err)
+
+	analyzer := NewAnalyzer([]*parser.StructureDefinition{sd}, nil)
+
+	t.Run("invalid reference without hash", func(t *testing.T) {
+		goType, isBackbone, backboneName := analyzer.resolveContentReference("InvalidRef", false)
+		assert.Equal(t, "*interface{}", goType)
+		assert.False(t, isBackbone)
+		assert.Empty(t, backboneName)
+	})
+
+	t.Run("invalid reference without hash array", func(t *testing.T) {
+		goType, isBackbone, backboneName := analyzer.resolveContentReference("InvalidRef", true)
+		assert.Equal(t, "[]interface{}", goType)
+		assert.False(t, isBackbone)
+		assert.Empty(t, backboneName)
+	})
+
+	t.Run("short path reference", func(t *testing.T) {
+		goType, isBackbone, backboneName := analyzer.resolveContentReference("#TestScript", false)
+		assert.Equal(t, "*interface{}", goType)
+		assert.False(t, isBackbone)
+		assert.Empty(t, backboneName)
+	})
+
+	t.Run("valid backbone reference", func(t *testing.T) {
+		goType, isBackbone, backboneName := analyzer.resolveContentReference("#TestScript.setup.action.operation", false)
+		assert.Equal(t, "*TestScriptSetupActionOperation", goType)
+		assert.True(t, isBackbone)
+		assert.Equal(t, "TestScriptSetupActionOperation", backboneName)
+	})
+
+	t.Run("valid backbone reference array", func(t *testing.T) {
+		goType, isBackbone, backboneName := analyzer.resolveContentReference("#TestScript.setup.action.operation", true)
+		assert.Equal(t, "[]TestScriptSetupActionOperation", goType)
+		assert.True(t, isBackbone)
+		assert.Equal(t, "TestScriptSetupActionOperation", backboneName)
+	})
+
+	t.Run("reference to unknown resource", func(t *testing.T) {
+		goType, isBackbone, backboneName := analyzer.resolveContentReference("#UnknownResource.some.path", false)
+		// Should still generate a reasonable type name
+		assert.Equal(t, "*UnknownResourceSomePath", goType)
+		assert.True(t, isBackbone)
+		assert.Equal(t, "UnknownResourceSomePath", backboneName)
+	})
+}
+
+func TestAnalyzer_ContentReferenceInBackboneElements(t *testing.T) {
+	sd, err := parser.ParseStructureDefinition(sampleTestScriptSD)
+	require.NoError(t, err)
+
+	analyzer := NewAnalyzer([]*parser.StructureDefinition{sd}, nil)
+
+	t.Run("backbone elements with contentReference", func(t *testing.T) {
+		result, err := analyzer.Analyze(sd)
+		require.NoError(t, err)
+		require.NotNil(t, result)
+
+		// Find the backbone types
+		backboneMap := make(map[string]*AnalyzedType)
+		for _, bb := range result.BackboneTypes {
+			backboneMap[bb.Name] = bb
+		}
+
+		// Check TestScriptTestAction has Operation and Assert from contentReference
+		testAction, ok := backboneMap["TestScriptTestAction"]
+		require.True(t, ok, "should have TestScriptTestAction backbone")
+
+		propMap := make(map[string]AnalyzedProperty)
+		for _, p := range testAction.Properties {
+			propMap[p.Name] = p
+		}
+
+		// Operation should reference TestScriptSetupActionOperation
+		opProp, ok := propMap["Operation"]
+		require.True(t, ok, "TestScriptTestAction should have Operation property")
+		assert.Equal(t, "*TestScriptSetupActionOperation", opProp.GoType)
+		assert.Equal(t, "operation", opProp.JSONName)
+		assert.True(t, opProp.IsBackbone)
+		assert.Equal(t, "TestScriptSetupActionOperation", opProp.BackboneType)
+
+		// Assert should reference TestScriptSetupActionAssert
+		assertProp, ok := propMap["Assert"]
+		require.True(t, ok, "TestScriptTestAction should have Assert property")
+		assert.Equal(t, "*TestScriptSetupActionAssert", assertProp.GoType)
+		assert.Equal(t, "assert", assertProp.JSONName)
+		assert.True(t, assertProp.IsBackbone)
+
+		// Check TestScriptTeardownAction has Operation from contentReference
+		teardownAction, ok := backboneMap["TestScriptTeardownAction"]
+		require.True(t, ok, "should have TestScriptTeardownAction backbone")
+
+		teardownPropMap := make(map[string]AnalyzedProperty)
+		for _, p := range teardownAction.Properties {
+			teardownPropMap[p.Name] = p
+		}
+
+		teardownOpProp, ok := teardownPropMap["Operation"]
+		require.True(t, ok, "TestScriptTeardownAction should have Operation property")
+		assert.Equal(t, "*TestScriptSetupActionOperation", teardownOpProp.GoType)
+		assert.True(t, teardownOpProp.IsRequired) // min: 1 in spec
+	})
+}

@@ -31,4 +31,6 @@ type ArtifactAssessmentContent struct {
 	RelatedArtifact []RelatedArtifact `json:"relatedArtifact,omitempty"`
 	// Acceptable to publicly share the resource content
 	FreeToShare *bool `json:"freeToShare,omitempty"`
+	// Contained content
+	Component []ArtifactAssessmentContent `json:"component,omitempty"`
 }

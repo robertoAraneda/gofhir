@@ -178,6 +178,10 @@ type DeviceDefinitionPackaging struct {
 	Count *int `json:"count,omitempty"`
 	// An organization that distributes the packaged device
 	Distributor []DeviceDefinitionPackagingDistributor `json:"distributor,omitempty"`
+	// Unique Device Identifier (UDI) Barcode string on the packaging
+	UdiDeviceIdentifier []DeviceDefinitionUdiDeviceIdentifier `json:"udiDeviceIdentifier,omitempty"`
+	// Allows packages within packages
+	Packaging []DeviceDefinitionPackaging `json:"packaging,omitempty"`
 }
 
 // DeviceDefinitionPackagingDistributor represents the DeviceDefinition.packaging.distributor backbone element.

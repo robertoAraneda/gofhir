@@ -122,6 +122,8 @@ type ContractTerm struct {
 	Asset []ContractTermAsset `json:"asset,omitempty"`
 	// Entity being ascribed responsibility
 	Action []ContractTermAction `json:"action,omitempty"`
+	// Nested Contract Term Group
+	Group []ContractTerm `json:"group,omitempty"`
 }
 
 // ContractTermAction represents the Contract.term.action backbone element.
@@ -231,6 +233,8 @@ type ContractTermAsset struct {
 	Text *string `json:"text,omitempty"`
 	// Pointer to asset text
 	LinkId []string `json:"linkId,omitempty"`
+	// Response to assets
+	Answer []ContractTermOfferAnswer `json:"answer,omitempty"`
 	// Asset restriction numbers
 	SecurityLabelNumber []uint32 `json:"securityLabelNumber,omitempty"`
 	// Contract Valued Item List

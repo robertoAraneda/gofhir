@@ -36,4 +36,6 @@ type ProvenanceEntity struct {
 	Role *ProvenanceEntityRole `json:"role,omitempty"`
 	// Identity of entity
 	What Reference `json:"what,omitempty"`
+	// Entity is attributed to this agent
+	Agent []ProvenanceAgent `json:"agent,omitempty"`
 }

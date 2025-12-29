@@ -173,3 +173,10 @@ func WithPackagedProductDefinitionPackaging(v PackagedProductDefinitionPackaging
 		r.Packaging = &v
 	}
 }
+
+// WithPackagedProductDefinitionCharacteristic adds a Characteristic to the PackagedProductDefinition.
+func WithPackagedProductDefinitionCharacteristic(v PackagedProductDefinitionPackagingProperty) PackagedProductDefinitionOption {
+	return func(r *PackagedProductDefinition) {
+		r.Characteristic = append(r.Characteristic, v)
+	}
+}

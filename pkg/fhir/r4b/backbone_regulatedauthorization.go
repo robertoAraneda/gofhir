@@ -25,4 +25,6 @@ type RegulatedAuthorizationCase struct {
 	DateDateTime *string `json:"dateDateTime,omitempty"`
 	// Extension for DateDateTime
 	DateDateTimeExt *Element `json:"_dateDateTime,omitempty"`
+	// Applications submitted to obtain a regulated authorization. Steps within the longer running case or procedure
+	Application []RegulatedAuthorizationCase `json:"application,omitempty"`
 }

@@ -80,4 +80,6 @@ type MedicinalProductIngredientSubstance struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// The ingredient substance
 	Code CodeableConcept `json:"code,omitempty"`
+	// Quantity of the substance or specified substance present in the manufactured item or pharmaceutical product
+	Strength []MedicinalProductIngredientSpecifiedSubstanceStrength `json:"strength,omitempty"`
 }

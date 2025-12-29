@@ -76,6 +76,8 @@ type StructureMapGroupRule struct {
 	Source []StructureMapGroupRuleSource `json:"source,omitempty"`
 	// Content to create because of this mapping rule
 	Target []StructureMapGroupRuleTarget `json:"target,omitempty"`
+	// Rules contained in this rule
+	Rule []StructureMapGroupRule `json:"rule,omitempty"`
 	// Which other rules to apply in the context of this rule
 	Dependent []StructureMapGroupRuleDependent `json:"dependent,omitempty"`
 	// Documentation for this instance of data
@@ -93,6 +95,8 @@ type StructureMapGroupRuleDependent struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	// Name of a rule or group to apply
 	Name *string `json:"name,omitempty"`
+	// Parameter to pass to the rule or group
+	Parameter []StructureMapGroupRuleTargetParameter `json:"parameter,omitempty"`
 }
 
 // StructureMapGroupRuleSource represents the StructureMap.group.rule.source backbone element.

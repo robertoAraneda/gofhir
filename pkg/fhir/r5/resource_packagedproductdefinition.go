@@ -70,7 +70,7 @@ type PackagedProductDefinition struct {
 	// A packaging item, as a container for medically related items, possibly with other packaging items within, or a packaging component, such as bottle cap
 	Packaging *PackagedProductDefinitionPackaging `json:"packaging,omitempty"`
 	// Allows the key features to be recorded, such as "hospital pack", "nurse prescribable"
-	Characteristic *interface{} `json:"characteristic,omitempty"`
+	Characteristic []PackagedProductDefinitionPackagingProperty `json:"characteristic,omitempty"`
 }
 
 // GetResourceType returns the FHIR resource type.
