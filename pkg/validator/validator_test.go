@@ -1230,8 +1230,8 @@ func TestValidateDateFormat(t *testing.T) {
 	ctx := context.Background()
 
 	tests := []struct {
-		name        string
-		birthDate   string
+		name          string
+		birthDate     string
 		shouldBeValid bool
 	}{
 		{"valid full date", "1990-01-15", true},
@@ -1273,9 +1273,9 @@ func TestValidateDateTimeFormat(t *testing.T) {
 	ctx := context.Background()
 
 	tests := []struct {
-		name          string
+		name              string
 		effectiveDateTime string
-		shouldBeValid bool
+		shouldBeValid     bool
 	}{
 		{"valid full dateTime with Z", "2023-01-15T10:30:00Z", true},
 		{"valid full dateTime with offset", "2023-01-15T10:30:00+05:00", true},
@@ -1683,9 +1683,9 @@ func TestValidateMedicationRequestRequiredFields(t *testing.T) {
 
 	// MedicationRequest requires: status, intent, medication[x], subject
 	tests := []struct {
-		name          string
-		json          string
-		missingField  string
+		name         string
+		json         string
+		missingField string
 	}{
 		{
 			name: "missing status",
@@ -2389,23 +2389,23 @@ func TestValidateChoiceTypeDeceasedX(t *testing.T) {
 		errorContains string
 	}{
 		{
-			name: "valid deceasedBoolean true",
-			json: `{"resourceType": "Patient", "id": "test", "deceasedBoolean": true}`,
+			name:          "valid deceasedBoolean true",
+			json:          `{"resourceType": "Patient", "id": "test", "deceasedBoolean": true}`,
 			shouldBeValid: true,
 		},
 		{
-			name: "valid deceasedBoolean false",
-			json: `{"resourceType": "Patient", "id": "test", "deceasedBoolean": false}`,
+			name:          "valid deceasedBoolean false",
+			json:          `{"resourceType": "Patient", "id": "test", "deceasedBoolean": false}`,
 			shouldBeValid: true,
 		},
 		{
-			name: "valid deceasedDateTime",
-			json: `{"resourceType": "Patient", "id": "test", "deceasedDateTime": "2023-01-15"}`,
+			name:          "valid deceasedDateTime",
+			json:          `{"resourceType": "Patient", "id": "test", "deceasedDateTime": "2023-01-15"}`,
 			shouldBeValid: true,
 		},
 		{
-			name: "invalid deceasedBoolean string",
-			json: `{"resourceType": "Patient", "id": "test", "deceasedBoolean": "true"}`,
+			name:          "invalid deceasedBoolean string",
+			json:          `{"resourceType": "Patient", "id": "test", "deceasedBoolean": "true"}`,
 			shouldBeValid: false,
 			errorContains: "boolean",
 		},
@@ -2449,18 +2449,18 @@ func TestValidateChoiceTypeMultipleBirthX(t *testing.T) {
 		errorContains string
 	}{
 		{
-			name: "valid multipleBirthBoolean",
-			json: `{"resourceType": "Patient", "id": "test", "multipleBirthBoolean": true}`,
+			name:          "valid multipleBirthBoolean",
+			json:          `{"resourceType": "Patient", "id": "test", "multipleBirthBoolean": true}`,
 			shouldBeValid: true,
 		},
 		{
-			name: "valid multipleBirthInteger",
-			json: `{"resourceType": "Patient", "id": "test", "multipleBirthInteger": 2}`,
+			name:          "valid multipleBirthInteger",
+			json:          `{"resourceType": "Patient", "id": "test", "multipleBirthInteger": 2}`,
 			shouldBeValid: true,
 		},
 		{
-			name: "invalid multipleBirthInteger string",
-			json: `{"resourceType": "Patient", "id": "test", "multipleBirthInteger": "second"}`,
+			name:          "invalid multipleBirthInteger string",
+			json:          `{"resourceType": "Patient", "id": "test", "multipleBirthInteger": "second"}`,
 			shouldBeValid: false,
 			errorContains: "integer",
 		},
@@ -2794,5 +2794,228 @@ func TestValidateCompleteObservation(t *testing.T) {
 			t.Logf("Issue: [%s] %s - %s", issue.Severity, issue.Code, issue.Diagnostics)
 		}
 		t.Error("Complete valid Observation should be valid")
+	}
+}
+
+// Tests for code format validation
+func TestValidateCodeFormat(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	tests := []struct {
+		name        string
+		json        string // full JSON to avoid escape sequence issues
+		shouldFail  bool
+		description string
+	}{
+		{"valid simple code", `{"resourceType":"Observation","id":"test","status":"active","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, false, "simple alphanumeric code"},
+		{"valid code with hyphen", `{"resourceType":"Observation","id":"test","status":"not-started","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, false, "code with hyphen"},
+		{"valid code with numbers", `{"resourceType":"Observation","id":"test","status":"stage4","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, false, "code with numbers"},
+		{"valid code with spaces", `{"resourceType":"Observation","id":"test","status":"in progress","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, false, "single space between words"},
+		{"invalid leading space", `{"resourceType":"Observation","id":"test","status":" active","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, true, "leading whitespace not allowed"},
+		{"invalid trailing space", `{"resourceType":"Observation","id":"test","status":"active ","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, true, "trailing whitespace not allowed"},
+		{"invalid multiple spaces", `{"resourceType":"Observation","id":"test","status":"in  progress","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, true, "multiple consecutive spaces"},
+		// JSON \t escape sequence decodes to actual tab character
+		{"invalid tab", `{"resourceType":"Observation","id":"test","status":"active\tcode","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, true, "tabs not allowed"},
+		// JSON \n escape sequence decodes to actual newline character
+		{"invalid newline", `{"resourceType":"Observation","id":"test","status":"active\ncode","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, true, "newlines not allowed"},
+		{"valid underscore", `{"resourceType":"Observation","id":"test","status":"some_code","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, false, "underscores are valid"},
+		{"valid complex", `{"resourceType":"Observation","id":"test","status":"http://example.org/code","code":{"coding":[{"system":"http://loinc.org","code":"12345-6"}]}}`, false, "URLs are valid codes"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := v.Validate(ctx, []byte(tt.json))
+			if err != nil {
+				t.Fatalf("Validate error: %v", err)
+			}
+
+			hasFormatError := false
+			for _, issue := range result.Issues {
+				if strings.Contains(issue.Diagnostics, "invalid code format") {
+					hasFormatError = true
+					break
+				}
+			}
+
+			if tt.shouldFail && !hasFormatError {
+				t.Errorf("Expected code format error for %s (%s)", tt.name, tt.description)
+			}
+			if !tt.shouldFail && hasFormatError {
+				t.Errorf("Unexpected code format error for %s (%s)", tt.name, tt.description)
+			}
+		})
+	}
+}
+
+// Tests for id format validation using Meta.versionId which has type "id"
+func TestValidateIdFormat(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	tests := []struct {
+		name       string
+		versionID  string
+		shouldFail bool
+	}{
+		{"valid simple id", "patient123", false},
+		{"valid id with hyphen", "patient-123", false},
+		{"valid id with dot", "patient.123", false},
+		{"valid mixed", "Pat-123.abc", false},
+		{"valid max length", strings.Repeat("a", 64), false},
+		{"invalid too long", strings.Repeat("a", 65), true},
+		{"invalid underscore", "patient_123", true},
+		{"invalid special char", "patient@123", true},
+		{"valid single char", "a", false},
+		{"valid numbers only", "12345", false},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Using Meta.versionId which has type "id"
+			patient := []byte(fmt.Sprintf(`{
+				"resourceType": "Patient",
+				"id": "test",
+				"meta": {
+					"versionId": "%s"
+				}
+			}`, tt.versionID))
+
+			result, err := v.Validate(ctx, patient)
+			if err != nil {
+				t.Fatalf("Validate error: %v", err)
+			}
+
+			hasFormatError := false
+			for _, issue := range result.Issues {
+				if strings.Contains(issue.Diagnostics, "invalid id format") {
+					hasFormatError = true
+					break
+				}
+			}
+
+			if tt.shouldFail && !hasFormatError {
+				t.Errorf("Expected id format error for %s", tt.name)
+			}
+			if !tt.shouldFail && hasFormatError {
+				t.Errorf("Unexpected id format error for %s", tt.name)
+			}
+		})
+	}
+}
+
+// Tests for oid format validation using Extension.valueOid
+func TestValidateOidFormat(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	tests := []struct {
+		name       string
+		oid        string
+		shouldFail bool
+	}{
+		{"valid oid simple", "urn:oid:1.2.3", false},
+		{"valid oid hl7", "urn:oid:2.16.840.1.113883", false},
+		{"valid oid long", "urn:oid:1.2.3.4.5.6.7.8.9.10", false},
+		{"valid oid with zero", "urn:oid:0.0.0", false},
+		{"valid oid iso", "urn:oid:1.0.0", false},
+		{"invalid missing prefix", "1.2.3", true},
+		{"invalid wrong prefix", "oid:1.2.3", true},
+		{"invalid single segment", "urn:oid:1", true},
+		{"invalid leading zero", "urn:oid:1.02.3", true},
+		{"invalid first > 2", "urn:oid:3.2.3", true},
+		{"invalid empty", "", true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Using Patient with extension containing valueOid
+			patient := []byte(fmt.Sprintf(`{
+				"resourceType": "Patient",
+				"id": "test",
+				"extension": [{
+					"url": "http://example.org/fhir/StructureDefinition/test-oid",
+					"valueOid": "%s"
+				}]
+			}`, tt.oid))
+
+			result, err := v.Validate(ctx, patient)
+			if err != nil {
+				t.Fatalf("Validate error: %v", err)
+			}
+
+			hasFormatError := false
+			for _, issue := range result.Issues {
+				if strings.Contains(issue.Diagnostics, "invalid OID format") {
+					hasFormatError = true
+					break
+				}
+			}
+
+			if tt.shouldFail && !hasFormatError {
+				t.Errorf("Expected OID format error for %s", tt.name)
+			}
+			if !tt.shouldFail && hasFormatError {
+				t.Errorf("Unexpected OID format error for %s", tt.name)
+			}
+		})
+	}
+}
+
+// Tests for uuid format validation using Extension.valueUuid
+func TestValidateUuidFormat(t *testing.T) {
+	v := setupTestValidator(t)
+	ctx := context.Background()
+
+	tests := []struct {
+		name       string
+		uuid       string
+		shouldFail bool
+	}{
+		{"valid uuid lowercase", "urn:uuid:550e8400-e29b-41d4-a716-446655440000", false},
+		{"valid uuid uppercase", "urn:uuid:550E8400-E29B-41D4-A716-446655440000", false},
+		{"valid uuid mixed case", "urn:uuid:550e8400-E29B-41d4-A716-446655440000", false},
+		{"invalid missing prefix", "550e8400-e29b-41d4-a716-446655440000", true},
+		{"invalid wrong prefix", "uuid:550e8400-e29b-41d4-a716-446655440000", true},
+		{"invalid short segment", "urn:uuid:550e840-e29b-41d4-a716-446655440000", true},
+		{"invalid long segment", "urn:uuid:550e84000-e29b-41d4-a716-446655440000", true},
+		{"invalid missing hyphen", "urn:uuid:550e8400e29b-41d4-a716-446655440000", true},
+		{"invalid extra hyphen", "urn:uuid:550e-8400-e29b-41d4-a716-446655440000", true},
+		{"invalid non-hex char", "urn:uuid:550g8400-e29b-41d4-a716-446655440000", true},
+		{"invalid empty", "", true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Using Patient with extension containing valueUuid
+			patient := []byte(fmt.Sprintf(`{
+				"resourceType": "Patient",
+				"id": "test",
+				"extension": [{
+					"url": "http://example.org/fhir/StructureDefinition/test-uuid",
+					"valueUuid": "%s"
+				}]
+			}`, tt.uuid))
+
+			result, err := v.Validate(ctx, patient)
+			if err != nil {
+				t.Fatalf("Validate error: %v", err)
+			}
+
+			hasFormatError := false
+			for _, issue := range result.Issues {
+				if strings.Contains(issue.Diagnostics, "invalid UUID format") {
+					hasFormatError = true
+					break
+				}
+			}
+
+			if tt.shouldFail && !hasFormatError {
+				t.Errorf("Expected UUID format error for %s", tt.name)
+			}
+			if !tt.shouldFail && hasFormatError {
+				t.Errorf("Unexpected UUID format error for %s", tt.name)
+			}
+		})
 	}
 }

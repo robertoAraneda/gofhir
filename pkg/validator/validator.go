@@ -23,6 +23,14 @@ var (
 	instantRegex = regexp.MustCompile(`^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))$`)
 	// time: HH:MM:SS with optional fractional seconds
 	timeRegex = regexp.MustCompile(`^([01]\d|2[0-3]):[0-5]\d:([0-5]\d|60)(\.\d+)?$`)
+	// code: no leading/trailing whitespace, only single spaces between words (not tabs/newlines)
+	codeRegex = regexp.MustCompile(`^\S+( \S+)*$`)
+	// id: alphanumeric, hyphens, dots, 1-64 characters
+	idRegex = regexp.MustCompile(`^[A-Za-z0-9\-.]{1,64}$`)
+	// oid: OID format urn:oid:x.x.x...
+	oidRegex = regexp.MustCompile(`^urn:oid:[012](\.(0|[1-9]\d*))+$`)
+	// uuid: UUID format urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+	uuidRegex = regexp.MustCompile(`^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`)
 )
 
 // Package-level constants to avoid allocations in hot paths
@@ -35,7 +43,7 @@ const (
 // Defined once at package level to avoid repeated allocations.
 var choiceSuffixes = []string{
 	"Boolean", "Integer", "String", "Date", "DateTime", "Time",
-	"Decimal", "Uri", "Url", "Canonical", "Code", "Oid", "Id",
+	"Decimal", "Uri", "Url", "Canonical", "Code", "Oid", "Id", "Uuid",
 	"Markdown", "Base64Binary", "Instant", "PositiveInt", "UnsignedInt",
 	"CodeableConcept", "Coding", "Quantity", "Range", "Period",
 	"Ratio", "SampledData", "Attachment", "Reference", "Identifier",
@@ -660,6 +668,7 @@ func (v *Validator) findElementDefWithContext(ctx context.Context, index element
 
 // findElementInComplexType loads the StructureDefinition for a complex type and finds the element.
 // It handles nested complex types recursively (e.g., CodeableConcept.coding.system where coding is Coding type).
+// It also handles choice types within complex types (e.g., Extension.valueOid -> Extension.value[x]).
 func (v *Validator) findElementInComplexType(ctx context.Context, typeCode string, remainingParts []string, originalPath string) *ElementDef {
 	if len(remainingParts) == 0 {
 		return nil
@@ -698,6 +707,47 @@ func (v *Validator) findElementInComplexType(ctx context.Context, typeCode strin
 				MustSupport: elem.MustSupport,
 				IsModifier:  elem.IsModifier,
 				IsSummary:   elem.IsSummary,
+			}
+		}
+	}
+
+	// Try choice type resolution within this complex type
+	// e.g., Extension.valueOid -> Extension.value[x] with type "oid"
+	if len(remainingParts) >= 1 {
+		lastPart := remainingParts[len(remainingParts)-1]
+		for _, suffix := range choiceSuffixes {
+			if strings.HasSuffix(lastPart, suffix) {
+				baseName := strings.TrimSuffix(lastPart, suffix)
+				choicePath := typeCode + "." + baseName + "[x]"
+				if len(remainingParts) > 1 {
+					choicePath = typeCode + "." + strings.Join(remainingParts[:len(remainingParts)-1], ".") + "." + baseName + "[x]"
+				}
+
+				// Look for the choice element in the type's snapshot
+				for i := range typeDef.Snapshot {
+					elem := &typeDef.Snapshot[i]
+					if elem.Path == choicePath {
+						// Found the choice type - return ElementDef with correct type based on suffix
+						resolvedTypeCode := strings.ToLower(suffix[:1]) + suffix[1:]
+						return &ElementDef{
+							ID:          elem.ID,
+							Path:        originalPath,
+							SliceName:   elem.SliceName,
+							Min:         elem.Min,
+							Max:         elem.Max,
+							Types:       []TypeRef{{Code: resolvedTypeCode}},
+							Binding:     elem.Binding,
+							Constraints: elem.Constraints,
+							Fixed:       elem.Fixed,
+							Pattern:     elem.Pattern,
+							Short:       elem.Short,
+							Definition:  elem.Definition,
+							MustSupport: elem.MustSupport,
+							IsModifier:  elem.IsModifier,
+							IsSummary:   elem.IsSummary,
+						}
+					}
+				}
 			}
 		}
 	}
@@ -872,12 +922,84 @@ func (v *Validator) validatePrimitiveValue(value interface{}, typeCode, path str
 				Expression:  []string{path},
 			})
 		}
-	case "string", "code", "id", "markdown", "uri", "url", "canonical", "oid", "uuid":
+	case "string", "markdown", "uri", "url", "canonical":
 		if _, ok := value.(string); !ok {
 			result.AddIssue(ValidationIssue{
 				Severity:    SeverityError,
 				Code:        IssueCodeValue,
 				Diagnostics: fmt.Sprintf("Element '%s' must be a string", path),
+				Expression:  []string{path},
+			})
+		}
+	case "code":
+		if str, ok := value.(string); ok {
+			if !codeRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid code format (no leading/trailing whitespace allowed): %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (code)", path),
+				Expression:  []string{path},
+			})
+		}
+	case "id":
+		if str, ok := value.(string); ok {
+			if !idRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid id format (alphanumeric, hyphens, dots, max 64 chars): %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (id)", path),
+				Expression:  []string{path},
+			})
+		}
+	case "oid":
+		if str, ok := value.(string); ok {
+			if !oidRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid OID format (expected urn:oid:x.x.x...): %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (oid)", path),
+				Expression:  []string{path},
+			})
+		}
+	case "uuid":
+		if str, ok := value.(string); ok {
+			if !uuidRegex.MatchString(str) {
+				result.AddIssue(ValidationIssue{
+					Severity:    SeverityError,
+					Code:        IssueCodeValue,
+					Diagnostics: fmt.Sprintf("Element '%s' has invalid UUID format (expected urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx): %s", path, str),
+					Expression:  []string{path},
+				})
+			}
+		} else {
+			result.AddIssue(ValidationIssue{
+				Severity:    SeverityError,
+				Code:        IssueCodeValue,
+				Diagnostics: fmt.Sprintf("Element '%s' must be a string (uuid)", path),
 				Expression:  []string{path},
 			})
 		}
@@ -1287,10 +1409,6 @@ func (v *Validator) validateSingleCode(ctx context.Context, system, code, path s
 // validateReferences is implemented in reference.go
 
 // Helper functions
-
-func isChildPath(path, parent string) bool {
-	return strings.HasPrefix(path, parent+".")
-}
 
 func getParentPath(path string) string {
 	lastDot := strings.LastIndex(path, ".")
