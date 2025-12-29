@@ -187,6 +187,10 @@ type ValidatorOptions struct {
 	ValidateReferences bool
 	// ValidateExtensions enables extension validation
 	ValidateExtensions bool
+	// SkipContainedValidation skips validation of contained resources.
+	// Useful when contained resources may be from a different FHIR version
+	// (e.g., R4 fixtures in an R5 TestScript).
+	SkipContainedValidation bool
 	// StrictMode treats warnings as errors
 	StrictMode bool
 	// MaxErrors stops validation after this many errors (0 = unlimited)
@@ -473,7 +477,9 @@ func (v *Validator) validateNode(ctx context.Context, node interface{}, sd *Stru
 		// Check if this element has type "Resource" (e.g., DomainResource.contained)
 		// If so, we need to validate each contained resource against its own StructureDefinition
 		if v.hasResourceType(elemDef) {
-			v.validateContainedResources(ctx, child, childPath, presentElements, result)
+			if !v.options.SkipContainedValidation {
+				v.validateContainedResources(ctx, child, childPath, presentElements, result)
+			}
 			continue
 		}
 
